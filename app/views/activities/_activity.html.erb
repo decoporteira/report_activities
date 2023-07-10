@@ -1,0 +1,22 @@
+<div id="<%= dom_id activity %>">
+  <p>
+    <strong>Report:</strong>
+    <%= activity.report %>
+  </p>
+  <p>
+    <strong>Date:</strong>
+    <%= activity.date.strftime("%d/%m") unless activity.date.nil?%>
+  </p>
+
+  <p>
+    <strong>Late:</strong>
+    <%= activity.late %>
+  </p>
+
+  <p>
+    <strong>Student:</strong>
+    <% activity.student_id %>
+    <%= activity.student.name %>
+  </p>
+
+</div>

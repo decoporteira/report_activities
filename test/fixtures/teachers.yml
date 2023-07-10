@@ -3,9 +3,7 @@
 one:
   name: MyString
   status: 1
-  classroom: one
 
 two:
   name: MyString
   status: 1
-  classroom: two

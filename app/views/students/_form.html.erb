@@ -17,13 +17,14 @@
   </div>
 
   <div>
-    <%= form.label :date, style: "display: block" %>
-    <%= form.text_field :date %>
+    <%= form.label :status, style: "display: block" %>
+    <%= form.number_field :status %>
   </div>
 
   <div>
-    <%= form.label :report, style: "display: block" %>
-    <%= form.text_field :report %>
+    <%= form.label :classroom_id, style: "display: block" %>
+    <% form.text_field :classroom_id %>
+    <%=form.collection_select :classroom_id, Classroom.all, :id, :name  %><br/>
   </div>
 
   <div>

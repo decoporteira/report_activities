@@ -1,4 +1,5 @@
 class StudentsController < ApplicationController
+  before_action :set_student, only: %i[ show edit update destroy ]
   require 'csv'
    def import
    
@@ -16,7 +17,7 @@ class StudentsController < ApplicationController
       else
         headers.each_with_index do |h, i|
           next if i == 0
-          p"----------------------------------------------------------------------------_____"
+          p"----------------------------------------------------------------------------"
           p h
           Student.create!(date: value[0], name: h, report: value[i])
         end
@@ -26,7 +27,8 @@ class StudentsController < ApplicationController
 
     redirect_to request.referer, notice: 'Import started...'
   end
-  
+  # final do import 
+
   # GET /students or /students.json
   def index
     @students = Student.all
@@ -91,6 +93,6 @@ class StudentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def student_params
-      params.require(:student).permit(:name, :date, :report)
+      params.require(:student).permit(:name, :status, :classroom_id)
     end
 end

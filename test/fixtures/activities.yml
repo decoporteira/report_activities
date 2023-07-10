@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  report: MyString
+  late: 1
+  missing: 1
+  student: one
+
+two:
+  report: MyString
+  late: 1
+  missing: 1
+  student: two
