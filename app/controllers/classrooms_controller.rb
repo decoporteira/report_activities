@@ -1,5 +1,6 @@
 class ClassroomsController < ApplicationController
   before_action :set_classroom, only: %i[ show edit update destroy ]
+  before_action :get_info
 
   # GET /classrooms or /classrooms.json
   def index
@@ -59,6 +60,11 @@ class ClassroomsController < ApplicationController
   end
 
   private
+
+  def get_info
+    @students = Student.where(:classroom_id => params[:id])
+    @activities = Activity.all
+  end
     # Use callbacks to share common setup or constraints between actions.
     def set_classroom
       @classroom = Classroom.find(params[:id])
