@@ -14,32 +14,39 @@ class StudentsController < ApplicationController
    headers = csv[0]
     
  
-   csv.each_with_index do |value, index|
-     if index.zero? 
-       next
-     else
-       headers.each_with_index do |h, i|
-         next if i == 0
-         if value[0] == nil
-          next
-
-         elsif value[i] == nil
-          value[i] = "Ausente ou feriado"
-          new_date = value[0] + "/2023"
-          current_student = Student.find_or_create_by!(name: h, status: 1, classroom_id: params[:classroom_id] )
-          Activity.create!(student_id: current_student.id , report: value[i], date: new_date, late: 0)
-         else
-          new_date = value[0] + "/2023"
-          current_student = Student.find_or_create_by!(name: h, status: 1, classroom_id: params[:classroom_id] )
-          Activity.create!(student_id: current_student.id , report: value[i], date: new_date, late: 0)
-         end
-       end
-     end
-   end
+    csv.each_with_index do |value, index|
+      if index.zero? 
+        next
+      else
+        headers.each_with_index do |h, i|
+        
+        next if i == 0
+          if value[0] == nil
+            next
+          elsif value[i] == nil
+            value[i] = "Ausente ou feriado"
+            current_student = create_student(h, params[:classroom_id])
+            create_activity(current_student.id, value[i], value[0]) 
+          else
+            current_student = create_student(h, params[:classroom_id])
+            create_activity(current_student.id, value[i], value[0]) 
+          end
+        end
+      end
+    end
  
    redirect_to request.referer, notice: 'Import started...'
- end
+  end
  # final do import 
+  def create_student(name, classroom_id)
+    Student.find_or_create_by!(name: name, status: 1, classroom_id: classroom_id )
+  end
+
+  def create_activity(student_id, report, date)
+    date = date + "/2023"
+    Activity.create!(student_id: student_id , report: report, date: date, late: 0)
+  end
+
 
   # GET /students or /students.json
   def index
