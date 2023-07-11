@@ -9,25 +9,30 @@ class StudentsController < ApplicationController
    return redirect_to request.referer, notice: 'Only CSV files allowed' unless params[:file].content_type == 'text/csv'
 
    opened_file = File.open(params[:file])
-   csv = CSV.parse(opened_file)
+   csv = CSV.parse(opened_file, skip_blanks: true)
    
    headers = csv[0]
-    #  p"----------------------------------------------------------------------------"
-    #  p params[:classroom_id]
-    #  p"----------------------------------------------------------------------------"
-    #Student.create!(date: value[0], name: h, report: value[i])
+    
  
    csv.each_with_index do |value, index|
-     if index.zero?
+     if index.zero? 
        next
      else
        headers.each_with_index do |h, i|
          next if i == 0
-          p"----------------------------------------------------------------------------"
-           p value[0] + "/23"
-           p"----------------------------------------------------------------------------"
-        current_student = Student.create!(name: h, status: 1, classroom_id: params[:classroom_id] )
-        Activity.create!(student_id: current_student.id , report: value[i], date: value[0] + "/2023", late: 0)
+         if value[0] == nil
+          next
+
+         elsif value[i] == nil
+          value[i] = "Ausente ou feriado"
+          new_date = value[0] + "/2023"
+          current_student = Student.find_or_create_by!(name: h, status: 1, classroom_id: params[:classroom_id] )
+          Activity.create!(student_id: current_student.id , report: value[i], date: new_date, late: 0)
+         else
+          new_date = value[0] + "/2023"
+          current_student = Student.find_or_create_by!(name: h, status: 1, classroom_id: params[:classroom_id] )
+          Activity.create!(student_id: current_student.id , report: value[i], date: new_date, late: 0)
+         end
        end
      end
    end
