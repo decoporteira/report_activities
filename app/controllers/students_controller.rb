@@ -1,33 +1,40 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: %i[ show edit update destroy ]
-  require 'csv'
-   def import
-   
-    return redirect_to request.referer, notice: 'No file added' if params[:file].nil?
-    return redirect_to request.referer, notice: 'Only CSV files allowed' unless params[:file].content_type == 'text/csv'
-
-    opened_file = File.open(params[:file])
-    csv = CSV.parse(opened_file)
-    
-    
-    headers = csv[0]
-    csv.each_with_index do |value, index|
-      if index.zero?
-        next
-      else
-        headers.each_with_index do |h, i|
-          next if i == 0
-          p"----------------------------------------------------------------------------"
-          p h
-          Student.create!(date: value[0], name: h, report: value[i])
-        end
-      end
-    end
   
+  require 'csv'
+  
+  def import
+  
+   return redirect_to request.referer, notice: 'No file added' if params[:file].nil?
+   return redirect_to request.referer, notice: 'Only CSV files allowed' unless params[:file].content_type == 'text/csv'
 
-    redirect_to request.referer, notice: 'Import started...'
-  end
-  # final do import 
+   opened_file = File.open(params[:file])
+   csv = CSV.parse(opened_file)
+   
+   headers = csv[0]
+    #  p"----------------------------------------------------------------------------"
+    #  p params[:classroom_id]
+    #  p"----------------------------------------------------------------------------"
+    #Student.create!(date: value[0], name: h, report: value[i])
+ 
+   csv.each_with_index do |value, index|
+     if index.zero?
+       next
+     else
+       headers.each_with_index do |h, i|
+         next if i == 0
+          p"----------------------------------------------------------------------------"
+           p value[0] + "/23"
+           p"----------------------------------------------------------------------------"
+        current_student = Student.create!(name: h, status: 1, classroom_id: params[:classroom_id] )
+        Activity.create!(student_id: current_student.id , report: value[i], date: value[0] + "/2023", late: 0)
+       end
+     end
+   end
+ 
+   redirect_to request.referer, notice: 'Import started...'
+ end
+ # final do import 
 
   # GET /students or /students.json
   def index

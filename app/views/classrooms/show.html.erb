@@ -1,15 +1,15 @@
+<h2>Turma  <%= @classroom.name%></h2>
 <p style="color: green"><%= notice %></p>
+<br/>
 
 <%= render @classroom %>
 
 
 <div>
-<h2>Lista de Alunos</h2>
+
 <% @students.each do |student| %>
 <p><strong>Aluno:</strong> <%= student.name %></p>
-<p><strong>Turma:</strong> <%= student.classroom.name %></p>
 <% Activity.find_by(student_id: student.id).report%>
-
 <%activities = Activity.where(:student_id => student.id)%>
 <%activities.each do |item| %>
 <p><strong>Data:</strong> <%=item.date.strftime("%d/%m") unless item.date.nil?%> | <strong>Atividade:</strong> <%=item.report%> | <strong>Status:</strong>  <%=item.late%> </p>

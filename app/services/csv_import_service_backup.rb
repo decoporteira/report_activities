@@ -12,7 +12,7 @@ class CsvImportService
       next if index == 0
       header.each_with_index do |h, i|
         next if == 0
-        Student.find_or_create!(date: value[0], name: h[i], report: value[i])
+        Student.create!(date: value[0], name: h[i], report: value[i])
       end
     end
     
