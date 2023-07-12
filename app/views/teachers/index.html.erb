@@ -1,6 +1,9 @@
 <p style="color: green"><%= notice %></p>
-
+<div class="d-flex justify-content-between">
 <h1 class="text-primary">Teachers</h1>
+<%= link_to "New teacher", new_teacher_path, class:'btn btn-primary', style:"width:150px;height: 40px;"  %></div>
+
+
 <div class="album py-5 bg-body-tertiary">
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -18,7 +21,7 @@
           </div>
         </div>
 
-        <% end %> <%= link_to "New teacher", new_teacher_path, class:'btn btn-primary', style:"width:150px" %>
+        <% end %>
       
     
   </div>

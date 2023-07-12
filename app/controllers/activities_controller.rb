@@ -1,5 +1,6 @@
 class ActivitiesController < ApplicationController
   before_action :set_activity, only: %i[ show edit update destroy ]
+  before_action :get_info
 
   # GET /activities or /activities.json
   def index
@@ -58,6 +59,10 @@ class ActivitiesController < ApplicationController
   end
 
   private
+  def get_info
+    @students = Student.all
+    @classrooms = Classroom.all
+  end
     # Use callbacks to share common setup or constraints between actions.
     def set_activity
       @activity = Activity.find(params[:id])

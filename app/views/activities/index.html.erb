@@ -1,14 +1,35 @@
 <p style="color: green"><%= notice %></p>
+<div class="d-flex justify-content-between">
+<h1 class="text-primary">Activities</h1>
+<%= link_to "New activity", new_activity_path, class:'btn btn-primary', style:"width:150px;height: 40px;"  %></div>
 
-<h1>Activities</h1>
+<p style="color: green"><%= notice %></p>
 
-<div id="activities">
-  <% @activities.each do |activity| %>
-    <%= render activity %>
-    <p>
-      <%= link_to "Show this activity", activity %>
-    </p>
-  <% end %>
+<div class="album py-5 bg-body-tertiary">
+  <div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <% @students.each do |student| %>
+      <div class="col">
+        <div class="card shadow-sm">
+          <div class="card-header py-1">
+            <h4 class="my-1 fw-normal fs-5"><%= student.name %></h4>
+          </div>
+          <div class="card-body">
+            <p class="card-text"></p>
+            <p><strong>Turma: </strong><%= student.classroom.name %></p>
+            <p>
+              <strong>Teacher: </strong><%= Teacher.find_by(id: student.classroom.teacher.id).name %>
+            </p>
+            <% Activity.find_by(student_id: student.id).report%> <%activities = Activity.where(:student_id => student.id)%> <%activities.each do |item| %>
+            <p>
+              <strong>Data:</strong> <%=item.date.strftime("%d/%m") unless item.date.nil?%> | <strong>Atividade:</strong> <%=item.report unless item.report.nil?%> |
+              <strong>Status:</strong> <%=item.late%> <%= link_to "Show", item %>
+            </p>
+            <% end%>
+          </div>
+        </div>
+      </div>
+      <%end%>
+    </div>
+  </div>
 </div>
-
-<%= link_to "New activity", new_activity_path %>
