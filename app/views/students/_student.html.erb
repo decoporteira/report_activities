@@ -27,7 +27,14 @@
                 <div class="btn-group">
                   
                 </div>
-                <small class="card-text"><strong>Status:</strong>  <%=activity.late%></small>
+                <% if activity.late == "feito" %>
+                  <small class="card-text text-primary"><strong>Status:</strong>  <%=activity.late%></small>
+                <% elsif activity.late == 'entregue com atraso'  %>
+                  <small class="card-text text-warning"><strong>Status:</strong>  <%=activity.late%></small>
+                <%else %>
+                  <small class="card-text text-danger"><strong>Status:</strong>  <%=activity.late%></small>
+
+                <%end%>
               </div>
                 
               </div>
