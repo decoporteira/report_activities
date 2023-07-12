@@ -1,18 +1,56 @@
-<div id="<%= dom_id student %>">
-  <p>
-    <strong>Name:</strong>
-    <%= student.name %>
-  </p>
+<div id="<%= dom_id student %>"></div>
+<section class="py-1 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+      <img src="https://englishglobe.com.br/wp-content/themes/english/images/logo.png" class="pb-3" style="width:150px" alt="...">
+        <h1 class="fw-light"><%= student.name %></h1>
+        <p class="lead text-body-secondary">Turma: <strong><%= student.classroom.name%></strong></p>
+        <p class="lead text-body-secondary">Professor(a): <strong><%= student.classroom.teacher.name%></strong></p>
+      </div>
+    </div>
+</section>
+<div class="album py-5 bg-body-tertiary">
+  <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
-  <p>
-    <strong>Status:</strong>
-    <%= student.status %>
-  </p>
+      <% @activities.each do |activity| %>
 
-  <p>
-    <strong>Classroom:</strong>
-    <%student.classroom_id %>
-    <%= student.classroom.name%>
-  </p>
+      <div class="col">
+            <div class="card shadow-sm"> 
+            <div class="card-header py-1">
+            <h4 class="my-1 fw-normal fs-5"><%=activity.date.strftime("%d/%m") unless activity.date.nil?%> </h4>
+          </div>
+              <div class="card-body">
+                <p class="card-text"> <p><strong>Atividade:</strong> <%=activity.report%></p>
 
+                <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  
+                </div>
+                <small class="card-text"><strong>Status:</strong>  <%=activity.late%></small>
+              </div>
+                
+              </div>
+            </div>
+          </div>
+
+
+        
+      
+      <% end %>
+    
+
+
+          
+        
+          
+
+          
+          
+          
+
+        
+       </div>   
+          
+        </div>
 </div>

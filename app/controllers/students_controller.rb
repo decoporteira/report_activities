@@ -1,5 +1,6 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: %i[ show edit update destroy ]
+  before_action :get_info
   
   require 'csv'
   
@@ -105,6 +106,10 @@ class StudentsController < ApplicationController
   end
 
   private
+
+  def get_info
+    @activities = Activity.where(:student_id=> params[:id])
+  end
     # Use callbacks to share common setup or constraints between actions.
     def set_student
       @student = Student.find(params[:id])

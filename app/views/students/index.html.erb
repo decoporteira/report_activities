@@ -1,15 +1,36 @@
 <p style="color: green"><%= notice %></p>
 
 <h1 class="text-primary">Students</h1>
-<%= render "import" %> <br/>
 
-<div id="students">
-  <% @students.each do |student| %>
-    <%= render student %>
-    <p>
-      <%= link_to "Show this student", student %>
-    </p>
-  <% end %>
+<div class="album py-5 bg-body-tertiary">
+  <div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      
+        <% @students.each do |student| %>
+        
+        <div class="col">
+          <div class="card shadow-sm">
+            <div class="card-header py-1">
+              <h4 class="my-1 fw-normal fs-5"><%= student.name %></h4>
+            </div>
+            <div class="card-body">
+              <p class="card-text"></p>
+              <p><strong>Status:</strong> <%= student.status %></p>
+              <p><strong>Classroom:</strong> <%= student.classroom.name%></p>
+              <%= link_to "Show this student", student, class:'btn btn-outline-primary', style:"width:200px"  %>
+            </div>
+          </div>
+        </div>
+
+        <% end %> 
+        <br />
+        <%= link_to "New student", new_student_path, class:'btn btn-primary', style:"width:150px" %>
+        
+      </div>
+      
+     
+    </div>
+    <%= render "import" %>
+  </div>
+  
 </div>
-
-<%= link_to "New student", new_student_path %>

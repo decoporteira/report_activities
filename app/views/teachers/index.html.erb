@@ -1,14 +1,25 @@
 <p style="color: green"><%= notice %></p>
 
 <h1 class="text-primary">Teachers</h1>
+<div class="album py-5 bg-body-tertiary">
+  <div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <% @teachers.each do |teacher| %>
+        <div class="col">
+          <div class="card shadow-sm">
+            <div class="card-header py-1">
+              <h4 class="my-1 fw-normal fs-5"><%= teacher.name %></h4>
+            </div>
+            <div class="card-body">
+              <p class="card-text"></p>
+              <p><strong>Status:</strong> <%= teacher.status %></p>
+              <%= link_to "Show this teacher", teacher, class:'btn btn-outline-primary', style:"width:200px" %>
+            </div>
+          </div>
+        </div>
 
-<div id="teachers">
-  <% @teachers.each do |teacher| %>
-    <%= render teacher %>
-    <p>
-      <%= link_to "Show this teacher", teacher %>
-    </p>
-  <% end %>
+        <% end %> <%= link_to "New teacher", new_teacher_path, class:'btn btn-primary', style:"width:150px" %>
+      
+    
+  </div>
 </div>
-
-<%= link_to "New teacher", new_teacher_path %>
