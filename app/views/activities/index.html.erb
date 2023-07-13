@@ -3,8 +3,6 @@
 <h1 class="text-primary">Activities</h1>
 <%= link_to "New activity", new_activity_path, class:'btn btn-primary', style:"width:150px;height: 40px;"  %></div>
 
-<p style="color: green"><%= notice %></p>
-
 <div class="album py-5 bg-body-tertiary">
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -20,7 +18,7 @@
             <p>
               <strong>Teacher: </strong><%= Teacher.find_by(id: student.classroom.teacher.id).name %>
             </p>
-            <% Activity.find_by(student_id: student.id).report%> <%activities = Activity.where(:student_id => student.id)%> <%activities.each do |item| %>
+            <%activities = Activity.where(:student_id => student.id)%> <%activities.each do |item| %>
             <p>
               <strong>Data:</strong> <%=item.date.strftime("%d/%m") unless item.date.nil?%> | <strong>Atividade:</strong> <%=item.report unless item.report.nil?%> |
               <strong>Status:</strong> <%=item.late%> <%= link_to "Show", item %>

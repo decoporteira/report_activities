@@ -15,7 +15,7 @@
                 <p class="card-text"></p>
                 <p><strong>Turma: </strong><%= student.classroom.name %></p>
                 <p><strong>Teacher: </strong><%= Teacher.find_by(id: student.classroom.teacher.id).name %></p>
-                <% Activity.find_by(student_id: student.id).report%>
+                
                 <%activities = Activity.where(:student_id => student.id)%>
                 <%activities.each do |item| %>
                   <p><strong>Data:</strong> <%=item.date.strftime("%d/%m") unless item.date.nil?%> | <strong>Atividade:</strong> <%=item.report unless item.report.nil?%> | <strong>Status:</strong>  <%=item.late%> </p>
