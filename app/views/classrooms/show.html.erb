@@ -16,8 +16,8 @@
 <p>-------------------</p>
 <%end%>
 
-  <%= link_to "Edit this classroom", edit_classroom_path(@classroom) %> |
-  <%= link_to "Back to classrooms", classrooms_path %>
+  <%= link_to "Edit this classroom", edit_classroom_path(@classroom), class:'btn btn-outline-primary', style:"width:200px"  %> |
+  <%= link_to "Back to classrooms", classrooms_path, class:'btn btn-outline-primary', style:"width:200px"  %>
 
-  <%= button_to "Destroy this classroom", @classroom, method: :delete %>
+  <%= button_to "Destroy this classroom", @classroom, method: :delete, class:'btn btn-outline-danger mt-4', style:"width:200px"  %>
 </div>
