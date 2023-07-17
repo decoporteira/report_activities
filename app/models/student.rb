@@ -6,9 +6,4 @@ class Student < ApplicationRecord
   validates_uniqueness_of :name, scope: :classroom
   validates_presence_of :name, :status, :classroom_id
 
-  private
-
-  # def destroy_activities
-  #   self.Activity.destroy_all
-  # end
 end
