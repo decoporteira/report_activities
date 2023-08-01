@@ -25,7 +25,7 @@ class StudentsController < ApplicationController
           if value[0] == nil
             next
           elsif value[i] == nil
-            value[i] = "Ausente ou feriado"
+            value[i] = "Presente"
             current_student = create_student(h, params[:classroom_id])
             create_activity(current_student.id, value[i], value[0]) 
           else

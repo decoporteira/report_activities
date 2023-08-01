@@ -21,7 +21,18 @@ class ClassroomsController < ApplicationController
   # GET /classrooms/1/edit
   def edit
   end
-
+  
+  def create_activity
+    students = Student.where(:classroom_id => params[:classroom_id])
+    p "------------------------------------"
+    p params
+    p "------------------------------------"
+    students.each do |student|
+     
+      Activity.create!(student_id: student.id , report: params[:report], date: params[:date], late: 0)
+    end
+    redirect_to request.referer, notice: 'Atividades criadas...'
+  end
   # POST /classrooms or /classrooms.json
   def create
     @classroom = Classroom.new(classroom_params)
@@ -64,7 +75,9 @@ class ClassroomsController < ApplicationController
 
   def get_info
     @students = Student.where(:classroom_id => params[:id])
-    @activities = Activity.all
+   
+    
+    
   end
     # Use callbacks to share common setup or constraints between actions.
     def set_classroom

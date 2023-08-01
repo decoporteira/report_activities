@@ -1,20 +1,43 @@
 <h2>Turma  <%= @classroom.name%></h2>
 <p style="color: green"><%= notice %></p>
 <br/>
-
+ <%= render "create_activity" %>
 <%= render @classroom %>
 
 
 <div>
-
+Data: 
+<% @views = [] %>
 <% @students.each do |student| %>
-<p><strong>Aluno:</strong> <%= student.name %></p>
+  <p><strong>Aluno:</strong> <%= student.name %></p>
 <%activities = Activity.where(:student_id => student.id)%>
-<%activities.each do |item| %>
-<p><strong>Data:</strong> <%=item.date.strftime("%d/%m") unless item.date.nil?%> | <strong>Atividade:</strong> <%=item.report%> | <strong>Status:</strong>  <%=item.late%> </p>
+
+<% @views << activities.each do |item| %>
+  <p><strong>Data:</strong> <%=item.date.strftime("%d/%m") unless item.date.nil?%> | <strong>Atividade:</strong> <%=item.report%> | <strong>Status:</strong>  <%=item.late%> </p>
 <% end%>
+
+
 <p>-------------------</p>
 <%end%>
+<% @views.size%>
+<% view_per_date = []%>
+<% @views.each_with_index do |view, index|%>
+  <% view %>
+  <br/><br/>
+  <%= "---------" %>
+  <%= view[index].class%>
+  <%= view[index]%>
+    <% view[index][:report] %>
+    <% view[index + 1][:report] %>
+    <% if view[index][:date] == view[index + 1][:date]%>
+      <% view_per_date << view[index] %>
+      <% view_per_date%>
+    <% end %>
+  
+<%end%>
+
+
+
 
   <%= link_to "Edit this classroom", edit_classroom_path(@classroom), class:'btn btn-outline-primary', style:"width:200px"  %> |
   <%= link_to "Back to classrooms", classrooms_path, class:'btn btn-outline-primary', style:"width:200px"  %>

@@ -13,7 +13,9 @@
 
   <body>
 
-
+<% if controller_name == 'students' && action_name == 'show' %>
+ 
+  <% else %>
   <nav class="navbar navbar-expand-lg bg-body-tertiary ">
   <div class="container">
     <%# <a href="#" class="navbar-brand d-flex align-items-center">
@@ -45,6 +47,8 @@
     </div>
   </div>
 </nav>
+  <% end%>
+  
 <div class="container py-3">
   
     <%= yield %>

@@ -1,0 +1,24 @@
+<div class="card" style="width: 25rem;">
+  <div class="card-body">
+    <h5 class="card-title">Importar alunos:</h5>
+    <h6 class="card-subtitle mb-2 text-body-secondary">Selecione a Turma:</h6>
+    <p class="card-text">
+      <%= form_with url: create_activity_classrooms_path, method: :post do |form| %>
+        
+        <%=form.collection_select :classroom_id, Classroom.all, :id, :name  %><br/><br/>
+        <div>
+          <%= form.label :report, style: "display: block" %>
+          <%= form.text_field :report %>
+
+        </div>
+        <div>
+          <%= form.label :date, style: "display: block" %>
+          <%= form.date_field :date %>
+        </div>
+        <%= form.button "New_act" %><br/>
+      <% end %>
+    </p>
+    <%# <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a> %>
+  </div>
+</div>

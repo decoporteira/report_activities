@@ -12,4 +12,9 @@ Rails.application.routes.draw do
       post :import
     end
   end
+  resources :classrooms do
+    collection do
+      post :create_activity
+    end
+  end
 end
