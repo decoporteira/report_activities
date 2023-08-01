@@ -24,18 +24,21 @@ Data:
 <% @views.each_with_index do |view, index|%>
   <% view %>
   <br/><br/>
-  <%= "---------" %>
-  <%= view[index].class%>
-  <%= view[index]%>
-    <% view[index][:report] %>
-    <% view[index + 1][:report] %>
+  
+  
+  <% view[index]%>
     <% if view[index][:date] == view[index + 1][:date]%>
       <% view_per_date << view[index] %>
       <% view_per_date%>
     <% end %>
   
 <%end%>
-
+<% @activities.each do |item|%>
+<%= item.student_id%><br/>
+<%= item.date%><br/>
+<%= item.report%><br/>
+<%= "--------------------------"%><br/>
+<% end%>
 
 
 

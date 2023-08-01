@@ -74,7 +74,12 @@ class ClassroomsController < ApplicationController
   private
 
   def get_info
+    
+    
     @students = Student.where(:classroom_id => params[:id])
+    array_ids = []
+    array_ids = @students.map(&:id)
+    @activities = Activity.where(:student_id => array_ids)
    
     
     
