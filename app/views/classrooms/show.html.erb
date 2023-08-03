@@ -18,27 +18,21 @@ Data:
 
 
 <p>-------------------</p>
-<%end%>
-<% @views.size%>
-<% view_per_date = []%>
-<% @views.each_with_index do |view, index|%>
-  <% view %>
-  <br/><br/>
-  
-  
-  <% view[index]%>
-    <% if view[index][:date] == view[index + 1][:date]%>
-      <% view_per_date << view[index] %>
-      <% view_per_date%>
-    <% end %>
-  
-<%end%>
-<% @activities.each do |item|%>
-<%= item.student_id%><br/>
-<%= item.date%><br/>
-<%= item.report%><br/>
-<%= "--------------------------"%><br/>
-<% end%>
+<% end %>
+
+<% activities_organized = @activities.sort_by(&:date)%>
+<% activities_organized.each do |obj| %>
+  <p><strong>Data:</strong> <%= obj.date.strftime("%d/%m/%y") unless obj.date.nil? %><p>
+  <p><strong>Aluno: </strong><%= @students.find(obj.student_id).name%><p>
+  <p><strong>Atividade: </strong> <%= obj.report %>  | <strong>Status: </strong> <%= obj.late %></p> 
+  <br/>
+
+<% end %>
+
+<% 2.times do %>
+   <%  %>
+<% end %>
+
 
 
 

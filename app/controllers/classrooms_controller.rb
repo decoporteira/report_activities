@@ -80,7 +80,7 @@ class ClassroomsController < ApplicationController
     array_ids = []
     array_ids = @students.map(&:id)
     @activities = Activity.where(:student_id => array_ids)
-   
+    
     
     
   end
