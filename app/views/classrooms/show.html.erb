@@ -1,43 +1,27 @@
-<h2>Turma  <%= @classroom.name%></h2>
+Found no changes, using resolution from the lockfile
+<h2>Turma <%= @classroom.name%></h2>
 <p style="color: green"><%= notice %></p>
-<br/>
- <%= render "create_activity" %>
-<%= render @classroom %>
-
-
+<br />
+<%= render "create_activity" %> <%= render @classroom %>
 <div>
-Data: 
-<% @views = [] %>
-<% @students.each do |student| %>
-  <p><strong>Aluno:</strong> <%= student.name %></p>
-<%activities = Activity.where(:student_id => student.id)%>
-
-<% @views << activities.each do |item| %>
-  <p><strong>Data:</strong> <%=item.date.strftime("%d/%m") unless item.date.nil?%> | <strong>Atividade:</strong> <%=item.report%> | <strong>Status:</strong>  <%=item.late%> </p>
-<% end%>
-
-
-<p>-------------------</p>
-<% end %>
-
-<% activities_organized = @activities.sort_by(&:date)%>
-<% activities_organized.each do |obj| %>
-  <p><strong>Data:</strong> <%= obj.date.strftime("%d/%m/%y") unless obj.date.nil? %><p>
-  <p><strong>Aluno: </strong><%= @students.find(obj.student_id).name%><p>
-  <p><strong>Atividade: </strong> <%= obj.report %>  | <strong>Status: </strong> <%= obj.late %></p> 
-  <br/>
-
-<% end %>
-
-<% 2.times do %>
-   <%  %>
-<% end %>
-
-
-
-
-  <%= link_to "Edit this classroom", edit_classroom_path(@classroom), class:'btn btn-outline-primary', style:"width:200px"  %> |
-  <%= link_to "Back to classrooms", classrooms_path, class:'btn btn-outline-primary', style:"width:200px"  %>
-
-  <%= button_to "Destroy this classroom", @classroom, method: :delete, class:'btn btn-outline-danger mt-4', style:"width:200px"  %>
+  <% activities_organized=@activities.sort_by(&:date)%> <% dates=[]%>
+  <%activities_organized.each do |activity|%> <%dates << activity.date%> <%end%>
+  <%dates.uniq.each do |date|%>
+    <br />
+    <%= date%>
+    <br />
+    <% @activities.where(date: date).each do |activity|%>
+      <strong> <%= activity.student.name %> </strong>
+      <%=activity.report %>
+      <br />
+    <% end %>
+    <br />
+    ------------------- <br />
+  <%end%> <% %> <% %>
+  <br />
+  <%= link_to "Edit this classroom" , edit_classroom_path(@classroom),
+	class:'btn btn-outline-primary', style:"width:200px" %> | <%= link_to "Back to
+	classrooms" , classrooms_path, class:'btn btn-outline-primary',
+	style:"width:200px" %> <%= button_to "Destroy this classroom" , @classroom,
+	method: :delete, class:'btn btn-outline-danger mt-4', style:"width:200px" %>
 </div>
