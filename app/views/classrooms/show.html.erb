@@ -1,7 +1,18 @@
 Found no changes, using resolution from the lockfile
+Found no changes, using resolution from the lockfile
+Found no changes, using resolution from the lockfile
+Found no changes, using resolution from the lockfile
+Found no changes, using resolution from the lockfile
+Found no changes, using resolution from the lockfile
+Found no changes, using resolution from the lockfile
+Found no changes, using resolution from the lockfile
+Found no changes, using resolution from the lockfile
+Found no changes, using resolution from the lockfile
+Found no changes, using resolution from the lockfile
 <h2>Turma <%= @classroom.name%></h2>
 <p style="color: green"><%= notice %></p>
 <br />
+<%# Chama a caixa para criar novas atividades %>
 <%= render "create_activity" %> <%= render @classroom %>
 <div>
   <% activities_organized=@activities.sort_by(&:date)%> <% dates=[]%>
@@ -12,8 +23,8 @@ Found no changes, using resolution from the lockfile
     <br />
     <% @activities.where(date: date).each do |activity|%>
       <strong> <%= activity.student.name %> </strong>
-      <%=activity.report %>
-      <br />
+      <%=activity.report %> <%=activity.late %>
+      <%= link_to "Edit", edit_activity_path(activity), class:'', style:"width:200px" %>      <br />
     <% end %>
     <br />
     ------------------- <br />
