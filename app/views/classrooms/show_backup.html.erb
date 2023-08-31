@@ -1,0 +1,46 @@
+<h2>Turma <%= @classroom.name%></h2>
+<p style="color: green"><%= notice %></p>
+<br />
+<%# Chama a caixa para criar novas atividades %>
+<%= render "create_activity" %> <%= render @classroom %>
+<div>
+  <% activities_organized=@activities.sort_by(&:date)%> <% dates=[]%>
+  <%activities_organized.each do |activity|%> <%dates << activity.date%> <%end%>
+  <%dates.uniq.each do |date|%>
+    <br />
+    <% render "form_update", classroom: @classroom %>
+    <%# jogar essas informações em um form e colocar um botão para atualiza-las %>
+    <h3><%= date.strftime("%d/%m/%y") %></h3>
+    <br />
+    <% @activities.where(date: date).each do |activity|%>
+      <%= students_uniq = @students.where(name: activity.student.name).uniq.each do |student|%>
+        <strong><%= student.name %></strong>
+        <%= activity.report %>
+      <%end%>
+      <strong> <% activity.student.name %> </strong>
+      <ul>
+        <% if (activity.late == 'feito')%>
+          <li><%activity.report %> <span style="color:blue;font-size:14px">(<%=activity.late %>)</span> <%= link_to "Edit", edit_activity_path(activity) %>
+          </li>
+        <% elsif (activity.late == 'entregue com atraso')%>
+          <p style="color:blue;">
+            <li><%activity.report %> <span style="color:orange;font-size:14px">(<%=activity.late %>)</span> <%= link_to "Edit", edit_activity_path(activity)%>
+            </li>
+          <%else%>
+            <p style="color:red;">
+              <li><%activity.report %> <span style="color:red;font-size:14px">(<%=activity.late %>)</span> <%= link_to "Edit", edit_activity_path(activity)%>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+        <br />
+        ------------------- <br />
+      <%end%> <% %> <% %>
+      <br />
+      <%= link_to "Edit this classroom" , edit_classroom_path(@classroom),
+	class:'btn btn-outline-primary', style:"width:200px" %> | <%= link_to "Back to
+	classrooms" , classrooms_path, class:'btn btn-outline-primary',
+	style:"width:200px" %>
+      <%= button_to "Destroy this classroom" , @classroom,
+	method: :delete, class:'btn btn-outline-danger mt-4', style:"width:200px" %>
+    </div>

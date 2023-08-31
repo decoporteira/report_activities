@@ -1,5 +1,5 @@
 class ClassroomsController < ApplicationController
-  before_action :set_classroom, only: %i[ show edit update destroy ]
+  before_action :set_classroom, only: %i[ show edit update destroy activities_by_date]
   before_action :get_info
   
  
@@ -21,6 +21,7 @@ class ClassroomsController < ApplicationController
   # GET /classrooms/1/edit
   def edit
   end
+
   
   def create_activity
     # pega os estudates, coloca num array e cria uma atividade para cada um

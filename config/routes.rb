@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :classrooms do
     collection do
       post :create_activity
+      
     end
   end
 end
