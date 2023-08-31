@@ -7,16 +7,14 @@
     <strong>Date:</strong>
     <%= activity.date.strftime("%d/%m") unless activity.date.nil?%>
   </p>
-
   <p>
     <strong>Status:</strong>
     <%= activity.late %>
   </p>
-
   <p>
     <strong>Student:</strong>
     <% activity.student_id %>
     <%= activity.student.name %>
+    <%= activity.student.classroom_id %>
   </p>
-
 </div>
