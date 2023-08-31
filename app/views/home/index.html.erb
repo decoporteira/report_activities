@@ -18,7 +18,7 @@
                 <h5 class="text-secondary fs-5"><%= Teacher.find_by(id: classroom.teacher_id).name %></h5>
                 <% students = Student.where(:classroom_id => classroom.id)%>
                 <%students.each do |student| %>
-                  <p><strong>Alunos:</strong> <%= student.name %>
+                  <p><strong>Aluno:</strong> <%= student.name %>
                     <%= link_to '>>', student, class:'text-decoration-none link-primary' %>
                   </p>
                 <% end%>

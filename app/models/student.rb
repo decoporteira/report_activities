@@ -6,4 +6,7 @@ class Student < ApplicationRecord
   validates_uniqueness_of :name, scope: :classroom
   validates_presence_of :name, :status, :classroom_id
 
+  def self.ransackable_attributes(auth_object = nil)
+    ["classroom_id", "created_at", "id", "name", "status", "updated_at", "activities", "classroom"]
+  end
 end

@@ -3,8 +3,6 @@ class HomeController < ApplicationController
   before_action :get_classrooms
   before_action :get_activities
 
-
-
   def get_students
     @students = Student.all
   end
