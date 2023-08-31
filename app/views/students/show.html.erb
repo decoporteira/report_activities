@@ -1,11 +1,7 @@
 <p style="color: green"><%= notice %></p>
-
 <%= render @student %>
-<% if false%>
 <div>
   <%= link_to "Edit this student", edit_student_path(@student), class:'btn btn-outline-primary', style:"width:200px" %> |
   <%= link_to "Back to students", students_path,  class:'btn btn-outline-primary', style:"width:200px" %>
-
   <%= button_to "Destroy this student", @student, method: :delete,  class:'btn btn-danger mt-4', style:"width:200px" %>
 </div>
-<%end%>

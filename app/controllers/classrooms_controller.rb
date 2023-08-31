@@ -24,7 +24,7 @@ class ClassroomsController < ApplicationController
 
   
   def create_activity
-    # pega os estudates, coloca num array e cria uma atividade para cada um
+    # pega os estudantes, coloca num array e cria uma atividade para cada um
     students = Student.where(:classroom_id => params[:classroom_id])
     students.each do |student|
      

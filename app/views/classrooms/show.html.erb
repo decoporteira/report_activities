@@ -1,4 +1,5 @@
 <h2>Turma <%= @classroom.name%></h2>
+<h4 class="text-secondary"><%= @classroom.teacher.name%> | <%= @classroom.time%></h4>
 <p style="color: green"><%= notice %></p>
 <br />
 <%# Chama a caixa para criar novas atividades %>
@@ -44,3 +45,4 @@
       <%= button_to "Destroy this classroom" , @classroom,
 	method: :delete, class:'btn btn-outline-danger mt-4', style:"width:200px" %>
     </div>
+    <%= params%>
