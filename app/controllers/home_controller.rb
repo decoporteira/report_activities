@@ -14,5 +14,6 @@ class HomeController < ApplicationController
   def get_activities
     @activities = Activity.all
   end
+ 
 
 end
