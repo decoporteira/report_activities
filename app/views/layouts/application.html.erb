@@ -34,6 +34,8 @@
             </ul>
           </div>
           <%= render "search/form"%>
+          <%= current_user.cpf %>
+          <%= link_to "Profile", edit_user_registration_path, class:"ms-3 text-decoration-none link-primary" %>
           <%= link_to "Sign out", destroy_user_session_path, 'data-turbo-method': :delete, class:"ms-3 text-decoration-none link-primary" %>
         </div>
       </nav>
