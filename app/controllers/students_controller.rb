@@ -1,6 +1,8 @@
 class StudentsController < ApplicationController
+  skip_before_action :authenticate_user!, :only => [:show]
   before_action :set_student, only: %i[ show edit update destroy ]
   before_action :get_info
+  
   
   require 'csv'
   
