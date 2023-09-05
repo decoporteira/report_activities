@@ -1,37 +1,60 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<div class="text-center">
+  <div class="mb-4 mt-5 ">
+    <%=link_to image_tag("https://englishglobe.com.br/wp-content/themes/english/images/logo.png", width: 140, border: 0), {action: 'index', controller: '/home'}, {class: 'dock-item '} %>
   </div>
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-  <div class="field">
-    <%= f.label :cpf %><br />
-    <%= f.text_field :cpf, autofocus: true, autocomplete: "CPF" %>
-  </div>
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
+  <main class="form-signin">
+    <h2>Editar Usuário</h2>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+      <div class="field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      </div>
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
+      <div class="field">
+        <%= f.label :cpf %><br />
+        <%= f.text_field :cpf, autofocus: true, autocomplete: "CPF", id:"cpf" %>
+      </div>
+      <div class="field">
+        <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+        <%= f.password_field :password, autocomplete: "new-password" %>
+        <% if @minimum_password_length %>
+          <br />
+          <em><%= @minimum_password_length %> characters minimum</em>
+        <% end %>
+      </div>
+      <div class="field">
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      </div>
+      <div class="field">
+        <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+        <%= f.password_field :current_password, autocomplete: "current-password" %>
+      </div>
+      <div class="actions">
+        <%= f.submit "Salvar", class:"btn btn-primary my-3"%> <%= link_to "Voltar", :back, class:"btn btn-outline-primary my-3" %>
+      </div>
     <% end %>
-  </div>
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-<h3>Cancel my account</h3>
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-<%= link_to "Back", :back %>
+    <div><%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class:"btn btn-danger" %></div>
+  </main>
+</div>
+<script>
+  document.getElementById('cpf').addEventListener('input', function(e) {
+
+        //let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,3})(\d{0,3})(\d{0,4})(\d{0,2})/);
+        //e.target.value = !x[2] ? x[1] : x[1] + '.' + x[2] + (x[3] ? '.' : '') + x[3] + (x[4] ? '/' : x[4]) + x[4] + (x[5] ? '-' + x[5] : '');
+
+        //if(e.target.value.length < 15) {
+            x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,3})(\d{0,2})/);
+            e.target.value = !x[2] ? x[1] : x[1] + '.' + x[2] + (x[3] ? '.' : '') + x[3] + (x[4] ? '-' + x[4] : '');
+        //}
+
+        console.log('Com formatação: ' + e.target.value);
+
+        //Caso queira pegar apenas os números use essa função para remover todos os caracteres menos os números em Javascript
+        let valor = e.target.value.replace(/[^0-9]/g, '');
+        //console.log('Sem formatação: ' + valor);
+    });
+</script>

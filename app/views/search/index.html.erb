@@ -11,7 +11,7 @@
               <li><%= student.classroom.name %></li>
               <li><%= student.classroom.teacher.name %></li>
             </ul>
-            <button type="button" class="w-100 btn btn-lg btn-outline-primary">Ver mais</button>
+            <%= link_to "Show this student", student, class:'btn btn-outline-primary', style:"width:200px"  %>
           </div>
         </div>
       </div>

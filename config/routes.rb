@@ -6,9 +6,11 @@ Rails.application.routes.draw do
   resources :students
   resources :classrooms
   resources :teachers
-  get 'users/search/index'
+  resources :users
   get 'search/index'
-  get 'devise/search/index'
+
+  
+  # get 'devise/search/index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

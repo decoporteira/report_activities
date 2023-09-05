@@ -5,6 +5,7 @@ class ActivitiesController < ApplicationController
   # GET /activities or /activities.json
   def index
     @activities = Activity.all
+    #@activities_2023 = Activity.where(date:  6.months.ago..Date.today)
   end
 
   # GET /activities/1 or /activities/1.json

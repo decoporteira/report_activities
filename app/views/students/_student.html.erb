@@ -1,84 +1,58 @@
 <div id="<%= dom_id student %>"></div>
 <section class="py-1 text-center container">
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
       <img src="https://englishglobe.com.br/wp-content/themes/english/images/logo.png" class="pb-3" style="width:150px" alt="...">
-        <h1 class="fw-light"><%= student.name %></h1>
-        <p class="lead text-body-secondary">Turma: <strong><%= student.classroom.name%></strong></p>
-        <p class="lead text-body-secondary">Professor(a): <strong><%= student.classroom.teacher.name%></strong></p>
-      </div>
+      <h1 class="fw-light"><%= student.name %></h1>
+      <p class="lead text-body-secondary">Turma: <strong><%= student.classroom.name%></strong></p>
+      <p class="lead text-body-secondary">Professor(a): <strong><%= student.classroom.teacher.name%></strong></p>
     </div>
+  </div>
 </section>
 <div class="album py-5 bg-body-tertiary">
   <div class="container">
-<% if true %>
-  <p><span class="text-primary">Atividades feitas</span> | <span class="text-warning">Atividades entregues com atraso ou incompletas</span> |  <span class="text-danger">Atividades não entregues ou incompletas</span></p>
-
-  <% end %>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-
-      <% @activities.each do |activity| %>
-      
-      <div class="col">
-            <div class="card shadow-sm"> 
+    <% if true %>
+      <p><span class="text-primary">Atividades feitas</span> | <span class="text-warning">Atividades entregues com atraso ou incompletas</span> |  <span class="text-danger">Atividades não entregues ou incompletas</span></p>
+    <% end %>
+    <%= activities_2023 = Activity.where(date:  1.months.ago..Date.today) %>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <% activities_2023.each do |activity| %>
+        <div class="col">
+          <div class="card shadow-sm">
             <div class="card-header py-1">
-            <h4 class="my-1 fw-normal fs-5"><%=activity.date.strftime("%d/%m") unless activity.date.nil?%> </h4>
-          </div>
-         
+              <h4 class="my-1 fw-normal fs-5"><%=activity.date.strftime("%d/%m") unless activity.date.nil?%> </h4>
+            </div>
             <div class="card-body ">
-
-               <% if activity.late == "feito" %>
-                <p class="card-text text-primary"><strong class="text-dark">Atividade(s):</strong> <%=activity.report%> 
-                <% link_to "Show", activity %> </p>
-               <% elsif activity.late == 'entregue com atraso'  %> 
-                <p class="card-text text-warning"> <strong class="text-dark">Atividade(s):</strong> <%=activity.report%> 
-                <% link_to "Show", activity %> </p>
-               <%else %>
-                <p class="card-text text-danger"> <strong class="text-dark">Atividade(s)</strong> <%=activity.report%> 
-                <% link_to "Show", activity %> </p>
-               <%end%>
-               
-                 
-                <div class="d-flex justify-content-between align-items-center">
+              <% if activity.late == "feito" %>
+                <p class="card-text text-primary"><strong class="text-dark">Atividade(s):</strong> <%=activity.report%>
+                  <% link_to "Show", activity %> </p>
+              <% elsif activity.late == 'entregue com atraso'  %>
+                <p class="card-text text-warning"> <strong class="text-dark">Atividade(s):</strong> <%=activity.report%>
+                  <% link_to "Show", activity %> </p>
+              <%else %>
+                <p class="card-text text-danger"> <strong class="text-dark">Atividade(s)</strong> <%=activity.report%>
+                  <% link_to "Show", activity %> </p>
+              <%end%>
+              <div class="d-flex justify-content-between align-items-center">
                 <% if false %>
-                <div class="btn-group">
-                  <small> <strong>ok:</strong> feita / <strong>late:</strong> entregue com atraso / <strong>no:</strong> não feita</small>
-                </div>
+                  <div class="btn-group">
+                    <small> <strong>ok:</strong> feita / <strong>late:</strong> entregue com atraso / <strong>no:</strong> não feita</small>
+                  </div>
                 <% end %>
-                
                 <% if false %><%# começa a treta %>
-                <% if activity.late == "feito" %>
-                 <small class="card-text text-primary"><strong>Status:</strong>  <%= activity.late%></small>
-                <% elsif activity.late == 'entregue com atraso'  %>
-                   <small class="card-text text-warning"><strong>Status:</strong>  <%= activity.late%></small>
-                <%else %>
-                  <small class="card-text text-danger"><strong>Status:</strong>  <%= activity.late%></small> 
-
-                <%end%>
+                  <% if activity.late == "feito" %>
+                    <small class="card-text text-primary"><strong>Status:</strong>  <%= activity.late%></small>
+                  <% elsif activity.late == 'entregue com atraso'  %>
+                    <small class="card-text text-warning"><strong>Status:</strong>  <%= activity.late%></small>
+                  <%else %>
+                    <small class="card-text text-danger"><strong>Status:</strong>  <%= activity.late%></small>
+                  <%end%>
                 <% end%><%# fecha a treta %>
-              </div>
-                
               </div>
             </div>
           </div>
-
-
-        
-      
-      <% end %>
-    
-
-
-          
-        
-          
-
-          
-          
-          
-
-        
-       </div>   
-          
         </div>
+      <% end %>
+    </div>
+  </div>
 </div>

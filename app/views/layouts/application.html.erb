@@ -7,21 +7,27 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" href="https://www.englishglobe.com.br/wp-content/themes/english/favicon.png">
     <%= javascript_importmap_tags %>
   </head>
   <body>
     <% if current_user %>
       <nav class="navbar navbar-expand-lg bg-body-tertiary ">
         <div class="container">
-          <%= link_to "Home", root_path, class: "navbar-brand"%>
+          <span class="navbar-brand" >
+            <%=link_to image_tag("https://www.englishglobe.com.br/wp-content/themes/english/favicon.png", border: 0), {action: 'index', controller: '/home'}, {class: 'dock-item'} %>
+          </span>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
+              <li class="nav-item">
+                <%= link_to "Home", root_path, class: "nav-link" %>
+              </li>
               <% if !current_user.student? %>
                 <li class="nav-item">
-                  <%= link_to "ClassRooms", classrooms_path, class: "nav-link active", 'aria-current': "page" %>
+                  <%= link_to "ClassRooms", classrooms_path, class: "nav-link" %>
                 </li>
                 <li class="nav-item">
                   <%= link_to "Students", students_path, class: "nav-link"%>
@@ -32,14 +38,14 @@
                 <li class="nav-item">
                   <%= link_to "Teachers", teachers_path, class: "nav-link"%>
                 </li>
-                <%= render "search/form"%>
               <%end%>
             </ul>
           </div>
-          <%= current_user.role %>
-          <%= current_user.cpf %>
-          <%= link_to "Profile", edit_user_registration_path, class:"ms-3 text-decoration-none link-primary" %>
-          <%= link_to "Sign out", destroy_user_session_path, 'data-turbo-method': :delete, class:"ms-3 text-decoration-none link-primary" %>
+          <% if !current_user.student? %>
+            <%= render "search/form"%>
+          <% end %>
+          <%= link_to "Profile", edit_user_registration_path, class:"btn btn-outline-secondary mx-2" %>
+          <%= link_to "Sign out", destroy_user_session_path, 'data-turbo-method': :delete, class:"btn btn-outline-secondary" %>
         </div>
       </nav>
     <%end%>
