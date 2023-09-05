@@ -1,7 +1,11 @@
 <p style="color: green"><%= notice %></p>
 <%= render @student %>
 <div>
-  <%= link_to "Edit this student", edit_student_path(@student), class:'btn btn-outline-primary', style:"width:200px" %> |
-  <%= link_to "Back to students", students_path,  class:'btn btn-outline-primary', style:"width:200px" %>
-  <%= button_to "Destroy this student", @student, method: :delete, method: :delete,  form: { data: { turbo_confirm: 'Are you sure?' } }, class:'btn btn-danger mt-4', style:"width:200px" %>
+  <% if (current_user.student?)%>
+    <%= link_to "Back to students", students_path,  class:'btn btn-outline-primary', style:"width:200px" %>
+  <% else %>
+    <%= link_to "Edit this student", edit_student_path(@student), class:'btn btn-outline-primary', style:"width:200px" %> |
+    <%= link_to "Back to students", students_path,  class:'btn btn-outline-primary', style:"width:200px" %>
+    <%# button_to "Destroy this student", @student, method: :delete, method: :delete,  form: { data: { turbo_confirm: 'Are you sure?' } }, class:'btn btn-danger mt-4', style:"width:200px" %>
+  <% end%>
 </div>

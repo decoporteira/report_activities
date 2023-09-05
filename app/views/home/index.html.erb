@@ -4,34 +4,53 @@
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       <% if (current_user.student?)%>
-        <%= new_students = Student.where(:name => "Antônio") %>
-      <% else %>
-        <% @classrooms.each do |classroom|%>
-          <%# @students.each do |student| %>
-            <div class="col">
-              <div class="card shadow-sm">
-                <div class="card-header py-1">
-                  <h4 class="my-1 fw-normal fs-5">
-                    <%= link_to  classroom.name, classroom_path(classroom.id), class:'text-decoration-none link-primary', style:""  %>
-                  </h4>
-                </div>
-                <div class="card-body">
-                  <p class="card-text">
-                  </p>
-                  <h5 class="text-secondary fs-5"><%= Teacher.find_by(id: classroom.teacher_id).name %></h5>
-                  <% students = Student.where(:classroom_id => classroom.id)%>
-                  <%students.each do |student| %>
-                    <p><strong>Aluno:</strong> <%= student.name %>
-                      <%= link_to '>>', student, class:'text-decoration-none link-primary' %>
-                    </p>
-                  <% end%>
-                  <%= link_to  ' + ', classroom_path(classroom.id), class:'btn btn-outline-primary', style:"width:100px"  %>
-                  <%# show all students %>
-                </div>
+        <% new_students = Student.where(:cpf => current_user.cpf) %>
+        <% new_students.each do |student| %>
+          <div class="col">
+            <div class="card shadow-sm">
+              <div class="card-header py-1">
+                <h4 class="my-1 fw-normal fs-5">
+                  <%= student.classroom.name%>
+                </h4>
               </div>
+              <div class="card-body">
+                <p class="card-text">
+                </p>
+                <h5 class="text-secondary fs-5">
+                  <%= Teacher.find_by(id: student.classroom.teacher_id).name %></h5>
+                <%= student.classroom.name%></h5>
+              <p><strong>Aluno:</strong> <%= student.name %>
+              </p>
+              <%= link_to ' Ver Atividades ', student,class:'btn btn-outline-primary', style:"width:200px" %>
             </div>
-          <%end%>
-        <% end %>
-      </div>
-    </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <% @classrooms.each do |classroom|%>
+        <div class="col">
+          <div class="card shadow-sm">
+            <div class="card-header py-1">
+              <h4 class="my-1 fw-normal fs-5">
+                <%= link_to  classroom.name, classroom_path(classroom.id), class:'text-decoration-none link-primary', style:""  %>
+              </h4>
+            </div>
+            <div class="card-body">
+              <p class="card-text">
+              </p>
+              <h5 class="text-secondary fs-5"><%= Teacher.find_by(id: classroom.teacher_id).name %></h5>
+              <% students = Student.where(:classroom_id => classroom.id)%>
+              <%students.each do |student| %>
+                <p><strong>Aluno:</strong> <%= student.name %>
+                  <%= link_to '>>', student, class:'text-decoration-none link-primary' %>
+                </p>
+              <% end%>
+              <%= link_to  ' + ', classroom_path(classroom.id), class:'btn btn-outline-primary', style:"width:100px"  %>
+            </div>
+          </div>
+        </div>
+      <%end%>
+    <% end %>
   </div>
+</div>
+</div>
