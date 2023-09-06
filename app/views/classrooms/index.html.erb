@@ -1,23 +1,19 @@
 <p style="color: green"><%= notice %></p>
 <div class="d-flex justify-content-between">
-<h1 class="text-primary">Classrooms</h1>
-<%= link_to "New classroom", new_classroom_path, class:'btn btn-primary', style:"width:150px;height: 40px;"  %></div>
-
-
+  <h1 class="text-primary">Classrooms</h1>
+  <%= link_to "New classroom", new_classroom_path, class:'btn btn-primary', style:"width:150px;height: 40px;"  %></div>
 <div class="album py-5 bg-body-tertiary">
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-      <% @classrooms.each do |classroom| %>
-
+      <% current_classrooms = current_user.teacher.classrooms%>
+      <% current_classrooms.each do |classroom| %>
         <%= render classroom %>
-        
         <%= link_to "Show this classroom", classroom, class:'btn btn-outline-primary', style:"width:200px"  %>
-            </div>
-          </div>
-        </div>
-      </div>  
-      <% end %>
-    </div> 
-         
+      </div>
+    </div>
   </div>
+</div>
+<% end %>
+</div>
+</div>
 </div>

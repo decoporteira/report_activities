@@ -1,11 +1,19 @@
 <p style="color: green"><%= notice %></p>
-<h1 class="text-primary">Listagem de alunos</h1>
+<h1 class="text-primary">
+  <% if (current_user.student?)%>
+    Listagem de alunos
+  <% elsif (current_user.teacher?)%>
+    Listagem de turmas de <%= current_user.teacher.name%>
+  <% else %>
+    Listagem de turmas
+  <% end %>
+</h1>
 <div class="album py-5 bg-body-tertiary">
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       <% if (current_user.student?)%>
-        Student
-        <% new_students = Student.where(:cpf => current_user.cpf) %>
+        <% new_students = Student.where("cpf = ? AND cpf != ?", current_user.cpf, 0)
+ %>
         <% new_students.each do |student| %>
           <div class="col">
             <div class="card shadow-sm">
@@ -28,7 +36,6 @@
         </div>
       <% end %>
     <% elsif (current_user.teacher?) %>
-      Teacher
       <% current_classrooms = current_user.teacher.classrooms%>
       <%# current_teacher = Teacher.find_by(cpf: current_user.cpf)%>
       <%# current_classrooms = Classroom.where(:teacher_id => current_teacher) %>

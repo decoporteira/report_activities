@@ -1,14 +1,13 @@
 <p style="color: green"><%= notice %></p>
 <div class="d-flex justify-content-between">
-<h1 class="text-primary">Students</h1>
-<%= link_to "New student", new_student_path, class:'btn btn-primary', style:"width:150px;height: 40px;"  %></div>
-
+  <h1 class="text-primary">Students</h1>
+  <%= link_to "New student", new_student_path, class:'btn btn-primary', style:"width:150px;height: 40px;"  %></div>
 <div class="album py-5 bg-body-tertiary">
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-      
-        <% @students.each do |student| %>
-        
+      <%= current_user.teacher.classrooms[0].students%>
+      <%= current_user.teacher.classrooms%>
+      <% @students.each do |student| %>
         <div class="col">
           <div class="card shadow-sm">
             <div class="card-header py-1">
@@ -22,15 +21,9 @@
             </div>
           </div>
         </div>
-
-        <% end %> 
-        
-        
-      </div>
-      
-     
+      <% end %>
     </div>
-    <%= render "import" %>
   </div>
-  
+  <%= render "import" %>
+</div>
 </div>
