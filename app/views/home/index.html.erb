@@ -27,6 +27,7 @@
         </div>
       <% end %>
     <% elsif (current_user.teacher?) %>
+      id <%= current_user.teacher %>
       <% current_teacher = Teacher.find_by(cpf: current_user.cpf)%>
       <% current_classrooms = Classroom.where(:teacher_id => current_teacher) %>
       <% current_classrooms.each do |classroom|%>
