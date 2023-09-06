@@ -4,6 +4,7 @@
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       <% if (current_user.student?)%>
+        Student
         <% new_students = Student.where(:cpf => current_user.cpf) %>
         <% new_students.each do |student| %>
           <div class="col">
@@ -27,9 +28,10 @@
         </div>
       <% end %>
     <% elsif (current_user.teacher?) %>
-      id <%= current_user.teacher %>
-      <% current_teacher = Teacher.find_by(cpf: current_user.cpf)%>
-      <% current_classrooms = Classroom.where(:teacher_id => current_teacher) %>
+      Teacher
+      <% current_classrooms = current_user.teacher.classrooms%>
+      <%# current_teacher = Teacher.find_by(cpf: current_user.cpf)%>
+      <%# current_classrooms = Classroom.where(:teacher_id => current_teacher) %>
       <% current_classrooms.each do |classroom|%>
         <div class="col">
           <div class="card shadow-sm">
