@@ -5,9 +5,14 @@
 <div class="album py-5 bg-body-tertiary">
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-      <%= current_user.teacher.classrooms[0].students%>
-      <%= current_user.teacher.classrooms%>
-      <% @students.each do |student| %>
+      <%current_students = []%>
+      <% current_classrooms = current_user.teacher.classrooms%>
+      <%current_classrooms.each do |classroom|%>
+        <% classroom.students.each do |student|%>
+          <% current_students << student %>
+        <% end %>
+      <% end %>
+      <% current_students.each do |student| %>
         <div class="col">
           <div class="card shadow-sm">
             <div class="card-header py-1">
