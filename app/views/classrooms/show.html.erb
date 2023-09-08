@@ -12,7 +12,6 @@
     <%dates << activity.date%>
   <%end%>
   create a variable
-
   <%# roda por todas as datas %>
   <%dates.uniq.each do |date|%>
     <h3><%= date.strftime("%d/%m/%y") %></h3>
@@ -42,7 +41,9 @@
 	class:'btn btn-outline-primary', style:"width:200px" %> | <%= link_to "Back to
 	classrooms" , classrooms_path, class:'btn btn-outline-primary',
 	style:"width:200px" %>
-  <%= button_to "Destroy this classroom" , @classroom,
+  <% if current_user.admin?%>
+    <%= button_to "Destroy this classroom" , @classroom,
 	method: :delete,method: :delete,  form: { data: { turbo_confirm: 'Are you sure?' } }, class:'btn btn-outline-danger mt-4', style:"width:200px" %>
+  <% end %>
 </div>
-<%= params%>
+<%# params%>

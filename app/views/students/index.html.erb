@@ -5,27 +5,45 @@
 <div class="album py-5 bg-body-tertiary">
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-      <%current_students = []%>
-      <% current_classrooms = current_user.teacher.classrooms%>
-      <%current_classrooms.each do |classroom|%>
-        <% classroom.students.each do |student|%>
-          <% current_students << student %>
+      <%if current_user.teacher? %>
+        <%current_students = []%>
+        <% current_classrooms = current_user.teacher.classrooms%>
+        <%current_classrooms.each do |classroom|%>
+          <% classroom.students.each do |student|%>
+            <% current_students << student %>
+          <% end %>
         <% end %>
-      <% end %>
-      <% current_students.each do |student| %>
-        <div class="col">
-          <div class="card shadow-sm">
-            <div class="card-header py-1">
-              <h4 class="my-1 fw-normal fs-5"><%= student.name %></h4>
-            </div>
-            <div class="card-body">
-              <p class="card-text"></p>
-              <p><strong>Status:</strong> <%= student.status %></p>
-              <p><strong>Classroom:</strong> <%= student.classroom.name%></p>
-              <%= link_to "Show this student", student, class:'btn btn-outline-primary', style:"width:200px"  %>
+        <% current_students.each do |student| %>
+          <div class="col">
+            <div class="card shadow-sm">
+              <div class="card-header py-1">
+                <h4 class="my-1 fw-normal fs-5"><%= student.name %></h4>
+              </div>
+              <div class="card-body">
+                <p class="card-text"></p>
+                <p><strong>Status:</strong> <%= student.status %></p>
+                <p><strong>Classroom:</strong> <%= student.classroom.name%></p>
+                <%= link_to "Show this student", student, class:'btn btn-outline-primary', style:"width:200px"  %>
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
+      <% else %>
+        <% @students.each do |student| %>
+          <div class="col">
+            <div class="card shadow-sm">
+              <div class="card-header py-1">
+                <h4 class="my-1 fw-normal fs-5"><%= student.name %></h4>
+              </div>
+              <div class="card-body">
+                <p class="card-text"></p>
+                <p><strong>Status:</strong> <%= student.status %></p>
+                <p><strong>Classroom:</strong> <%= student.classroom.name%></p>
+                <%= link_to "Show this student", student, class:'btn btn-outline-primary', style:"width:200px"  %>
+              </div>
+            </div>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>

@@ -11,7 +11,7 @@
     <%= javascript_importmap_tags %>
   </head>
   <body>
-    <% if current_user %>
+    <%if current_user%>
       <nav class="navbar navbar-expand-lg bg-body-tertiary ">
         <div class="container">
           <span class="navbar-brand" >
@@ -25,7 +25,30 @@
               <li class="nav-item">
                 <%= link_to "Home", root_path, class: "nav-link" %>
               </li>
-              <% if !current_user.student? %>
+              <% if current_user.teacher? %>
+                <li class="nav-item">
+                  <%= link_to "ClassRooms", classrooms_path, class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "Students", students_path, class: "nav-link"%>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "Activities", activities_path, class: "nav-link"%>
+                </li>
+              <% elsif current_user.accounting? %>
+                <li class="nav-item">
+                  <%= link_to "ClassRooms", classrooms_path, class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "Students", students_path, class: "nav-link"%>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "Activities", activities_path, class: "nav-link"%>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "Teachers", teachers_path, class: "nav-link"%>
+                </li>
+              <% elsif current_user.admin? %>
                 <li class="nav-item">
                   <%= link_to "ClassRooms", classrooms_path, class: "nav-link" %>
                 </li>
