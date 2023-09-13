@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.1.2"
+ruby "3.2.0"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4", ">= 7.0.4.3"
@@ -60,6 +60,12 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  group :development do
+    gem "capistrano", "~> 3.17", require: false
+    gem 'capistrano-rails', '~> 1.4'
+    gem 'capistrano-passenger', '~> 0.2.0'
+    gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.4'
+  end
   
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
@@ -75,3 +81,11 @@ group :test do
   gem "webdrivers"
  
 end
+
+ gem 'net-ssh', '~> 7.2'
+ gem 'ed25519', '~> 1.3'
+ 
+
+gem 'rbnacl', '~> 7.1', '>= 7.1.1', :require => false                                                                                                                                                                
+gem 'rbnacl-libsodium', :require => false                                                                                                                                                               
+gem 'bcrypt_pbkdf', '< 2.0', :require => false
