@@ -86,7 +86,7 @@ end
  gem 'net-ssh', '~> 7.2'
  gem 'ed25519', '~> 1.3'
  
-
+gem 'pg', '~> 1.5', '>= 1.5.4'
 gem 'rbnacl', '~> 7.1', '>= 7.1.1', :require => false                                                                                                                                                                
 gem 'rbnacl-libsodium', :require => false                                                                                                                                                               
 gem 'bcrypt_pbkdf', '< 2.0', :require => false
