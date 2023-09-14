@@ -41,4 +41,4 @@ install_plugin Capistrano::SCM::Git
 Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }
 
 set :rbenv_type, :user
-set :rbenv_ruby, '3.1.2'
+set :rbenv_ruby, '3.2.0'
