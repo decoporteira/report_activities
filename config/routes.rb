@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   get 'users/index'
  # match '/users/:id',     to: 'users#show',       via: 'get'
   get 'show', to: 'users#show', as: 'current_user'
