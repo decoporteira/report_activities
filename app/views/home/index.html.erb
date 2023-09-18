@@ -12,12 +12,11 @@
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       <% if (current_user.student?)%>
-        <% new_students = Student.where("cpf = ? AND cpf != ?", current_user.cpf, 0)
- %>   
-
-        <% if (new_students.blank?) %>
-          <p>Sem alunos para mostrar</p>
+          <% if current_user.cpf == nil%>
+        <p>Sem alunos para mostrar</p>
+          
         <% else %>
+        <% new_students = Student.where(cpf: current_user.cpf)%> 
           <% new_students.each do |student| %>
             <div class="col">
               <div class="card shadow-sm">
@@ -34,11 +33,11 @@
                   <%= student.classroom.name%></h5>
                 <p><strong>Aluno:</strong> <%= student.name %>
                 </p>
-                <%= link_to ' Ver Atividades ', student,class:'btn btn-outline-primary', style:"width:200px" %>
+                <%= link_to ' Ver Atividades ', student_path(student) ,class:'btn btn-outline-primary', style:"width:200px" %>
               </div>
             </div>
           </div>
-          <% end %>
+        <% end %>
       <% end %>
     <% elsif (current_user.teacher?) %>
       <% current_classrooms = current_user.teacher.classrooms%>
