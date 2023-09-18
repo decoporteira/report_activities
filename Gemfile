@@ -90,3 +90,5 @@ gem 'pg', '~> 1.5', '>= 1.5.4'
 gem 'rbnacl', '~> 7.1', '>= 7.1.1', :require => false                                                                                                                                                                
 gem 'rbnacl-libsodium', :require => false                                                                                                                                                               
 gem 'bcrypt_pbkdf', '< 2.0', :require => false
+gem 'rails_admin', '~> 3.1', '>= 3.1.2'
+gem "cssbundling-rails"
