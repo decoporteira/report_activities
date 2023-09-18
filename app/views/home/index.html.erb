@@ -13,32 +13,35 @@
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       <% if (current_user.student?)%>
         <% new_students = Student.where("cpf = ? AND cpf != ?", current_user.cpf, 0)
- %>
-        <% new_students.each do |student| %>
-          <div class="col">
-            <div class="card shadow-sm">
-              <div class="card-header py-1">
-                <h4 class="my-1 fw-normal fs-5">
-                  <%= student.classroom.name%>
-                </h4>
-              </div>
-              <div class="card-body">
-                <p class="card-text">
+ %>   
+
+        <% if (new_students.blank?) %>
+          <p>Sem alunos para mostrar</p>
+        <% else %>
+          <% new_students.each do |student| %>
+            <div class="col">
+              <div class="card shadow-sm">
+                <div class="card-header py-1">
+                  <h4 class="my-1 fw-normal fs-5">
+                    <%= student.classroom.name%>
+                  </h4>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">
+                  </p>
+                  <h5 class="text-secondary fs-5">
+                    <%= Teacher.find_by(id: student.classroom.teacher_id).name %></h5>
+                  <%= student.classroom.name%></h5>
+                <p><strong>Aluno:</strong> <%= student.name %>
                 </p>
-                <h5 class="text-secondary fs-5">
-                  <%= Teacher.find_by(id: student.classroom.teacher_id).name %></h5>
-                <%= student.classroom.name%></h5>
-              <p><strong>Aluno:</strong> <%= student.name %>
-              </p>
-              <%= link_to ' Ver Atividades ', student,class:'btn btn-outline-primary', style:"width:200px" %>
+                <%= link_to ' Ver Atividades ', student,class:'btn btn-outline-primary', style:"width:200px" %>
+              </div>
             </div>
           </div>
-        </div>
+          <% end %>
       <% end %>
     <% elsif (current_user.teacher?) %>
       <% current_classrooms = current_user.teacher.classrooms%>
-      <%# current_teacher = Teacher.find_by(cpf: current_user.cpf)%>
-      <%# current_classrooms = Classroom.where(:teacher_id => current_teacher) %>
       <% current_classrooms.each do |classroom|%>
         <div class="col">
           <div class="card shadow-sm">
@@ -63,7 +66,6 @@
         </div>
       <%end%>
     <% elsif current_user.accounting? %>
-      accounting
       <% @classrooms.each do |classroom|%>
         <div class="col">
           <div class="card shadow-sm">
