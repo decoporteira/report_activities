@@ -14,7 +14,8 @@
     <% if true %>
       <p><span class="text-primary">Atividades feitas</span> | <span class="text-warning">Atividades entregues com atraso ou incompletas</span> |  <span class="text-danger">Atividades não entregues ou incompletas</span></p>
     <% end %>
-    <% activities_2023 = Activity.where(date:  1.months.ago..Date.today) %>
+     <%activities_2023 = @activities.where(student_id: student.id) %>
+    <%# activities_2023 = Activity.where(date:  1.months.ago..Date.today) %>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       <% activities_2023.each do |activity| %>
         <div class="col">
