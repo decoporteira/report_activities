@@ -11,8 +11,7 @@
   <%activities_organized.each do |activity|%>
     <%dates << activity.date%>
   <%end%>
-  create a variable
-  <%# roda por todas as datas %>
+  
   <%dates.uniq.each do |date|%>
     <h3><%= date.strftime("%d/%m/%y") %></h3>
     <br />
