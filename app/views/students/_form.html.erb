@@ -18,14 +18,14 @@
     <%= form.select :status, options_for_select(Student.statuses.map {|key, value| [key.titleize, Student.statuses.key(value)]}, @student.status) %>
   </div>
   <div>
-    <%= form.label :cpf, style: "display: block" %>
+    <%= form.label :cpf, style: "display: block" %> 
     <%= form.text_field :cpf %>
   </div>
   <div>
     <%= form.label :classroom_id, style: "display: block" %>
     <% form.text_field :classroom_id %>
     <%if current_user.teacher? %>
-    <%= form.collection_select :classroom_id, current_user.teacher.classrooms, :id, :name_with_teacher_name %>
+    <%= form.collection_select :classroom_id, current_user.teacher.classrooms, :id, :name %>
     <% else %>
     <%=form.collection_select :classroom_id, Classroom.all, :id, :name_with_teacher_name   %>
     <% end %>
