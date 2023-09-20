@@ -92,3 +92,5 @@ gem 'rbnacl-libsodium', :require => false
 gem 'bcrypt_pbkdf', '< 2.0', :require => false
 gem 'rails_admin', '~> 3.1', '>= 3.1.2'
 gem "cssbundling-rails"
+gem "sentry-ruby"
+gem "sentry-rails"
