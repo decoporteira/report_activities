@@ -1,5 +1,6 @@
 class TeachersController < ApplicationController
   before_action :set_teacher, only: %i[ show edit update destroy ]
+  before_action :authorize_admin!
 
   # GET /teachers or /teachers.json
   def index
@@ -58,6 +59,9 @@ class TeachersController < ApplicationController
   end
 
   private
+  def authorize_admin!
+    redirect_to root_path, alert: 'Access denied.' unless current_user.admin? || current_user.teacher?
+  end
     # Use callbacks to share common setup or constraints between actions.
     def set_teacher
       @teacher = Teacher.find(params[:id])

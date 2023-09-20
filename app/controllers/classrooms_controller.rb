@@ -1,7 +1,7 @@
 class ClassroomsController < ApplicationController
   before_action :set_classroom, only: %i[ show edit update destroy activities_by_date]
   before_action :get_info
-  
+  before_action :authorize_admin!
  
   # GET /classrooms or /classrooms.json
   def index
@@ -71,7 +71,10 @@ class ClassroomsController < ApplicationController
   end
 
   private
+  def authorize_admin!
+    redirect_to root_path, alert: 'Access denied.' unless current_user.admin? || current_user.teacher?
 
+  end
   def get_info
     
     
