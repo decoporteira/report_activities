@@ -11,7 +11,7 @@
   <%activities_organized.each do |activity|%>
     <%dates << activity.date%>
   <%end%>
-  
+    <% dates = dates.reverse%>
   <%dates.uniq.each do |date|%>
     <h3><%= date.strftime("%d/%m/%y") %></h3>
     <br />
