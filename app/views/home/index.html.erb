@@ -46,7 +46,7 @@
           <div class="card shadow-sm">
             <div class="card-header py-1">
               <h4 class="my-1 fw-normal fs-5">
-                <%= link_to  classroom.name, classroom_path(classroom.id), class:'text-decoration-none link-primary', style:""  %>
+                <%= link_to  classroom.name, classroom_path(classroom.id), class:'text-decoration-none link-primary' %>
               </h4>
             </div>
             <div class="card-body">
@@ -55,11 +55,10 @@
               <h5 class="text-secondary fs-5"><%= Teacher.find_by(id: classroom.teacher_id).name %></h5>
               <% students = Student.where(:classroom_id => classroom.id)%>
               <%students.each do |student| %>
-                <p><strong>Aluno:</strong> <%= student.name %>
-                  <%= link_to '>>', student, class:'text-decoration-none link-primary' %>
+                <p><strong>Aluno:</strong> <%= link_to student.name, student, class:'text-decoration-none link-primary' %>
                 </p>
               <% end%>
-              <%= link_to  ' + ', classroom_path(classroom.id), class:'btn btn-outline-primary', style:"width:100px"  %>
+              <%= link_to  'Enter Classroom', classroom_path(classroom.id), class:'btn btn-outline-primary'  %>
             </div>
           </div>
         </div>
@@ -70,7 +69,7 @@
           <div class="card shadow-sm">
             <div class="card-header py-1">
               <h4 class="my-1 fw-normal fs-5">
-                <%= link_to  classroom.name, classroom_path(classroom.id), class:'text-decoration-none link-primary', style:""  %>
+                <%= link_to  classroom.name, classroom_path(classroom.id), class:'text-decoration-none link-primary'  %>
               </h4>
             </div>
             <div class="card-body">
@@ -79,11 +78,10 @@
               <h5 class="text-secondary fs-5"><%= Teacher.find_by(id: classroom.teacher_id).name %></h5>
               <% students = Student.where(:classroom_id => classroom.id)%>
               <%students.each do |student| %>
-                <p><strong>Aluno:</strong> <%= student.name %>
-                  <%= link_to '>>', student, class:'text-decoration-none link-primary' %>
+                <p><strong>Aluno:</strong> <%= link_to student.name, student, class:'text-decoration-none link-primary' %>
                 </p>
               <% end%>
-              <%= link_to  ' + ', classroom_path(classroom.id), class:'btn btn-outline-primary', style:"width:100px"  %>
+              <%= link_to  'Enter Classroom', classroom_path(classroom.id), class:'btn btn-outline-primary'  %>
             </div>
           </div>
         </div>
@@ -94,7 +92,7 @@
           <div class="card shadow-sm">
             <div class="card-header py-1">
               <h4 class="my-1 fw-normal fs-5">
-                <%= link_to  classroom.name, classroom_path(classroom.id), class:'text-decoration-none link-primary', style:""  %>
+                <%= link_to  classroom.name, classroom_path(classroom.id), class:'text-decoration-none link-primary'  %>
               </h4>
             </div>
             <div class="card-body">
@@ -102,12 +100,11 @@
               </p>
               <h5 class="text-secondary fs-5"><%= Teacher.find_by(id: classroom.teacher_id).name %></h5>
               <% students = Student.where(:classroom_id => classroom.id)%>
-              <%students.each do |student| %>
-                <p><strong>Aluno:</strong> <%= student.name %>
-                  <%= link_to '>>', student, class:'text-decoration-none link-primary' %>
+              <%students.each do |student| %>    
+                  <p><strong>Aluno:</strong> <%= link_to student.name, student, class:'text-decoration-none link-primary' %>
                 </p>
               <% end%>
-              <%= link_to  ' + ', classroom_path(classroom.id), class:'btn btn-outline-primary', style:"width:100px"  %>
+              <%= link_to  'Enter Classroom', classroom_path(classroom.id), class:'btn btn-outline-primary' %>
             </div>
           </div>
         </div>
