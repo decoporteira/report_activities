@@ -3,8 +3,10 @@
 <p style="color: green"><%= notice %></p>
 <br />
 <%# Chama a caixa para criar novas atividades %>
-<%= render "create_activity" %> <%= render @classroom %>
+<%= render "create_activity" %> <% render @classroom %>
 <div>
+
+ 
   <%# organiza as datas e as joga em um array %>
   <% activities_organized=@activities.sort_by(&:date)%>
   <% dates=[]%>
@@ -13,29 +15,51 @@
   <%end%>
     <% dates = dates.reverse%>
   <%dates.uniq.each do |date|%>
-    <h3><%= date.strftime("%d/%m/%y") %></h3>
-    <br />
+  <div class="col mb-4">
+    <div class="card shadow-sm">
+      <div class="card-header py-1">
+        <h4 class="my-1 fw-normal fs-5"><%= date.strftime("%d/%m/%y") %></h4>
+      </div>
+      <div class="card-body">
+   
+    
     <% @students.each  do |student|%>
+    <p class="card-text"></p>
       <strong><%= student.name%></strong><br/>
       <% @activities.where(student_id: student.id, date: date).each do |activity|%>
         <ul>
           <% if (activity.late == 'feito')%>
-            <li><%=activity.report %> <span style="color:blue;font-size:14px">(<%=activity.late %>)</span> <%= link_to "Edit", edit_activity_path(activity) %>
+            <li><%=activity.report %> <span style="color:blue;font-size:14px">(<%=activity.late %>)</span> <%= link_to edit_activity_path(activity) do %>
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  <% end %>
             </li>
           <% elsif (activity.late == 'entregue com atraso')%>
-            <li><%=activity.report %> <span style="color:orange;font-size:14px">(<%=activity.late %>)</span> <%= link_to "Edit", edit_activity_path(activity)%>
+            <li><%=activity.report %> <span style="color:orange;font-size:14px">(<%=activity.late %>)</span> <% link_to "Edit", edit_activity_path(activity)%><%= link_to edit_activity_path(activity) do %>
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  <% end %></i>
             </li>
           <%else%>
-            <li><%=activity.report %> <span style="color:red;font-size:14px">(<%=activity.late %>)</span> <%= link_to "Edit", edit_activity_path(activity)%>
+            <li><%=activity.report %> <span style="color:red;font-size:14px">(<%=activity.late %>)</span> <% link_to "Edit", edit_activity_path(activity)%><%= link_to edit_activity_path(activity) do %>
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  <% end %>
             </li>
           <% end %>
         </ul>
       <%end%>
-      <br />
-      ------------------- <br />
+     
     <%end%>
+    
+       
+      </div>
+    </div>
+  </div>
+
   <%end%>
   <br />
+  
+ 
+        
+
   <%= link_to "Edit this classroom" , edit_classroom_path(@classroom),
 	class:'btn btn-outline-primary', style:"width:200px" %> | <%= link_to "Back to
 	classrooms" , classrooms_path, class:'btn btn-outline-primary',
