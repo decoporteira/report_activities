@@ -28,7 +28,7 @@ class ClassroomsController < ApplicationController
     students = Student.where(:classroom_id => params[:classroom_id])
     students.each do |student|
      
-      Activity.create!(student_id: student.id , report: params[:report], date: params[:date], late: 0)
+      Activity.create!(student_id: student.id , report: params[:report], date: params[:date], late: params[:late])
     end
     redirect_to request.referer, notice: 'Atividades criadas...'
   end

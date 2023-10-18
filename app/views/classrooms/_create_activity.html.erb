@@ -12,10 +12,15 @@
           <%= form.label :date, style: "display: block" %>
           <%= form.date_field :date,  value: Date.today %>
         </div>
+         <div>
+          <%= form.label :late, style: "display: block" %>
+          
+          <%= form.select :late, options_for_select(Activity.lates.map {|key, value| [key.titleize, Activity.lates.key(value)]}, @activities) %> 
+        </div>
         <div  class="mt-3">
           <%= form.button "Criar atividade", class: "btn btn-outline-primary"  %>
         </div>
       <% end %>
     </p>
-  </div>
+    </div>
 </div>
