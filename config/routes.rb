@@ -9,14 +9,18 @@ Rails.application.routes.draw do
    # sessions: 'users/sessions',
     #registrations: 'users/registrations'  }
   resources :users, :only =>[:show]
-  resources :activities
+  resources :activities do
+    member do 
+      patch 'update_late_to_missing'
+    end
+  end
   resources :students
   resources :classrooms
   resources :teachers
   resources :users
   get 'search/index'
   match '/users',   to: 'users#index',   via: 'get'
- 
+  
 
   # get 'devise/search/index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

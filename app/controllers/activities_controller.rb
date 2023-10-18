@@ -49,6 +49,18 @@ class ActivitiesController < ApplicationController
     end
   end
 
+  def another_update()
+    respond_to do |format|
+      if @activity.update(activity_params)
+        format.html { redirect_to activity_url(@activity), notice: "Activity was successfully updated." }
+        format.json { render :show, status: :ok, location: @activity }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @activity.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # DELETE /activities/1 or /activities/1.json
   def destroy
     @activity.destroy
@@ -57,6 +69,16 @@ class ActivitiesController < ApplicationController
       format.html { redirect_to activities_url, notice: "Activity was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def update_late_to_missing
+    activities = Activity.where(student_id: params[:items][:student_id], date: params[:items][:date])
+    activities.each do |item|
+      item.update(late: 'ausente')
+    end
+    student = Student.find(params[:items][:student_id])
+    classroom = Classroom.find(student.classroom_id)
+    redirect_to classroom, notice: "Atividades marcadas como Ausente."
   end
 
   private

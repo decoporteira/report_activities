@@ -2,19 +2,19 @@
 <h4 class="text-secondary"><%= @classroom.teacher.name%> | <%= @classroom.time%></h4>
 <p style="color: green"><%= notice %></p>
 <br />
-<%# Chama a caixa para criar novas atividades %>
+
 <%= render "create_activity" %> <% render @classroom %>
 <div>
 
  
-  <%# organiza as datas e as joga em um array %>
+
   <% activities_organized=@activities.sort_by(&:date)%>
   <% dates=[]%>
-  <%activities_organized.each do |activity|%>
-    <%dates << activity.date%>
+  <% activities_organized.each do |activity| %>
+    <% dates << activity.date%>
   <%end%>
-    <% dates = dates.reverse%>
-  <%dates.uniq.each do |date|%>
+  <% dates = dates.reverse%>
+  <% dates.uniq.each do |date|%>
   <div class="col mb-4">
     <div class="card shadow-sm">
       <div class="card-header py-1">
@@ -26,17 +26,19 @@
     <% @students.each  do |student|%>
     <p class="card-text"></p>
       <strong><%= student.name%></strong><br/>
+      
       <% @activities.where(student_id: student.id, date: date).each do |activity|%>
         <ul>
           <% if (activity.late == 'feito')%>
-            <li><%=activity.report %> <span style="color:blue;font-size:14px">(<%=activity.late %>)</span> <%= link_to edit_activity_path(activity) do %>
+            <li><%=activity.report %> <span style="color:blue;font-size:14px">(<%=activity.late %>)</span> <% link_to "Edit", edit_activity_path(activity)%><%= link_to edit_activity_path(activity) do %>
                     <i class="fa-regular fa-pen-to-square"></i>
                   <% end %>
+                
             </li>
           <% elsif (activity.late == 'entregue com atraso')%>
             <li><%=activity.report %> <span style="color:orange;font-size:14px">(<%=activity.late %>)</span> <% link_to "Edit", edit_activity_path(activity)%><%= link_to edit_activity_path(activity) do %>
                     <i class="fa-regular fa-pen-to-square"></i>
-                  <% end %></i>
+                  <% end %>
             </li>
           <%else%>
             <li><%=activity.report %> <span style="color:red;font-size:14px">(<%=activity.late %>)</span> <% link_to "Edit", edit_activity_path(activity)%><%= link_to edit_activity_path(activity) do %>
@@ -46,7 +48,7 @@
           <% end %>
         </ul>
       <%end%>
-     
+    <%= link_to 'Marcar todas atividades do dia como Ausente', update_late_to_missing_activity_path(:items =>{:student_id => student.id, :date => date} ), data: { "turbo-method": :patch }, remote: true %>
     <%end%>
     
        
@@ -69,4 +71,3 @@
 	method: :delete,method: :delete,  form: { data: { turbo_confirm: 'Are you sure?' } }, class:'btn btn-outline-danger mt-4', style:"width:200px" %>
   <% end %>
 </div>
-<%# params%>
