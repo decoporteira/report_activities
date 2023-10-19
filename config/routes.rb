@@ -5,13 +5,13 @@ Rails.application.routes.draw do
   get 'show', to: 'users#show', as: 'current_user'
   devise_for :users
   resources :users, :only =>[:show, :edit]
-  #, :path_prefix => 'id', controllers: { 
-   # sessions: 'users/sessions',
-    #registrations: 'users/registrations'  }
+
   resources :users, :only =>[:show]
   resources :activities do
     member do 
+      patch 'update_late'
       patch 'update_late_to_missing'
+      
     end
   end
   resources :students

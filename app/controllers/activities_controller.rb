@@ -81,6 +81,18 @@ class ActivitiesController < ApplicationController
     redirect_to classroom, notice: "Atividades marcadas como Ausente."
   end
 
+  def update_late
+    activity = Activity.find(params[:items][:activity_id])
+    activity.update(late: params[:items][:late])
+    respond_to do |format|
+      format.js do
+        flash[:notice] = "Atividades marcadas como Ausente."
+        render js: "window.location.href=window.location.href;"
+      end
+    end
+  end
+
+
   private
   def get_info
     @students = Student.all
