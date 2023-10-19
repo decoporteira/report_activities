@@ -84,12 +84,9 @@ class ActivitiesController < ApplicationController
   def update_late
     activity = Activity.find(params[:items][:activity_id])
     activity.update(late: params[:items][:late])
-    respond_to do |format|
-      format.js do
-        flash[:notice] = "Atividades marcadas como Ausente."
-        render js: "window.location.href=window.location.href;"
-      end
-    end
+    student = Student.find(activity.student_id)
+    classroom = Classroom.find(student.classroom_id)
+    redirect_to classroom, notice: "Atividade atualizada com sucesso."
   end
 
 
