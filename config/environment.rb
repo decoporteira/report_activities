@@ -11,7 +11,7 @@ ActionMailer::Base.smtp_settings = {
     port: 587,
     domain: 'englishglobe.com.br', # Remove trailing ‘/’
     user_name: 'decodesiste@gmail.com', # Replace with your Gmail email
-    password: ENV['SMTP_PASS'], # Replace with the App Password you generated
+    password: 'fjxj wvlo fsmz fqjm', # Replace with the App Password you generated
     authentication: 'plain',
     enable_starttls_auto: true,
     open_timeout: 5,
