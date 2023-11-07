@@ -11,7 +11,7 @@ if ['development', 'test'].include? ENV['RAILS_ENV']
   Dotenv::Railtie.load
 end
 
-HOSTNAME = ENV['HOSTNAME']
+SMTP_PASS = ENV['fjxj wvlo fsmz fqjm']
 
 module Cartas
   class Application < Rails::Application
