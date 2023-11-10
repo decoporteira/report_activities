@@ -59,6 +59,9 @@ class StudentsController < ApplicationController
 
   # GET /students/1 or /students/1.json
   def show
+    if current_user.student? && @student.cpf != current_user.cpf
+      return redirect_to root_path, alert: 'Você não possui acesso a esse aluno.'
+    end
   end
 
   # GET /students/new
