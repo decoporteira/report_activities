@@ -13,8 +13,8 @@
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
         <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
       <% end %>
-      <div class="field"><span class='text-body-secondary'> (apenas os números)</span>
-        <%= f.label :cpf %><br />
+      <div class="field">
+        <%= f.label :cpf %><span class='text-body-secondary'> (apenas os números)</span><br />
         <%= f.text_field :cpf, autofocus: true, autocomplete: "CPF", id:"cpf" %>
       </div>
       <%#= f.label :role %>
