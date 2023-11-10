@@ -2,7 +2,7 @@
 <%= render @student %>
 <div>
   <% if (current_user.student?)%>
-    <%= link_to "Back to students", students_path,  class:'btn btn-outline-primary', style:"width:200px" %>
+    <%= link_to "Início", root_path,  class:'btn btn-outline-primary', style:"width:200px" %>
   <% else %>
     <%= link_to "Edit this student", edit_student_path(@student), class:'btn btn-outline-primary', style:"width:200px" %> |
     <%= link_to "Back to students", students_path,  class:'btn btn-outline-primary', style:"width:200px" %>
