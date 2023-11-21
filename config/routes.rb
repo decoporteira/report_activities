@@ -18,7 +18,9 @@ Rails.application.routes.draw do
   resources :classrooms
   resources :teachers
   resources :users
+  
   get 'search/index'
+  
   match '/users',   to: 'users#index',   via: 'get'
   
 
@@ -28,6 +30,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root to: 'home#index'
   resources :students do
+    resources :resumes, only: [:new, :create, :index, :show, :edit, :update]
     collection do
       post :import
     end
