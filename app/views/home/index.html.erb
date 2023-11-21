@@ -1,4 +1,3 @@
-<p style="color: green"><%= notice %></p>
 <h1 class="text-primary">
   <% if (current_user.student?)%>
     Listagem de alunos
@@ -12,11 +11,10 @@
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       <% if (current_user.student?)%>
-          <% if current_user.cpf == nil%>
-        <p>Sem alunos para mostrar</p>
-          
+        <% if current_user.cpf == nil%>
+          <p>Sem alunos para mostrar</p>
         <% else %>
-        <% new_students = Student.where(cpf: current_user.cpf)%> 
+          <% new_students = Student.where(cpf: current_user.cpf)%>
           <% new_students.each do |student| %>
             <div class="col">
               <div class="card shadow-sm">
@@ -100,8 +98,8 @@
               </p>
               <h5 class="text-secondary fs-5"><%= Teacher.find_by(id: classroom.teacher_id).name %></h5>
               <% students = Student.where(:classroom_id => classroom.id)%>
-              <%students.each do |student| %>    
-                  <p><strong>Aluno:</strong> <%= link_to student.name, student, class:'text-decoration-none link-primary' %>
+              <%students.each do |student| %>
+                <p><strong>Aluno:</strong> <%= link_to student.name, student, class:'text-decoration-none link-primary' %>
                 </p>
               <% end%>
               <%= link_to  'Enter Classroom', classroom_path(classroom.id), class:'btn btn-outline-primary' %>

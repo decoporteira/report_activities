@@ -1,0 +1,13 @@
+<%= form_with(model: [@student, @resume]) do |form| %>
+  <div>
+    <%= form.label :written_report, style: "display: block" %>
+    <%= form.text_area :written_report, style:'height: 250px; width: 650px; resize: both;'  %>
+  </div>
+  <div>
+    <%= form.label :status %>
+    <%= form.select :status, options_for_select(Resume.statuses.map {|key, value| [key.titleize, Resume.statuses.key(value)]}, @resume.status) %>
+  </div>
+  <div>
+    <%= form.submit class:'btn btn-primary mt-4'  %>
+  </div>
+<% end %>

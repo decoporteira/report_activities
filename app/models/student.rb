@@ -2,6 +2,7 @@ class Student < ApplicationRecord
   # before_destroy :destroy_activities
   has_many :activities, dependent: :destroy
   belongs_to :classroom
+  has_one  :resume
   enum status: { 'Matriculado': 1, 'Não matriculado': 2 }
   validates_uniqueness_of :name, scope: :classroom
   validates_presence_of :name, :status, :classroom_id
