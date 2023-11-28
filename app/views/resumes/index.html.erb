@@ -4,5 +4,7 @@
     <p><%= resume.written_report%></p>
     <%= link_to 'Editar', edit_student_resume_path(@student, resume), class:'btn btn-outline-primary', style:"width:200px"%>
   <% end %>
-  <%= link_to 'Novo', new_student_resume_path, class:'btn btn-outline-primary', style:"width:200px"%>
+  <% if @resumes.count <= 1 %>
+    <%= link_to 'Novo', new_student_resume_path, class:'btn btn-outline-primary', style:"width:200px"%>
+  <% end %>
 </div>

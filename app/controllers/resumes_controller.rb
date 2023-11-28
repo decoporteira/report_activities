@@ -26,6 +26,7 @@ class ResumesController < ApplicationController
         format.json { render :show, status: :created, location: @resume }
       else
         format.html { render :new, status: :unprocessable_entity }
+        flash.now[:alert] = 'Já existe um Relatório cadastrado.'
         format.json { render json: @resume.errors, status: :unprocessable_entity }
       end
     end
