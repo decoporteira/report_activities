@@ -1,6 +1,8 @@
 class AddressesController < ApplicationController
+    before_action :authorize_admin!
     before_action :set_student, only: [:new, :create, :show, :edit, :update]
     before_action :set_address, only: [:show, :edit, :update]
+   
     def index
         @addresses = Address.all
     end
@@ -40,6 +42,10 @@ class AddressesController < ApplicationController
 
     private
 
+    def authorize_admin!
+        redirect_to root_path, alert: 'Access denied.' unless current_user.admin? || current_user.accounting?
+    end
+
     def address_params
         params.require(:address).permit(:street, :number, :unit, :neighborhood, :city, :state, :country, :zip_code)
     end
@@ -50,7 +56,6 @@ class AddressesController < ApplicationController
     end
 
     def set_address
-       
         @address = Address.find_by(student_id: params[:student_id])
     end
 end
