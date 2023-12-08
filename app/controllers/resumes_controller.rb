@@ -7,7 +7,7 @@ class ResumesController < ApplicationController
   end
 
   def index
-    p @student
+    @student
     @resumes = Resume.where(student_id: @student)
   end
   

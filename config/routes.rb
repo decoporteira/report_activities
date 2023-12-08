@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  root to: 'home#index'
   get 'users/index'
- # match '/users/:id',     to: 'users#show',       via: 'get'
+
   get 'show', to: 'users#show', as: 'current_user'
   devise_for :users
   resources :users, :only =>[:show, :edit]
@@ -20,17 +21,15 @@ Rails.application.routes.draw do
   resources :users
   
   get 'search/index'
-  
   match '/users',   to: 'users#index',   via: 'get'
-  
 
-  # get 'devise/search/index'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  get 'addresses/',   to: 'addresses#index'
 
-  # Defines the root path route ("/")
-  root to: 'home#index'
   resources :students do
+    get 'info', on: :member
     resources :resumes, only: [:new, :create, :index, :show, :edit, :update]
+    resources :addresses, only: [:new, :create, :show, :edit, :update]
+    
     collection do
       post :import
     end

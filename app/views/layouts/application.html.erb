@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Cartas</title>
+    <title>Relatórios de Alunos</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -48,6 +48,9 @@
                 <li class="nav-item">
                   <%= link_to "Teachers", teachers_path, class: "nav-link"%>
                 </li>
+                <li class="nav-item">
+                  <%= link_to "Addresses", addresses_path, class: "nav-link"%>
+                </li>
               <% elsif current_user.admin? %>
                 <li class="nav-item">
                   <%= link_to "ClassRooms", classrooms_path, class: "nav-link" %>
@@ -60,6 +63,9 @@
                 </li>
                 <li class="nav-item">
                   <%= link_to "Teachers", teachers_path, class: "nav-link"%>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "Addresses", addresses_path, class: "nav-link"%>
                 </li>
               <%end%>
             </ul>

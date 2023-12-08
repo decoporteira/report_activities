@@ -1,6 +1,7 @@
 class StudentsController < ApplicationController
+  before_action :cant_see, only: [:show]
   skip_before_action :authenticate_user!, :only => [:show]
-  before_action :set_student, only: %i[ show edit update destroy ]
+  before_action :set_student, only: %i[ show edit update destroy info]
   before_action :get_info
   
   
@@ -111,6 +112,10 @@ class StudentsController < ApplicationController
     end
   end
 
+  def info
+    
+  end
+
   private
 
   def get_info
@@ -124,5 +129,13 @@ class StudentsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def student_params
       params.require(:student).permit(:name, :status, :classroom_id, :cpf)
+    end
+
+    def cant_see
+      @student = Student.find(params[:id])
+      if current_user.student?
+        redirect_to root_path unless @student.cpf == current_user.cpf
+      end
+      
     end
 end

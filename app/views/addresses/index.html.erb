@@ -1,0 +1,12 @@
+<h1>Endereços</h1>
+<% if @addresses.length >= 1 %>
+  <% @addresses.each do |address|%>
+    <h3><%= address.student.name%></h3>
+    <h4><%= address.student.classroom.name%></h4>
+    <p><%= address.street%> <%= address.number%>, <%= address.unit%> - <%= address.neighborhood%></p>
+    <p><%= address.city%> - <%= address.zip_code%> - <%= address.country%></p>
+    <p>-----------------</p>
+  <% end %>
+<% else %>
+  <p>Não existem endereços cadastrados</p>
+<% end %>

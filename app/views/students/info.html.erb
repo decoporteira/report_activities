@@ -1,0 +1,52 @@
+<div id="<%= dom_id @student %>"></div>
+<div class="container col-xxl-8 px-4 py-5">
+  <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+    <div class="col-10 col-sm-8 col-lg-6">
+      <% unless @student.address.nil? %>
+        <h3>Endereço</h3>
+        <dt>Rua: </dt>
+        <dd><%=@student.address.street%></dd>
+        <dt>Número: </dt>
+        <dd><%=@student.address.number%></dd>
+        <dt>Complemento: </dt>
+        <dd><%=@student.address.unit%></dd>
+        <dt>Bairro: </dt>
+        <dd><%=@student.address.neighborhood%></dd>
+        <dt>Cidade: </dt>
+        <dd><%=@student.address.city%></dd>
+        <dt>Estado: </dt>
+        <dd><%=@student.address.state%></dd>
+        <dt>CEP: </dt>
+        <dd><%=@student.address.zip_code%></dd>
+        <dt>País: </dt>
+        <dd><%=@student.address.country%></dd>
+        <%= link_to 'Editar Endereço', edit_student_address_path(@student), class:'btn btn-outline-primary', style:"width:150px" %>
+      <% else %>
+        <p>Não existe endereço cadastrado.</p>
+        <%= link_to 'Cadastrar Endereço', new_student_address_path(@student), class:'btn btn-outline-primary', style:"width:200px" %>
+      <% end %>
+    </div>
+    <div class="col-lg-6">
+      <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3"><%= @student.name%></h1>
+      <p class="lead">
+        <dl>
+          <dt>Teacher: </dt>
+          <dd><%=@student.classroom.teacher.name%></dd>
+          <dt>Classroom: </dt>
+          <dd><%=@student.classroom.name%></dd>
+          <dt>Status: </dt>
+          <dd><%=@student.status%></dd>
+          <dt>CPF: </dt>
+          <dd><%= @student.cpf ? "CPF não cadastrado" : @student.cpf %></dd>
+          <dt>Email do responsável: </dt>
+          <dd><%= @student.cpf ? "Responsável não cadastrado" : User.find_by(cpf: @student.cpf).email %></dd>
+          <dt>Telefone: </dt>
+          <dd>Telefone não cadastrado</dd>
+        </dl>
+      </p>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <%= link_to "Edit this student", edit_student_path(@student), class:'btn btn-outline-primary', style:"width:150px" %>
+      </div>
+    </div>
+  </div>
+</div>
