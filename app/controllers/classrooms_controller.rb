@@ -26,7 +26,8 @@ class ClassroomsController < ApplicationController
   
   def create_activity
     # pega os estudantes, coloca num array e cria uma atividade para cada um
-    students = get_students
+    p 'Entrou ---------------------------------------------------------------------------------------------'
+    p students = Student.where(classroom_id: params[:classroom_id], status: 'Matriculado')
     students.each do |student|
      
       Activity.create!(student_id: student.id , report: params[:report], date: params[:date], late: params[:late])
