@@ -102,7 +102,7 @@
             <p class="card-text">
             </p>
             <h5 class="text-secondary fs-5"><%= Teacher.find_by(id: classroom.teacher_id).name %></h5>
-            <% students = Student.where(:classroom_id => classroom.id)%>
+            <% students = classroom.students.where(status: 'Matriculado')%>
             <%students.each do |student| %>
               <div class='d-flex justify-content-between'>
                 <div>

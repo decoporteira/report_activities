@@ -11,12 +11,11 @@ RSpec.describe 'user edit address' do
         #act
         login_as(user)
         visit(root_path)
-        click_on('Venossaur')
-        click_on('Endereço')
+        click_on('Details')
         click_on('Editar')
         fill_in 'Street', with: 'Rua dos Alfaces'
         click_on('Update Address')
-        click_on('Endereço')
+        
         #assert
         expect(page).to have_content('Venossaur')
         expect(page).to have_content('MW 17:00')

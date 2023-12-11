@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   before_action :get_activities
 
   def get_students
-    @students = Student.all
+    @students = Student.where(status: 'Matriculado')
   end
 
   def get_classrooms
@@ -14,6 +14,5 @@ class HomeController < ApplicationController
   def get_activities
     @activities = Activity.all
   end
- 
 
 end

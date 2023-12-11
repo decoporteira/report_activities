@@ -1,0 +1,5 @@
+<h1>Não matriculados</h1>
+<% @students.each do |student|%>
+  <%= student.name %>
+  <%= student.classroom.name %>
+<% end %>

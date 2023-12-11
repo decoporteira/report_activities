@@ -30,10 +30,12 @@
       <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3"><%= @student.name%></h1>
       <p class="lead">
         <dl>
-          <dt>Teacher: </dt>
+          <dt>Professor(a): </dt>
           <dd><%=@student.classroom.teacher.name%></dd>
-          <dt>Classroom: </dt>
+          <dt>Turma: </dt>
           <dd><%=@student.classroom.name%></dd>
+          <dt>Horário: </dt>
+          <dd><%=@student.classroom.time%></dd>
           <dt>Status: </dt>
           <dd><%=@student.status%></dd>
           <dt>CPF: </dt>

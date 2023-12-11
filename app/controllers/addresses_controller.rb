@@ -23,21 +23,18 @@ class AddressesController < ApplicationController
         @address = Address.new(address_params)
         @address.student_id = @student.id
         if @address.save
-            redirect_to student_url(@student), notice: "Endereço cadastrado com sucesso."
+            redirect_to info_student_path(@student), notice: "Endereço cadastrado com sucesso."
         else
             render :new
-       
       end
     end
 
     def update
-      
-          if @address.update(address_params)
-            redirect_to student_url(@student), notice: "Endereço foi editado com sucesso." 
-          else
+        if @address.update(address_params)
+            redirect_to info_student_path(@student), notice: "Endereço foi editado com sucesso." 
+        else
             render :new
-          end
-    
+        end
       end
 
     private
@@ -52,7 +49,6 @@ class AddressesController < ApplicationController
 
     def set_student
         @student = Student.find(params[:student_id])
-       
     end
 
     def set_address

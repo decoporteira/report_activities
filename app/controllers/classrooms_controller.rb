@@ -2,6 +2,7 @@ class ClassroomsController < ApplicationController
   before_action :set_classroom, only: %i[ show edit update destroy activities_by_date]
   before_action :get_info
   before_action :authorize_admin!
+  before_action :get_students, only: [:show, :get_info]
  
   # GET /classrooms or /classrooms.json
   def index
@@ -25,7 +26,7 @@ class ClassroomsController < ApplicationController
   
   def create_activity
     # pega os estudantes, coloca num array e cria uma atividade para cada um
-    students = Student.where(:classroom_id => params[:classroom_id])
+    students = get_students
     students.each do |student|
      
       Activity.create!(student_id: student.id , report: params[:report], date: params[:date], late: params[:late])
@@ -76,15 +77,11 @@ class ClassroomsController < ApplicationController
 
   end
   def get_info
-    
-    
-    @students = Student.where(:classroom_id => params[:id])
+    @students = get_students
     array_ids = []
     array_ids = @students.map(&:id)
     @activities = Activity.where(:student_id => array_ids)
-    
-    
-    
+  
   end
     # Use callbacks to share common setup or constraints between actions.
     def set_classroom
@@ -94,5 +91,9 @@ class ClassroomsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def classroom_params
       params.require(:classroom).permit(:name, :time, :teacher_id)
+    end
+
+    def get_students
+      @students = Student.where(classroom_id: params[:id], status: 'Matriculado')
     end
 end

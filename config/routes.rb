@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       
     end
   end
-  resources :students
+  
   resources :classrooms
   resources :teachers
   resources :users
@@ -26,6 +26,9 @@ Rails.application.routes.draw do
   get 'addresses/',   to: 'addresses#index'
 
   resources :students do
+    collection do
+      get 'not_registered'
+    end
     get 'info', on: :member
     resources :resumes, only: [:new, :create, :index, :show, :edit, :update]
     resources :addresses, only: [:new, :create, :show, :edit, :update]
