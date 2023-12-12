@@ -55,7 +55,6 @@
 	classrooms" , classrooms_path, class:'btn btn-outline-primary',
 	style:"width:200px" %>
   <% if current_user.admin?%>
-    <%= button_to "Destroy this classroom" , @classroom,
-	method: :delete,method: :delete,  form: { data: { turbo_confirm: 'Are you sure?' } }, class:'btn btn-outline-danger mt-4', style:"width:200px" %>
+    <%= button_to "Destroy this classroom" , @classroom,method: :delete,  form: { data: { turbo_confirm: 'Are you sure?' } }, class:'btn btn-outline-danger mt-4', style:"width:200px" %>
   <% end %>
 </div>
