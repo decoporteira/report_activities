@@ -39,9 +39,14 @@
           <dt>Status: </dt>
           <dd><%=@student.status%></dd>
           <dt>CPF: </dt>
-          <dd><%= @student.cpf ? "CPF não cadastrado" : @student.cpf %></dd>
+          <dd><%= @student.cpf.present? ? @student.cpf : "CPF não cadastrado."%></dd>
           <dt>Email do responsável: </dt>
-          <dd><%= @student.cpf ? "Responsável não cadastrado" : User.find_by(cpf: @student.cpf).email %></dd>
+          <dd><% if @student.cpf.present? %>
+              <% user = User.find_by(cpf: @student.cpf) %>
+              <dd><%= user.present? ? user.email : "Responsável não cadastrado." %></dd>
+            <% else %>
+              <dd>CPF do aluno ou responsável não cadastrado.</dd>
+            <% end %></dd>
           <dt>Telefone: </dt>
           <dd>Telefone não cadastrado</dd>
         </dl>
