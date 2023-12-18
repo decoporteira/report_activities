@@ -60,7 +60,7 @@ class TeachersController < ApplicationController
 
   private
   def authorize_admin!
-    redirect_to root_path, alert: 'Access denied.' unless current_user.admin? || current_user.teacher?
+    redirect_to root_path, alert: 'Access denied.' unless current_user.admin? || current_user.teacher? || current_user.accounting?
   end
     # Use callbacks to share common setup or constraints between actions.
     def set_teacher

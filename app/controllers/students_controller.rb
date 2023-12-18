@@ -1,6 +1,7 @@
 class StudentsController < ApplicationController
+  before_action :cant_see, only: [:show]
   skip_before_action :authenticate_user!, :only => [:show]
-  before_action :set_student, only: %i[ show edit update destroy ]
+  before_action :set_student, only: %i[ show edit update destroy info]
   before_action :get_info
   
   
@@ -8,15 +9,14 @@ class StudentsController < ApplicationController
   
   def import
   
-   return redirect_to request.referer, notice: 'No file added' if params[:file].nil?
-   return redirect_to request.referer, notice: 'Only CSV files allowed' unless params[:file].content_type == 'text/csv'
+    return redirect_to request.referer, notice: 'No file added' if params[:file].nil?
+    return redirect_to request.referer, notice: 'Only CSV files allowed' unless params[:file].content_type == 'text/csv'
 
-   opened_file = File.open(params[:file])
-   csv = CSV.parse(opened_file, skip_blanks: true)
+    opened_file = File.open(params[:file])
+    csv = CSV.parse(opened_file, skip_blanks: true)
    
-   headers = csv[0]
+    headers = csv[0]
     
- 
     csv.each_with_index do |value, index|
       if index.zero? 
         next
@@ -33,7 +33,7 @@ class StudentsController < ApplicationController
           else
             current_student = create_student(h, params[:classroom_id])
             create_activity(current_student.id, value[i], value[0]) 
-          end
+          end    
         end
       end
     end
@@ -50,11 +50,9 @@ class StudentsController < ApplicationController
     Activity.create!(student_id: student_id , report: report, date: date, late: 0)
   end
 
-
   # GET /students or /students.json
   def index
     @students = Student.all
-
   end
 
   # GET /students/1 or /students/1.json
@@ -76,10 +74,9 @@ class StudentsController < ApplicationController
   # POST /students or /students.json
   def create
     @student = Student.new(student_params)
-
     respond_to do |format|
       if @student.save
-        format.html { redirect_to student_url(@student), notice: "Student was successfully created." }
+        format.html { redirect_to info_student_path(@student), notice: "Student was successfully created." }
         format.json { render :show, status: :created, location: @student }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -92,8 +89,8 @@ class StudentsController < ApplicationController
   def update
     respond_to do |format|
       if @student.update(student_params)
-        format.html { redirect_to student_url(@student), notice: "Student was successfully updated." }
-        format.json { render :show, status: :ok, location: @student }
+        format.html { redirect_to info_student_path(@student), notice: "Student was successfully updated." }
+        format.json { render :info, status: :ok, location: @student }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @student.errors, status: :unprocessable_entity }
@@ -104,11 +101,18 @@ class StudentsController < ApplicationController
   # DELETE /students/1 or /students/1.json
   def destroy
     @student.destroy
-
     respond_to do |format|
       format.html { redirect_to students_url, notice: "Student was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def info
+    
+  end
+
+  def not_registered
+    @students = Student.where(status: 'Não matriculado')
   end
 
   private
@@ -124,5 +128,12 @@ class StudentsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def student_params
       params.require(:student).permit(:name, :status, :classroom_id, :cpf)
+    end
+
+    def cant_see
+      @student = Student.find(params[:id])
+      if current_user.student?
+        redirect_to root_path unless @student.cpf == current_user.cpf
+      end
     end
 end
