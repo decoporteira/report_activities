@@ -1,5 +1,13 @@
 <h1>Não matriculados</h1>
-<% @students.each do |student|%>
-  <%= student.name %>
-  <%= student.classroom.name %>
-<% end %>
+<dl>
+  <% @students.each do |student|%>
+    <dt>Nome:</dt>
+    <dd><%= student.name %></dd>
+    <dt>Última turma:</dt>
+    <dd><%= student.classroom.name %></dd>
+    <dt>Último professor:</dt>
+    <dd><%= student.classroom.teacher.name %></dd>
+    <%= link_to "Show Student", info_student_path(student), class:'btn btn-outline-primary', style:"width:150px"  %>
+    <p> ----------------- </p>
+  <% end %>
+</dl>
