@@ -34,6 +34,9 @@ class StudentsController < ApplicationController
 
   # GET /students/1/edit
   def edit
+    if current_user.student?
+      redirect_to root_path
+    end
   end
 
   # POST /students or /students.json
@@ -73,7 +76,9 @@ class StudentsController < ApplicationController
   end
 
   def info
-   
+    if current_user.student?
+      redirect_to root_path
+    end
   end
 
   def not_registered
@@ -101,4 +106,5 @@ class StudentsController < ApplicationController
       redirect_to root_path unless @student.cpf == current_user.cpf
     end
   end
+ 
 end
