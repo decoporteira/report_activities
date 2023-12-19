@@ -11,7 +11,7 @@ RSpec.describe 'user edit address' do
         #act
         login_as(user)
         visit(root_path)
-        click_on('Details')
+        find('#details').click
         click_on('Editar')
         fill_in 'Street', with: 'Rua dos Alfaces'
         click_on('Update Address')

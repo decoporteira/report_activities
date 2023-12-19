@@ -11,7 +11,7 @@ RSpec.describe 'user creates new Address' do
         #act
         login_as(user)
         visit(root_path)
-        click_on('Details')
+        find('#details').click
         
         #assert
         expect(page).to have_content('Venossaur')

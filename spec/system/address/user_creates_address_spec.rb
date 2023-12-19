@@ -11,7 +11,7 @@ RSpec.describe 'user creates new Address' do
         #act
         login_as(user)
         visit(root_path)
-        click_on('Details')
+        find('#details').click
         click_on('Cadastrar Endereço')
         fill_in 'Street', with: 'Rua das Coves'
         fill_in 'Number', with: '23'
