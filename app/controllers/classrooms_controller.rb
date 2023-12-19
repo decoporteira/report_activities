@@ -64,13 +64,17 @@ class ClassroomsController < ApplicationController
 
   # DELETE /classrooms/1 or /classrooms/1.json
   def destroy
-    @classroom.destroy
-
-    respond_to do |format|
-      format.html { redirect_to classrooms_url, notice: "Classroom was successfully destroyed." }
-      format.json { head :no_content }
+    if current_user.admin?
+      @classroom.destroy
+      respond_to do |format|
+        format.html { redirect_to classrooms_url, notice: "Classroom was successfully destroyed." }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to root_path, alert: 'Você não tem permissão.'
     end
   end
+    
 
   private
   def authorize_admin!
