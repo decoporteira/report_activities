@@ -1,0 +1,8 @@
+pt-BR:
+  classroom:
+    one: "Turma"
+    other: "Turmas"
+  student:
+    one: "Aluno"
+    other: "Alunos"
+  create: "Criar"

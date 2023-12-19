@@ -1,0 +1,11 @@
+pt-BR:
+  activerecord:
+    models:
+      student: "Aluno"
+    attributes:
+      student:
+        name: "Nome"
+        status: "Matrícula"
+        cel_phone: "Telefone celular"
+        phone: "Telefone fixo"
+        classroom_id: "Turma"

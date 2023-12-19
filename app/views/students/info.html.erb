@@ -47,8 +47,10 @@
             <% else %>
               <dd>CPF do aluno ou responsável não cadastrado.</dd>
             <% end %></dd>
-          <dt>Telefone: </dt>
-          <dd>Telefone não cadastrado</dd>
+          <dt>Telefone celular: </dt>
+          <dd><%= @student.cel_phone.present? ? @student.cel_phone : "Telefone celular não cadastrado."%></dd>
+          <dt>Telefone fixo: </dt>
+          <dd><%= @student.phone.present? ? @student.phone : "Telefone não cadastrado."%></dd>
         </dl>
       </p>
       <div class="d-grid gap-2 d-md-flex justify-content-md-start">

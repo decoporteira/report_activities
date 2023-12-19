@@ -1,0 +1,10 @@
+pt-BR:
+  activerecord:
+    models:
+      teacher: "Professor(a)"
+    attributes:
+      teacher:
+        name: "Nome"
+        cpf: "CPF"
+        user_id: "Usuário"
+        status: "Disponibilidade"
