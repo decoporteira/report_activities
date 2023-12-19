@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     end
     get 'info', on: :member
     resources :resumes, only: [:new, :create, :index, :show, :edit, :update]
-    resources :addresses, only: [:new, :create, :show, :edit, :update]
+    resources :addresses, only: [:new, :create, :edit, :update]
     
     collection do
       post :import

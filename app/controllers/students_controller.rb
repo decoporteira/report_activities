@@ -1,45 +1,10 @@
 class StudentsController < ApplicationController
-  before_action :cant_see, only: [:show]
+  before_action :cant_see, only: [:show, :info]
   skip_before_action :authenticate_user!, :only => [:show]
-  before_action :set_student, only: %i[ show edit update destroy info]
+  before_action :set_student, only: [ :show, :edit, :update, :destroy, :info]
   before_action :get_info
   
-  
-  require 'csv'
-  
-  def import
-  
-    return redirect_to request.referer, notice: 'No file added' if params[:file].nil?
-    return redirect_to request.referer, notice: 'Only CSV files allowed' unless params[:file].content_type == 'text/csv'
 
-    opened_file = File.open(params[:file])
-    csv = CSV.parse(opened_file, skip_blanks: true)
-   
-    headers = csv[0]
-    
-    csv.each_with_index do |value, index|
-      if index.zero? 
-        next
-      else
-        headers.each_with_index do |h, i|
-        
-        next if i == 0
-          if value[0] == nil
-            next
-          elsif value[i] == nil
-            value[i] = "Presente"
-            current_student = create_student(h, params[:classroom_id])
-            create_activity(current_student.id, value[i], value[0]) 
-          else
-            current_student = create_student(h, params[:classroom_id])
-            create_activity(current_student.id, value[i], value[0]) 
-          end    
-        end
-      end
-    end
- 
-   redirect_to request.referer, notice: 'Import started...'
-  end
  # final do import 
   def create_student(name, classroom_id)
     Student.find_or_create_by!(name: name, status: 1, classroom_id: classroom_id )
@@ -108,7 +73,7 @@ class StudentsController < ApplicationController
   end
 
   def info
-    
+   
   end
 
   def not_registered
@@ -121,19 +86,19 @@ class StudentsController < ApplicationController
     @activities = Activity.where(:student_id=> params[:id])
   end
     # Use callbacks to share common setup or constraints between actions.
-    def set_student
-      @student = Student.find(params[:id])
-    end
+  def set_student
+    @student = Student.find(params[:id])
+  end
 
     # Only allow a list of trusted parameters through.
-    def student_params
-      params.require(:student).permit(:name, :status, :classroom_id, :cpf)
-    end
+  def student_params
+    params.require(:student).permit(:name, :status, :classroom_id, :cpf)
+  end
 
-    def cant_see
-      @student = Student.find(params[:id])
-      if current_user.student?
-        redirect_to root_path unless @student.cpf == current_user.cpf
-      end
+  def cant_see
+    @student = Student.find(params[:id])
+    if current_user.student?
+      redirect_to root_path unless @student.cpf == current_user.cpf
     end
+  end
 end
