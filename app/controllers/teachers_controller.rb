@@ -1,5 +1,5 @@
 class TeachersController < ApplicationController
-  before_action :set_teacher, only: %i[ show edit update destroy ]
+  before_action :set_teacher, only: %i[ show edit update destroy info ]
   before_action :authorize_admin!
 
   # GET /teachers or /teachers.json
@@ -61,7 +61,8 @@ class TeachersController < ApplicationController
     end
   end
    
-
+  def info
+  end
 
   private
   def authorize_admin!

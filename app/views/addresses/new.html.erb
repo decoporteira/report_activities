@@ -1,6 +1,7 @@
-<h1>Novo Endereço de <%= @student.name%></h1>
-<h2><%= @student.classroom.name%></h2>
-<%= form_with(model: [@student, @address]) do |form| %>
+<h1>Novo Endereço de 
+  <%= @student.nil? ? @teacher.name :  @student.name%> </h1>
+<h2><%#= @student.classroom.name%></h2>
+<%= form_with(model: @student.nil?  ? [@teacher, @address] : [@student, @address]) do |form| %>
   <% if @address.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(@address.errors.count, "error") %> prohibited this address from being saved:</h2>
@@ -47,6 +48,9 @@
     <%= form.submit class:'btn btn-primary mt-4'  %>
   </div>
 <% end %>
-<div>
-  <%= link_to "Back to Addresses", student_addresses_path, class:'btn btn-outline-primary', style:"width:200px" %>
+<div> <% if @student.nil? %>
+    <%= link_to "Back to Addresses", teacher_addresses_path, class:'btn btn-outline-primary', style:"width:200px" %>
+  <% else %>
+    <%= link_to "Back to Addresses", student_addresses_path, class:'btn btn-outline-primary', style:"width:200px" %>
+  <% end %>
 </div>
