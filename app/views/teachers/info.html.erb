@@ -2,31 +2,27 @@
 <div class="container col-xxl-8 px-4 py-5">
   <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
     <div class="col-10 col-sm-8 col-lg-6">
-      <% if @teacher.addresses.present? %>
-        <% @teacher.addresses.each do |address| %>
-          <h3>Endereço</h3>
-          <dt>Rua: </dt>
-          <dd><%=address.street%></dd>
-          <dt>Número: </dt>
-          <dd><%=address.number%></dd>
-          <dt>Complemento: </dt>
-          <dd><%=address.unit%></dd>
-          <dt>Bairro: </dt>
-          <dd><%=address.neighborhood%></dd>
-          <dt>Cidade: </dt>
-          <dd><%=address.city%></dd>
-          <dt>Estado: </dt>
-          <dd><%=address.state%></dd>
-          <dt>CEP: </dt>
-          <dd><%=address.zip_code%></dd>
-          <dt>País: </dt>
-          <dd><%=address.country%></dd>
-          <%= link_to 'Editar Endereço', edit_teacher_address_path(@teacher, address), class: 'btn btn-outline-primary', style: 'width:150px' %>
-        <% end %>
-      <% else %>
-        <p>Não existe endereço cadastrado.</p>
-        <%= link_to 'Cadastrar Endereço', new_teacher_address_path(@teacher), class:'btn btn-outline-primary', style:"width:200px" %>
+      <% @teacher.addresses.each do |address| %>
+        <h3>Endereço</h3>
+        <dt>Rua: </dt>
+        <dd><%=address.street%></dd>
+        <dt>Número: </dt>
+        <dd><%=address.number%></dd>
+        <dt>Complemento: </dt>
+        <dd><%=address.unit%></dd>
+        <dt>Bairro: </dt>
+        <dd><%=address.neighborhood%></dd>
+        <dt>Cidade: </dt>
+        <dd><%=address.city%></dd>
+        <dt>Estado: </dt>
+        <dd><%=address.state%></dd>
+        <dt>CEP: </dt>
+        <dd><%=address.zip_code%></dd>
+        <dt>País: </dt>
+        <dd><%=address.country%></dd>
+        <%= link_to 'Editar Endereço', edit_teacher_address_path(@teacher, address), class: 'btn btn-outline-primary', style: 'width:150px' %>
       <% end %>
+      <%= link_to 'Cadastrar Endereço', new_teacher_address_path(@teacher), class:'btn btn-outline-primary', style:"width:200px" %>
     </div>
     <div class="col-lg-6">
       <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3"><%= @teacher.name%></h1>
@@ -36,28 +32,28 @@
           <dd><%=@teacher.name%></dd>
           <dt>Turmas: </dt>
           <%@teacher.classrooms.each do |classroom|%>
-            <dd><%= classroom.name %> </dd>
+            <dd>- <%= classroom.name %> </dd>
           <% end %>
           <dt>Status: </dt>
           <dd><%=@teacher.status%></dd>
           <dt>CPF: </dt>
           <dd><%= @teacher.cpf.present? ? @teacher.cpf : "CPF não cadastrado."%></dd>
-          <dt>Email do responsável: </dt>
-          <dd><% if @teacher.cpf.present? %>
-              <% user = User.find_by(cpf: @teacher.cpf) %>
-              <dd><%= user.present? ? user.email : "Responsável não cadastrado." %></dd>
-            <% else %>
-              <dd>CPF do aluno ou responsável não cadastrado.</dd>
-            <% end %></dd>
-          <dt>Telefone celular: </dt>
-          <dd><%= @teacher.cel_phone.present? ? @teacher.cel_phone : "Telefone celular não cadastrado."%></dd>
-          <dt>Telefone fixo: </dt>
-          <dd><%= @teacher.phone.present? ? @teacher.phone : "Telefone não cadastrado."%></dd>
-        </dl>
-      </p>
-      <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-        <%= link_to "Edit this teacher", edit_teacher_path(@teacher), class:'btn btn-outline-primary', style:"width:150px" %>
-      </div>
+          <dt>Email: </dt>
+          <% if @teacher.user_id.present? %>
+            <% user = User.find(@teacher.user_id) %>
+            <dd><%= user.email  %></dd>
+          <% else %>
+            <dd>Email não cadastrado.</dd>
+          <% end %></dd>
+        <dt>Telefone celular: </dt>
+        <dd><%= @teacher.cel_phone.present? ? @teacher.cel_phone : "Telefone celular não cadastrado."%></dd>
+        <dt>Telefone fixo: </dt>
+        <dd><%= @teacher.phone.present? ? @teacher.phone : "Telefone não cadastrado."%></dd>
+      </dl>
+    </p>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+      <%= link_to "Edit this teacher", edit_teacher_path(@teacher), class:'btn btn-outline-primary', style:"width:150px" %>
     </div>
   </div>
+</div>
 </div>

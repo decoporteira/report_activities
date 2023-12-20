@@ -25,6 +25,13 @@ class StudentsController < ApplicationController
     if current_user.student? && @student.cpf != current_user.cpf
       return redirect_to root_path, alert: 'Você não possui acesso a esse aluno.'
     end
+
+    @activities = @student.activities.sort_by(&:date)
+    @dates_with_actitivies = []
+    @activities.each do |activity| 
+      @dates_with_actitivies << activity.date
+    end
+   
   end
 
   # GET /students/new

@@ -1,6 +1,5 @@
 <h1>Novo Endereço de 
   <%= @student.nil? ? @teacher.name :  @student.name%> </h1>
-<h2><%#= @student.classroom.name%></h2>
 <%= form_with(model: @student.nil?  ? [@teacher, @address] : [@student, @address]) do |form| %>
   <% if @address.errors.any? %>
     <div style="color: red">

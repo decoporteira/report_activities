@@ -20,42 +20,42 @@
     <% if true %>
       <p><span class="text-primary">Atividades feitas</span> | <span class="text-warning">Atividades entregues com atraso ou incompletas</span> |  <span class="text-danger">Atividades não entregues ou incompletas</span></p>
     <% end %>
-    <%activities_2023 = @activities.where(student_id: student.id) %>
-    <%# activities_2023 = Activity.where(date:  1.months.ago..Date.today) %>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-      <% activities_2023.each do |activity| %>
+      <% @dates_with_actitivies.uniq.each do |date|%>
         <div class="col">
           <div class="card shadow-sm">
             <div class="card-header py-1">
-              <h4 class="my-1 fw-normal fs-5"><%=activity.date.strftime("%d/%m") unless activity.date.nil?%> </h4>
+              <h4 class="my-1 fw-normal fs-5"><%=date.strftime("%d/%m") unless date.nil?%> </h4>
             </div>
             <div class="card-body ">
-              <% if activity.late == "feito" %>
-                <p class="card-text text-primary"><strong class="text-dark">Atividade(s):</strong> <%=activity.report%>
-                  <% link_to "Show", activity %> </p>
-              <% elsif activity.late == 'entregue com atraso'  %>
-                <p class="card-text text-warning"> <strong class="text-dark">Atividade(s):</strong> <%=activity.report%>
-                  <% link_to "Show", activity %> </p>
-              <%else %>
-                <p class="card-text text-danger"> <strong class="text-dark">Atividade(s)</strong> <%=activity.report%>
-                  <% link_to "Show", activity %> </p>
+              <% @student.activities.where(date: date).each do |activity|%>
+                <% if activity.late == "feito" %>
+                  <p class="card-text text-primary"><strong class="text-dark">Atividade(s):</strong> <%=activity.report%>
+                    <% link_to "Show", activity %> </p>
+                <% elsif activity.late == 'entregue com atraso'  %>
+                  <p class="card-text text-warning"> <strong class="text-dark">Atividade(s):</strong> <%=activity.report%>
+                    <% link_to "Show", activity %> </p>
+                <%else %>
+                  <p class="card-text text-danger"> <strong class="text-dark">Atividade(s)</strong> <%=activity.report%>
+                    <% link_to "Show", activity %> </p>
+                <%end%>
+                <div class="d-flex justify-content-between align-items-center">
+                  <% if false %>
+                    <div class="btn-group">
+                      <small> <strong>ok:</strong> feita / <strong>late:</strong> entregue com atraso / <strong>no:</strong> não feita</small>
+                    </div>
+                  <% end %>
+                  <% if false %><%# começa a treta %>
+                    <% if activity.late == "feito" %>
+                      <small class="card-text text-primary"><strong>Status:</strong>  <%= activity.late%></small>
+                    <% elsif activity.late == 'entregue com atraso'  %>
+                      <small class="card-text text-warning"><strong>Status:</strong>  <%= activity.late%></small>
+                    <%else %>
+                      <small class="card-text text-danger"><strong>Status:</strong>  <%= activity.late%></small>
+                    <%end%>
+                  <% end%><%# fecha a treta %>
+                </div>
               <%end%>
-              <div class="d-flex justify-content-between align-items-center">
-                <% if false %>
-                  <div class="btn-group">
-                    <small> <strong>ok:</strong> feita / <strong>late:</strong> entregue com atraso / <strong>no:</strong> não feita</small>
-                  </div>
-                <% end %>
-                <% if false %><%# começa a treta %>
-                  <% if activity.late == "feito" %>
-                    <small class="card-text text-primary"><strong>Status:</strong>  <%= activity.late%></small>
-                  <% elsif activity.late == 'entregue com atraso'  %>
-                    <small class="card-text text-warning"><strong>Status:</strong>  <%= activity.late%></small>
-                  <%else %>
-                    <small class="card-text text-danger"><strong>Status:</strong>  <%= activity.late%></small>
-                  <%end%>
-                <% end%><%# fecha a treta %>
-              </div>
             </div>
           </div>
         </div>
