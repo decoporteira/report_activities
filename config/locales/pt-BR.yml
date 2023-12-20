@@ -1,0 +1,10 @@
+pt-BR:
+  activerecord:
+    errors:
+      messages:
+        record_invalid: "Não foi possível salvar o registro devido a erros de validação."
+        models:
+          teacher:
+            attributes:
+              name:
+                blank: "não pode ficar em branco"

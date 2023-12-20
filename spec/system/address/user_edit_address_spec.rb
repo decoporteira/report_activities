@@ -13,8 +13,8 @@ RSpec.describe 'user edit address' do
         visit(root_path)
         find('#details').click
         click_on('Editar')
-        fill_in 'Street', with: 'Rua dos Alfaces'
-        click_on('Update Address')
+        fill_in 'Rua', with: 'Rua dos Alfaces'
+        click_on('Update Endereço')
         
         #assert
         expect(page).to have_content('Venossaur')

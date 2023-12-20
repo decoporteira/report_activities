@@ -12,11 +12,11 @@ RSpec.describe 'User cria uma student' do
         visit(root_path)
         click_on 'Students'
         click_on 'New student'
-        fill_in 'Name', with: 'Charizard'
-        fill_in 'student_cpf', with: '000.000.000-01'
+        fill_in 'Nome', with: 'Charizard'
+        fill_in 'cpf', with: '000.000.000-01'
         select 'Matriculado', from: 'student_status'
         select 'MW 17:00', from: 'student_classroom_id'
-        click_on 'Create Student'
+        click_on 'Create Aluno'
         
         #assert
         expect(page).to have_content('Student was successfully created.')

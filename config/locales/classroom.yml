@@ -1,0 +1,11 @@
+pt-BR:
+  activerecord:
+    models:
+      classroom: "Turma"
+    attributes:
+      classroom:
+        name: "Nome"
+        time: "Horário"
+        teacher_id: "Professor(a)"
+        phone: "Telefone fixo"
+        classroom: "Turma"

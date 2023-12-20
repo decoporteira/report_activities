@@ -5,6 +5,6 @@ RSpec.describe Teacher, type: :model do
     expect { FactoryBot.create(:teacher) }.to change { Teacher.count }.by(1)
   end
   it "Testa a criação de Teacher com nome inválido" do
-    expect { FactoryBot.create(:teacher2) }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Name can't be blank")
+    expect { FactoryBot.create(:teacher2) }.to raise_error(ActiveRecord::RecordInvalid, "Não foi possível salvar o registro devido a erros de validação.")
   end
 end
