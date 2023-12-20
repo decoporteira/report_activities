@@ -1,8 +1,10 @@
 pt-BR:
-  classroom:
-    one: "Turma"
-    other: "Turmas"
-  student:
-    one: "Aluno"
-    other: "Alunos"
-  create: "Criar"
+  activerecord:
+    errors:
+      messages:
+        record_invalid: "Não foi possível salvar o registro devido a erros de validação."
+        models:
+          teacher:
+            attributes:
+              name:
+                blank: "não pode ficar em branco"

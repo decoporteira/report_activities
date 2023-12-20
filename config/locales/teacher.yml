@@ -8,3 +8,5 @@ pt-BR:
         cpf: "CPF"
         user_id: "Usuário"
         status: "Disponibilidade"
+        cel_phone: "Telefone celular"
+        phone: "Telefone fixo"
