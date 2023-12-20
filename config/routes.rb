@@ -17,7 +17,10 @@ Rails.application.routes.draw do
   end
   
   resources :classrooms
-  resources :teachers
+  resources :teachers do 
+    get 'info', on: :member
+    resources :addresses, only: [:new, :create, :show, :edit, :update]
+  end
   resources :users
   
   get 'search/index'
