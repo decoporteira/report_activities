@@ -11,7 +11,8 @@
   <div>
     <% if student.resume && student.resume.ativo? %>
       <h2>Relatório</h2>
-      <p><%= student.resume.written_report%></p>
+      <%= simple_format(student.resume.written_report) %>
+      <%#= student.resume.written_report%>
     <% end %>
   </div>
 </section>
