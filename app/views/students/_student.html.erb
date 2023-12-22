@@ -26,7 +26,12 @@
         <div class="col">
           <div class="card shadow-sm">
             <div class="card-header py-1">
-              <h4 class="my-1 fw-normal fs-5"><%=date.strftime("%d/%m") unless date.nil?%> </h4>
+              <h4 class="my-1 fw-normal fs-5"><%=date.strftime("%d/%m") unless date.nil?%>
+                <% all_activities = @student.activities.where(date: date)%>
+                <% if all_activities.any? { |activity| activity.late == 'ausente' } %>
+                  - <span class='text-danger'>Ausente</span>
+                <% end %>
+              </h4>
             </div>
             <div class="card-body ">
               <% @student.activities.where(date: date).each do |activity|%>
@@ -36,8 +41,11 @@
                 <% elsif activity.late == 'entregue com atraso'  %>
                   <p class="card-text text-warning"> <strong class="text-dark">Atividade(s):</strong> <%=activity.report%>
                     <% link_to "Show", activity %> </p>
+                <% elsif activity.late == 'não fez'  %>
+                  <p class="card-text text-warning"> <strong class="text-dark">Atividade(s):</strong> <%=activity.report%>
+                    <% link_to "Show", activity %> </p>
                 <%else %>
-                  <p class="card-text text-danger"> <strong class="text-dark">Atividade(s)</strong> <%=activity.report%>
+                  <p class="card-text text-danger"> <strong class="text-dark">Atividade(s)</strong> <%=activity.report%> (Ausente)
                     <% link_to "Show", activity %> </p>
                 <%end%>
                 <div class="d-flex justify-content-between align-items-center">
@@ -51,7 +59,9 @@
                       <small class="card-text text-primary"><strong>Status:</strong>  <%= activity.late%></small>
                     <% elsif activity.late == 'entregue com atraso'  %>
                       <small class="card-text text-warning"><strong>Status:</strong>  <%= activity.late%></small>
-                    <%else %>
+                    <% elsif activity.late == 'não fez' %>
+                      <small class="card-text text-danger"><strong>Status:</strong>  <%= activity.late%></small>
+                    <% else activity.late == 'ausente' %>
                       <small class="card-text text-danger"><strong>Status:</strong>  <%= activity.late%></small>
                     <%end%>
                   <% end%><%# fecha a treta %>
