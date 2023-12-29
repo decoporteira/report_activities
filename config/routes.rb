@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'show', to: 'users#show', as: 'current_user'
   devise_for :users
   resources :users, :only =>[:show, :edit]
-
+  resources :attendances
   resources :users, :only =>[:show]
   resources :activities do
     member do 

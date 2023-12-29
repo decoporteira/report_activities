@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_20_135107) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_29_163836) do
   create_table "activities", force: :cascade do |t|
     t.string "report"
     t.integer "late"
@@ -35,6 +35,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_20_135107) do
     t.string "addressable_type"
     t.integer "addressable_id"
     t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable"
+  end
+
+  create_table "attendances", force: :cascade do |t|
+    t.integer "student_id", null: false
+    t.boolean "presence", default: true
+    t.date "attendance_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_attendances_on_student_id"
   end
 
   create_table "classrooms", force: :cascade do |t|
@@ -95,6 +104,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_20_135107) do
   end
 
   add_foreign_key "activities", "students"
+  add_foreign_key "attendances", "students"
   add_foreign_key "classrooms", "teachers"
   add_foreign_key "resumes", "students"
   add_foreign_key "students", "classrooms"

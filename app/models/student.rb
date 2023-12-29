@@ -3,7 +3,7 @@ class Student < ApplicationRecord
   has_many :activities, dependent: :destroy
   belongs_to :classroom
   has_one  :resume
-  #has_one  :address
+  has_many :attendances
   has_many :addresses, as: :addressable
   enum status: { 'Matriculado': 1, 'Não matriculado': 2 }
   validates_uniqueness_of :name, scope: :classroom

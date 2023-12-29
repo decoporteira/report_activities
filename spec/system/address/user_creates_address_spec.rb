@@ -21,7 +21,7 @@ RSpec.describe 'user creates new Address' do
         fill_in 'Estado', with: 'MG'
         fill_in 'País', with: 'Brasil'
         fill_in 'CEP', with: '36038-030'
-        click_on('Create Endereço')
+        click_on('Criar Endereço')
         #assert
         expect(page).to have_content('Venossaur')
         expect(page).to have_content('MW 17:00')
