@@ -29,7 +29,7 @@
               <h4 class="my-1 fw-normal fs-5"><%=date.strftime("%d/%m") unless date.nil?%>
                 <% all_activities = @student.activities.where(date: date)%>
                 <% if all_activities.any? { |activity| activity.late == 'ausente' } %>
-                  - <span class='text-danger'>Ausente</span>
+                  - <span class='text-danger'></span>
                 <% end %>
               </h4>
             </div>

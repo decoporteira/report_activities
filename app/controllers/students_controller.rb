@@ -31,7 +31,11 @@ class StudentsController < ApplicationController
     @activities.each do |activity| 
       @dates_with_actitivies << activity.date
     end
-   
+   @student
+   @number_of_days = @dates_with_actitivies.uniq.length
+  
+   @number_of_absence = @student.attendances.where(presence: false).length
+   @attendance_rate = @number_of_days
   end
 
   # GET /students/new

@@ -20,6 +20,8 @@
             <p class="card-text"></p>
             <strong><%= student.name%></strong><br/>
             <% @activities.where(student_id: student.id, date: date).each do |activity|%>
+              <% attendance = @attendances.find_by(student_id: student.id, attendance_date: date)%>
+              <%= attendance.presence %>
               <ul>
                 <% if (activity.late == 'feito')%>
                   <li>
@@ -43,7 +45,7 @@
                 <% end %>
               </ul>
             <%end%>
-            <%= link_to 'Marcar todas atividades do dia como Ausente', update_late_to_missing_activity_path(:items =>{:student_id => student.id, :date => date} ), data: { "turbo-method": :patch }, remote: true %>
+            <%= link_to 'Marcar presença como Ausente', update_attendance_to_false_attendance_path(:items =>{:student_id => student.id, :date => date} ), data: { "turbo-method": :patch }, remote: true %>
           <%end%>
         </div>
       </div>

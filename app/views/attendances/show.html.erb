@@ -1,0 +1,6 @@
+<p><%= @student.name%></p>
+<% @attendances.each do |attendance|%>
+  <%= attendance.presence%>
+  <%= attendance.attendance_date%>
+  <p>------------------------------------------</p>
+<% end %>
