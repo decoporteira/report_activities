@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :users, :only =>[:show, :edit]
   resources :attendances do
     member do 
-      patch 'update_attendance_to_false'
+      patch 'update_attendance'
       
     end
   end

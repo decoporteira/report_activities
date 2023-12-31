@@ -13,7 +13,7 @@ RSpec.describe 'User cria uma student' do
         visit(root_path)
         click_on 'Students'
         click_on 'New student'
-        fill_in 'Nome', with: 'Charizard'
+        fill_in 'Nome', with: 'Onix'
         fill_in 'cpf', with: '000.000.000-01'
         select 'Matriculado', from: 'student_status'
         select 'MW 17:00', from: 'student_classroom_id'
@@ -21,7 +21,7 @@ RSpec.describe 'User cria uma student' do
         
         #assert
         expect(page).to have_content('Student was successfully created.')
-        expect(page).to have_content('Charizard')
+        expect(page).to have_content('Onix')
         expect(page).to have_content('Professor(a): Bianca')
         expect(page).to have_content('Turma: MW 17:00')
         expect(page).to have_content('CPF: 000.000.000-01')

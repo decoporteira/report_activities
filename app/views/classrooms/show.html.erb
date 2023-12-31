@@ -10,7 +10,7 @@
   <%end%>
   <% dates = dates.reverse%>
   <% dates.uniq.each do |date|%>
-    <div class="col mb-4">
+    <div class="col mb-4" id="<%= date %>">
       <div class="card shadow-sm">
         <div class="card-header py-1">
           <h4 class="my-1 fw-normal fs-5"><%= date.strftime("%d/%m/%y") %></h4>
@@ -18,10 +18,9 @@
         <div class="card-body">
           <% @students.each  do |student|%>
             <p class="card-text"></p>
-            <strong><%= student.name%></strong><br/>
+            <strong><%= student.name%></strong> |  <% attendance = @attendances.find_by(student_id: student.id, attendance_date: date)%>
+            <%= attendance.presence && attendance.presence? ? 'Presente' : 'Ausente' %><br/>
             <% @activities.where(student_id: student.id, date: date).each do |activity|%>
-              <% attendance = @attendances.find_by(student_id: student.id, attendance_date: date)%>
-              <%= attendance.presence %>
               <ul>
                 <% if (activity.late == 'feito')%>
                   <li>
@@ -45,7 +44,7 @@
                 <% end %>
               </ul>
             <%end%>
-            <%= link_to 'Marcar presença como Ausente', update_attendance_to_false_attendance_path(:items =>{:student_id => student.id, :date => date} ), data: { "turbo-method": :patch }, remote: true %>
+            <%= link_to 'Marcar como Ausente/Presente', update_attendance_attendance_path(:items =>{:student_id => student.id, :date => date, :presence => attendance.presence,} ), data: { "turbo-method": :patch }, remote: true %>
           <%end%>
         </div>
       </div>

@@ -1,6 +1,5 @@
-<p><%= @student.name%></p>
+<p>Relatório de presença de <%= @student.name%></p>
 <% @attendances.each do |attendance|%>
-  <%= attendance.presence%>
-  <%= attendance.attendance_date%>
-  <p>------------------------------------------</p>
+  <%= attendance.attendance_date.strftime("%d/%m/%y") %>: <%= attendance.presence? ? 'Presente' : 'Ausente' %>
+  <p>----------------------------------</p>
 <% end %>

@@ -1,6 +1,6 @@
 <h1>Novo Endereço de 
   <%= @student.nil? ? @teacher.name :  @student.name%> </h1>
-<%= form_with(model: @student.nil?  ? [@teacher, @address] : [@student, @address]) do |form| %>
+<%= form_with(model: @student.nil?  ? [@teacher, @address] : [@student, @address], id: 'new_address_form') do |form| %>
   <% if @address.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(@address.errors.count, "error") %> prohibited this address from being saved:</h2>

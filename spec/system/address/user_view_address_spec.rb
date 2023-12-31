@@ -32,7 +32,7 @@ RSpec.describe 'user creates new Address' do
         teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: user.id, cpf: '087.097.098-01' )
         classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
         student = Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id, cpf: '000.000.000-01')
-        student = Student.create!(name: 'Charizard', status: 'Matriculado', classroom_id: classroom.id, cpf: '000.000.000-02')
+        student = Student.create!(name: 'Pikachu', status: 'Matriculado', classroom_id: classroom.id, cpf: '000.000.000-02')
         address = Address.create!(street: 'Rua das Covas', number: '23', unit: '232', neighborhood: 'Santos Dumont', city: 'Juiz de Fora', state: 'MG', country: 'Brasil', zip_code: '34050-098', addressable_id: student.id, addressable_type: 'Student')
         user_two = User.create!(email: 'student@student.com.br', password: 'password', role: 'student', cpf: '000.000.000-01' )
         #act
@@ -41,7 +41,7 @@ RSpec.describe 'user creates new Address' do
         #click_on('Ver Atividades')
        
         #assert
-        expect(page).not_to have_content('Charizard')
+        expect(page).not_to have_content('Pikachu')
         expect(page).to have_content('Venossaur')
         expect(page).to have_content('MW 17:00')
         
@@ -53,7 +53,7 @@ RSpec.describe 'user creates new Address' do
         teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: user.id, cpf: '087.097.098-01' )
         classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
         student = Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id, cpf: '000.000.000-01')
-        student = Student.create!(name: 'Charizard', status: 'Matriculado', classroom_id: classroom.id, cpf: '000.000.000-02')
+        student = Student.create!(name: 'Entei', status: 'Matriculado', classroom_id: classroom.id, cpf: '000.000.000-02')
         address = Address.create!(street: 'Rua das Covas', number: '23', unit: '232', neighborhood: 'Santos Dumont', city: 'Juiz de Fora', state: 'MG', country: 'Brasil', zip_code: '34050-098', addressable_id: student.id, addressable_type: 'Student')
         user_two = User.create!(email: 'student@student.com.br', password: 'password', role: 'student', cpf: '000.000.000-01' )
         #act
@@ -62,7 +62,7 @@ RSpec.describe 'user creates new Address' do
         click_on('Ver Atividades')
        
         #assert
-        expect(page).not_to have_content('Charizard')
+        expect(page).not_to have_content('Entei')
         expect(page).to have_content('Venossaur')
         expect(page).to have_content('MW 17:00')
         
