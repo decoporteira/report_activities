@@ -76,7 +76,7 @@
         <div class="card shadow-sm">
           <div class="card-header py-1">
             <h4 class="my-1 fw-normal fs-5">
-              <%= link_to  classroom.name, classroom_path(classroom.id), class:'text-decoration-none link-primary'  %>
+              <%= link_to  classroom.name, classroom_path(classroom.id), class:'text-decoration-none link-primary'  %> - Alunos: <strong><%=classroom.students.length%></strong>
             </h4>
           </div>
           <div class="card-body">
@@ -109,7 +109,7 @@
         <div class="card shadow-sm">
           <div class="card-header py-1">
             <h4 class="my-1 fw-normal fs-5">
-              <%= link_to  classroom.name, classroom_path(classroom.id), class:'text-decoration-none link-primary'  %>
+              <%= link_to  classroom.name, classroom_path(classroom.id), class:'text-decoration-none link-primary'  %> - Alunos: <strong><%=classroom.students.length%></strong>
             </h4>
           </div>
           <div class="card-body">
