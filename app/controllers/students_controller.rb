@@ -27,11 +27,12 @@ class StudentsController < ApplicationController
     end
     if params[:year].to_i == 2023
       @activities = @student.activities.where('date <= ?', Date.new(2023, 12, 31)).order(:date)
-      @resume = @student.resumes.find_by("strftime('%Y', created_at) = ?", '2023')
+      @resume = @student.resumes.first
+
 
     else
       @activities = @student.activities.where('date >= ?', Date.new(2024, 1, 1)).order(:date)
-      @resume = @student.resumes.find_by("strftime('%Y', created_at) = ?", '2024')
+      @resume
 
     end
    
