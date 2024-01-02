@@ -27,8 +27,12 @@ class StudentsController < ApplicationController
     end
     if params[:year].to_i == 2023
       @activities = @student.activities.where('date <= ?', Date.new(2023, 12, 31)).order(:date)
+      @resume = @student.resumes.find_by("strftime('%Y', created_at) = ?", '2023')
+
     else
       @activities = @student.activities.where('date >= ?', Date.new(2024, 1, 1)).order(:date)
+      @resume = @student.resumes.find_by("strftime('%Y', created_at) = ?", '2024')
+
     end
    
     @dates_with_actitivies = []
@@ -40,6 +44,7 @@ class StudentsController < ApplicationController
   
    @number_of_absence = @student.attendances.where(presence: false).where('attendance_date >= ?', Date.new(2024, 1, 1)).length
    @attendance_rate = @number_of_days
+   
   end
 
   def show_2023

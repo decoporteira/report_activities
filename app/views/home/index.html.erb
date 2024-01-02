@@ -30,7 +30,7 @@
                     Teacher: <%= Teacher.find_by(id: student.classroom.teacher_id).name %></h5>
                   Turma: <%= student.classroom.name%></h5>
               </p>
-              <%= link_to ' Ver Atividades ', student_path(student) ,class:'btn btn-outline-primary', style:"width:200px" %>
+              <%= link_to ' Ver Atividades ', student_path(student, year: 2023),class:'btn btn-outline-primary', style:"width:200px" %>
             </div>
           </div>
         </div>

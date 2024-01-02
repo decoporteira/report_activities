@@ -2,7 +2,7 @@ class Student < ApplicationRecord
   # before_destroy :destroy_activities
   has_many :activities, dependent: :destroy
   belongs_to :classroom
-  has_one  :resume
+  has_many  :resumes
   has_many :attendances
   has_many :addresses, as: :addressable
   enum status: { 'Matriculado': 1, 'Não matriculado': 2 }

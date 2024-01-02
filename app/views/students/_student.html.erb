@@ -9,8 +9,8 @@
   </div>
   <h2>Relatório de 2024</h2>
   <div>
-    <% if @student.resume && @student.resume.ativo? %>
-      <%#= simple_format(@student.resume.written_report) %>
+    <% if @resume&.ativo? %>
+      <%= simple_format(@resume.written_report) %>
     <% end %>
   </div>
 </section>
