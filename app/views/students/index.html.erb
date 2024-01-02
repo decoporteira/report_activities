@@ -1,6 +1,9 @@
 <div class="d-flex justify-content-between">
   <h1 class="text-primary">Students</h1>
-  <%= link_to "New student", new_student_path, class:'btn btn-primary', style:"width:150px;height: 40px;"  %></div>
+  <% if current_user.admin? || current_user.accounting? %>
+    <%= link_to "New student", new_student_path, class:'btn btn-primary', style:"width:150px;height: 40px;"  %>
+  <% end %>
+</div>
 <div class="album py-5 bg-body-tertiary">
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -38,8 +41,9 @@
                 <p class="card-text"></p>
                 <p><strong>Status:</strong> <%= student.status %></p>
                 <p><strong>Classroom:</strong> <%= student.classroom.name%></p>
-                <%= link_to "Show Activities", student, class:'btn btn-outline-primary', style:"width:150px"  %>
-                <%= link_to "Show Student", info_student_path(student), class:'btn btn-outline-primary', style:"width:150px"  %>
+                <%= link_to "Atividades", student, class:'btn btn-outline-primary', style:"width:110px"  %>
+                <%= link_to 'Frequência', attendance_path(student.id), class:'btn btn-outline-primary', style:"width:110px"  %>
+                <%= link_to "Detalhes", info_student_path(student), class:'btn btn-outline-primary', style:"width:110px"  %>
               </div>
             </div>
           </div>

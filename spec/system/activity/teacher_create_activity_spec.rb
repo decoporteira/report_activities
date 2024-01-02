@@ -4,11 +4,11 @@ RSpec.describe 'teacher creates activity' do
     it 'a partir do menu com sucesso' do
         #arrange
         user = User.create!(email: 'bianca@teacher.com.br', password: 'password', role: 'teacher' )
-        teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: user.id, cpf: '087.097.098-01' )
+        teacher = Teacher.create(name: 'Oak', status: 'disponível', user_id: user.id, cpf: '087.097.098-01' )
         classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
        
         Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id, cpf: '000.000.000-01')
-        Student.create!(name: 'Charizard', status: 'Matriculado', classroom_id: classroom.id, cpf: '000.000.000-02')
+        Student.create!(name: 'Charmander', status: 'Matriculado', classroom_id: classroom.id, cpf: '000.000.000-02')
         Student.create!(name: 'Blastoise', status: 'Não matriculado', classroom_id: classroom.id, cpf: '000.000.000-03')
     
         #act
@@ -22,7 +22,7 @@ RSpec.describe 'teacher creates activity' do
         
         #assert
         expect(page).to have_content('MW 17:00')
-        expect(page).to have_content('Charizard')
+        expect(page).to have_content('Charmander')
         expect(page).to have_content('Venossaur')
         expect(page).to have_content('fogo (feito)')
         expect(page).not_to have_content('Blastoise')
@@ -37,9 +37,8 @@ RSpec.describe 'teacher creates activity' do
         classroom_two = Classroom.create!(name: 'MW 18:00', teacher_id: teacher.id, time: '24:00')
         
         Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id, cpf: '000.000.000-01')
-        Student.create!(name: 'Charizard', status: 'Matriculado', classroom_id: classroom.id, cpf: '000.000.000-02')
+        Student.create!(name: 'Bulbassaur', status: 'Matriculado', classroom_id: classroom.id, cpf: '000.000.000-02')
         Student.create!(name: 'Blastoise', status: 'Não matriculado', classroom_id: classroom.id, cpf: '000.000.000-03')
-        
         Student.create!(name: 'Infernape', status: 'Matriculado', classroom_id: classroom_two.id, cpf: '000.000.000-04')
 
         #act
@@ -52,7 +51,7 @@ RSpec.describe 'teacher creates activity' do
         
         #assert
         expect(page).to have_content('MW 17:00')
-        expect(page).to have_content('Charizard')
+        expect(page).to have_content('Bulbassaur')
         expect(page).to have_content('Venossaur')
         expect(page).to have_content('Cuspir fogo (feito)')
         expect(page).not_to have_content('Blastoise')

@@ -12,6 +12,7 @@ class ClassroomsController < ApplicationController
   # GET /classrooms/1 or /classrooms/1.json
   def show
     @classroom = Classroom.find(params[:id])
+    @attendances = Attendance.all
   end
 
   # GET /classrooms/new
@@ -31,6 +32,8 @@ class ClassroomsController < ApplicationController
     students.each do |student|
      
       Activity.create!(student_id: student.id , report: params[:report], date: params[:date], late: params[:late])
+      
+      Attendance.find_or_create_by!(student_id: student.id, attendance_date: params[:date], presence: true)
     end
     redirect_to request.referer, notice: 'Atividades criadas...'
   end
@@ -85,7 +88,7 @@ class ClassroomsController < ApplicationController
     @students = get_students
     array_ids = []
     array_ids = @students.map(&:id)
-    @activities = Activity.where(:student_id => array_ids)
+    @activities = Activity.where(:student_id => array_ids).where('date >= ?', Date.new(2024, 1, 1))
   
   end
     # Use callbacks to share common setup or constraints between actions.

@@ -7,14 +7,14 @@ RSpec.describe 'user edit address' do
         teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: user.id, cpf: '087.097.098-01' )
         classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
         student = Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id, cpf: '000.097.098-01')
-        address = Address.create!(street: 'Rua das Covas', number: '23', unit: '232', neighborhood: 'Santos Dumont', city: 'Juiz de Fora', state: 'MG', country: 'Brasil', zip_code: '34050-098', student_id: student.id)
+        address = Address.create!(street: 'Rua das Covas', number: '23', unit: '232', neighborhood: 'Santos Dumont', city: 'Juiz de Fora', state: 'MG', country: 'Brasil', zip_code: '34050-098', addressable_id: student.id, addressable_type: 'Student')
         #act
         login_as(user)
         visit(root_path)
         find('#details').click
         click_on('Editar')
         fill_in 'Rua', with: 'Rua dos Alfaces'
-        click_on('Update Endereço')
+        click_on('Atualizar Endereço')
         
         #assert
         expect(page).to have_content('Venossaur')
