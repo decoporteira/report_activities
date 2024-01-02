@@ -16,7 +16,7 @@ RSpec.describe 'teacher creates activity' do
         visit(root_path)
         click_on('Enter Classroom')
         fill_in 'report', with: 'Cuspir fogo'
-        fill_in 'Date', with: '12/12/2023'
+        fill_in 'Date', with: '12/12/2024'
         select 'Feito', from: 'Late'
         click_on 'Criar atividade'
         
@@ -45,7 +45,7 @@ RSpec.describe 'teacher creates activity' do
         login_as(user)
         visit(classroom_path(classroom))
         fill_in 'report', with: 'Cuspir fogo'
-        fill_in 'Date', with: '12/12/2023'
+        fill_in 'Date', with: '12/12/2024'
         select 'Feito', from: 'Late'
         click_on 'Criar atividade'
         
