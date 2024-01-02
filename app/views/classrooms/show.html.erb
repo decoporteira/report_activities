@@ -3,7 +3,7 @@
 <br />
 <%= render "create_activity" %> <% render @classroom %>
 <div>
-  <% activities_organized=@activities.sort_by(&:date)%>
+  <% activities_organized = @activities.sort_by(&:date)%>
   <% dates=[]%>
   <% activities_organized.each do |activity| %>
     <% dates << activity.date%>

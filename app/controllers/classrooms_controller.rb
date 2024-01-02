@@ -88,7 +88,7 @@ class ClassroomsController < ApplicationController
     @students = get_students
     array_ids = []
     array_ids = @students.map(&:id)
-    @activities = Activity.where(:student_id => array_ids)
+    @activities = Activity.where(:student_id => array_ids).where('date >= ?', Date.new(2024, 1, 1))
   
   end
     # Use callbacks to share common setup or constraints between actions.
