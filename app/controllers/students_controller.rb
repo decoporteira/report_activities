@@ -1,7 +1,7 @@
 class StudentsController < ApplicationController
   before_action :cant_see, only: [:show, :info]
   skip_before_action :authenticate_user!, :only => [:show]
-  before_action :set_student, only: [ :show, :edit, :update, :destroy, :info, :show_2023]
+  before_action :set_student, only: [ :show, :edit, :update, :destroy, :info, :show_2023, :activities_by_student]
   before_action :get_info
   
 
@@ -130,6 +130,10 @@ class StudentsController < ApplicationController
 
   def not_registered
     @students = Student.where(status: 'Não matriculado')
+  end
+
+  def activities_by_student
+    @activities = @student.activities
   end
 
   private

@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   resources :attendances do
     member do 
       patch 'update_attendance'
-      
     end
   end
   resources :users, :only =>[:show]
@@ -17,7 +16,7 @@ Rails.application.routes.draw do
     member do 
       patch 'update_late'
       patch 'update_late_to_missing'
-      
+
     end
   end
   
@@ -37,6 +36,7 @@ Rails.application.routes.draw do
     collection do
       get 'not_registered'
     end
+    get 'activities_by_student', on: :member
     get 'info', on: :member
     resources :resumes, only: [:new, :create, :index, :show, :edit, :update]
     resources :addresses, only: [:new, :create, :show, :edit, :update]

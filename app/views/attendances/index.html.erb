@@ -1,5 +1,4 @@
 <h1>Lista de Presenças</h1>
 <% @students.each do |student|%>
   <%= link_to student.name, attendance_path(student.id), class: "nav-link"  %>
-  <%#= link_to "Attendances", attendances_path, class: "nav-link" %>
 <% end %>

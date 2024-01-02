@@ -7,32 +7,6 @@
       <%if current_user.teacher? %>
         <%current_user.teacher.classrooms.each do |classroom| %>
           <%classroom.students.each do |student|%>
-            <%# @students.each do |student| %>
-              <div class="col">
-                <div class="card shadow-sm">
-                  <div class="card-header py-1">
-                    <h4 class="my-1 fw-normal fs-5"><%= student.name %></h4>
-                  </div>
-                  <div class="card-body">
-                    <p class="card-text"></p>
-                    <p><strong>Turma: </strong><%= student.classroom.name %></p>
-                    <p>
-                      <strong>Teacher: </strong><%= Teacher.find_by(id: student.classroom.teacher.id).name %>
-                    </p>
-                    <%activities = Activity.where(:student_id => student.id)%> <%activities.each do |item| %>
-                      <p>
-                        <strong>Data:</strong> <%=item.date.strftime("%d/%m") unless item.date.nil?%> | <strong>Atividade:</strong> <%=item.report unless item.report.nil?%> |
-                        <strong>Status:</strong> <%=item.late%> <%= link_to "Show", item %>
-                      </p>
-                    <% end%>
-                  </div>
-                </div>
-              </div>
-            <%end%>
-          <% end %>
-        <% elsif current_user.student? %>
-        <% else %>
-          <% @students.each do |student| %>
             <div class="col">
               <div class="card shadow-sm">
                 <div class="card-header py-1">
@@ -44,17 +18,31 @@
                   <p>
                     <strong>Teacher: </strong><%= Teacher.find_by(id: student.classroom.teacher.id).name %>
                   </p>
-                  <%activities = Activity.where(:student_id => student.id)%> <%activities.each do |item| %>
-                    <p>
-                      <strong>Data:</strong> <%=item.date.strftime("%d/%m") unless item.date.nil?%> | <strong>Atividade:</strong> <%=item.report unless item.report.nil?%> |
-                      <strong>Status:</strong> <%=item.late%> <%= link_to "Show", item %>
-                    </p>
-                  <% end%>
                 </div>
               </div>
             </div>
-          <% end %>
+          <%end%>
         <% end %>
-      </div>
+      <% elsif current_user.admin? || current_user.accounting?  %>
+        <%  %>
+        <% @students.each do |student| %>
+          <div class="col">
+            <div class="card shadow-sm">
+              <div class="card-header py-1">
+                <h4 class="my-1 fw-normal fs-5"><%= student.name %></h4>
+              </div>
+              <div class="card-body">
+                <p class="card-text"></p>
+                <p><strong>Turma: </strong><%= student.classroom.name %></p>
+                <p>
+                  <strong>Teacher: </strong><%= Teacher.find_by(id: student.classroom.teacher.id).name %>
+                </p>
+                <%= link_to ' Ver Atividades ', activities_by_student_student_path(student),class:'btn btn-outline-primary', style:"width:200px" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
     </div>
   </div>
+</div>

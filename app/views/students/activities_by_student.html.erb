@@ -1,0 +1,23 @@
+<div class="d-flex justify-content-between">
+  <h1 class="text-primary">Atividades de <%= @student.name%> </h1>
+  <%= link_to "New activity", new_activity_path, class:'btn btn-primary', style:"width:150px;height: 40px;"  %></div>
+<div class="album py-5 bg-body-tertiary">
+  <div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <%@activities.order(date: :desc).each do |activity| %>
+        <div class="col">
+          <div class="card shadow-sm">
+            <div class="card-header py-1">
+              <h4 class="my-1 fw-normal fs-5"><%= activity.date.strftime("%d/%m/%y")%></h4>
+            </div>
+            <div class="card-body">
+              <p class="card-text"> </p>
+              <p><strong>Atividade: </strong><%= activity.report %> (<%= activity.late %>)</p>
+              <%= link_to "Editar atividade", edit_activity_path(activity), class:'btn btn-outline-primary', style:"width:200px" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

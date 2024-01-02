@@ -8,7 +8,7 @@ RSpec.describe Attendance, type: :model do
         student = Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id, cpf: '000.097.098-01')
         Attendance.create!(student_id: student.id, attendance_date: '2023-05-05', presence: false) 
         Attendance.find_or_create_by!(student_id: student.id, attendance_date: '2023-05-05', presence: true) 
-        p Attendance.all
+     
         expect { Attendance.create!(student_id: student.id, attendance_date: '2023-05-05', presence: true) }.to change { Attendance.count }.by(1)
       end 
 end
