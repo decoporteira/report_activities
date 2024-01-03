@@ -30,7 +30,7 @@
             </div>
           </div>
         <% end %>
-      <% elsif  current_user.admin? || current_user.accounting?%>
+      <% elsif  current_user.admin? %>
         <% @students.each do |student| %>
           <div class="col">
             <div class="card shadow-sm">
@@ -43,6 +43,22 @@
                 <p><strong>Classroom:</strong> <%= student.classroom.name%></p>
                 <%= link_to "Atividades", student, class:'btn btn-outline-primary', style:"width:110px"  %>
                 <%= link_to 'Frequência', attendance_path(student.id), class:'btn btn-outline-primary', style:"width:110px"  %>
+                <%= link_to "Detalhes", info_student_path(student), class:'btn btn-outline-primary', style:"width:110px"  %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% elsif  current_user.accounting?%>
+        <% @students.each do |student| %>
+          <div class="col">
+            <div class="card shadow-sm">
+              <div class="card-header py-1">
+                <h4 class="my-1 fw-normal fs-5"><%= student.name %></h4>
+              </div>
+              <div class="card-body">
+                <p class="card-text"></p>
+                <p><strong>Status:</strong> <%= student.status %></p>
+                <p><strong>Classroom:</strong> <%= student.classroom.name%></p>
                 <%= link_to "Detalhes", info_student_path(student), class:'btn btn-outline-primary', style:"width:110px"  %>
               </div>
             </div>
