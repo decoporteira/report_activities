@@ -37,19 +37,10 @@
                 </li>
               <% elsif current_user.accounting? %>
                 <li class="nav-item">
-                  <%= link_to "ClassRooms", classrooms_path, class: "nav-link" %>
-                </li>
-                <li class="nav-item">
                   <%= link_to "Students", students_path, class: "nav-link"%>
                 </li>
                 <li class="nav-item">
-                  <% link_to "Activities", activities_path, class: "nav-link"%>
-                </li>
-                <li class="nav-item">
                   <%= link_to "Teachers", teachers_path, class: "nav-link"%>
-                </li>
-                <li class="nav-item">
-                  <% link_to "Addresses", addresses_path, class: "nav-link"%>
                 </li>
                 <li class="nav-item">
                   <%= link_to "Não matriculados", not_registered_students_path, class: "nav-link"%>
