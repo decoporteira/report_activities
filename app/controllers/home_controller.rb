@@ -5,6 +5,7 @@ class HomeController < ApplicationController
 
   def get_students
     @students = Student.where(status: 'Matriculado')
+    @total_students = @students.count
   end
 
   def get_classrooms
