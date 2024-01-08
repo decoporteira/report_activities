@@ -1,12 +1,14 @@
 <h1 class="text-primary">
   <% if (current_user.student?)%>
-    Listagem de alunos
-  <% elsif (current_user.teacher?)%>
-    Listagem de turmas de <%= current_user.teacher.name%>
-  <% else %>
-    Listagem de turmas
-  <% end %>
-</h1>
+    Listagem de alunos</h1>
+<% elsif (current_user.teacher?)%>
+  Listagem de turmas de <%= current_user.teacher.name%></h1>
+<% elsif current_user.admin? || current_user.accounting?%>
+  Listagem de turmas</h1>
+Total de alunos matriculados: <%= @total_students%>
+<% else %>
+  Listagem de turmas</h1>
+<% end %>
 <div class="album py-5 bg-body-tertiary">
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
