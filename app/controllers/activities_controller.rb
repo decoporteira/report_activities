@@ -1,6 +1,7 @@
 class ActivitiesController < ApplicationController
   before_action :set_activity, only: %i[ show edit update destroy ]
   before_action :get_info
+  before_action :is_admin?
 
   # GET /activities or /activities.json
   def index
@@ -103,5 +104,11 @@ class ActivitiesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def activity_params
       params.require(:activity).permit(:report, :late, :missing, :student_id, :date)
+    end
+
+    def is_admin?
+      # check if user is a admin
+      # if not admin then redirect to where ever you want 
+      redirect_to root_path, alert: 'Você não possui acesso.' unless current_user.admin? || current_user.accounting? || current_user.teacher?
     end
 end

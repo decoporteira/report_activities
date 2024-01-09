@@ -2,28 +2,30 @@
 <div class="container col-xxl-8 px-4 py-5">
   <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
     <div class="col-10 col-sm-8 col-lg-6">
-      <% @student.addresses.each do |address| %>
-        <h3>Endereço</h3>
-        <dt>Rua: </dt>
-        <dd><%=address.street%></dd>
-        <dt>Número: </dt>
-        <dd><%=address.number%></dd>
-        <dt>Complemento: </dt>
-        <dd><%=address.unit%></dd>
-        <dt>Bairro: </dt>
-        <dd><%=address.neighborhood%></dd>
-        <dt>Cidade: </dt>
-        <dd><%=address.city%></dd>
-        <dt>Estado: </dt>
-        <dd><%=address.state%></dd>
-        <dt>CEP: </dt>
-        <dd><%=address.zip_code%></dd>
-        <dt>País: </dt>
-        <dd><%=address.country%></dd>
-        <%= link_to 'Editar Endereço', edit_student_address_path(@student, address), class: 'btn btn-outline-primary', style: 'width:150px' %>
-      <% end %>
-      <%= link_to 'Cadastrar Endereço', new_student_address_path(@student), class:'btn btn-outline-primary', style:"width:200px" %>
-    </div>
+      <% if current_user.admin? || current_user.accounting? %>
+        <% @student.addresses.each do |address| %>
+          <h3>Endereço</h3>
+          <dt>Rua: </dt>
+          <dd><%=address.street%></dd>
+          <dt>Número: </dt>
+          <dd><%=address.number%></dd>
+          <dt>Complemento: </dt>
+          <dd><%=address.unit%></dd>
+          <dt>Bairro: </dt>
+          <dd><%=address.neighborhood%></dd>
+          <dt>Cidade: </dt>
+          <dd><%=address.city%></dd>
+          <dt>Estado: </dt>
+          <dd><%=address.state%></dd>
+          <dt>CEP: </dt>
+          <dd><%=address.zip_code%></dd>
+          <dt>País: </dt>
+          <dd><%=address.country%></dd>
+          <%= link_to 'Editar Endereço', edit_student_address_path(@student, address), class: 'btn btn-outline-primary', style: 'width:150px' %>
+        <% end %>
+        <%= link_to 'Cadastrar Endereço', new_student_address_path(@student), class:'btn btn-outline-primary', style:"width:200px" %>
+      </div>
+    <%end%>
     <div class="col-lg-6">
       <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3"><%= @student.name%></h1>
       <p class="lead">
