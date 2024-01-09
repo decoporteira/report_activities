@@ -1,6 +1,7 @@
 class ResumesController < ApplicationController
   before_action :set_student
   before_action :set_resume, only: [:show, :edit, :update]
+  before_action :authorize_admin!
 
   def new
       @resume = Resume.new
@@ -56,5 +57,9 @@ class ResumesController < ApplicationController
 
   def resume_params
     params.require(:resume).permit(:written_report, :date, :status, :student_id)
+  end
+
+  def authorize_admin!
+    redirect_to root_path, alert: 'Access denied.' unless current_user.admin? || current_user.accounting? || current_user.teacher?
   end
 end

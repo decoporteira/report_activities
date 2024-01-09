@@ -1,6 +1,7 @@
 class StudentsController < ApplicationController
-  before_action :cant_see, only: [:show, :info]
-  skip_before_action :authenticate_user!, :only => [:show]
+  before_action :cant_see, only: [:show]
+  before_action :is_admin?, except: [:show]
+  # skip_before_action :authenticate_user!, :only => [:show]
   before_action :set_student, only: [ :show, :edit, :update, :destroy, :info, :show_2023, :activities_by_student]
   before_action :get_info
   
@@ -124,7 +125,7 @@ class StudentsController < ApplicationController
 
   def info
     if current_user.student?
-      redirect_to root_path
+      redirect_to root_path, alert: 'Você não possui acesso a esse aluno.'
     end
   end
 
@@ -154,8 +155,15 @@ class StudentsController < ApplicationController
   def cant_see
     @student = Student.find(params[:id])
     if current_user.student?
-      redirect_to root_path unless @student.cpf == current_user.cpf
+      unless current_user.cpf == @student.cpf && @student.cpf != '' && @student.cpf != nil
+        redirect_to root_path, alert: 'Você não possui acesso.'
+      end 
     end
+  end
+  def is_admin?
+    # check if user is a admin
+    # if not admin then redirect to where ever you want 
+    redirect_to root_path, alert: 'Você não possui acesso (is_admin?).' unless current_user.admin? || current_user.accounting? || current_user.teacher?
   end
  
 end
