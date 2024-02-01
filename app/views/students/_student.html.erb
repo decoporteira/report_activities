@@ -24,7 +24,7 @@
             <div class="col">
               <div class="card shadow-sm">
                 <div class="card-header py-1">
-                  <h4 class="my-1 fw-normal fs-5"><%=date.strftime("%d/%m") unless date.nil?%>
+                  <h4 class="my-1 fw-normal fs-5"><%=date.strftime("%d/%m/%y") unless date.nil?%>
                     <% if @student.attendances.find_by(attendance_date: date).presence == false%>
                       - <span class='text-danger'>Ausente</span>
                     <% end %>
