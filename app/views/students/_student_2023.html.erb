@@ -25,7 +25,7 @@
         <div class="col">
           <div class="card shadow-sm">
             <div class="card-header py-1">
-              <h4 class="my-1 fw-normal fs-5"><%=date.strftime("%d/%m") unless date.nil?%>
+              <h4 class="my-1 fw-normal fs-5"><%=date.strftime("%d/%m/%y") unless date.nil?%>
                 <% all_activities = @student.activities.where(date: date)%>
                 <% if all_activities.any? { |activity| activity.late == 'ausente' } %>
                   - <span class='text-danger'></span>
