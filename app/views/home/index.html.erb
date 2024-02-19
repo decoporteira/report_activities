@@ -1,5 +1,5 @@
 <h1 class="text-primary">
-  <% if (current_user.student?)%>
+  <% if (current_user.default?)%>
     Listagem de alunos</h1>
 <% elsif (current_user.teacher?)%>
   Listagem de turmas de <%= current_user.teacher.name%></h1>
@@ -12,7 +12,7 @@ Total de alunos matriculados: <%= @total_students%>
 <div class="album py-5 bg-body-tertiary">
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-      <% if (current_user.student?)%>
+      <% if (current_user.default?)%>
         <% if current_user.cpf == nil || current_user.cpf == ''%>
           <p>Sem alunos para mostrar.</p>
         <% else %>

@@ -9,7 +9,7 @@
         <% current_classrooms.each do |classroom| %>
           <%= render classroom %>
         <% end %>
-      <% elsif current_user.student? %>
+      <% elsif current_user.default? %>
       <% else %>
         <% @classrooms.each do |classroom| %>
           <%= render classroom %>

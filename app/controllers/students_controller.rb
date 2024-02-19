@@ -23,7 +23,7 @@ class StudentsController < ApplicationController
 
   # GET /students/1 or /students/1.json
   def show
-    if current_user.student? && @student.cpf != current_user.cpf
+    if current_user.default? && @student.cpf != current_user.cpf
       return redirect_to root_path, alert: 'Você não possui acesso a esse aluno.'
     end
     if params[:year].to_i == 2023
@@ -50,7 +50,7 @@ class StudentsController < ApplicationController
   end
 
   def show_2023
-    if current_user.student? && @student.cpf != current_user.cpf
+    if current_user.default? && @student.cpf != current_user.cpf
       return redirect_to root_path, alert: 'Você não possui acesso a esse aluno.'
     end
 
@@ -73,7 +73,7 @@ class StudentsController < ApplicationController
 
   # GET /students/1/edit
   def edit
-    if current_user.student?
+    if current_user.default?
       redirect_to root_path
     end
   end
@@ -124,7 +124,7 @@ class StudentsController < ApplicationController
   end
 
   def info
-    if current_user.student?
+    if current_user.default?
       redirect_to root_path, alert: 'Você não possui acesso a esse aluno.'
     end
   end
@@ -154,7 +154,7 @@ class StudentsController < ApplicationController
 
   def cant_see
     @student = Student.find(params[:id])
-    if current_user.student?
+    if current_user.default?
       unless current_user.cpf == @student.cpf && @student.cpf != '' && @student.cpf != nil
         redirect_to root_path, alert: 'Você não possui acesso.'
       end 
