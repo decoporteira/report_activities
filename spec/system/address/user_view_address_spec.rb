@@ -34,7 +34,7 @@ RSpec.describe 'user creates new Address' do
         student = Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id, cpf: '000.000.000-01')
         student = Student.create!(name: 'Pikachu', status: 'Matriculado', classroom_id: classroom.id, cpf: '000.000.000-02')
         address = Address.create!(street: 'Rua das Covas', number: '23', unit: '232', neighborhood: 'Santos Dumont', city: 'Juiz de Fora', state: 'MG', country: 'Brasil', zip_code: '34050-098', addressable_id: student.id, addressable_type: 'Student')
-        user_two = User.create!(email: 'student@student.com.br', password: 'password', role: 'student', cpf: '000.000.000-01' )
+        user_two = User.create!(email: 'student@student.com.br', password: 'password', role: 'default', cpf: '000.000.000-01' )
         #act
         login_as(user_two)
         visit(root_path)
@@ -55,7 +55,7 @@ RSpec.describe 'user creates new Address' do
         student = Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id, cpf: '000.000.000-01')
         student = Student.create!(name: 'Entei', status: 'Matriculado', classroom_id: classroom.id, cpf: '000.000.000-02')
         address = Address.create!(street: 'Rua das Covas', number: '23', unit: '232', neighborhood: 'Santos Dumont', city: 'Juiz de Fora', state: 'MG', country: 'Brasil', zip_code: '34050-098', addressable_id: student.id, addressable_type: 'Student')
-        user_two = User.create!(email: 'student@student.com.br', password: 'password', role: 'student', cpf: '000.000.000-01' )
+        user_two = User.create!(email: 'student@student.com.br', password: 'password', role: 'default', cpf: '000.000.000-01' )
         #act
         login_as(user_two)
         visit(root_path)

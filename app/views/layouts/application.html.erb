@@ -70,7 +70,7 @@
               <%end%>
             </ul>
           </div>
-          <% if !current_user.student? %>
+          <% if !current_user.default? %>
             <%= render "search/form"%>
           <% end %>
           <%= link_to "Profile", edit_user_registration_path, class:"btn btn-outline-secondary mx-2" %>

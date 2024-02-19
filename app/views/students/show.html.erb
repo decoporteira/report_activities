@@ -4,7 +4,7 @@
   <%= render @student %>
 <% end %>
 <div>
-  <% if (current_user.student?)%>
+  <% if (current_user.default?)%>
     <%= link_to "Início", root_path,  class:'btn btn-outline-primary', style:"width:200px" %>
     <%= link_to 'Relatório 2023', student_path(@student, year: 2023), class:'btn btn-outline-primary', style:"width:200px" %>
   <% else %>
