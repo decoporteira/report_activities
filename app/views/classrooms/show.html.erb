@@ -19,7 +19,7 @@
           <% @students.each  do |student|%>
             <p class="card-text"></p>
             <strong><%= student.name%></strong> |  <% attendance = @attendances.find_by(student_id: student.id, attendance_date: date)%>
-            <% if attendance.presence? %>
+            <% if attendance.present? %>
               Presente
             <% else %>
               <span class='text-danger'>Ausente</span>
