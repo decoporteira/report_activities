@@ -48,7 +48,6 @@ class TeachersController < ApplicationController
     end
   end
 
-  # DELETE /teachers/1 or /teachers/1.json
   def destroy
     if current_user.admin?
       @teacher.destroy
@@ -65,15 +64,15 @@ class TeachersController < ApplicationController
   end
 
   private
-  def authorize_admin!
-    redirect_to root_path, alert: 'Access denied.' unless current_user.admin? || current_user.teacher? || current_user.accounting?
-  end
-    # Use callbacks to share common setup or constraints between actions.
+
+    def authorize_admin!
+      redirect_to root_path, alert: 'Access denied.' unless current_user.admin? || current_user.accounting?
+    end
+   
     def set_teacher
       @teacher = Teacher.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def teacher_params
       params.require(:teacher).permit(:name, :status, :cpf, :user_id, :cel_phone, :phone)
     end
