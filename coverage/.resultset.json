@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/helpers/pages_helper_spec.rb": {
+      "/home/deco/workspace/report_activities/spec/helpers/pages_helper_spec.rb": {
         "lines": [
           1,
           null,
@@ -20,7 +20,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/rails_helper.rb": {
+      "/home/deco/workspace/report_activities/spec/rails_helper.rb": {
         "lines": [
           null,
           1,
@@ -93,7 +93,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/config/environment.rb": {
+      "/home/deco/workspace/report_activities/config/environment.rb": {
         "lines": [
           null,
           1,
@@ -116,7 +116,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/config/application.rb": {
+      "/home/deco/workspace/report_activities/config/application.rb": {
         "lines": [
           1,
           null,
@@ -150,7 +150,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/config/boot.rb": {
+      "/home/deco/workspace/report_activities/config/boot.rb": {
         "lines": [
           1,
           null,
@@ -158,7 +158,7 @@
           1
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/config/environments/test.rb": {
+      "/home/deco/workspace/report_activities/config/environments/test.rb": {
         "lines": [
           1,
           null,
@@ -222,7 +222,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/config/initializers/assets.rb": {
+      "/home/deco/workspace/report_activities/config/initializers/assets.rb": {
         "lines": [
           null,
           null,
@@ -239,7 +239,7 @@
           1
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/config/initializers/content_security_policy.rb": {
+      "/home/deco/workspace/report_activities/config/initializers/content_security_policy.rb": {
         "lines": [
           null,
           null,
@@ -268,7 +268,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/config/initializers/devise.rb": {
+      "/home/deco/workspace/report_activities/config/initializers/devise.rb": {
         "lines": [
           null,
           null,
@@ -585,7 +585,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/config/initializers/filter_parameter_logging.rb": {
+      "/home/deco/workspace/report_activities/config/initializers/filter_parameter_logging.rb": {
         "lines": [
           null,
           null,
@@ -597,7 +597,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/config/initializers/inflections.rb": {
+      "/home/deco/workspace/report_activities/config/initializers/inflections.rb": {
         "lines": [
           null,
           null,
@@ -617,7 +617,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/config/initializers/locales.rb": {
+      "/home/deco/workspace/report_activities/config/initializers/locales.rb": {
         "lines": [
           null,
           1,
@@ -629,7 +629,7 @@
           1
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/config/initializers/permissions_policy.rb": {
+      "/home/deco/workspace/report_activities/config/initializers/permissions_policy.rb": {
         "lines": [
           null,
           null,
@@ -644,7 +644,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/config/initializers/rails_admin.rb": {
+      "/home/deco/workspace/report_activities/config/initializers/rails_admin.rb": {
         "lines": [
           1,
           1,
@@ -697,7 +697,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/config/initializers/sentry.rb": {
+      "/home/deco/workspace/report_activities/config/initializers/sentry.rb": {
         "lines": [
           1,
           1,
@@ -714,7 +714,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/factories/activities.rb": {
+      "/home/deco/workspace/report_activities/spec/factories/activities.rb": {
         "lines": [
           1,
           1,
@@ -726,7 +726,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/factories/addresses.rb": {
+      "/home/deco/workspace/report_activities/spec/factories/addresses.rb": {
         "lines": [
           1,
           1,
@@ -742,7 +742,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/factories/attendances.rb": {
+      "/home/deco/workspace/report_activities/spec/factories/attendances.rb": {
         "lines": [
           1,
           1,
@@ -753,7 +753,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/factories/classrooms.rb": {
+      "/home/deco/workspace/report_activities/spec/factories/classrooms.rb": {
         "lines": [
           1,
           1,
@@ -764,7 +764,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/factories/resumes.rb": {
+      "/home/deco/workspace/report_activities/spec/factories/resumes.rb": {
         "lines": [
           1,
           1,
@@ -776,7 +776,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/factories/students.rb": {
+      "/home/deco/workspace/report_activities/spec/factories/students.rb": {
         "lines": [
           1,
           1,
@@ -792,7 +792,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/app/models/student.rb": {
+      "/home/deco/workspace/report_activities/app/models/student.rb": {
         "lines": [
           1,
           null,
@@ -811,14 +811,14 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/app/models/application_record.rb": {
+      "/home/deco/workspace/report_activities/app/models/application_record.rb": {
         "lines": [
           1,
           1,
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/factories/teachers.rb": {
+      "/home/deco/workspace/report_activities/spec/factories/teachers.rb": {
         "lines": [
           1,
           1,
@@ -835,7 +835,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/app/models/teacher.rb": {
+      "/home/deco/workspace/report_activities/app/models/teacher.rb": {
         "lines": [
           1,
           1,
@@ -846,7 +846,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/factories/users.rb": {
+      "/home/deco/workspace/report_activities/spec/factories/users.rb": {
         "lines": [
           1,
           1,
@@ -865,7 +865,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/app/models/user.rb": {
+      "/home/deco/workspace/report_activities/app/models/user.rb": {
         "lines": [
           1,
           1,
@@ -883,7 +883,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/config/routes.rb": {
+      "/home/deco/workspace/report_activities/config/routes.rb": {
         "lines": [
           1,
           1,
@@ -941,61 +941,61 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/app/helpers/activities_helper.rb": {
+      "/home/deco/workspace/report_activities/app/helpers/activities_helper.rb": {
         "lines": [
           1,
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/app/helpers/application_helper.rb": {
+      "/home/deco/workspace/report_activities/app/helpers/application_helper.rb": {
         "lines": [
           1,
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/app/helpers/classrooms_helper.rb": {
+      "/home/deco/workspace/report_activities/app/helpers/classrooms_helper.rb": {
         "lines": [
           1,
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/app/helpers/home_helper.rb": {
+      "/home/deco/workspace/report_activities/app/helpers/home_helper.rb": {
         "lines": [
           1,
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/app/helpers/pages_helper.rb": {
+      "/home/deco/workspace/report_activities/app/helpers/pages_helper.rb": {
         "lines": [
           1,
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/app/helpers/search_helper.rb": {
+      "/home/deco/workspace/report_activities/app/helpers/search_helper.rb": {
         "lines": [
           1,
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/app/helpers/students_helper.rb": {
+      "/home/deco/workspace/report_activities/app/helpers/students_helper.rb": {
         "lines": [
           1,
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/app/helpers/teachers_helper.rb": {
+      "/home/deco/workspace/report_activities/app/helpers/teachers_helper.rb": {
         "lines": [
           1,
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/app/helpers/users_helper.rb": {
+      "/home/deco/workspace/report_activities/app/helpers/users_helper.rb": {
         "lines": [
           1,
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/support/devise.rb": {
+      "/home/deco/workspace/report_activities/spec/support/devise.rb": {
         "lines": [
           null,
           null,
@@ -1004,33 +1004,14 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/support/factory_bot.rb": {
+      "/home/deco/workspace/report_activities/spec/support/factory_bot.rb": {
         "lines": [
           1,
           1,
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/helpers/search_helper_spec.rb": {
-        "lines": [
-          1,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          1,
-          null,
-          null
-        ]
-      },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/helpers/users_helper_spec.rb": {
+      "/home/deco/workspace/report_activities/spec/helpers/search_helper_spec.rb": {
         "lines": [
           1,
           null,
@@ -1049,68 +1030,26 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/models/activity_spec.rb": {
+      "/home/deco/workspace/report_activities/spec/helpers/users_helper_spec.rb": {
         "lines": [
           1,
           null,
-          1,
-          1,
-          4,
           null,
-          null
-        ]
-      },
-      "/home/deco/Workspace/cartas_alunos/cartas/app/models/activity.rb": {
-        "lines": [
-          1,
-          1,
-          1,
-          1,
-          null
-        ]
-      },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/models/address_spec.rb": {
-        "lines": [
-          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
           null,
           1,
           null,
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/app/models/address.rb": {
-        "lines": [
-          1,
-          1,
-          null
-        ]
-      },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/models/attendance_spec.rb": {
-        "lines": [
-          1,
-          null,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          null,
-          4,
-          null,
-          null
-        ]
-      },
-      "/home/deco/Workspace/cartas_alunos/cartas/app/models/attendance.rb": {
-        "lines": [
-          1,
-          1,
-          null
-        ]
-      },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/models/classroom_spec.rb": {
+      "/home/deco/workspace/report_activities/spec/models/activity_spec.rb": {
         "lines": [
           1,
           null,
@@ -1121,7 +1060,68 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/app/models/classroom.rb": {
+      "/home/deco/workspace/report_activities/app/models/activity.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          null
+        ]
+      },
+      "/home/deco/workspace/report_activities/spec/models/address_spec.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          null,
+          null
+        ]
+      },
+      "/home/deco/workspace/report_activities/app/models/address.rb": {
+        "lines": [
+          1,
+          1,
+          null
+        ]
+      },
+      "/home/deco/workspace/report_activities/spec/models/attendance_spec.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          4,
+          null,
+          null
+        ]
+      },
+      "/home/deco/workspace/report_activities/app/models/attendance.rb": {
+        "lines": [
+          1,
+          1,
+          null
+        ]
+      },
+      "/home/deco/workspace/report_activities/spec/models/classroom_spec.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          4,
+          null,
+          null
+        ]
+      },
+      "/home/deco/workspace/report_activities/app/models/classroom.rb": {
         "lines": [
           1,
           1,
@@ -1134,7 +1134,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/models/resume_spec.rb": {
+      "/home/deco/workspace/report_activities/spec/models/resume_spec.rb": {
         "lines": [
           1,
           null,
@@ -1143,7 +1143,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/app/models/resume.rb": {
+      "/home/deco/workspace/report_activities/app/models/resume.rb": {
         "lines": [
           1,
           1,
@@ -1161,7 +1161,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/models/student_spec.rb": {
+      "/home/deco/workspace/report_activities/spec/models/student_spec.rb": {
         "lines": [
           1,
           null,
@@ -1172,7 +1172,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/models/teacher_spec.rb": {
+      "/home/deco/workspace/report_activities/spec/models/teacher_spec.rb": {
         "lines": [
           1,
           null,
@@ -1186,7 +1186,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/models/user_spec.rb": {
+      "/home/deco/workspace/report_activities/spec/models/user_spec.rb": {
         "lines": [
           1,
           null,
@@ -1195,7 +1195,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/requests/teacher_spec.rb": {
+      "/home/deco/workspace/report_activities/spec/requests/teacher_spec.rb": {
         "lines": [
           1,
           null,
@@ -1204,7 +1204,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/requests/users_spec.rb": {
+      "/home/deco/workspace/report_activities/spec/requests/users_spec.rb": {
         "lines": [
           1,
           null,
@@ -1214,71 +1214,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/system/activity/teacher_create_activity_spec.rb": {
-        "lines": [
-          1,
-          null,
-          1,
-          1,
-          null,
-          1,
-          1,
-          1,
-          null,
-          1,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          1,
-          1,
-          1,
-          null,
-          null,
-          null,
-          1,
-          null,
-          1,
-          1,
-          1,
-          1,
-          null,
-          1,
-          1,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          null,
-          null
-        ]
-      },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/system/address/user_creates_address_spec.rb": {
+      "/home/deco/workspace/report_activities/spec/system/activity/teacher_create_activity_spec.rb": {
         "lines": [
           1,
           null,
@@ -1290,6 +1226,38 @@
           1,
           null,
           1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
           null,
           null,
           1,
@@ -1298,16 +1266,10 @@
           1,
           1,
           1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
           null,
           null,
+          1,
+          1,
           1,
           1,
           1,
@@ -1316,7 +1278,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/system/address/user_edit_address_spec.rb": {
+      "/home/deco/workspace/report_activities/spec/system/address/user_creates_address_spec.rb": {
         "lines": [
           1,
           null,
@@ -1326,14 +1288,7 @@
           1,
           1,
           1,
-          1,
-          1,
           null,
-          1,
-          1,
-          1,
-          1,
-          1,
           1,
           null,
           null,
@@ -1343,6 +1298,16 @@
           1,
           1,
           1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
           1,
           1,
           1,
@@ -1351,7 +1316,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/system/address/user_view_address_spec.rb": {
+      "/home/deco/workspace/report_activities/spec/system/address/user_edit_address_spec.rb": {
         "lines": [
           1,
           null,
@@ -1367,6 +1332,41 @@
           1,
           1,
           1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null
+        ]
+      },
+      "/home/deco/workspace/report_activities/spec/system/address/user_view_address_spec.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
           null,
           null,
           1,
@@ -1425,7 +1425,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/system/attendence/teacher_see_attendece_spec.rb": {
+      "/home/deco/workspace/report_activities/spec/system/attendence/teacher_see_attendece_spec.rb": {
         "lines": [
           1,
           null,
@@ -1483,7 +1483,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/system/classrooms/user_creates_classroom_spec.rb": {
+      "/home/deco/workspace/report_activities/spec/system/classrooms/user_creates_classroom_spec.rb": {
         "lines": [
           null,
           null,
@@ -1624,171 +1624,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/system/home/user_see_students_spec.rb": {
-        "lines": [
-          1,
-          null,
-          1,
-          1,
-          null,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          1,
-          null,
-          null,
-          1,
-          null,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          1,
-          null,
-          null,
-          1,
-          null,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          1,
-          null,
-          null
-        ]
-      },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/system/home/user_see_total_students_spec.rb": {
-        "lines": [
-          1,
-          null,
-          1,
-          1,
-          null,
-          1,
-          1,
-          1,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          null,
-          null,
-          1,
-          null,
-          null,
-          1,
-          null,
-          1,
-          1,
-          1,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          null,
-          null,
-          1,
-          null,
-          null,
-          1,
-          null,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          null,
-          1,
-          1,
-          null,
-          null,
-          1,
-          null,
-          null
-        ]
-      },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/system/students/teacher_view_list_students_spec.rb": {
-        "lines": [
-          1,
-          null,
-          1,
-          null,
-          null,
-          1,
-          null,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          null,
-          null,
-          null,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          null,
-          null
-        ]
-      },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/system/students/user_access_students_spec.rb": {
+      "/home/deco/workspace/report_activities/spec/system/home/user_see_students_spec.rb": {
         "lines": [
           1,
           null,
@@ -1808,6 +1644,170 @@
           1,
           1,
           null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null
+        ]
+      },
+      "/home/deco/workspace/report_activities/spec/system/home/user_see_total_students_spec.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          null,
+          null,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          null,
+          null,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          null,
+          null
+        ]
+      },
+      "/home/deco/workspace/report_activities/spec/system/students/teacher_view_list_students_spec.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          null,
+          null,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null
+        ]
+      },
+      "/home/deco/workspace/report_activities/spec/system/students/user_access_students_spec.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
           1,
           1,
           null,
@@ -1835,7 +1835,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/system/students/user_creates_student_spec.rb": {
+      "/home/deco/workspace/report_activities/spec/system/students/user_creates_student_spec.rb": {
         "lines": [
           1,
           null,
@@ -1921,7 +1921,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/system/students/user_edit_students_spec.rb": {
+      "/home/deco/workspace/report_activities/spec/system/students/user_edit_students_spec.rb": {
         "lines": [
           1,
           null,
@@ -2021,40 +2021,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/system/students/user_view_details_student_spec.rb": {
-        "lines": [
-          1,
-          null,
-          1,
-          null,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          1,
-          1,
-          1,
-          null,
-          null,
-          null
-        ]
-      },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/system/students/user_view_list_students_spec.rb": {
+      "/home/deco/workspace/report_activities/spec/system/students/user_view_details_student_spec.rb": {
         "lines": [
           1,
           null,
@@ -2084,6 +2051,39 @@
           1,
           null,
           null,
+          null
+        ]
+      },
+      "/home/deco/workspace/report_activities/spec/system/students/user_view_list_students_spec.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
           1,
           1,
           1,
@@ -2113,7 +2113,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/system/teachers/user_creates_teacher_spec.rb": {
+      "/home/deco/workspace/report_activities/spec/system/teachers/user_creates_teacher_spec.rb": {
         "lines": [
           1,
           null,
@@ -2283,7 +2283,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/views/pages/home.html.erb_spec.rb": {
+      "/home/deco/workspace/report_activities/spec/views/pages/home.html.erb_spec.rb": {
         "lines": [
           1,
           null,
@@ -2292,7 +2292,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/views/search/index.html.erb_spec.rb": {
+      "/home/deco/workspace/report_activities/spec/views/search/index.html.erb_spec.rb": {
         "lines": [
           1,
           null,
@@ -2301,7 +2301,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/spec/views/users/index.html.erb_spec.rb": {
+      "/home/deco/workspace/report_activities/spec/views/users/index.html.erb_spec.rb": {
         "lines": [
           1,
           null,
@@ -2310,7 +2310,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/app/controllers/home_controller.rb": {
+      "/home/deco/workspace/report_activities/app/controllers/home_controller.rb": {
         "lines": [
           1,
           1,
@@ -2333,7 +2333,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/app/controllers/application_controller.rb": {
+      "/home/deco/workspace/report_activities/app/controllers/application_controller.rb": {
         "lines": [
           1,
           1,
@@ -2356,7 +2356,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/app/controllers/classrooms_controller.rb": {
+      "/home/deco/workspace/report_activities/app/controllers/classrooms_controller.rb": {
         "lines": [
           null,
           null,
@@ -2459,7 +2459,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/app/controllers/students_controller.rb": {
+      "/home/deco/workspace/report_activities/app/controllers/students_controller.rb": {
         "lines": [
           1,
           1,
@@ -2486,10 +2486,10 @@
           null,
           null,
           3,
-          1,
-          1,
+          0,
+          0,
           null,
-          2,
+          3,
           null,
           null,
           null,
@@ -2615,7 +2615,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/app/controllers/addresses_controller.rb": {
+      "/home/deco/workspace/report_activities/app/controllers/addresses_controller.rb": {
         "lines": [
           1,
           1,
@@ -2730,7 +2730,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/app/controllers/attendances_controller.rb": {
+      "/home/deco/workspace/report_activities/app/controllers/attendances_controller.rb": {
         "lines": [
           1,
           null,
@@ -2762,7 +2762,7 @@
           null
         ]
       },
-      "/home/deco/Workspace/cartas_alunos/cartas/app/controllers/teachers_controller.rb": {
+      "/home/deco/workspace/report_activities/app/controllers/teachers_controller.rb": {
         "lines": [
           1,
           1,
@@ -2846,6 +2846,6 @@
         ]
       }
     },
-    "timestamp": 1708371789
+    "timestamp": 1708460776
   }
 }
