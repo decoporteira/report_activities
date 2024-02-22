@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Controla o ciclo de vida de Classrooms
 class ClassroomsController < ApplicationController
   before_action :set_classroom, only: %i[show edit update destroy activities_by_date]
   before_action :set_info
@@ -28,8 +29,7 @@ class ClassroomsController < ApplicationController
   def create_activity
     students = Student.where(classroom_id: params[:classroom_id], status: 'Matriculado')
     students.each do |student|
-      Activity.create!(student_id: student.id, report: params[:report], date: params[:date], late: params[:late])
-      Attendance.find_or_create_by!(student_id: student.id, attendance_date: params[:date], presence: true)
+      create_activity_and_attendance(student)
     end
     redirect_to request.referer, notice: 'Atividades criadas...'
   end
@@ -54,7 +54,7 @@ class ClassroomsController < ApplicationController
         format.html { redirect_to classroom_url(@classroom), notice: 'Classroom was successfully updated.' }
         format.json { render :show, status: :ok, location: @classroom }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_entity, notice: 'Erro ao criar a sala.' }
         format.json { render json: @classroom.errors, status: :unprocessable_entity }
       end
     end
@@ -99,5 +99,9 @@ class ClassroomsController < ApplicationController
   def set_students
     @students = Student.where(classroom_id: params[:id], status: 'Matriculado')
   end
-  
+
+  def create_activity_and_attendance(student)
+    Activity.create!(student_id: student.id, report: params[:report], date: params[:date], late: params[:late])
+    Attendance.find_or_create_by!(student_id: student.id, attendance_date: params[:date], presence: true)
+  end
 end

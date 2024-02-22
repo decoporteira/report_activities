@@ -59,6 +59,8 @@ group :development, :test do
 
   gem 'capybara'
   gem 'factory_bot_rails'
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
 end
 
 group :development do
@@ -82,6 +84,7 @@ group :test do
 
   gem 'selenium-webdriver'
   gem 'webdrivers'
+  gem 'simplecov', require: false, group: :test
 end
 
 gem 'ed25519', '~> 1.3'
@@ -94,9 +97,7 @@ gem 'rails_admin', '~> 3.1', '>= 3.1.2'
 gem 'rbnacl', '~> 7.1', '>= 7.1.1',
     require: false
 gem 'rbnacl-libsodium', require: false
-gem 'rubocop-rails',
-    require: false
 
 gem 'sentry-rails'
 gem 'sentry-ruby'
-gem 'simplecov', require: false, group: :test
+

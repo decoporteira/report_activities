@@ -2,26 +2,13 @@ class StudentsController < ApplicationController
   before_action :cant_see, only: [:show]
   before_action :is_admin?, except: [:show]
   before_action :set_student, only: %i[show edit update destroy info show_2023 activities_by_student]
-  before_action :get_info
-
-  def create_student(name, classroom_id)
-    Student.find_or_create_by!(name:, status: 1, classroom_id:)
-  end
-
-  def create_activity(student_id, report, date)
-    date += '/2023'
-    Activity.create!(student_id:, report:, date:, late: 0)
-  end
+  before_action :set_info
 
   def index
     @students = Student.all
   end
 
   def show
-    if current_user.default? && @student.cpf != current_user.cpf
-      return redirect_to root_path, alert: 'Você não possui acesso a esse aluno.'
-    end
-
     if params[:year].to_i == 2023
       @activities = @student.activities.where('date <= ?', Date.new(2023, 12, 31)).order(:date)
       @resume = @student.resumes.first
@@ -37,22 +24,6 @@ class StudentsController < ApplicationController
     @number_of_days = @dates_with_actitivies.uniq.length
     @number_of_absence = @student.attendances.where(presence: false).where('attendance_date >= ?',
                                                                            Date.new(2024, 1, 1)).length
-    @attendance_rate = @number_of_days
-  end
-
-  def show_2023
-    if current_user.default? && @student.cpf != current_user.cpf
-      return redirect_to root_path, alert: 'Você não possui acesso a esse aluno.'
-    end
-
-    @activities = @student.activities.sort_by(&:date)
-    @dates_with_actitivies = []
-    @activities.each do |activity|
-      @dates_with_actitivies << activity.date
-    end
-    @number_of_days = @dates_with_actitivies.uniq.length
-
-    @number_of_absence = @student.attendances.where(presence: false).length
     @attendance_rate = @number_of_days
   end
 
@@ -123,7 +94,7 @@ class StudentsController < ApplicationController
 
   private
 
-  def get_info
+  def set_info
     @activities = Activity.where(student_id: params[:id])
   end
 
@@ -140,7 +111,7 @@ class StudentsController < ApplicationController
     return unless current_user.default?
     return if current_user.cpf == @student.cpf && @student.cpf != '' && !@student.cpf.nil?
 
-    redirect_to root_path, alert: 'Você não possui acesso.'
+    redirect_to root_path, alert: 'Você não possui acesso a esse aluno.'
   end
 
   def is_admin?

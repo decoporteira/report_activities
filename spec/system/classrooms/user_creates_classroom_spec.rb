@@ -25,7 +25,26 @@ RSpec.describe 'Tipo de usuário cria uma turma' do
       expect(page).to have_content('Turma Sala de Aula')
       expect(page).to have_content('Carvalho | 16:00')
     end
-    it 'como user Admin accounting' do
+    it 'e falha' do
+        # arrange
+        user = User.create!(email: 'admin@email.com.br', password: 'password', role: 'admin')
+        teacher = User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
+        Teacher.create!(name: 'Carvalho', cpf: '000.000.000-01', user: teacher, status: 'disponível')
+  
+        # act
+        login_as(user)
+        visit(new_classroom_path)
+        fill_in 'Nome', with: ''
+        fill_in 'Horário', with: '16:00'
+        select 'Carvalho', from: 'classroom_teacher_id'
+        click_on 'Criar Turma'
+  
+        # assert
+        expect(Classroom.count).to eq 0
+        expect(page).to have_content('Nome não pode ficar em branco')
+        #expect(current_path).to eq new_classroom_path
+      end
+    it 'como user accounting' do
       # arrange
       accounting = User.create!(email: 'admin@email.com.br', password: 'password', role: 'accounting')
       teacher = User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')

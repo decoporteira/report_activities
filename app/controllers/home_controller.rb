@@ -1,19 +1,18 @@
 class HomeController < ApplicationController
-  before_action :get_students
-  before_action :get_classrooms
-  before_action :get_activities
+  before_action :set_students
+  before_action :set_classrooms
+  before_action :set_activities
 
-  def get_students
+  def set_students
     @students = Student.where(status: 'Matriculado')
     @total_students = @students.count
   end
 
-  def get_classrooms
+  def set_classrooms
     @classrooms = Classroom.all
   end
 
-  def get_activities
+  def set_activities
     @activities = Activity.all
   end
-
 end

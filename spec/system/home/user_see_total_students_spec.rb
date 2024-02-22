@@ -33,7 +33,7 @@ RSpec.describe 'User vê total de alunos' do
         expect(page).to_not have_content('Total de alunos matriculados: 1')
    end
 
-   it 'logado como teacher' do
+   it 'logado como default' do
     #arrange
     teacher = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher' )
     teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: teacher.id, cpf: '087.097.098-01' )

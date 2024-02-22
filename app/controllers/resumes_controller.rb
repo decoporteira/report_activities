@@ -4,14 +4,13 @@ class ResumesController < ApplicationController
   before_action :authorize_admin!
 
   def new
-      @resume = Resume.new
+    @resume = Resume.new
   end
 
   def index
-    @student
     @resumes = Resume.where(student_id: @student)
   end
-  
+
   def show
   end
 
@@ -44,7 +43,7 @@ class ResumesController < ApplicationController
       end
     end
   end
- 
+
   private
 
   def set_student

@@ -4,12 +4,15 @@ class UsersController < ApplicationController
   def index
     @users = User.all
   end
+
   def show
     @user = User.find_by_id(params[:id])
   end
-    def edit
-  end
+
+  def edit; end
+
   private
+
   def authorize_admin!
     redirect_to root_path, alert: 'Access denied.' unless current_user.admin?
   end

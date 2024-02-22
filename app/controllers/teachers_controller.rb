@@ -59,21 +59,21 @@ class TeachersController < ApplicationController
       redirect_to root_path, alert: 'Você não tem permissão.'
     end
   end
-   
+
   def info
   end
 
   private
 
-    def authorize_admin!
-      redirect_to root_path, alert: 'Access denied.' unless current_user.admin? || current_user.accounting?
-    end
-   
-    def set_teacher
-      @teacher = Teacher.find(params[:id])
-    end
+  def authorize_admin!
+    redirect_to root_path, alert: 'Access denied.' unless current_user.admin? || current_user.accounting?
+  end
 
-    def teacher_params
-      params.require(:teacher).permit(:name, :status, :cpf, :user_id, :cel_phone, :phone)
-    end
+  def set_teacher
+    @teacher = Teacher.find(params[:id])
+  end
+
+  def teacher_params
+    params.require(:teacher).permit(:name, :status, :cpf, :user_id, :cel_phone, :phone)
+  end
 end
