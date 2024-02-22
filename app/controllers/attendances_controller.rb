@@ -12,11 +12,12 @@ class AttendancesController < ApplicationController
         attendance_record = Attendance.find_or_initialize_by(student_id: student.id, attendance_date: params[:items][:date])
         if params[:items][:presence] == 'true'
             attendance_record.update(presence: false)
+            redirect_to classroom_path(classroom), notice: "Presença marcada como Ausente."
         else
             attendance_record.update(presence: true)
+            redirect_to classroom_path(classroom), notice: "Presença marcada como Presente."
         end
-        attendance_record.save!
-        redirect_to classroom_path(classroom), notice: "Presença marcada como Ausente."
+        
 
     end
 

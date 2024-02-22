@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'User cria uma student' do
+RSpec.describe 'Teacher ve lista de presença' do
     it 'a partir do menu' do
         #arrange
         user = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin' )

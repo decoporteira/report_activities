@@ -1,15 +1,9 @@
 <h2>Turma <%= @classroom.name%></h2>
 <h4 class="text-secondary"><%= @classroom.teacher.name%> | <%= @classroom.time%></h4>
 <br />
-<%= render "create_activity" %> <% render @classroom %>
+<%= render "create_activity" %> 
 <div>
-  <% activities_organized = @activities.sort_by(&:date)%>
-  <% dates=[]%>
-  <% activities_organized.each do |activity| %>
-    <% dates << activity.date%>
-  <%end%>
-  <% dates = dates.reverse%>
-  <% dates.uniq.each do |date|%>
+  <% @dates.uniq.each do |date|%>
     <div class="col mb-4" id="<%= date %>">
       <div class="card shadow-sm">
         <div class="card-header py-1">
@@ -17,39 +11,30 @@
         </div>
         <div class="card-body">
           <% @students.each  do |student|%>
-            <p class="card-text"></p>
             <strong><%= student.name%></strong> |  <% attendance = @attendances.find_by(student_id: student.id, attendance_date: date)%>
-            <% if attendance.presence %>
-              Presente
-            <% else %>
-              <span class='text-danger'>Ausente</span>
-            <% end %>
+            <%= attendance.presence ? 'Presente' : "<span class='text-danger'>Ausente</span>".html_safe %>
             <br/>
             <% @activities.where(student_id: student.id, date: date).each do |activity|%>
-              <ul>
-                <% if (activity.late == 'feito')%>
-                  <li>
-                    <%=activity.report %> <span style="color:blue;font-size:14px">(<%=activity.late %>)</span>
-                    <%= link_to "Editar", edit_activity_path(activity), class:"btn btn-outline-secondary btn-sm ms-3"%> | 
-                    <%= link_to 'Atrasado', update_late_activity_path(:items =>{:activity_id => activity.id, late: 'entregue com atraso'} ), data: { "turbo-method": :patch }, remote: true, class:"btn btn-outline-warning btn-sm" %> | 
-                    <%= link_to 'Não fez', update_late_activity_path(:items =>{:activity_id => activity.id, late: 'não fez'} ), data: { "turbo-method": :patch }, remote: true, class:"btn btn-outline-danger btn-sm" %>
-                  </li>
-                <% elsif (activity.late == 'entregue com atraso')%>
-                  <li><%=activity.report %> <span style="color:orange;font-size:14px">(<%=activity.late %>)</span>
-                    <%= link_to "Editar", edit_activity_path(activity), class:"btn btn-outline-secondary btn-sm ms-3"%> | 
-                    <%= link_to 'Feito', update_late_activity_path(:items =>{:activity_id => activity.id, late: 'feito'} ), data: { "turbo-method": :patch }, remote: true, class:"btn btn-outline-primary btn-sm" %> | 
-                    <%= link_to 'Não fez', update_late_activity_path(:items =>{:activity_id => activity.id, late: 'não fez'} ), data: { "turbo-method": :patch }, remote: true, class:"btn btn-outline-danger btn-sm" %>
-                  </li>
-                <%else%>
-                  <li><%=activity.report %> <span style="color:red;font-size:14px">(<%=activity.late %>)</span>
-                    <%= link_to "Editar", edit_activity_path(activity), class:"btn btn-outline-secondary btn-sm ms-3"%> | 
-                    <%= link_to 'Feito', update_late_activity_path(:items =>{:activity_id => activity.id, late: 'feito'} ), data: { "turbo-method": :patch }, remote: true, class:"btn btn-outline-primary btn-sm" %> | 
-                    <%= link_to 'Atrasado', update_late_activity_path(:items =>{:activity_id => activity.id, late: 'entregue com atraso'} ), data: { "turbo-method": :patch }, remote: true, class:"btn btn-outline-warning btn-sm" %>
-                  </li>
-                <% end %>
+              <ul> 
+                <li>
+                  <%= activity.report %> 
+                  <% late_color = case activity.late
+                                  when 'feito'
+                                    'blue'
+                                  when 'entregue com atraso'
+                                    'orange'
+                                  else
+                                    'red'
+                                  end %>
+                  <span style="color: <%= late_color %>; font-size: 14px;">(<%= activity.late %>)</span>
+                  <%= link_to 'Feito', update_late_activity_path(:items =>{:activity_id => activity.id, late: 'feito'} ), data: { "turbo-method": :patch }, remote: true, class:"btn btn-outline-primary btn-sm" %> |
+                  <%= link_to 'Atrasado', update_late_activity_path(:items =>{:activity_id => activity.id, late: 'entregue com atraso'} ), data: { "turbo-method": :patch }, remote: true, class:"btn btn-outline-warning btn-sm" %> | 
+                  <%= link_to 'Não fez', update_late_activity_path(:items =>{:activity_id => activity.id, late: 'não fez'} ), data: { "turbo-method": :patch }, remote: true, class:"btn btn-outline-danger btn-sm" %>
+                  <%= link_to "Editar", edit_activity_path(activity), class:"btn btn-outline-secondary btn-sm ms-3"%> 
+                </li>
               </ul>
             <%end%>
-            <%= link_to 'Marcar como Ausente/Presente', update_attendance_attendance_path(:items =>{:student_id => student.id, :date => date, :presence => attendance.presence,} ), data: { "turbo-method": :patch }, remote: true %>
+            <%= link_to "Marcar como #{attendance.presence ? 'Ausente' : 'Presente'}", update_attendance_attendance_path(:items =>{:student_id => student.id, :date => date, :presence => attendance.presence,} ), data: { "turbo-method": :patch }, remote: true %>
           <%end%>
         </div>
       </div>
@@ -61,6 +46,6 @@
 	classrooms" , classrooms_path, class:'btn btn-outline-primary',
 	style:"width:200px" %>
   <% if current_user.admin?%>
-    <%= button_to "Destroy this classroom" , @classroom,method: :delete,  form: { data: { turbo_confirm: 'Are you sure?' } }, class:'btn btn-outline-danger mt-4', style:"width:200px" %>
+    <% button_to "Destroy this classroom" , @classroom,method: :delete,  form: { data: { turbo_confirm: 'Are you sure?' } }, class:'btn btn-outline-danger mt-4', style:"width:200px" %>
   <% end %>
 </div>

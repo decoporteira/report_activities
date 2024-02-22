@@ -14,6 +14,9 @@ class ClassroomsController < ApplicationController
   def show
     @classroom = Classroom.find(params[:id])
     @attendances = Attendance.all
+    activities_organized = @activities.sort_by(&:date)
+    dates = activities_organized.map(&:date)
+    @dates = dates.reverse
   end
 
   def new
@@ -96,4 +99,5 @@ class ClassroomsController < ApplicationController
   def set_students
     @students = Student.where(classroom_id: params[:id], status: 'Matriculado')
   end
+  
 end
