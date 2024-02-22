@@ -35,7 +35,7 @@
               </ul>
             <%end%>
             <%= link_to "Marcar como #{attendance.presence ? 'Ausente' : 'Presente'}", update_attendance_attendance_path(:items =>{:student_id => student.id, :date => date, :presence => attendance.presence,} ), data: { "turbo-method": :patch }, remote: true %>
-          <%end%>
+          <br><br><%end%>
         </div>
       </div>
     </div>
