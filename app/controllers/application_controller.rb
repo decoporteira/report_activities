@@ -3,16 +3,16 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-def set_query
-  @q = Student.ransack(params[:q])
-  @student = @q.result(distinct: true)
-end
+  def set_query
+    @q = Student.ransack(params[:q])
+    @student = @q.result(distinct: true)
+  end
 
-protected
+  protected
 
-def configure_permitted_parameters
-# User Update parameters.
-  devise_parameter_sanitizer.permit(:sign_up, keys: [:cpf])
-  devise_parameter_sanitizer.permit(:account_update, keys: [:cpf])
-end
+  def configure_permitted_parameters
+    # User Update parameters.
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:cpf])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:cpf])
+  end
 end

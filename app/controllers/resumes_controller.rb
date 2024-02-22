@@ -1,6 +1,6 @@
 class ResumesController < ApplicationController
   before_action :set_student
-  before_action :set_resume, only: [:show, :edit, :update]
+  before_action :set_resume, only: %i[show edit update]
   before_action :authorize_admin!
 
   def new
@@ -11,18 +11,16 @@ class ResumesController < ApplicationController
     @resumes = Resume.where(student_id: @student)
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @resume = Resume.new(resume_params)
     @resume.student_id = @student.id
     respond_to do |format|
       if @resume.save
-        format.html { redirect_to @student, notice: "Resume was successfully created." }
+        format.html { redirect_to @student, notice: 'Resume was successfully created.' }
         format.json { render :show, status: :created, location: @resume }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -35,7 +33,7 @@ class ResumesController < ApplicationController
   def update
     respond_to do |format|
       if @resume.update(resume_params)
-        format.html { redirect_to @student, notice: "Resume was successfully created." }
+        format.html { redirect_to @student, notice: 'Resume was successfully created.' }
         format.json { render :show, status: :created, location: @resume }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -59,6 +57,9 @@ class ResumesController < ApplicationController
   end
 
   def authorize_admin!
-    redirect_to root_path, alert: 'Access denied.' unless current_user.admin? || current_user.accounting? || current_user.teacher?
+    return if current_user.admin? || current_user.accounting? || current_user.teacher?
+
+    redirect_to root_path,
+                alert: 'Access denied.'
   end
 end

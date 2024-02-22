@@ -1,6 +1,5 @@
 class CsvImportService
   require 'csv'
 
-  def call(file)
-  end 
+  def call(file); end
 end

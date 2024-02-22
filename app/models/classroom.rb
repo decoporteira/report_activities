@@ -1,7 +1,7 @@
 class Classroom < ApplicationRecord
   belongs_to :teacher
   has_many :students, dependent: :destroy
-  validates_presence_of :name, :time, :teacher_id
+  validates :name, :time, :teacher_id, presence: true
 
   def name_with_teacher_name
     "#{name} - #{teacher.name}"

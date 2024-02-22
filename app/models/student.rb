@@ -2,14 +2,14 @@ class Student < ApplicationRecord
   # before_destroy :destroy_activities
   has_many :activities, dependent: :destroy
   belongs_to :classroom
-  has_many  :resumes
-  has_many :attendances
-  has_many :addresses, as: :addressable
+  has_many :resumes, dependent: :destroy
+  has_many :attendances, dependent: :destroy
+  has_many :addresses, as: :addressable, dependent: :destroy
   enum status: { 'Matriculado': 1, 'Não matriculado': 2 }
-  validates_uniqueness_of :name, scope: :classroom
-  validates_presence_of :name, :status, :classroom_id
+  validates :name, uniqueness: { scope: :classroom }
+  validates :name, :status, :classroom_id, presence: true
 
-  def self.ransackable_attributes(auth_object = nil)
-    ["classroom_id", "created_at", "id", "name", "status", "updated_at", "activities", "classroom"]
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[classroom_id created_at id name status updated_at activities classroom]
   end
 end

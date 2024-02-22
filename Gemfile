@@ -83,8 +83,8 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
 
   gem 'selenium-webdriver'
-  gem 'webdrivers'
   gem 'simplecov', require: false, group: :test
+  gem 'webdrivers'
 end
 
 gem 'ed25519', '~> 1.3'
@@ -100,4 +100,3 @@ gem 'rbnacl-libsodium', require: false
 
 gem 'sentry-rails'
 gem 'sentry-ruby'
-

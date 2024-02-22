@@ -1,5 +1,5 @@
 class TeachersController < ApplicationController
-  before_action :set_teacher, only: %i[ show edit update destroy info ]
+  before_action :set_teacher, only: %i[show edit update destroy info]
   before_action :authorize_admin!
 
   # GET /teachers or /teachers.json
@@ -8,8 +8,7 @@ class TeachersController < ApplicationController
   end
 
   # GET /teachers/1 or /teachers/1.json
-  def show
-  end
+  def show; end
 
   # GET /teachers/new
   def new
@@ -17,8 +16,7 @@ class TeachersController < ApplicationController
   end
 
   # GET /teachers/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /teachers or /teachers.json
   def create
@@ -26,7 +24,7 @@ class TeachersController < ApplicationController
 
     respond_to do |format|
       if @teacher.save
-        format.html { redirect_to teacher_url(@teacher), notice: "Teacher was successfully created." }
+        format.html { redirect_to teacher_url(@teacher), notice: 'Teacher was successfully created.' }
         format.json { render :show, status: :created, location: @teacher }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +37,7 @@ class TeachersController < ApplicationController
   def update
     respond_to do |format|
       if @teacher.update(teacher_params)
-        format.html { redirect_to teacher_url(@teacher), notice: "Teacher was successfully updated." }
+        format.html { redirect_to teacher_url(@teacher), notice: 'Teacher was successfully updated.' }
         format.json { render :show, status: :ok, location: @teacher }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +50,7 @@ class TeachersController < ApplicationController
     if current_user.admin?
       @teacher.destroy
       respond_to do |format|
-        format.html { redirect_to teachers_url, notice: "Teacher was successfully destroyed." }
+        format.html { redirect_to teachers_url, notice: 'Teacher was successfully destroyed.' }
         format.json { head :no_content }
       end
     else
@@ -60,8 +58,7 @@ class TeachersController < ApplicationController
     end
   end
 
-  def info
-  end
+  def info; end
 
   private
 
