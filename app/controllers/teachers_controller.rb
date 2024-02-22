@@ -47,14 +47,12 @@ class TeachersController < ApplicationController
   end
 
   def destroy
-    if current_user.admin?
-      @teacher.destroy
-      respond_to do |format|
-        format.html { redirect_to teachers_url, notice: 'Teacher was successfully destroyed.' }
-        format.json { head :no_content }
-      end
-    else
-      redirect_to root_path, alert: 'Você não tem permissão.'
+    return unless current_user.admin?
+
+    @teacher.destroy
+    respond_to do |format|
+      format.html { redirect_to teachers_url, notice: 'Teacher was successfully destroyed.' }
+      format.json { head :no_content }
     end
   end
 

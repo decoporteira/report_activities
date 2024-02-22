@@ -26,7 +26,28 @@ RSpec.describe 'Tipo de usuário cria uma student' do
       expect(page).to have_content('Status: disponível')
       expect(page).to have_content('CPF: 000.000.000-01')
     end
-    it 'accounting a partir do menu e falha pois não tem permissão' do
+
+    it 'Admin a partir do menu com e falha' do
+      # arrange
+      user = User.create!(email: 'admin@email.com.br', password: 'password', role: 'admin')
+      User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
+
+      # act
+      login_as(user)
+      visit(root_path)
+      click_on 'Teachers'
+      click_on 'New teacher'
+      fill_in 'Nome', with: ''
+      fill_in 'cpf', with: '000.000.000-01'
+      select 'teacher@email.com.br', from: 'Usuário'
+      select 'Disponível', from: 'Disponibilidade'
+      click_on 'Criar Professor(a)'
+
+      # assert
+      expect(page).to have_content('Nome não pode ficar em branco')
+    end
+
+    it 'accounting a partir do menu' do
       # arrange
       accounting = User.create!(email: 'admin@email.com.br', password: 'password', role: 'accounting')
       teacher = User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
@@ -50,6 +71,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
       expect(page).to have_content('Status: disponível')
       expect(page).to have_content('CPF: 000.000.000-01')
     end
+
     it 'teacher a partir do menu e falha pois não tem permissão' do
       # arrange
       # arrange
@@ -64,6 +86,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
       expect(page).not_to have_content('Teachers')
       expect(page).not_to have_content('New Teacher')
     end
+
     it 'Default a partir do menu e falha pois não tem permissão' do
       # arrange
       user = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
@@ -104,6 +127,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
       expect(page).to have_content('Status: disponível')
       expect(page).to have_content('CPF: 000.000.000-01')
     end
+
     it 'Accounting direto pelo link de edição' do
       # arrange
       user = User.create!(email: 'admin@email.com.br', password: 'password', role: 'accounting')
@@ -127,6 +151,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
       expect(page).to have_content('Status: disponível')
       expect(page).to have_content('CPF: 000.000.000-01')
     end
+
     it 'teacher a partir do menu e falha pois não tem permissão' do
       # arrange
       # arrange
@@ -143,6 +168,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
       expect(page).not_to have_content('Teachers')
       expect(page).not_to have_content('New Teacher')
     end
+
     it 'Default a partir do menu e falha pois não tem permissão' do
       # arrange
       user = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
