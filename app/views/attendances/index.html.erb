@@ -1,4 +1,23 @@
 <h1>Lista de Presenças</h1>
-<% @students.each do |student|%>
-  <%= link_to student.name, attendance_path(student.id), class: "nav-link"  %>
-<% end %>
+  <div class="table-responsive small">
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <th scope="col">Nome</th>
+          <th scope="col">Turma</th>
+          <th scope="col">Professor</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @students.each do |student|%>
+          <tr>
+            <td><%= link_to student.name, attendance_path(student) %></td>
+            <td><%= student.classroom.name %></td>
+            <td><%= student.classroom.teacher.name %></td>
+            <td><%= student.status %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+</div>
