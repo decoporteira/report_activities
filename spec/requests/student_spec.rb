@@ -78,7 +78,7 @@ RSpec.describe 'Students', type: :request do
       login_as(user)
       patch(student_path(student), params: { student: { name: 'Venossaur' } })
 
-      expect(response).to redirect_to info_student_path(student)
+      expect(response).to redirect_to student_path(student)
       expect(student.reload.name).to eq 'Venossaur'
     end
 

@@ -22,7 +22,6 @@ Rails.application.routes.draw do
   
   resources :classrooms
   resources :teachers do 
-    get 'info', on: :member
     resources :addresses, only: [:new, :create, :show, :edit, :update]
   end
   resources :users
@@ -37,7 +36,7 @@ Rails.application.routes.draw do
       get 'not_registered'
     end
     get 'activities_by_student', on: :member
-    get 'info', on: :member
+    get 'report', on: :member
     resources :resumes, only: [:new, :create, :index, :show, :edit, :update]
     resources :addresses, only: [:new, :create, :show, :edit, :update]
     

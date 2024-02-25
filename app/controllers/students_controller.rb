@@ -1,7 +1,7 @@
 class StudentsController < ApplicationController
-  before_action :cant_see, only: [:show]
-  before_action :is_admin?, except: [:show]
-  before_action :set_student, only: %i[show edit update destroy info show_2023 activities_by_student]
+  before_action :cant_see, only: [:report]
+  before_action :is_admin?, except: [:report]
+  before_action :set_student, only: %i[show edit update destroy info report activities_by_student]
   before_action :set_info
 
   def index
@@ -9,22 +9,9 @@ class StudentsController < ApplicationController
   end
 
   def show
-    if params[:year].to_i == 2023
-      @activities = @student.activities.where('date <= ?', Date.new(2023, 12, 31)).order(:date)
-      @resume = @student.resumes.first
-    else
-      @activities = @student.activities.where('date >= ?', Date.new(2024, 1, 1)).order(:date)
-      @resume
-    end
+    return unless current_user.default?
 
-    @dates_with_actitivies = []
-    @activities.each do |activity|
-      @dates_with_actitivies << activity.date
-    end
-    @number_of_days = @dates_with_actitivies.uniq.length
-    @number_of_absence = @student.attendances.where(presence: false).where('attendance_date >= ?',
-                                                                           Date.new(2024, 1, 1)).length
-    @attendance_rate = @number_of_days
+    redirect_to root_path, alert: 'Você não possui acesso a esse aluno.'
   end
 
   def new
@@ -42,7 +29,7 @@ class StudentsController < ApplicationController
       @student = Student.new(student_params)
       respond_to do |format|
         if @student.save
-          format.html { redirect_to info_student_path(@student), notice: 'Student was successfully created.' }
+          format.html { redirect_to student_path(@student), notice: 'Student was successfully created.' }
           format.json { render :show, status: :created, location: @student }
         else
           format.html do
@@ -60,7 +47,7 @@ class StudentsController < ApplicationController
   def update
     respond_to do |format|
       if @student.update(student_params)
-        format.html { redirect_to info_student_path(@student), notice: 'Student was successfully updated.' }
+        format.html { redirect_to student_path(@student), notice: 'Student was successfully updated.' }
         format.json { render :info, status: :ok, location: @student }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -81,18 +68,31 @@ class StudentsController < ApplicationController
     end
   end
 
-  def info
-    return unless current_user.default?
-
-    redirect_to root_path, alert: 'Você não possui acesso a esse aluno.'
-  end
-
   def not_registered
     @students = Student.where(status: 'Não matriculado')
   end
 
   def activities_by_student
     @activities = @student.activities
+  end
+
+  def report
+    if params[:year].to_i == 2023
+      @activities = @student.activities.where('date <= ?', Date.new(2023, 12, 31)).order(:date)
+      @resume = @student.resumes.first
+    else
+      @activities = @student.activities.where('date >= ?', Date.new(2024, 1, 1)).order(:date)
+      @resume
+    end
+
+    @dates_with_actitivies = []
+    @activities.each do |activity|
+      @dates_with_actitivies << activity.date
+    end
+    @number_of_days = @dates_with_actitivies.uniq.length
+    @number_of_absence = @student.attendances.where(presence: false).where('attendance_date >= ?',
+                                                                           Date.new(2024, 1, 1)).length
+    @attendance_rate = @number_of_days
   end
 
   private

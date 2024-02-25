@@ -15,10 +15,10 @@ RSpec.describe 'User vê listagem de alunos' do
     user_student = User.create!(email: 'student@email.com', password: 'password', cpf: '065.654.654-01')
 
     login_as(user_student)
-    visit(student_path(student))
+    visit(report_student_path(student))
 
-    expect(page).not_to have_content('Blastoise')
     expect(page).to have_content('Venossaur')
+    expect(page).not_to have_content('Blastoise')
     expect(page).to_not have_content('Charmander')
     expect(page).to_not have_content('Pikachu')
     expect(page).to_not have_content('Você não tem acesso')
@@ -38,7 +38,7 @@ RSpec.describe 'User vê listagem de alunos' do
     user_default = User.create!(email: 'default@email.com', password: 'password', cpf: '065.654.654-01')
 
     login_as(user_default)
-    visit(student_path(student))
+    visit(report_student_path(student))
 
     expect(page).to have_content('Você não possui acesso a esse aluno.')
   end

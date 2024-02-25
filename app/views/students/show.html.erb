@@ -1,19 +1,61 @@
-<% if params[:year].to_i == 2023 %>
-  <%= render "student_2023" %>
-<%else %>
-  <%= render @student %>
-<% end %>
-<div>
-  <% if (current_user.default?)%>
-    <%= link_to "Início", root_path,  class:'btn btn-outline-primary', style:"width:200px" %>
-    <%= link_to 'Relatório 2023', student_path(@student, year: 2023), class:'btn btn-outline-primary', style:"width:200px" %>
-  <% else %>
-    <%= link_to 'Relatório 2023', student_path(@student, year: 2023), class:'btn btn-outline-primary', style:"width:200px" %>
-    <%= link_to 'Relatório', student_resumes_path(@student), class:'btn btn-outline-primary', style:"width:200px" %>
-    <%= link_to "Details", info_student_path(@student), class:'btn btn-outline-primary', style:"width:200px" %>
-    <%= link_to "Back to students", students_path,  class:'btn btn-outline-primary', style:"width:200px" %>
-    <% if current_user.admin?%>
-      <% button_to "Destroy this student", @student, method: :delete,  form: { data: { turbo_confirm: 'Are you sure?' } }, class:'btn btn-danger mt-4', style:"width:200px" %>
-    <% end %>
-  <% end%>
+<div id="<%= dom_id @student %>"></div>
+<div class="container col-xxl-8 px-4 py-5">
+  <div class="row flex-lg-row-reverse g-5 py-5">
+    <div class="col-10 col-sm-8 col-lg-6">
+      <% if current_user.admin? || current_user.accounting? %>
+        <% @student.addresses.each do |address| %>
+          <h3>Endereço</h3>
+          <dt>Rua: </dt>
+          <dd><%=address.street%></dd>
+          <dt>Número: </dt>
+          <dd><%=address.number%></dd>
+          <dt>Complemento: </dt>
+          <dd><%=address.unit%></dd>
+          <dt>Bairro: </dt>
+          <dd><%=address.neighborhood%></dd>
+          <dt>Cidade: </dt>
+          <dd><%=address.city%></dd>
+          <dt>Estado: </dt>
+          <dd><%=address.state%></dd>
+          <dt>CEP: </dt>
+          <dd><%=address.zip_code%></dd>
+          <dt>País: </dt>
+          <dd><%=address.country%></dd>
+          <%= link_to 'Editar Endereço', edit_student_address_path(@student, address), class: 'btn btn-outline-primary', style: 'width:150px' %>
+        <% end %>
+        <%= link_to 'Cadastrar Endereço', new_student_address_path(@student), class:'btn btn-outline-primary', style:"width:200px" %>
+      </div>
+    <%end%>
+    <div class="col-lg-6">
+      <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3"><%= @student.name%></h1>
+      <p class="lead">
+        <dl>
+          <dt>Professor(a): </dt>
+          <dd><%=@student.classroom.teacher.name%></dd>
+          <dt>Turma: </dt>
+          <dd><%=@student.classroom.name%></dd>
+          <dt>Horário: </dt>
+          <dd><%=@student.classroom.time%></dd>
+          <dt>Status: </dt>
+          <dd><%=@student.status%></dd>
+          <dt>CPF: </dt>
+          <dd><%= @student.cpf.present? ? @student.cpf : "CPF não cadastrado."%></dd>
+          <dt>Email do responsável: </dt>
+          <dd><% if @student.cpf.present? %>
+              <% user = User.find_by(cpf: @student.cpf) %>
+              <dd><%= user.present? ? user.email : "Responsável não cadastrado." %></dd>
+            <% else %>
+              <dd>CPF do aluno ou responsável não cadastrado.</dd>
+            <% end %></dd>
+          <dt>Telefone celular: </dt>
+          <dd><%= @student.cel_phone.present? ? @student.cel_phone : "Telefone celular não cadastrado."%></dd>
+          <dt>Telefone fixo: </dt>
+          <dd><%= @student.phone.present? ? @student.phone : "Telefone não cadastrado."%></dd>
+        </dl>
+      </p>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <%= link_to "Edit this student", edit_student_path(@student), class:'btn btn-outline-primary', style:"width:150px" %>
+      </div>
+    </div>
+  </div>
 </div>

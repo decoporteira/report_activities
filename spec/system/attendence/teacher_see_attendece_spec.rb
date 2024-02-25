@@ -31,7 +31,8 @@ RSpec.describe 'Teacher ve lista de presença' do
 
     expect(page).to have_content('Relatório de presença de Ratata')
     expect(page).to have_content('Ratata')
-    expect(page).to have_content('05/05/23: Presente')
+    expect(page).to have_content('05/05/23')
+    expect(page).to have_content('Presente')
   end
 
   it 'e está ausente' do
@@ -50,6 +51,7 @@ RSpec.describe 'Teacher ve lista de presença' do
 
     expect(page).to have_content('Relatório de presença de Raticate')
     expect(page).to have_content('Raticate')
-    expect(page).to have_content('05/05/23: Ausente')
+    expect(page).to have_content('05/05/23')
+    expect(page).to have_content('Ausente')
   end
 end

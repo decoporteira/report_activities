@@ -32,7 +32,7 @@ Total de alunos matriculados: <%= @total_students%>
                     Teacher: <%= Teacher.find_by(id: student.classroom.teacher_id).name %></h5>
                   Turma: <%= student.classroom.name%></h5>
               </p>
-              <%= link_to ' Ver Atividades ', student_path(student),class:'btn btn-outline-primary', style:"width:200px" %>
+              <%= link_to 'Ver Atividades', report_student_path(student),class:'btn btn-outline-primary', style:"width:200px" %>
             </div>
           </div>
         </div>
@@ -57,10 +57,10 @@ Total de alunos matriculados: <%= @total_students%>
                   <%= student.name%>
                 </div>
                 <div>
-                  <%= link_to student, class:'text-decoration-none', alt: "Atividade do aluno" do %>
+                  <%= link_to report_student_path(student), class:'text-decoration-none', alt: "Atividade do aluno" do %>
                     <i class="fa-solid fa-list-check pe-2"  style="color: #0d6efd;" alt="Atividades"></i>
                   <% end %>
-                  <% link_to info_student_path(student), alt: "Detalhes do aluno" do %>
+                  <% link_to student, alt: "Detalhes do aluno" do %>
                     <i class="fa-solid fa-user" style="color: #0d6efd;" ></i>
                   <% end %>
                 </div>
@@ -90,7 +90,7 @@ Total de alunos matriculados: <%= @total_students%>
                   <%= student.name%>
                 </div>
                 <div>
-                  <%= link_to "Detalhes", info_student_path(student), class:' btn-sm btn btn-outline-primary small', style:"width:110px; height:30px;"  %>
+                  <%= link_to "Detalhes", student_path(student), class:' btn-sm btn btn-outline-primary small', style:"width:110px; height:30px;"  %>
                 </div>
               </div>
               <hr  class="border-1 my-2 opacity-25 text-secondary">
@@ -120,7 +120,7 @@ Total de alunos matriculados: <%= @total_students%>
                   <%= link_to student, class:'text-decoration-none', alt: "Atividade" do %>
                     <i class="fa-solid fa-list-check pe-2"  style="color: #0d6efd;" ></i>
                   <% end %>
-                  <%= link_to info_student_path(student), id:'details', alt: "Detalhes" do %>
+                  <%= link_to student_path(student), id:'details', alt: "Detalhes" do %>
                     <i class="fa-solid fa-user" style="color: #0d6efd;"></i>
                   <% end %>
                 </div>

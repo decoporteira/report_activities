@@ -22,7 +22,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
 
       # assert
       expect(page).to have_content('Teacher was successfully created.')
-      expect(page).to have_content('Name: Carvalho')
+      expect(page).to have_content('Professor(a): Carvalho')
       expect(page).to have_content('Status: disponível')
       expect(page).to have_content('CPF: 000.000.000-01')
     end
@@ -67,7 +67,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
 
       # assert
       expect(page).to have_content('Teacher was successfully created.')
-      expect(page).to have_content('Name: Carvalho')
+      expect(page).to have_content('Professor(a): Carvalho')
       expect(page).to have_content('Status: disponível')
       expect(page).to have_content('CPF: 000.000.000-01')
     end
@@ -123,7 +123,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
 
       # assert
       expect(page).to have_content('Teacher was successfully created.')
-      expect(page).to have_content('Name: Carvalho')
+      expect(page).to have_content('Professor(a): Carvalho')
       expect(page).to have_content('Status: disponível')
       expect(page).to have_content('CPF: 000.000.000-01')
     end
@@ -147,7 +147,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
 
       # assert
       expect(page).to have_content('Teacher was successfully created.')
-      expect(page).to have_content('Name: Carvalho')
+      expect(page).to have_content('Professor(a): Carvalho')
       expect(page).to have_content('Status: disponível')
       expect(page).to have_content('CPF: 000.000.000-01')
     end

@@ -16,7 +16,7 @@ RSpec.describe 'User vê alunos' do
 
     # act
     login_as(user_student)
-    visit(student_path(student))
+    visit(report_student_path(student))
 
     expect(page).to have_content('Venossaur')
     expect(page).to have_content('Relatório de 2024')

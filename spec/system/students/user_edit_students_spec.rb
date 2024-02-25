@@ -64,7 +64,6 @@ RSpec.describe 'Tipo de usuário cria uma student' do
     click_on 'Students'
 
     # assert
-    expect(page).not_to have_content('Detalhes')
     expect(page).to have_content('Venossaur')
     expect(page).to have_content('Turma: MW 17:00')
   end

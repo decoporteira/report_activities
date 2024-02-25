@@ -1,0 +1,19 @@
+<% if params[:year].to_i == 2023 %>
+  <%= render "student_2023" %>
+<%else %>
+  <%= render @student %>
+<% end %>
+<div>
+  <% if (current_user.default?)%>
+    <%= link_to "Início", root_path,  class:'btn btn-outline-primary', style:"width:200px" %>
+    <%= link_to 'Relatório 2023', report_student_path(@student, year: 2023), class:'btn btn-outline-primary', style:"width:200px" %>
+  <% else %>
+    <%= link_to 'Relatório 2023', report_student_path(@student, year: 2023), class:'btn btn-outline-primary', style:"width:200px" %>
+    <%= link_to 'Relatório', student_resumes_path(@student), class:'btn btn-outline-primary', style:"width:200px" %>
+    <%= link_to "Details", student_path(@student), class:'btn btn-outline-primary', style:"width:200px" %>
+    <%= link_to "Back to students", students_path,  class:'btn btn-outline-primary', style:"width:200px" %>
+    <% if current_user.admin?%>
+      <% button_to "Destroy this student", @student, method: :delete,  form: { data: { turbo_confirm: 'Are you sure?' } }, class:'btn btn-danger mt-4', style:"width:200px" %>
+    <% end %>
+  <% end%>
+</div>

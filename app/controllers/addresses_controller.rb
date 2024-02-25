@@ -32,14 +32,14 @@ class AddressesController < ApplicationController
     if @student.nil?
       @address = @teacher.addresses.build(address_params)
       if @address.save
-        redirect_to info_student_path(@teacher), notice: 'Endereço cadastrado com sucesso.'
+        redirect_to teacher_path(@teacher), notice: 'Endereço cadastrado com sucesso.'
       else
         render :new
       end
     else
       @address = @student.addresses.build(address_params)
       if @address.save
-        redirect_to info_student_path(@student), notice: 'Endereço cadastrado com sucesso.'
+        redirect_to student_path(@student), notice: 'Endereço cadastrado com sucesso.'
       else
         render :new
       end
@@ -52,7 +52,7 @@ class AddressesController < ApplicationController
       @student = Student.find(params[:student_id])
       @address = Address.find(params[:id])
       if @address.update(address_params)
-        redirect_to info_student_path(@student), notice: 'Endereço foi editado com sucesso.'
+        redirect_to student_path(@student), notice: 'Endereço foi editado com sucesso.'
       else
         render :new
       end
@@ -61,7 +61,7 @@ class AddressesController < ApplicationController
       @teacher = Teacher.find(params[:teacher_id])
       @address = Address.find(params[:id])
       if @address.update(address_params)
-        redirect_to info_teacher_path(@teacher), notice: 'Endereço foi editado com sucesso.'
+        redirect_to teacher_path(@teacher), notice: 'Endereço foi editado com sucesso.'
       else
         render :new
       end

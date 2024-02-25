@@ -1,15 +1,13 @@
 <h1>Endereços</h1>
-<% if @addresses.length >= 1 %>
   <% @addresses.each do |address|%>
     <% if address.addressable_type == "Student" %>
       <% student = address.addressable %>
-      <h3><%= student.name %></h3>
-      <h4><%= student.classroom.name %></h4>
-    <% elsif address.addressable_type == "Teacher" %>
+      <h3>Aluno(a): <%= student.name %></h3>
+      <h4>Turma: <%= student.classroom.name %></h4>
+       <p><%= address.street %> <%= address.number %>, <%= address.unit %> - <%= address.neighborhood %> <%= address.city %> - <%= address.zip_code %> - <%= address.country %></p>
+    <% else %>
       <% teacher = address.addressable %>
-      <!-- Do something with the teacher if needed -->
+      <h3>Professor(a): <%= teacher.name%></h3>
+       <p><%= address.street %> <%= address.number %>, <%= address.unit %> - <%= address.neighborhood %> <%= address.city %> - <%= address.zip_code %> - <%= address.country %></p>
     <% end %>
-    <p><%= address.street %> <%= address.number %>, <%= address.unit %> - <%= address.neighborhood %></p>
-    <p><%= address.city %> - <%= address.zip_code %> - <%= address.country %></p>
-  <% end %>
 <% end %>
