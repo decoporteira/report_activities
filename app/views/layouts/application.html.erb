@@ -74,8 +74,8 @@
           <% if !current_user.default? %>
             <%= render "search/form"%>
           <% end %>
-          <%= link_to "Profile", edit_user_registration_path, class:"btn btn-outline-secondary mx-2" %>
-          <%= link_to "Sign out", destroy_user_session_path, 'data-turbo-method': :delete, class:"btn btn-outline-secondary" %>
+          <%= link_to "Perfil", edit_user_registration_path, class:"btn btn-outline-secondary mx-2" %>
+          <%= link_to "Sair", destroy_user_session_path, 'data-turbo-method': :delete, class:"btn btn-outline-secondary" %>
         </div>
       </nav>
     <%end%>

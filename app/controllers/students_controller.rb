@@ -1,7 +1,7 @@
 class StudentsController < ApplicationController
   before_action :cant_see, only: [:report]
   before_action :is_admin?, except: [:report]
-  before_action :set_student, only: %i[show edit update destroy info report activities_by_student]
+  before_action :set_student, only: %i[show edit update report activities_by_student]
   before_action :set_info
 
   def index
@@ -53,18 +53,6 @@ class StudentsController < ApplicationController
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @student.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  def destroy
-    if current_user.admin?
-      @student.destroy
-      respond_to do |format|
-        format.html { redirect_to students_url, notice: 'Student was successfully destroyed.' }
-        format.json { head :no_content }
-      end
-    else
-      redirect_to root_path, alert: 'Você não tem permissão.'
     end
   end
 
