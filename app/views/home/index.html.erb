@@ -78,7 +78,7 @@ Total de alunos matriculados: <%= @total_students%>
         <div class="card shadow-sm">
           <div class="card-header py-1">
             <h4 class="my-1 fw-normal fs-5">
-              <strong><%= classroom.name %> </strong>- Alunos: <%=classroom.students.length%>
+              <strong><%= classroom.name %> </strong> <span class='fs-6'>- Alunos: <%=classroom.students.length%></span>
             </h4>
           </div>
           <div class="card-body">
@@ -105,7 +105,7 @@ Total de alunos matriculados: <%= @total_students%>
         <div class="card shadow-sm">
           <div class="card-header py-1">
             <h4 class="my-1 fw-normal fs-5">
-              <%= link_to  classroom.name, classroom_path(classroom.id), class:'text-decoration-none link-primary'  %> - Alunos: <strong><%=classroom.students.length%></strong>
+              <%= link_to  classroom.name, classroom_path(classroom.id), class:'text-decoration-none link-primary'  %> <span class='fs-6'>- Alunos: <strong><%=classroom.students.length%></strong></span>
             </h4>
           </div>
           <div class="card-body">
@@ -127,7 +127,7 @@ Total de alunos matriculados: <%= @total_students%>
               </div>
               <hr  class="border-1 my-2 opacity-25 text-secondary">
             <% end%>
-            <%= link_to  'Enter Classroom', classroom_path(classroom.id), class:'btn btn-outline-primary'  %>
+            <%= link_to  'Ver turma', classroom_path(classroom.id), class:'btn btn-outline-primary'  %>
           </div>
         </div>
       </div>
