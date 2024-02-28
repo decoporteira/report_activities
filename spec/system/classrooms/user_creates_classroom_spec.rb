@@ -13,7 +13,7 @@ RSpec.describe 'Tipo de usuário cria uma turma' do
       # act
       login_as(user)
       visit(root_path)
-      click_on 'ClassRooms'
+      click_on 'Turmas'
       click_on 'New classroom'
       fill_in 'Nome', with: 'Sala de Aula'
       fill_in 'Horário', with: '16:00'
@@ -65,7 +65,7 @@ RSpec.describe 'Tipo de usuário cria uma turma' do
       # act
       login_as(teacher)
       visit(root_path)
-      click_on 'ClassRooms'
+      click_on 'Turmas'
 
       # assert
       expect(page).not_to have_content('Criar Turma')
@@ -95,7 +95,7 @@ RSpec.describe 'Tipo de usuário cria uma turma' do
       login_as(user)
       visit(new_classroom_path)
 
-      click_on 'ClassRooms'
+      click_on 'Turmas'
       click_on 'New classroom'
       fill_in 'Nome', with: 'Sala de Aula'
       fill_in 'Horário', with: '16:00'

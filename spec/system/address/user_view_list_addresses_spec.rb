@@ -25,7 +25,7 @@ RSpec.describe 'User vê listagem de alunos' do
     # act
     login_as(admin)
     visit(root_path)
-    click_on('Addresses')
+    click_on('Endereços')
     expect(page).to have_content('Aluno(a): Venossaur')
     expect(page).to have_content('Professor(a): Carvalho')
   end

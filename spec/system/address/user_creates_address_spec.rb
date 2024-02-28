@@ -42,7 +42,7 @@ RSpec.describe 'user creates new Address' do
     login_as(user)
     visit(root_path)
 
-    click_on('Teachers')
+    click_on('Professores')
     click_on('Show this teacher')
     click_on('Cadastrar Endereço')
     within('#new_address_form') do

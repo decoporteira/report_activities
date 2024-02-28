@@ -45,7 +45,7 @@ RSpec.describe 'user edit address' do
     # act
     login_as(user)
     visit(root_path)
-    click_on('Teachers')
+    click_on('Professores')
     click_on('Show this teacher')
     click_on('Editar')
     fill_in 'Rua', with: 'Rua dos Alfaces'
@@ -77,7 +77,7 @@ RSpec.describe 'user edit address' do
     # act
     login_as(user)
     visit(root_path)
-    click_on('Teachers')
+    click_on('Professores')
     click_on('Show this teacher')
     click_on('Editar')
     fill_in 'Rua', with: 'Rua dos Alfaces'

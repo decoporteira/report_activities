@@ -10,7 +10,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
       # act
       login_as(user)
       visit(root_path)
-      click_on 'Teachers'
+      click_on 'Professores'
       click_on 'New teacher'
 
       fill_in 'Nome', with: 'Carvalho'
@@ -35,7 +35,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
       # act
       login_as(user)
       visit(root_path)
-      click_on 'Teachers'
+      click_on 'Professores'
       click_on 'New teacher'
       fill_in 'Nome', with: ''
       fill_in 'cpf', with: '000.000.000-01'
@@ -55,7 +55,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
       # act
       login_as(accounting)
       visit(root_path)
-      click_on 'Teachers'
+      click_on 'Professores'
       click_on 'New teacher'
 
       fill_in 'Nome', with: 'Carvalho'

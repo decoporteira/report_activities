@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :classrooms
+ 
   resources :teachers do 
     resources :addresses, only: [:new, :create, :show, :edit, :update]
   end
@@ -47,7 +47,6 @@ Rails.application.routes.draw do
   resources :classrooms do
     collection do
       post :create_activity
-      
     end
   end
 end

@@ -10,7 +10,7 @@ RSpec.describe 'Teacher ve lista de presença' do
 
     login_as(user)
     visit(root_path)
-    click_on 'Attendances'
+    click_on 'Presenças'
 
     expect(page).to have_content('Lista de Presença')
   end
@@ -26,7 +26,7 @@ RSpec.describe 'Teacher ve lista de presença' do
 
     login_as(user)
     visit(root_path)
-    click_on 'Attendances'
+    click_on 'Presenças'
     click_on 'Ratata'
 
     expect(page).to have_content('Relatório de presença de Ratata')
@@ -46,7 +46,7 @@ RSpec.describe 'Teacher ve lista de presença' do
 
     login_as(user)
     visit(root_path)
-    click_on 'Attendances'
+    click_on 'Presenças'
     click_on 'Raticate'
 
     expect(page).to have_content('Relatório de presença de Raticate')

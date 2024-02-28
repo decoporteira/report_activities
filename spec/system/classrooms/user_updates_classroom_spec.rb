@@ -9,7 +9,7 @@ RSpec.describe 'Admin edita classroom' do
 
     login_as(user)
     visit(root_path)
-    click_on 'Enter Classroom'
+    click_on 'Ver turma'
     click_on 'Edit this classroom'
     fill_in 'Nome', with: 'Sala dos Pokemon'
     click_on 'Atualizar Turma'
@@ -25,7 +25,7 @@ RSpec.describe 'Admin edita classroom' do
 
     login_as(user)
     visit(root_path)
-    click_on 'Enter Classroom'
+    click_on 'Ver turma'
     click_on 'Edit this classroom'
     fill_in 'Nome', with: ''
     click_on 'Atualizar Turma'

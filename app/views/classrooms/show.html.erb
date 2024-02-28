@@ -3,6 +3,7 @@
 <br />
 <%= render "create_activity" %> 
 <div>
+
   <% @dates.uniq.each do |date|%>
     <div class="col mb-4" id="<%= date %>">
       <div class="card shadow-sm">
@@ -15,7 +16,7 @@
             <%= attendance.presence ? 'Presente' : "<span class='text-danger'>Ausente</span>".html_safe %>
             <br/>
             <% @activities.where(student_id: student.id, date: date).each do |activity|%>
-              <ul> 
+              <ul class='mt-2'> 
                 <li>
                   <%= activity.report %> 
                   <% late_color = case activity.late
@@ -34,8 +35,9 @@
                 </li>
               </ul>
             <%end%>
-            <%= link_to "Marcar como #{attendance.presence ? 'Ausente' : 'Presente'}", update_attendance_attendance_path(:items =>{:student_id => student.id, :date => date, :presence => attendance.presence,} ), data: { "turbo-method": :patch }, remote: true %>
-          <br><br><%end%>
+            <%= button_to "Marcar como #{attendance.presence ? 'Ausente' : 'Presente'}", update_attendance_attendance_path(items: { student_id: student.id, date: date, presence: attendance.presence }, anchor:  date), data: { turbo: false }, method: :patch, class: "btn #{attendance.presence ? 'btn-outline-danger' : 'btn-outline-primary'}" %>
+            
+         <br><br><%end%>
         </div>
       </div>
     </div>
@@ -48,4 +50,5 @@
   <% if current_user.admin?%>
     <% button_to "Destroy this classroom" , @classroom,method: :delete,  form: { data: { turbo_confirm: 'Are you sure?' } }, class:'btn btn-outline-danger mt-4', style:"width:200px" %>
   <% end %>
-</div>
+ 
+ 

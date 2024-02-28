@@ -8,7 +8,7 @@ RSpec.describe 'Usuário editar professor' do
 
     login_as(admin)
     visit root_path
-    click_on 'Teachers'
+    click_on 'Professores'
     click_on 'Show this teacher'
     click_on 'Edit this teacher'
     fill_in 'Nome', with: 'Oak'
@@ -27,7 +27,7 @@ RSpec.describe 'Usuário editar professor' do
 
     login_as(admin)
     visit root_path
-    click_on 'Teachers'
+    click_on 'Professores'
     click_on 'Show this teacher'
     click_on 'Edit this teacher'
     fill_in 'Nome', with: ''
@@ -44,7 +44,7 @@ RSpec.describe 'Usuário editar professor' do
 
     login_as(accouting)
     visit root_path
-    click_on 'Teachers'
+    click_on 'Professores'
     click_on 'Show this teacher'
     click_on 'Edit this teacher'
     fill_in 'Nome', with: 'Oak'
