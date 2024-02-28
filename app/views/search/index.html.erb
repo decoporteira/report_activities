@@ -1,15 +1,19 @@
 <h1><%= pluralize(@students.count, "Resultado")%></h1>
 <%= render "search/form"%>
 <main class="mt-4">
+<h2>Alunos</h2>
   <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+    <% if @students.count == 0 %>
+      <h4>Nenhum aluno encontrado.</h4>
+    <% end %>
     <%@students.each do |student|%>
       <div class="col">
         <div class="card mb-4 rounded-3 shadow-sm">
           <div class="card-body">
             <h1 class="card-title pricing-card-title"><%= student.name %></h1>
             <ul class="list-unstyled mt-3 mb-4">
-              <li><%= student.classroom.name %></li>
-              <li><%= student.classroom.teacher.name %></li>
+              <li>Aluno: <strong><%= student.classroom.name %></strong></li>
+              <li>Turma: <strong><%= student.classroom.teacher.name %></strong></li>
             </ul>
             <%= link_to "Show Activities", report_student_path(student), class:'btn btn-outline-primary', style:"width:150px"  %>
             <%= link_to "Show Student", student, class:'btn btn-outline-primary', style:"width:150px"  %>
@@ -18,4 +22,24 @@
       </div>
     <% end %>
   </div>
+    <h2>Turmas</h2>
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+    <% if @classrooms.count == 0 %>
+      <h4>Nenhuma turma encontrada.</h4>
+    <% end %>
+      <%@classrooms.each do |classroom|%>
+        <div class="col">
+          <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title"><%= classroom.name %></h1>
+              <ul class="list-unstyled mt-3 mb-4">
+                <li>Professor(a): <strong><%= classroom.teacher.name %></strong></li>
+                <li>Horário: <strong><%=  classroom.time %></strong></li>
+              </ul>
+              <%= link_to "Ver turma", classroom, class:'btn btn-outline-success', style:"width:150px"  %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
 </main>

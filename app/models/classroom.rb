@@ -6,4 +6,8 @@ class Classroom < ApplicationRecord
   def name_with_teacher_name
     "#{name} - #{teacher.name}"
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["created_at", "id", "name", "teacher_id", "time", "updated_at"]
+    end
 end
