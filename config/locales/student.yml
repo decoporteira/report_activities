@@ -1,7 +1,9 @@
 pt-BR:
   activerecord:
     models:
-      student: "Aluno"
+      student: 
+        one: Aluno
+        other: Alunos
     attributes:
       student:
         name: "Nome"
@@ -9,3 +11,14 @@ pt-BR:
         cel_phone: "Telefone celular"
         phone: "Telefone fixo"
         classroom_id: "Turma"
+  teachers:
+    create:
+      success: Aluno(a) criado(a) com sucesso.
+      fail: Não foi possível criar o aluno(a).
+    update:
+      success: Aluno(a) editado(a) com sucesso.
+      fail: Não foi possível editar o aluno(a).
+    destroy:
+      success: Aluno(a) apagado(a) com sucesso.
+      fail: Não foi possível apagar o(a) aluno(a).
+    denied: 'Acesso negado.' 

@@ -32,14 +32,14 @@ class AddressesController < ApplicationController
     if @student.nil?
       @address = @teacher.addresses.build(address_params)
       if @address.save
-        redirect_to teacher_path(@teacher), notice: 'Endereço cadastrado com sucesso.'
+        redirect_to teacher_path(@teacher), notice: t('.success')
       else
         render :new
       end
     else
       @address = @student.addresses.build(address_params)
       if @address.save
-        redirect_to student_path(@student), notice: 'Endereço cadastrado com sucesso.'
+        redirect_to student_path(@student), notice: t('.success')
       else
         render :new
       end
@@ -52,16 +52,16 @@ class AddressesController < ApplicationController
       @student = Student.find(params[:student_id])
       @address = Address.find(params[:id])
       if @address.update(address_params)
-        redirect_to student_path(@student), notice: 'Endereço foi editado com sucesso.'
+        redirect_to student_path(@student), notice: t('.success')
       else
-        render :new
+        render :new, notice: t('.fail')
       end
     else
       @student = nil
       @teacher = Teacher.find(params[:teacher_id])
       @address = Address.find(params[:id])
       if @address.update(address_params)
-        redirect_to teacher_path(@teacher), notice: 'Endereço foi editado com sucesso.'
+        redirect_to teacher_path(@teacher), notice: t('.success')
       else
         render :new
       end
@@ -71,7 +71,7 @@ class AddressesController < ApplicationController
   private
 
   def authorize_admin!
-    redirect_to root_path, alert: 'Access denied.' unless current_user.admin? || current_user.accounting?
+    redirect_to root_path, alert: t('.denied') unless current_user.admin? || current_user.accounting?
   end
 
   def address_params

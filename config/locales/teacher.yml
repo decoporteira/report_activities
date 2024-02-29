@@ -1,7 +1,9 @@
 pt-BR:
   activerecord:
     models:
-      teacher: "Professor(a)"
+      teacher: 
+        one: Professor(a)
+        other: Professores
     attributes:
       teacher:
         name: "Nome"
@@ -10,3 +12,14 @@ pt-BR:
         status: "Disponibilidade"
         cel_phone: "Telefone celular"
         phone: "Telefone fixo"
+  teachers:
+    create:
+      success: Professor(a) criado(a) com sucesso.
+      fail: Não foi possível criar o professor(a).
+    update:
+      success: Professor(a) editado(a) com sucesso.
+      fail: Não foi possível editar o professor(a).
+    destroy:
+      success: Professor(a) apagado(a) com sucesso.
+      fail: Não foi possível apagar o(a) professor(a).
+    denied: 'Acesso negado.' 

@@ -9,3 +9,17 @@ pt-BR:
         teacher_id: "Professor(a)"
         phone: "Telefone fixo"
         classroom: "Turma"
+  classrooms:
+    denied: Acesso negado.
+    create:
+      success: Turma criada com sucesso.
+      fail: Não foi possível criar a turma.
+    update:
+      success: Turma editada com sucesso.
+      fail: Não foi possível editar a turma.
+    destroy:
+      success: Turma apagada com sucesso.
+      fail: Não foi possível apagar a turma.
+    create_activity:
+      success: Atividades criadas com sucesso.
+      fail: Não foi possível criar as atividades.
