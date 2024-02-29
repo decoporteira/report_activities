@@ -9,13 +9,13 @@ class SearchController < ApplicationController
 
   def filter
     # Cria a busca Ransack com base nos parâmetros passados
-  @q = Classroom.ransack(params[:q])
+    @q = Classroom.ransack(params[:q])
 
-  # Obtém os resultados da busca Ransack
-  @classrooms = @q.result(distinct: true)
+    # Obtém os resultados da busca Ransack
+    @classrooms = @q.result(distinct: true)
 
-  # Filtra os resultados adicionais, se necessário
-  return unless params[:teacher_id].present?
+    # Filtra os resultados adicionais, se necessário
+    return if params[:teacher_id].blank?
 
     @classrooms = @classrooms.where(teacher_id: params[:teacher_id])
   end

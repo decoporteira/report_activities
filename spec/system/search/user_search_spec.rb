@@ -47,8 +47,8 @@ RSpec.describe 'Usuário pesquisa' do
                               cpf: '087.097.098-01')
     user_teacher_two = User.create!(email: 'teacher_two@email.com.br', password: 'password', role: 'teacher')
     teacher_two = Teacher.create!(name: 'Oak', status: 'disponível', user_id: user_teacher_two.id,
-                              cpf: '087.097.098-01')
-    classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
+                                  cpf: '087.097.098-01')
+    Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
     classroom = Classroom.create!(name: 'MW 13:00', teacher_id: teacher.id, time: '23:00')
     classroom_two = Classroom.create!(name: 'MW 19:00', teacher_id: teacher_two.id, time: '11:00')
     Student.create!(name: 'Chameleon', status: 'Matriculado', classroom_id: classroom_two.id, cpf: '065.654.654-01')
@@ -77,8 +77,8 @@ RSpec.describe 'Usuário pesquisa' do
                               cpf: '087.097.098-01')
     user_teacher_two = User.create!(email: 'teacher_two@email.com.br', password: 'password', role: 'teacher')
     teacher_two = Teacher.create!(name: 'Oak', status: 'disponível', user_id: user_teacher_two.id,
-                              cpf: '087.097.098-01')
-    classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
+                                  cpf: '087.097.098-01')
+    Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
     classroom = Classroom.create!(name: 'MW 13:00', teacher_id: teacher.id, time: '23:00')
     classroom_two = Classroom.create!(name: 'MW 19:00', teacher_id: teacher_two.id, time: '11:00')
     Student.create!(name: 'Chameleon', status: 'Matriculado', classroom_id: classroom_two.id, cpf: '065.654.654-01')
