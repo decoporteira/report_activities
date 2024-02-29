@@ -1,14 +1,14 @@
 <h1 class="text-primary">
   <% if (current_user.default?)%>
     Listagem de alunos</h1>
-<% elsif (current_user.teacher?)%>
-  Listagem de turmas de <%= current_user.teacher.name%></h1>
-<% elsif current_user.admin? || current_user.accounting?%>
-  Listagem de turmas</h1>
-Total de alunos matriculados: <%= @total_students%>
-<% else %>
-  Listagem de turmas</h1>
-<% end %>
+  <% elsif (current_user.teacher?)%>
+    Listagem de turmas de <%= current_user.teacher.name%></h1>
+  <% elsif current_user.admin? || current_user.accounting?%>
+    Listagem de turmas</h1>
+    Total de alunos matriculados: <%= @total_students%>
+  <% else %>
+    Listagem de turmas</h1>
+  <% end %>
 <div class="album py-5 bg-body-tertiary">
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -36,8 +36,8 @@ Total de alunos matriculados: <%= @total_students%>
             </div>
           </div>
         </div>
+        <% end %>
       <% end %>
-    <% end %>
   <% elsif (current_user.teacher?) %>
     <% current_classrooms = current_user.teacher.classrooms%>
     <% current_classrooms.each do |classroom|%>
@@ -51,7 +51,7 @@ Total de alunos matriculados: <%= @total_students%>
           <div class="card-body">
             <h5 class="text-secondary fs-5"><%= Teacher.find_by(id: classroom.teacher_id).name %></h5>
             <% students = classroom.students.where(status: 'Matriculado')%>
-            <%students.each do |student| %>
+            <%  students.each do |student| %>
               <div class='d-flex justify-content-between'>
                 <div class='ps-1 '>
                   <%= student.name%>
@@ -117,10 +117,10 @@ Total de alunos matriculados: <%= @total_students%>
                   <%= student.name%>
                 </div>
                 <div>
-                  <%= link_to student, class:'text-decoration-none', alt: "Atividade" do %>
+                  <%= link_to  report_student_path(student), class:'text-decoration-none', alt: "Atividade" do %>
                     <i class="fa-solid fa-list-check pe-2"  style="color: #0d6efd;" ></i>
                   <% end %>
-                  <%= link_to student_path(student), id:'details', alt: "Detalhes" do %>
+                  <%= link_to student, id:'details', alt: "Detalhes" do %>
                     <i class="fa-solid fa-user" style="color: #0d6efd;"></i>
                   <% end %>
                 </div>
