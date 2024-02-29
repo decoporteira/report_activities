@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   resources :users
   
   get 'search/index'
+  get 'search/filter'
   match '/users',   to: 'users#index',   via: 'get'
 
   get 'addresses/',   to: 'addresses#index'

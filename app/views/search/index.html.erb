@@ -1,8 +1,8 @@
-<h1><%= pluralize(@students.count, "Resultado")%></h1>
-<%= render "search/form"%>
+<h1>Resultados</h1>
 <main class="mt-4">
-<h2>Alunos</h2>
+<h3>Alunos encontrados: <%= @students.count%></h3>
   <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+  
     <% if @students.count == 0 %>
       <h4>Nenhum aluno encontrado.</h4>
     <% end %>
@@ -22,11 +22,17 @@
       </div>
     <% end %>
   </div>
-    <h2>Turmas</h2>
-    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+      <h3>Turmas encontradas: <%= @classrooms.count%></h3>
+    
+
     <% if @classrooms.count == 0 %>
       <h4>Nenhuma turma encontrada.</h4>
+      <% else %>
+      <% @teachers.each do |teacher| %>
+        <%= link_to "Turmas de #{Teacher.find(teacher).name}", search_filter_path(teacher_id: teacher, q: params[:q][:name_cont]), class: 'btn btn-outline-success mx-2 my-2' %>
+      <% end %>
     <% end %>
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
       <%@classrooms.each do |classroom|%>
         <div class="col">
           <div class="card mb-4 rounded-3 shadow-sm">
