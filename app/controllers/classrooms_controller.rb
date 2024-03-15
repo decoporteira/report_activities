@@ -31,7 +31,7 @@ class ClassroomsController < ApplicationController
     students.each do |student|
       create_activity_and_attendance(student)
     end
-    redirect_to request.referer, notice: 'Atividades criadas...'
+    redirect_to request.referer, notice: t('.success')
   end
 
   def create
@@ -39,7 +39,7 @@ class ClassroomsController < ApplicationController
 
     respond_to do |format|
       if @classroom.save
-        format.html { redirect_to classroom_url(@classroom), notice: 'Classroom was successfully created.' }
+        format.html { redirect_to classroom_url(@classroom), notice: t('.success') }
         format.json { render :show, status: :created, location: @classroom }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -51,10 +51,10 @@ class ClassroomsController < ApplicationController
   def update
     respond_to do |format|
       if @classroom.update(classroom_params)
-        format.html { redirect_to classroom_url(@classroom), notice: 'Classroom was successfully updated.' }
+        format.html { redirect_to classroom_url(@classroom), notice: t('.success') }
         format.json { render :show, status: :ok, location: @classroom }
       else
-        format.html { render :edit, status: :unprocessable_entity, notice: 'Erro ao criar a sala.' }
+        format.html { render :edit, status: :unprocessable_entity, notice: t('.fail') }
         format.json { render json: @classroom.errors, status: :unprocessable_entity }
       end
     end
@@ -64,22 +64,22 @@ class ClassroomsController < ApplicationController
     if current_user.admin?
       @classroom.destroy
       respond_to do |format|
-        format.html { redirect_to classrooms_url, notice: 'Classroom was successfully destroyed.' }
+        format.html { redirect_to classrooms_url, notice: t('.success') }
         format.json { head :no_content }
       end
     else
-      redirect_to root_path, alert: 'Você não tem permissão.'
+      redirect_to root_path, alert: t('.fail')
     end
   end
 
   private
 
   def authorize_admin!
-    redirect_to root_path, alert: 'Access denied.' unless current_user.admin? || current_user.teacher?
+    redirect_to root_path, alert: t('.denied') unless current_user.admin? || current_user.teacher?
   end
 
   def authorize_creation
-    redirect_to root_path, alert: 'Access denied.' unless current_user.admin?
+    redirect_to root_path, alert: t('.denied') unless current_user.admin?
   end
 
   def set_info

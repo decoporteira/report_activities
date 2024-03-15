@@ -24,10 +24,10 @@ class TeachersController < ApplicationController
 
     respond_to do |format|
       if @teacher.save
-        format.html { redirect_to teacher_url(@teacher), notice: 'Teacher was successfully created.' }
+        format.html { redirect_to teacher_url(@teacher), notice: t('.success') }
         format.json { render :show, status: :created, location: @teacher }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_entity, notice: t('.fail') }
         format.json { render json: @teacher.errors, status: :unprocessable_entity }
       end
     end
@@ -37,10 +37,10 @@ class TeachersController < ApplicationController
   def update
     respond_to do |format|
       if @teacher.update(teacher_params)
-        format.html { redirect_to teacher_url(@teacher), notice: 'Teacher was successfully updated.' }
+        format.html { redirect_to teacher_url(@teacher), notice: t('.success') }
         format.json { render :show, status: :ok, location: @teacher }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_entity, notice: t('.fail') }
         format.json { render json: @teacher.errors, status: :unprocessable_entity }
       end
     end
@@ -51,7 +51,7 @@ class TeachersController < ApplicationController
 
     @teacher.destroy
     respond_to do |format|
-      format.html { redirect_to teachers_url, notice: 'Teacher was successfully destroyed.' }
+      format.html { redirect_to teachers_url, notice: t('.success') }
       format.json { head :no_content }
     end
   end
@@ -61,7 +61,7 @@ class TeachersController < ApplicationController
   private
 
   def authorize_admin!
-    redirect_to root_path, alert: 'Access denied.' unless current_user.admin? || current_user.accounting?
+    redirect_to root_path, alert: t('.denied') unless current_user.admin? || current_user.accounting?
   end
 
   def set_teacher

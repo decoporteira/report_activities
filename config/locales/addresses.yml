@@ -1,14 +1,22 @@
 pt-BR:
   activerecord:
     models:
-      address: "Endereço"
+      address: Endereço
     attributes:
       address:
-        street: "Rua"
-        number: "Número"
-        unit: "Complemento"
-        neighborhood: "Bairro"
-        city: "Cidade"
-        state: "Estado"
-        country: "País"
-        zip_code: "CEP"
+        street: Rua
+        number: Número
+        unit: Complemento
+        neighborhood: Bairro
+        city: Cidade
+        state: Estado
+        country: País
+        zip_code: CEP
+  addresses:
+    denied: Acesso negado.
+    create:
+      success: Endereço criado com sucesso.
+      fail: Não foi possível criar o endereço.
+    update:
+      success: Endereço editado com sucesso.
+      fail: Não foi possível editar o endereço.

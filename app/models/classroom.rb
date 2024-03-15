@@ -7,7 +7,7 @@ class Classroom < ApplicationRecord
     "#{name} - #{teacher.name}"
   end
 
-  def self.ransackable_attributes(auth_object = nil)
-    ["created_at", "id", "name", "teacher_id", "time", "updated_at"]
-    end
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[created_at id name teacher_id time updated_at]
+  end
 end
