@@ -1,4 +1,5 @@
-<%= search_form_for([:student, @q], url: url_for(controller: '/search'), remote: true ) do |f| %>
-  <%= f.search_field :name_cont, placeholder: "Procurar por aluno...", id: 'search' %>
-  <%= f.submit "Search", class: "btn btn-outline-primary" %>
+<%= form_tag(url_for(controller: '/search'), method: 'get', remote: true) do %>
+  <%= text_field_tag 'query', params[:q], placeholder: 'Procurar por aluno...', id: 'search' %>
+  <%= submit_tag 'Search', class: 'btn btn-outline-primary' %>
 <% end %>
+

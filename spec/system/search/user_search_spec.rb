@@ -99,4 +99,26 @@ RSpec.describe 'Usuário pesquisa' do
     expect(page).not_to have_content 'Professor(a): Oak'
     expect(page).to have_content 'Professor(a): Carvalho'
   end
+
+  it 'E vê resultados de alunos com acento' do
+    user = User.create!(email: 'admin@emailcom.br', password: 'password', role: 'admin')
+    user_teacher = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
+    teacher = Teacher.create!(name: 'Bianca', status: 'disponível', user_id: user_teacher.id,
+                              cpf: '087.097.098-01')
+    classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
+    Student.create!(name: 'Chameleon', status: 'Matriculado', classroom_id: classroom.id, cpf: '065.654.654-01')
+    Student.create!(name: 'Charmander', status: 'Matriculado', classroom_id: classroom.id, cpf: '077.654.654-01')
+    Student.create!(name: 'Blastoise', status: 'Não matriculado', classroom_id: classroom.id, cpf: '065.654.654-01')
+
+    login_as user
+    visit root_path
+
+    fill_in 'search', with: 'Chameleon'
+    click_on 'Search'
+
+    expect(page).to have_content 'Alunos encontrados: 1'
+    expect(page).to have_content 'Charmander'
+    expect(page).to have_content 'Chameléon'
+    expect(page).to have_content 'Turmas encontradas: 0'
+  end
 end
