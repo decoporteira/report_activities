@@ -4,7 +4,7 @@ class SearchController < ApplicationController
 
     query_sem_acento = substitui_vogais_com_acento(query)
 
-    @students = Student.where("name LIKE ?", query_sem_acento)
+    @students = Student.where("name LIKE ?", "%#{query_sem_acento}%")
     @teachers = Teacher.where(name: query)
     @classrooms = Classroom.where(name: query)
     # @q = Student.ransack(name_cont: normalized_search_term)
