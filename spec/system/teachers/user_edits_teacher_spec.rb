@@ -15,7 +15,7 @@ RSpec.describe 'Usuário editar professor' do
     fill_in 'cpf', with: '000.000.000-00'
     click_on 'Atualizar Professor(a)'
 
-    expect(page).to have_content 'Teacher was successfully updated.'
+    expect(page).to have_content 'Professor(a) editado(a) com sucesso.'
     expect(page).to have_content 'Professor(a): Oak'
     expect(page).to have_content 'CPF: 000.000.000-00'
   end
@@ -51,7 +51,7 @@ RSpec.describe 'Usuário editar professor' do
     fill_in 'cpf', with: '000.000.000-00'
     click_on 'Atualizar Professor(a)'
 
-    expect(page).to have_content 'Teacher was successfully updated.'
+    expect(page).to have_content 'Professor(a) editado(a) com sucesso.'
     expect(page).to have_content 'Professor(a): Oak'
     expect(page).to have_content 'CPF: 000.000.000-00'
   end

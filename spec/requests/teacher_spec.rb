@@ -10,7 +10,7 @@ RSpec.describe 'Teachers', type: :request do
     login_as(admin)
 
     expect { delete "/teachers/#{teacher.id}" }.to change(Teacher, :count).by(-1)
-    expect(flash[:notice]).to eq('Teacher was successfully destroyed.')
+    expect(flash[:notice]).to eq('Professor(a) apagado(a) com sucesso.')
   end
 
   it 'falha ao tentar apagar um professor' do
@@ -23,6 +23,6 @@ RSpec.describe 'Teachers', type: :request do
 
     expect { delete "/teachers/#{teacher.id}" }.to change(Teacher, :count).by(0)
     expect(response).to redirect_to(root_path)
-    expect(flash[:alert]).to eq('Access denied.')
+    expect(flash[:alert]).to eq('Acesso negado.')
   end
 end

@@ -15,7 +15,7 @@ RSpec.describe 'Admin edita classroom' do
     click_on 'Atualizar Turma'
 
     expect(page).to have_content('Turma Sala dos Pokemon')
-    expect(page).to have_content('Classroom was successfully updated.')
+    expect(page).to have_content('Turma editada com sucesso.')
   end
   it 'e falha' do
     user = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
@@ -31,6 +31,5 @@ RSpec.describe 'Admin edita classroom' do
     click_on 'Atualizar Turma'
 
     expect(page).to have_content('Nome não pode ficar em branco')
-    # expect(current_path).to eq edit_classroom_path(classroom)
   end
 end

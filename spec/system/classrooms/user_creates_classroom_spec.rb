@@ -21,7 +21,7 @@ RSpec.describe 'Tipo de usuário cria uma turma' do
       click_on 'Criar Turma'
 
       # assert
-      expect(page).to have_content('Classroom was successfully created.')
+      expect(page).to have_content('Turma criada com sucesso.')
       expect(page).to have_content('Turma Sala de Aula')
       expect(page).to have_content('Carvalho | 16:00')
     end
@@ -103,7 +103,7 @@ RSpec.describe 'Tipo de usuário cria uma turma' do
       click_on 'Criar Turma'
 
       # assert
-      expect(page).to have_content('Classroom was successfully created.')
+      expect(page).to have_content('Turma criada com sucesso.')
       expect(page).to have_content('Turma Sala de Aula')
       expect(page).to have_content('Carvalho | 16:00')
     end
@@ -113,12 +113,11 @@ RSpec.describe 'Tipo de usuário cria uma turma' do
       User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
 
       # act
-      # act
       login_as(accounting)
       visit(new_classroom_path)
 
       # assert
-      expect(page).to have_content('Access denied')
+      expect(page).to have_content('Acesso negado.')
       expect(current_path).to eq root_path
     end
 
@@ -132,7 +131,7 @@ RSpec.describe 'Tipo de usuário cria uma turma' do
       visit(new_classroom_path)
 
       # assert
-      expect(page).to have_content('Access denied')
+      expect(page).to have_content('Acesso negado.')
       expect(current_path).to eq root_path
       expect(page).not_to have_content('Teachers')
       expect(page).not_to have_content('New Teacher')
@@ -149,7 +148,7 @@ RSpec.describe 'Tipo de usuário cria uma turma' do
       visit(new_classroom_path)
 
       # assert
-      expect(page).to have_content('Access denied')
+      expect(page).to have_content('Acesso negado.')
       expect(current_path).to eq root_path
     end
   end

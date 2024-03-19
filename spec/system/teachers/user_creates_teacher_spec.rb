@@ -21,7 +21,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
       click_on 'Criar Professor(a)'
 
       # assert
-      expect(page).to have_content('Teacher was successfully created.')
+      expect(page).to have_content('Professor(a) criado(a) com sucesso.')
       expect(page).to have_content('Professor(a): Carvalho')
       expect(page).to have_content('Status: disponível')
       expect(page).to have_content('CPF: 000.000.000-01')
@@ -66,7 +66,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
       click_on 'Criar Professor(a)'
 
       # assert
-      expect(page).to have_content('Teacher was successfully created.')
+      expect(page).to have_content('Professor(a) criado(a) com sucesso.')
       expect(page).to have_content('Professor(a): Carvalho')
       expect(page).to have_content('Status: disponível')
       expect(page).to have_content('CPF: 000.000.000-01')
@@ -122,7 +122,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
       click_on 'Criar Professor(a)'
 
       # assert
-      expect(page).to have_content('Teacher was successfully created.')
+      expect(page).to have_content('Professor(a) criado(a) com sucesso.')
       expect(page).to have_content('Professor(a): Carvalho')
       expect(page).to have_content('Status: disponível')
       expect(page).to have_content('CPF: 000.000.000-01')
@@ -146,7 +146,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
       click_on 'Criar Professor(a)'
 
       # assert
-      expect(page).to have_content('Teacher was successfully created.')
+      expect(page).to have_content('Professor(a) criado(a) com sucesso.')
       expect(page).to have_content('Professor(a): Carvalho')
       expect(page).to have_content('Status: disponível')
       expect(page).to have_content('CPF: 000.000.000-01')
@@ -163,7 +163,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
       visit(teachers_path)
 
       # assert
-      expect(page).to have_content('Access denied')
+      expect(page).to have_content('Acesso negado.')
       expect(current_path).to eq root_path
       expect(page).not_to have_content('Teachers')
       expect(page).not_to have_content('New Teacher')
@@ -180,7 +180,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
       visit(teachers_path)
 
       # assert
-      expect(page).to have_content('Access denied')
+      expect(page).to have_content('Acesso negado.')
       expect(current_path).to eq root_path
       expect(page).not_to have_content('Teachers')
       expect(page).not_to have_content('New Teacher')
