@@ -45,6 +45,7 @@ Rails.application.routes.draw do
       post :import
     end
   end
+  resources :financial_responsibles, only: [:new, :create, :index, :show]
   resources :classrooms do
     collection do
       post :create_activity

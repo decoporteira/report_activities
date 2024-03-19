@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# Controla o ciclo de vida de Classrooms
 class ClassroomsController < ApplicationController
   before_action :set_classroom, only: %i[show edit update destroy activities_by_date]
   before_action :set_info
@@ -25,6 +24,7 @@ class ClassroomsController < ApplicationController
   end
 
   def edit; end
+
 
   def create_activity
     students = Student.where(classroom_id: params[:classroom_id], status: 'Matriculado')
