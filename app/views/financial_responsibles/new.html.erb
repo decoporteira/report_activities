@@ -1,13 +1,3 @@
 <h1>Cadastrar Responsável Financeiro</h1>
 
-<%= form_with(model: @financial_responsible) do |form| %>
-  <%= form.label :name %>
-  <%= form.text_field :name %>
-  <%= form.label :cpf %>
-  <%= form.text_field :cpf %>
-  <%= form.label :phone %>
-  <%= form.text_field :phone %>
-  <%= form.label :email %>
-  <%= form.text_field :email %>
-  <%= form.submit 'Cadastrar', class:'btn btn-primary' %>
-<% end %>
+<%= render 'form'%>

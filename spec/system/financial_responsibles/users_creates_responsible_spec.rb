@@ -8,7 +8,7 @@ RSpec.describe 'Usuário cria um responsável financeiro' do
                               cpf: '087.097.098-01')
     classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
     Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id,
-                              cpf: '065.654.654-01')
+                    cpf: '065.654.654-01')
 
     login_as(user)
     visit(root_path)
@@ -18,10 +18,9 @@ RSpec.describe 'Usuário cria um responsável financeiro' do
     fill_in 'Cpf', with: '000.000.000-01'
     fill_in 'Email', with: 'oak@email.com'
     fill_in 'Phone', with: '3299900-0000'
-    click_on 'Cadastrar'
+    click_on 'Salvar'
 
     expect(page).to have_content('Responsável cadastrado com sucesso.')
-
   end
 
   it 'e falha' do
@@ -31,7 +30,7 @@ RSpec.describe 'Usuário cria um responsável financeiro' do
                               cpf: '087.097.098-01')
     classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
     Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id,
-                              cpf: '065.654.654-01')
+                    cpf: '065.654.654-01')
 
     login_as(user)
     visit(root_path)
@@ -41,9 +40,8 @@ RSpec.describe 'Usuário cria um responsável financeiro' do
     fill_in 'Cpf', with: '000.000.000-01'
     fill_in 'Email', with: 'oak@email.com'
     fill_in 'Phone', with: '3299900-0000'
-    click_on 'Cadastrar'
+    click_on 'Salvar'
 
     expect(page).to have_content('Não foi possível cadastrar o Responsável.')
-
   end
 end

@@ -1,9 +1,9 @@
 <%= link_to 'Cadastrar Responsável Financeiro', new_financial_responsible_path, class: 'btn btn-primary' %>
 
 <% @financial_responsibles.each do |responsable| %>
-  <%= responsable.name %>
-   <%= responsable.cpf %>
-   <%= responsable.phone %>
-   <%= responsable.email %>
+  <%= link_to responsable.name, responsable %>
+  <%= responsable.cpf %>
+  <%= responsable.phone %>
+  <%= responsable.email %>
   
 <% end %>

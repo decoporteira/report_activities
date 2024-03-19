@@ -1,1 +1,7 @@
-<h1>show</h1>
+<h1>Responsável Financeiro</h1>
+Nome: <%= @financial_responsible.name %>
+CPF: <%= @financial_responsible.cpf %>
+Email: <%= @financial_responsible.email %>
+Telefone: <%= @financial_responsible.phone %>
+
+<%= link_to 'Editar', edit_financial_responsible_path(@financial_responsible) %>
