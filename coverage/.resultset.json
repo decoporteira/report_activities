@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/home/deco/workspace/report_activities/spec/system/financial_responsibles/users_creates_responsible_spec.rb": {
+      "/home/deco/workspace/report_activities/spec/system/financial_responsibles/user_views_all_responsibles_spec.rb": {
         "lines": [
           1,
           null,
@@ -10,23 +10,18 @@
           1,
           1,
           1,
-          null,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
-          1,
           1,
           null,
           1,
-          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
           null,
           null
         ]
@@ -720,7 +715,7 @@
           1,
           null,
           1,
-          5,
+          1,
           null,
           null
         ]
@@ -884,7 +879,7 @@
           1,
           null,
           1,
-          2,
+          1,
           null,
           null
         ]
@@ -1017,69 +1012,10 @@
           null
         ]
       },
-      "/home/deco/workspace/report_activities/app/models/classroom.rb": {
+      "/home/deco/workspace/report_activities/app/models/financial_responsible.rb": {
         "lines": [
-          1,
-          1,
-          1,
-          1,
           null,
           1,
-          0,
-          null,
-          null,
-          1,
-          0,
-          null,
-          null
-        ]
-      },
-      "/home/deco/workspace/report_activities/app/controllers/home_controller.rb": {
-        "lines": [
-          1,
-          1,
-          1,
-          1,
-          null,
-          1,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          null,
-          null
-        ]
-      },
-      "/home/deco/workspace/report_activities/app/controllers/application_controller.rb": {
-        "lines": [
-          1,
-          1,
-          1,
-          1,
-          null,
-          1,
-          5,
-          5,
-          null,
-          null,
-          1,
-          null,
-          1,
-          null,
-          0,
-          0,
-          null,
-          null
-        ]
-      },
-      "/home/deco/workspace/report_activities/app/models/activity.rb": {
-        "lines": [
           1,
           1,
           1,
@@ -1092,41 +1028,57 @@
           1,
           null,
           1,
-          null,
-          null,
-          1,
           1,
           null,
           null,
           1,
+          0,
+          null,
+          null,
           1,
-          1,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          null,
+          null,
+          null,
           1,
           null,
           null,
           1,
           null,
-          null,
           1,
-          null,
-          1,
-          1,
+          0,
           null,
           null
         ]
       },
-      "/home/deco/workspace/report_activities/app/models/financial_responsible.rb": {
+      "/home/deco/workspace/report_activities/app/controllers/application_controller.rb": {
         "lines": [
+          1,
+          1,
+          1,
+          1,
           null,
           1,
           1,
           1,
+          null,
+          null,
           1,
+          null,
           1,
+          null,
+          0,
+          0,
+          null,
           null
         ]
       }
     },
-    "timestamp": 1710875116
+    "timestamp": 1710877347
   }
 }

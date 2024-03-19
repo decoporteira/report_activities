@@ -1,6 +1,7 @@
 class FinancialResponsiblesController < ApplicationController
 
   def index
+    @financial_responsibles = FinancialResponsible.all
   end
 
   def new
@@ -9,8 +10,12 @@ class FinancialResponsiblesController < ApplicationController
 
   def create
     @financial_responsible = FinancialResponsible.new(financial_responsible_params)
-    @financial_responsible.save
-    redirect_to @financial_responsible, notice: 'Responsável cadastrado com sucesso.'
+    if @financial_responsible.save
+      redirect_to @financial_responsible, notice: 'Responsável cadastrado com sucesso.'
+    else
+      flash[:alert] = 'Não foi possível cadastrar o Responsável.'
+      render :new
+    end
   end
 
   def show
