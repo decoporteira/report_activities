@@ -106,19 +106,18 @@ RSpec.describe 'Usuário pesquisa' do
     teacher = Teacher.create!(name: 'Bianca', status: 'disponível', user_id: user_teacher.id,
                               cpf: '087.097.098-01')
     classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(name: 'Chameleon', status: 'Matriculado', classroom_id: classroom.id, cpf: '065.654.654-01')
+    Student.create!(name: 'Charmeléon', status: 'Matriculado', classroom_id: classroom.id, cpf: '065.654.654-01')
     Student.create!(name: 'Charmander', status: 'Matriculado', classroom_id: classroom.id, cpf: '077.654.654-01')
     Student.create!(name: 'Blastoise', status: 'Não matriculado', classroom_id: classroom.id, cpf: '065.654.654-01')
 
     login_as user
     visit root_path
 
-    fill_in 'search', with: 'Chameleon'
+    fill_in 'search', with: 'Charmeleon'
     click_on 'Search'
 
     expect(page).to have_content 'Alunos encontrados: 1'
-    expect(page).to have_content 'Charmander'
-    expect(page).to have_content 'Chameléon'
+    expect(page).to have_content 'Charmeléon'
     expect(page).to have_content 'Turmas encontradas: 0'
   end
 end

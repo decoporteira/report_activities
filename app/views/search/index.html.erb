@@ -23,13 +23,11 @@
     <% end %>
   </div>
       <h3>Turmas encontradas: <%= @classrooms.count%></h3>
-    
-
     <% if @classrooms.count == 0 %>
       <h4>Nenhuma turma encontrada.</h4>
       <% else %>
       <% @teachers.each do |teacher| %>
-        <%= link_to "Turmas de #{Teacher.find(teacher).name}", search_filter_path(teacher_id: teacher, q: params[:q][:name_cont]), class: 'btn btn-outline-success mx-2 my-2' %>
+        <%= link_to "Turmas de #{Teacher.find(teacher).name}", search_filter_path(teacher_id: teacher, q: params[:q]), class: 'btn btn-outline-success mx-2 my-2' %>
       <% end %>
     <% end %>
     <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">

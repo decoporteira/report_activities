@@ -29,7 +29,7 @@ RSpec.describe 'user creates new Address' do
     expect(page).not_to have_content('Charizard')
     expect(page).to have_content('Venossaur')
     expect(page).to have_content('MW 17:00')
-    expect(page).to have_content('Endereço cadastrado com sucesso.')
+    expect(page).to have_content('Endereço criado com sucesso.')
   end
 
   it 'criar um endereço para um professor' do
@@ -59,7 +59,7 @@ RSpec.describe 'user creates new Address' do
     # #assert
     expect(page).to have_content('Bianca')
     expect(page).to have_content('MW 17:00')
-    expect(page).to have_content('Endereço cadastrado com sucesso.')
+    expect(page).to have_content('Endereço criado com sucesso.')
     expect(page).to have_content('Rua das Coves')
   end
 end
