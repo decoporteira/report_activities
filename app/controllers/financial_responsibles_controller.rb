@@ -1,5 +1,6 @@
 class FinancialResponsiblesController < ApplicationController
   before_action :set_responsible, only: %i[show edit update]
+  before_action :authorize_admin!
 
   def index
     @financial_responsibles = FinancialResponsible.all
@@ -12,10 +13,10 @@ class FinancialResponsiblesController < ApplicationController
   def create
     @financial_responsible = FinancialResponsible.new(financial_responsible_params)
     if @financial_responsible.save
-      redirect_to @financial_responsible, notice: 'Responsável cadastrado com sucesso.'
+      redirect_to @financial_responsible, notice: t('.success')
     else
-      flash[:alert] = 'Não foi possível cadastrar o Responsável.'
-      render :new
+      flash.now[:alert] = t('.fail')
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -29,11 +30,15 @@ class FinancialResponsiblesController < ApplicationController
       redirect_to @financial_responsible, notice: 'Responsável editado com sucesso.'
     else
       flash[:alert] = 'Não foi possível editar o Responsável.'
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
   private
+
+  def authorize_admin!
+    redirect_to root_path, alert: t('.denied') unless current_user.admin? || current_user.accounting?
+  end
 
   def financial_responsible_params
     params.require(:financial_responsible).permit(:name, :phone, :cpf, :email)

@@ -45,7 +45,7 @@
 
 /config/app_environment_variables.rb
 node_modules/.yarn-integrity
+coverage/
 coverage/.last_run.json
-coverage/index.html
 coverage/.resultset.json
-coverage/.last_run.json
+coverage/index.html

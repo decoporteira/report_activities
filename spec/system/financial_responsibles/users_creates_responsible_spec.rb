@@ -14,10 +14,10 @@ RSpec.describe 'Usuário cria um responsável financeiro' do
     visit(root_path)
     click_on('Responsáveis')
     click_on('Cadastrar Responsável Financeiro')
-    fill_in 'Name', with: 'Prof. Oak'
-    fill_in 'Cpf', with: '000.000.000-01'
+    fill_in 'Nome', with: 'Prof. Oak'
+    fill_in 'CPF', with: '000.000.000-01'
     fill_in 'Email', with: 'oak@email.com'
-    fill_in 'Phone', with: '3299900-0000'
+    fill_in 'Telefone', with: '3299900-0000'
     click_on 'Salvar'
 
     expect(page).to have_content('Responsável cadastrado com sucesso.')
@@ -36,10 +36,10 @@ RSpec.describe 'Usuário cria um responsável financeiro' do
     visit(root_path)
     click_on('Responsáveis')
     click_on('Cadastrar Responsável Financeiro')
-    fill_in 'Name', with: ''
-    fill_in 'Cpf', with: '000.000.000-01'
+    fill_in 'Nome', with: ''
+    fill_in 'CPF', with: '000.000.000-01'
     fill_in 'Email', with: 'oak@email.com'
-    fill_in 'Phone', with: '3299900-0000'
+    fill_in 'Telefone', with: '3299900-0000'
     click_on 'Salvar'
 
     expect(page).to have_content('Não foi possível cadastrar o Responsável.')
