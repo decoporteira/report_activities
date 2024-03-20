@@ -32,5 +32,4 @@ RSpec.describe 'Usuário ve todos os resposáveis financeiros' do
     expect(page).not_to have_content('James')
     expect(current_path).to eq(root_path)
   end
-
 end
