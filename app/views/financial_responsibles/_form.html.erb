@@ -8,6 +8,7 @@
     </div>
   <% end %>
 <%= form_with(model: @financial_responsible) do |form| %>
+  <%= form.hidden_field :student_id, value: @student.id %>
   <%= form.label :name %>
   <%= form.text_field :name %>
   <%= form.label :cpf %>

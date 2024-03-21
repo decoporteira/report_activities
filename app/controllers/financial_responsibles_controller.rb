@@ -7,13 +7,22 @@ class FinancialResponsiblesController < ApplicationController
   end
 
   def new
+    debugger
     @financial_responsible = FinancialResponsible.new
+    @student = Student.find(params[:student_id])
   end
 
   def create
+    
     @financial_responsible = FinancialResponsible.new(financial_responsible_params)
     if @financial_responsible.save
-      redirect_to @financial_responsible, notice: t('.success')
+      responsible = Responsible.new(student_id: params[:student_id], financial_responsible_id: @financial_responsible.id)
+      if responsible.save
+        redirect_to @financial_responsible, notice: t('.success')
+      else
+        flash.now[:alert] = t('.fail')
+        return render :new, status: :unprocessable_entity
+      end
     else
       flash.now[:alert] = t('.fail')
       render :new, status: :unprocessable_entity

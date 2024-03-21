@@ -42,4 +42,26 @@ RSpec.describe 'User vê listagem de alunos' do
 
     expect(page).to have_content('Você não possui acesso a esse aluno.')
   end
+
+  it 'como admin com sucesso' do
+    user_teacher = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
+    teacher = Teacher.create!(name: 'Bianca', status: 'disponível', user_id: user_teacher.id, cpf: '087.097.098-01')
+    classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
+    student = Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id,
+                              cpf: '065.654.654-01')
+    Student.create!(name: 'Charmander', status: 'Matriculado', classroom_id: classroom.id, cpf: '077.654.654-01')
+    Student.create!(name: 'Blastoise', status: 'Não matriculado', classroom_id: classroom.id, cpf: '065.654.654-01')
+    Student.create!(name: 'Pikachu', status: 'Matriculado', classroom_id: classroom.id, cpf: '')
+    Student.create!(name: 'Bulbassaur', status: 'Matriculado', classroom_id: classroom.id, cpf: nil)
+    responsible = FinancialResponsible.create!(name: 'Carvalho', cpf: '000.000.000-00', email: 'oak@gmail.com', phone: '00 0000-0000')
+    Responsible.create!(student_id: student.id, financial_responsible_id: responsible.id)
+    user = User.create!(email: 'admin@email.com', password: 'password', cpf: '000.000.000-01', role: 'admin')
+
+    login_as(user)
+    visit(student_path(student))
+    expect(page).to have_content('Carvalho')
+    expect(page).to have_content('Venossaur')
+    
+  end
+
 end

@@ -3,5 +3,12 @@ Nome: <%= @financial_responsible.name %>
 CPF: <%= @financial_responsible.cpf %>
 Email: <%= @financial_responsible.email %>
 Telefone: <%= @financial_responsible.phone %>
-
+<% if @financial_responsible.responsibles.any? %>
+  <h3>É responsável Financeiro pelos alunos:</h3>
+  <% @financial_responsible.responsibles.each do |fr| %>
+    <%= fr.student.name %> | <%= fr.student.classroom.name %> 
+  <% end %>
+<% else %>
+ <h3> Não é reponsável por nenhum aluno. </h3>
+<% end %>
 <%= link_to 'Editar', edit_financial_responsible_path(@financial_responsible) %>
