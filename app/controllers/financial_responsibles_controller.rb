@@ -1,5 +1,6 @@
 class FinancialResponsiblesController < ApplicationController
   before_action :set_responsible, only: %i[show edit update]
+  before_action :set_student, only: %i[new]
   before_action :authorize_admin!
 
   def index
@@ -7,20 +8,21 @@ class FinancialResponsiblesController < ApplicationController
   end
 
   def new
-    debugger
     @financial_responsible = FinancialResponsible.new
-    @student = Student.find(params[:student_id])
   end
 
   def create
-    
-    @financial_responsible = FinancialResponsible.new(financial_responsible_params)
+    @student = Student.find(financial_responsible_params[:student_id]) 
+    @financial_responsible = FinancialResponsible.new(name: financial_responsible_params[:name],
+                                                      phone: financial_responsible_params[:phone],
+                                                      cpf: financial_responsible_params[:phone],
+                                                      email: financial_responsible_params[:email])
     if @financial_responsible.save
-      responsible = Responsible.new(student_id: params[:student_id], financial_responsible_id: @financial_responsible.id)
+      responsible = Responsible.new(student_id: @student.id, financial_responsible_id: @financial_responsible.id)
       if responsible.save
         redirect_to @financial_responsible, notice: t('.success')
       else
-        flash.now[:alert] = t('.fail')
+        flash.now[:alert] = 'Não foi possível criar o vinculo entre'
         return render :new, status: :unprocessable_entity
       end
     else
@@ -45,12 +47,15 @@ class FinancialResponsiblesController < ApplicationController
 
   private
 
+  def set_student
+    @student = Student.find(params[:student_id])
+  end
   def authorize_admin!
     redirect_to root_path, alert: t('.denied') unless current_user.admin? || current_user.accounting?
   end
 
   def financial_responsible_params
-    params.require(:financial_responsible).permit(:name, :phone, :cpf, :email)
+    params.require(:financial_responsible).permit(:name, :phone, :cpf, :email, :student_id)
   end
 
   def set_responsible
