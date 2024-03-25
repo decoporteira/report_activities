@@ -1,6 +1,6 @@
 class FinancialResponsiblesController < ApplicationController
   before_action :set_responsible, only: %i[show edit update]
-  before_action :set_student, only: %i[new]
+  before_action :set_student, only: %i[new create edit update]
   before_action :authorize_admin!
 
   def index
@@ -12,18 +12,22 @@ class FinancialResponsiblesController < ApplicationController
   end
 
   def create
-    @student = Student.find(financial_responsible_params[:student_id]) 
     @financial_responsible = FinancialResponsible.new(name: financial_responsible_params[:name],
                                                       phone: financial_responsible_params[:phone],
                                                       cpf: financial_responsible_params[:phone],
                                                       email: financial_responsible_params[:email])
     if @financial_responsible.save
-      responsible = Responsible.new(student_id: @student.id, financial_responsible_id: @financial_responsible.id)
-      if responsible.save
-        redirect_to @financial_responsible, notice: t('.success')
+      if financial_responsible_params[:student_id] == nil
+        return redirect_to @financial_responsible, notice: 'Responsável foi criado, porém sem nenhum aluno ligado a ele.'
       else
-        flash.now[:alert] = 'Não foi possível criar o vinculo entre'
-        return render :new, status: :unprocessable_entity
+        @student = Student.find(financial_responsible_params[:student_id])
+        responsible = Responsible.new(student_id: @student.id, financial_responsible_id: @financial_responsible.id)
+        if responsible.save
+          redirect_to @financial_responsible, notice: t('.success')
+        else
+          flash.now[:alert] = 'Não foi possível criar o vinculo entre o Aluno e o Responsável Financeiro'
+          render :new, status: :unprocessable_entity
+        end
       end
     else
       flash.now[:alert] = t('.fail')
@@ -33,8 +37,7 @@ class FinancialResponsiblesController < ApplicationController
 
   def show; end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @financial_responsible.update(financial_responsible_params)
@@ -48,8 +51,9 @@ class FinancialResponsiblesController < ApplicationController
   private
 
   def set_student
-    @student = Student.find(params[:student_id])
+    @student = Student.find_by_id(params[:student_id])
   end
+
   def authorize_admin!
     redirect_to root_path, alert: t('.denied') unless current_user.admin? || current_user.accounting?
   end

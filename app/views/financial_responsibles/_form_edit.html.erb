@@ -7,12 +7,7 @@
       </ul>
     </div>
   <% end %>
-<%= form_with(model: @financial_responsible) do |form| %>
-  <% if @student == []  %>
-    <% @student = 'erro' %>
-  <% end %>
-  
-  <%= form.hidden_field :student_id, value: @student.id %>
+<%= form_with(model: @financial_responsible,  local: true) do |form| %>
   <%= form.label :name %>
   <%= form.text_field :name %>
   <%= form.label :cpf %>

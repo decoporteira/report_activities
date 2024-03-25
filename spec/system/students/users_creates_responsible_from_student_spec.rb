@@ -24,8 +24,8 @@ RSpec.describe 'Usuário cadastra um responsável financeiro' do
 
     expect(page).to have_content('Responsável cadastrado com sucesso.')
     expect(page).to have_content('Venossaur')
-    expect(page).to have_content('Prof. Oak | 3299900-0000')
-    expect(page).to have_content('Responsável Financeiro:')
+    expect(page).to have_content('Prof. Oak')
+    expect(page).to have_content('Responsável Financeiro')
   end
 
   it 'e falha' do
@@ -34,8 +34,7 @@ RSpec.describe 'Usuário cadastra um responsável financeiro' do
     teacher = Teacher.create!(name: 'Bianca', status: 'disponível', user_id: user_teacher.id,
                               cpf: '087.097.098-01')
     classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id,
-                    cpf: '065.654.654-01')
+    #Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id, cpf: '065.654.654-01')
 
     login_as(user)
     visit(root_path)

@@ -20,7 +20,7 @@ RSpec.describe 'Usuário cria um responsável financeiro' do
     fill_in 'Telefone', with: '3299900-0000'
     click_on 'Salvar'
 
-    expect(page).to have_content('Responsável cadastrado com sucesso.')
+    expect(page).to have_content('Responsável foi criado, porém sem nenhum aluno ligado a ele.')
   end
 
   it 'e falha' do
