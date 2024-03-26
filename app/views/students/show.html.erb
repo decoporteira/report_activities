@@ -18,7 +18,7 @@
           </div>
           <%= link_to 'Cadastrar Responsável Financeiro', new_financial_responsible_path(student_id: @student.id), class: 'btn btn-primary' %>
           <br>
-          <%= link_to 'Vincular Responsável Financeiro Existente', new_responsible_path(student_id: @student.id), class: 'btn btn-primary my-2' %>
+          <%= link_to 'Vincular Responsável Financeiro Existente', new_responsible_path(student_id: @student.id), class: 'btn btn-primary' %>
       </div>
         <% @student.addresses.each do |address| %>
           <h3>Endereço</h3>
