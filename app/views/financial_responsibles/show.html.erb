@@ -12,11 +12,13 @@
     <% if @financial_responsible.responsibles.any? %>
      
       <% @financial_responsible.responsibles.each do |fr| %>
-        <li><%= fr.student.name %> | <%= fr.student.classroom.name %> </li>
+        <li><%= fr.student.name %> | <%= fr.student.classroom.name %> 
+            <%= link_to 'Editar Vínculo', responsible_path(fr.id) %>
+        </li>
       <% end %>
     <% else %>
     <li> Não é reponsável por nenhum aluno. </li>
     <% end %>
   </ul>
 <div>
-<%= link_to 'Editar', edit_financial_responsible_path(@financial_responsible) %>
+<%= link_to 'Editar dados do responsável', edit_financial_responsible_path(@financial_responsible) %>

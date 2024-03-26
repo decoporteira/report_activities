@@ -13,7 +13,7 @@ RSpec.describe 'Usuário cria um responsável financeiro' do
     login_as(user)
     visit(root_path)
     click_on('Responsáveis')
-    click_on('Cadastrar Responsável Financeiro')
+    click_on('Criar Responsável')
     fill_in 'Nome', with: 'Prof. Oak'
     fill_in 'CPF', with: '000.000.000-01'
     fill_in 'Email', with: 'oak@email.com'
@@ -35,7 +35,7 @@ RSpec.describe 'Usuário cria um responsável financeiro' do
     login_as(user)
     visit(root_path)
     click_on('Responsáveis')
-    click_on('Cadastrar Responsável Financeiro')
+    click_on('Criar Responsável')
     fill_in 'Nome', with: ''
     fill_in 'CPF', with: '000.000.000-01'
     fill_in 'Email', with: 'oak@email.com'

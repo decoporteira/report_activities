@@ -10,15 +10,16 @@
             <ul>
             <% @student.responsibles.each do |fr| %>
               <li><strong>Nome:</strong> <%= fr.financial_responsible.name %> | <strong>Telefone:</strong> <%= fr.financial_responsible.phone %></li>
+              <%= link_to 'Detalhes', financial_responsible_path(fr.financial_responsible.id) %>
             <% end %>
             </ul>
           <% else %>
             <h3> Não existe responsável financeiro cadastrado. </h3>
           <% end %>
           </div>
-          <%= link_to 'Cadastrar Responsável Financeiro', new_financial_responsible_path(student_id: @student.id), class: 'btn btn-primary' %>
+          <%= link_to 'Criar Responsável', new_financial_responsible_path(student_id: @student.id), class: 'btn btn-primary' %>
           <br>
-          <%= link_to 'Vincular Responsável Financeiro Existente', new_responsible_path(student_id: @student.id), class: 'btn btn-primary' %>
+          <%= link_to 'Vincular Responsável Existente', new_responsible_path(student_id: @student.id), class: 'btn btn-primary my-2' %>
       </div>
         <% @student.addresses.each do |address| %>
           <h3>Endereço</h3>

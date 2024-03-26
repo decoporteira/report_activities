@@ -16,7 +16,7 @@ RSpec.describe 'Usuário linka responsável financeiro' do
     visit(root_path)
     click_on('Alunos')
     click_on('Detalhes')
-    click_on('Vincular Responsável Financeiro Existente')
+    click_on('Vincular Responsável Existente')
     select 'Joy', from: 'financial_responsible_id'
     click_on('Salvar')
 
@@ -42,7 +42,7 @@ RSpec.describe 'Usuário linka responsável financeiro' do
     visit(root_path)
     click_on('Alunos')
     click_on('Detalhes')
-    click_on('Vincular Responsável Financeiro Existente')
+    click_on('Vincular Responsável Existente')
     select 'Joy', from: 'financial_responsible_id'
     click_on('Salvar')
 
