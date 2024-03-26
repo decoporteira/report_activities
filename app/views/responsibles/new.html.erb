@@ -1,0 +1,42 @@
+<div id="<%= dom_id @student %>"></div>
+<div class="container col-xxl-8 px-4 py-5">
+  <div class="row flex-lg-rowg-5 py-5">
+    <div class="col-10 col-sm-8 col-lg-6">
+     Aluno: <%= @student.name %>
+      <div class='mb-5'>
+        <% if @student.responsibles.any? %>
+          <div>
+            <h3>Responsável Financeiro:</h3>
+            <ul>
+            <% @student.responsibles.each do |fr| %>
+              <li><%= fr.financial_responsible.name %> | <%= fr.financial_responsible.phone %> destroy</li>
+            <% end %>
+            <ul>
+          <% else %>
+            <h3> Não existe responsável financeiro cadastrado. </h3>
+          </div>
+        <% end %>
+      </div>
+      <strong>Adicionar Responsável Financeiro:</strong>
+      <div>
+        <% if @responsible %>
+          <% if @responsible.errors.any? %>
+            <div class='alert alert-danger'>
+              <ul>
+                <% @financial_responsible.errors.each do |error| %>
+                  <li><%= error.full_message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <% end %>
+        <%= form_with url: responsibles_path do |form| %>
+          <%= form.hidden_field :student_id, value: @student.id %>
+          <%= form.label :financial_responsible_id %>
+          <%=form.collection_select :financial_responsible_id, FinancialResponsible.all, :id, :name  %><br/>
+          <%= form.submit 'Salvar', class:'btn btn-primary' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

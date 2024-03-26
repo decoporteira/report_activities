@@ -5,14 +5,20 @@
       <% if current_user.admin? || current_user.accounting? %>
       <div class='mb-5'>
           <% if @student.responsibles.any? %>
+          <div>
             <h3>Responsável Financeiro:</h3>
+            <ul>
             <% @student.responsibles.each do |fr| %>
-              <%= fr.financial_responsible.name %> | <%= fr.financial_responsible.phone %> 
+              <li><strong>Nome:</strong> <%= fr.financial_responsible.name %> | <strong>Telefone:</strong> <%= fr.financial_responsible.phone %></li>
             <% end %>
+            </ul>
           <% else %>
             <h3> Não existe responsável financeiro cadastrado. </h3>
           <% end %>
-          <%= link_to 'Cadastrar Responsável Financeiro', new_financial_responsible_path(student_id: @student.id) %>
+          </div>
+          <%= link_to 'Cadastrar Responsável Financeiro', new_financial_responsible_path(student_id: @student.id), class: 'btn btn-primary' %>
+          <br>
+          <%= link_to 'Vincular Responsável Financeiro Existente', new_responsible_path(student_id: @student.id), class: 'btn btn-primary my-2' %>
       </div>
         <% @student.addresses.each do |address| %>
           <h3>Endereço</h3>

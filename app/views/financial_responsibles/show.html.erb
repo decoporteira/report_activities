@@ -1,14 +1,22 @@
 <h1>Responsável Financeiro</h1>
-Nome: <%= @financial_responsible.name %>
-CPF: <%= @financial_responsible.cpf %>
-Email: <%= @financial_responsible.email %>
-Telefone: <%= @financial_responsible.phone %>
-<% if @financial_responsible.responsibles.any? %>
-  <h3>É responsável Financeiro pelos alunos:</h3>
-  <% @financial_responsible.responsibles.each do |fr| %>
-    <%= fr.student.name %> | <%= fr.student.classroom.name %> 
-  <% end %>
-<% else %>
- <h3> Não é reponsável por nenhum aluno. </h3>
-<% end %>
+<div class='my-2'>
+  <strong>Nome:</strong> <%= @financial_responsible.name %>
+  <strong>CPF:</strong> <%= @financial_responsible.cpf %>
+  <strong>Email:</strong> <%= @financial_responsible.email %>
+  <strong>Telefone:</strong> <%= @financial_responsible.phone %>
+</div>
+
+<div>
+ <h3>É Responsável Financeiro pelos alunos:</h3>
+  <ul>
+    <% if @financial_responsible.responsibles.any? %>
+     
+      <% @financial_responsible.responsibles.each do |fr| %>
+        <li><%= fr.student.name %> | <%= fr.student.classroom.name %> </li>
+      <% end %>
+    <% else %>
+    <li> Não é reponsável por nenhum aluno. </li>
+    <% end %>
+  </ul>
+<div>
 <%= link_to 'Editar', edit_financial_responsible_path(@financial_responsible) %>

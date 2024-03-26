@@ -1,18 +1,2 @@
 <h1>Cadastrar Responsável Financeiro</h1>
-
-<% if @student.present? %>
-  <%= form_with(model: @financial_responsible, local: true) do |form| %>
-    <%= form.hidden_field :student_id, value: @student.id %>
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-    <%= form.label :cpf %>
-    <%= form.text_field :cpf %>
-    <%= form.label :phone %>
-    <%= form.text_field :phone %>
-    <%= form.label :email %>
-    <%= form.text_field :email %>
-    <%= form.submit 'Salvar', class: 'btn btn-primary' %>
-  <% end %>
-<% else %>
-  <%= render 'form_edit' %>
-<% end %>
+  <%= render 'form' %>

@@ -51,4 +51,5 @@ Rails.application.routes.draw do
       post :create_activity
     end
   end
+  resources :responsibles, only: [:new, :create, :show]
 end
