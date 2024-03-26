@@ -3,8 +3,8 @@ class SearchController < ApplicationController
     query = params[:query].to_s
     query_sem_acento = substitui_vogais_com_acento(query)
 
-    @students = Student.where('name LIKE ?', "%#{query_sem_acento}%")
-    @classrooms = Classroom.where('name LIKE ?', "%#{query_sem_acento}%")
+    @students = Student.where('LOWER(name) LIKE ?', "%#{query_sem_acento.downcase}%")
+    @classrooms = Classroom.where('LOWER(name) LIKE ?', "%#{query_sem_acento.downcase}%")
     @teachers = filter_teachers
   end
 
