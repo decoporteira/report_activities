@@ -9,31 +9,31 @@
       </ul>
     </div>
   <% end %>
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class='mb-3'>
+    <%= form.label :name, class:'form-label' %>
+    <%= form.text_field :name, class:'form-control' %>
   </div>
-  <div>
-    <%= form.label :cpf, style: "display: block" %>
-    <%= form.text_field :cpf, id: "cpf" %>
+  <div class='mb-3'>
+    <%= form.label :cpf, class:'form-label' %>
+    <%= form.text_field :cpf, id: "cpf", class:'form-control' %>
   </div>
-  <div>
-    <%= form.label :user_id, style: "display: block" %>
-    <%= form.collection_select(:user_id, User.all, :id, :email, { prompt: "Select a user" }) %>
+  <div class='mb-3'>
+    <%= form.label :user_id, class:'form-label' %>
+    <%= form.collection_select(:user_id, User.all, :id, :email, { prompt: "Select a user" }, class:"form-select") %>
   </div>
-  <div>
-    <%= form.label :status, style: "display: block" %>
-    <%= form.select :status, options_for_select(Teacher.statuses.map {|key, value| [key.titleize, Teacher.statuses.key(value)]}, @teacher.status) %>
+  <div class='mb-3'>
+    <%= form.label :status, class:'form-label' %>
+    <%= form.select :status, options_for_select(Teacher.statuses.map {|key, value| [key.titleize, Teacher.statuses.key(value)]}, @teacher.status), {:prompt => 'Selecione um status'}, class:"form-select" %>
   </div>
-  <div>
-    <%= form.label :cel_phone, style: "display: block" %>
-    <%= form.text_field :cel_phone, id: "cel_phone"  %>
+  <div class='mb-3'>
+    <%= form.label :cel_phone, class:'form-label' %>
+    <%= form.text_field :cel_phone, id: "cel_phone", class:'form-control'  %>
   </div>
-  <div>
-    <%= form.label :phone, style: "display: block" %>
-    <%= form.text_field :phone, id: "phone"  %>
+  <div class='mb-3'>
+    <%= form.label :phone, class:'form-label' %>
+    <%= form.text_field :phone, id: "phone", class:'form-control'  %>
   </div>
-  <div>
+  <div class='mb-3'>
     <%= form.submit class:'btn btn-primary mt-4' %>
   </div>
 <% end %>

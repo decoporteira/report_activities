@@ -3,33 +3,35 @@
     <%=link_to image_tag("https://englishglobe.com.br/wp-content/themes/english/images/logo.png", width: 140, border: 0), {action: 'index', controller: '/home'}, {class: 'dock-item '} %>
   </div>
   <main class="form-signin">
+  <div class='d-inline-flex flex-column p-2'>
     <h2>Criar Conta</h2>
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
       <div class="field">
-        <%= f.label :email %><br />
-        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        <%= f.label :email, class:'form-label' %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class:'form-control' %>
       </div>
       <div class="field">
-        <%= f.label :cpf %><span class='text-body-secondary'> (apenas os números)</span><br />
-        <%= f.text_field :cpf, autofocus: true, autocomplete: "CPF", id:"cpf" %>
+        <%= f.label :cpf, class:'form-label' %><span class='text-body-secondary'> (apenas os números)</span><br />
+        <%= f.text_field :cpf, autofocus: true, autocomplete: "CPF", id:"cpf", class:'form-control' %>
       </div>
       <div class="field">
-        <%= f.label :password %>
+        <%= f.label :password, class:'form-label' %>
         <% if @minimum_password_length %>
           <em>(<%= @minimum_password_length %> characters minimum)</em>
         <% end %><br />
-        <%= f.password_field :password, autocomplete: "new-password" %>
+        <%= f.password_field :password, autocomplete: "new-password", class:'form-control' %>
       </div>
       <div class="field">
-        <%= f.label :password_confirmation %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+        <%= f.label :password_confirmation, class:'form-label' %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class:'form-control' %>
       </div>
       <div class="actions">
         <%= f.submit "Criar conta", data:{turbo: false}, class:"btn btn-primary btn-lg my-3"  %>
       </div>
     <% end %>
     <%= render "devise/shared/links" %>
+    </div>
   </main>
 </div>
 <script>

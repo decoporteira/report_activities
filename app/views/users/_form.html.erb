@@ -10,21 +10,20 @@
     </div>
   <% end %>
   <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+    <%= form.label :name, class:'form-label' %>
+    <%= form.text_field :name, class:'form-control' %>
   </div>
   <div>
-    <%= form.label :cpf, style: "display: block" %>
-    <%# form.text_field :cpf %>
-    <%= form.text_field :cpf, id: "cpf" %>
+    <%= form.label :cpf, class:'form-label' %>
+    <%= form.text_field :cpf, id: "cpf", class:'form-control' %>
   </div>
   <div>
-    <%= form.label :user_id, style: "display: block" %>
-    <%= form.text_field :user_id %>
+    <%= form.label :user_id, class:'form-label' %>
+    <%= form.text_field :user_id, class:'form-control' %>
   </div>
   <div>
-    <%= form.label :status, style: "display: block" %>
-    <%= form.select :status, options_for_select(Teacher.statuses.map {|key, value| [key.titleize, Teacher.statuses.key(value)]}, @teacher.status) %>
+    <%= form.label :status, class:'form-label' %>
+    <%= form.select :status, options_for_select(Teacher.statuses.map {|key, value| [key.titleize, Teacher.statuses.key(value)]}, @teacher.status), {:prompt => 'Selecione um status'}, class:"form-select" %>
   </div>
   <div>
     <%= form.submit class:'btn btn-primary mt-4' %>

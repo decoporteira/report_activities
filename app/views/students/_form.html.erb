@@ -9,33 +9,33 @@
       </ul>
     </div>
   <% end %>
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class="mb-3">
+    <%= form.label :name, class:'form-label' %>
+    <%= form.text_field :name, class:'form-control' %>
   </div>
-  <div>
-    <%= form.label :status, style: "display: block" %>
-    <%= form.select :status, options_for_select(Student.statuses.map {|key, value| [key.titleize, Student.statuses.key(value)]}, @student.status) %>
+  <div class="mb-3">
+    <%= form.label :status, class:'form-label' %>
+    <%= form.select :status, options_for_select(Student.statuses.map {|key, value| [key.titleize, Student.statuses.key(value)]}, @student.status), {:prompt => 'Selecione um status'}, class:"form-select" %>
   </div>
-  <div>
-    <%= form.label 'CPF do Aluno ou CPF do responsável caso menor de 18 anos', style: "display: block" %>
-    <%= form.text_field :cpf, autocomplete: "CPF", id:"cpf"  %>
+<div class="mb-3">
+    <%= form.label 'CPF do Aluno ou CPF do responsável caso menor de 18 anos', class:'form-label' %>
+    <%= form.text_field :cpf, autocomplete: "CPF", id:"cpf", class:'form-control'  %>
   </div>
-  <div>
-    <%= form.label :cel_phone, style: "display: block" %>
-    <%= form.text_field :cel_phone, id: "cel_phone"  %>
+<div class="mb-3">
+    <%= form.label :cel_phone, class:'form-label' %>
+    <%= form.text_field :cel_phone, id: "cel_phone", class:'form-control'  %>
   </div>
-  <div>
-    <%= form.label :phone, style: "display: block" %>
-    <%= form.text_field :phone, id: "phone"  %>
+<div class="mb-3">
+    <%= form.label :phone, class:'form-label' %>
+    <%= form.text_field :phone, id: "phone", class:'form-control'  %>
   </div>
-  <div>
-    <%= form.label :classroom_id, style: "display: block" %>
+  <div class="mb-3">
+    <%= form.label :classroom_id, class:'form-label' %>
     <% form.text_field :classroom_id %>
     <%if current_user.teacher? %>
-      <%= form.collection_select :classroom_id, current_user.teacher.classrooms, :id, :name %>
+      <%= form.collection_select :classroom_id, current_user.teacher.classrooms, :id, :name, class:"form-select" %>
     <% else %>
-      <%=form.collection_select :classroom_id, Classroom.all, :id, :name_with_teacher_name   %>
+      <%=form.collection_select :classroom_id, Classroom.all, :id, :name_with_teacher_name, {:prompt => 'Selecione uma turma'}, class:"form-select"   %>
     <% end %>
     <br/>
   </div>
