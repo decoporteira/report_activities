@@ -11,23 +11,23 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class='mb-3'>
+    <%= form.label :name, class:'form-label'  %>
+    <%= form.text_field :name, class:'form-control' %>
   </div>
 
-  <div>
-    <%= form.label :time, style: "display: block" %>
-    <%= form.text_field :time %>
+  <div class='mb-3'>
+    <%= form.label :time, class:'form-label'  %>
+    <%= form.text_field :time, class:'form-control' %>
   </div>
 
-  <div>
-    <%= form.label :teacher_id, style: "display: block" %>
+  <div class='mb-3'>
+    <%= form.label :teacher_id, class:'form-label'  %>
     
-    <%=form.collection_select :teacher_id, Teacher.all, :id, :name  %><br/>
+    <%=form.collection_select :teacher_id, Teacher.all, :id, :name, {:prompt => 'Selecione um professor(a)'}, class:"form-select"  %><br/>
   </div>
 
-  <div> 
-    <%= form.submit class:'btn btn-primary mt-4' %>
+  <div class='mb-1'> 
+    <%= form.submit class:'btn btn-primary mt-1' %>
   </div>
 <% end %>
