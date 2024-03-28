@@ -1,5 +1,7 @@
 class Student < ApplicationRecord
   # before_destroy :destroy_activities
+  has_many :responsibles
+  has_many :financial_responsibles, through: :responsibles
   has_many :activities, dependent: :destroy
   belongs_to :classroom
   has_many :resumes, dependent: :destroy

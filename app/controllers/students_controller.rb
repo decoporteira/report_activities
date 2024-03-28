@@ -1,7 +1,7 @@
 class StudentsController < ApplicationController
   before_action :cant_see, only: [:report]
   before_action :is_admin?, except: [:report]
-  before_action :set_student, only: %i[show edit update report activities_by_student]
+  before_action :set_student, only: %i[show edit update report activities_by_student link_responsible]
   before_action :set_info
 
   def index
@@ -83,6 +83,8 @@ class StudentsController < ApplicationController
     @attendance_rate = @number_of_days
   end
 
+  def link_responsible
+  end
   private
 
   def set_info

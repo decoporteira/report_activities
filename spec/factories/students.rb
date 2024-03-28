@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :student do
-    name { 'deco' }
+    name { 'Ash Ketchum' }
     status { 1 }
     classroom
   end

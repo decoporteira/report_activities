@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_29_163836) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_21_181535) do
   create_table "activities", force: :cascade do |t|
     t.string "report"
     t.integer "late"
@@ -53,6 +53,24 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_29_163836) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["teacher_id"], name: "index_classrooms_on_teacher_id"
+  end
+
+  create_table "financial_responsibles", force: :cascade do |t|
+    t.string "name"
+    t.string "phone"
+    t.string "cpf"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "responsibles", force: :cascade do |t|
+    t.integer "student_id", null: false
+    t.integer "financial_responsible_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["financial_responsible_id"], name: "index_responsibles_on_financial_responsible_id"
+    t.index ["student_id"], name: "index_responsibles_on_student_id"
   end
 
   create_table "resumes", force: :cascade do |t|
@@ -106,6 +124,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_29_163836) do
   add_foreign_key "activities", "students"
   add_foreign_key "attendances", "students"
   add_foreign_key "classrooms", "teachers"
+  add_foreign_key "responsibles", "financial_responsibles"
+  add_foreign_key "responsibles", "students"
   add_foreign_key "resumes", "students"
   add_foreign_key "students", "classrooms"
   add_foreign_key "teachers", "users"

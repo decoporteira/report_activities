@@ -1,0 +1,48 @@
+
+<div class="d-flex justify-content-between">
+  <h1>Responsável Financeiro</h1>
+</div>
+<div class="album py-5 bg-body-tertiary">
+  <div class="container"> 
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <div class="col">
+        <div class="card shadow-sm">
+          <div class="card-header py-1">
+            <h4 class="my-1 fw-normal fs-5"><%= @financial_responsible.name %></h4>
+          </div>
+          <div class="card-body">
+            <p class="card-text"></p>
+            <p><strong>CPF:</strong> <%= @financial_responsible.cpf %></p>
+            <p><strong>Eamil:</strong> <%= @financial_responsible.email %></p>
+            <p><strong>Telefone:</strong> <%= @financial_responsible.phone %></p>
+            <%= link_to 'Editar dados do responsável', edit_financial_responsible_path(@financial_responsible), class:'btn btn-outline-primary' %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='my-4'>
+     <h3>É Responsável Financeiro pelos alunos:</h3>
+      </div>
+    <% if @financial_responsible.responsibles.any? %>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <% @financial_responsible.responsibles.each do |fr| %>
+        <div class="col">
+          <div class="card shadow-sm">
+            <div class="card-header py-1">
+              <h4 class="my-1 fw-normal fs-5"><%= fr.student.name %></h4>
+            </div>
+              <div class="card-body">
+                <p class="card-text"></p>
+                <p><strong>Status:</strong> <%= fr.student.classroom.name %> </p>
+                <p><strong>Professor:</strong> <%= fr.student.classroom.teacher.name %></p>
+                <%= link_to 'Editar Vínculo', responsible_path(fr.id), class:"btn btn-outline-primary" %>
+              </div>
+            </div>
+          </div>
+          <% end %> 
+      <% else %>
+        <h3> Não é reponsável por nenhum aluno. </h3>
+      <% end %>
+    </div>
+  </div>
+</div>

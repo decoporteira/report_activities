@@ -1,0 +1,15 @@
+pt-BR:
+  activerecord:
+    models:
+      financial_responsible: Responsável Financeiro
+    attributes:
+      financial_responsible:
+        name: Nome
+        email: Email
+        cpf: CPF
+        phone: Telefone
+  financial_responsibles:
+    denied: Acesso negado.
+    create:
+      success: Responsável cadastrado com sucesso.
+      fail: Não foi possível cadastrar o Responsável.
