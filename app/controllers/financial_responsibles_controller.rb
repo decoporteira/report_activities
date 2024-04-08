@@ -14,7 +14,7 @@ class FinancialResponsiblesController < ApplicationController
   def create
     @financial_responsible = FinancialResponsible.new(name: financial_responsible_params[:name],
                                                       phone: financial_responsible_params[:phone],
-                                                      cpf: financial_responsible_params[:phone],
+                                                      cpf: financial_responsible_params[:cpf],
                                                       email: financial_responsible_params[:email])
     if @financial_responsible.save
       if financial_responsible_params[:student_id] == nil

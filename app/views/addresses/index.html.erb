@@ -1,13 +1,41 @@
 <h1>Endereços</h1>
-  <% @addresses.each do |address|%>
+  
+
+<div class=''>
+  <table class="fs-9 mb-0 border-top border-translucent table">
+    <thead>
+      <tr>
+        <th style="width: 20%;">Nome</th>
+        <th style="width: 10%;">Turma</th>
+        <th style="width: 20%;">Rua</th>
+        <th style="width: 10%;">Bairro</th>
+        <th style="width: 10%;">Número/Apto</th>
+        <th style="width: 10%;">Cidade</th>
+        <th style="width: 5%;">UF</th>
+        <th style="width: 10%;">CEP</th>
+        <th style="width: 10%;">País</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+       <% @addresses.each do |address|%>
     <% if address.addressable_type == "Student" %>
       <% student = address.addressable %>
-      <h3>Aluno(a): <%= student.name %></h3>
-      <h4>Turma: <%= student.classroom.name %></h4>
-       <p><%= address.street %> <%= address.number %>, <%= address.unit %> - <%= address.neighborhood %> <%= address.city %> - <%= address.zip_code %> - <%= address.country %></p>
-    <% else %>
-      <% teacher = address.addressable %>
-      <h3>Professor(a): <%= teacher.name%></h3>
-       <p><%= address.street %> <%= address.number %>, <%= address.unit %> - <%= address.neighborhood %> <%= address.city %> - <%= address.zip_code %> - <%= address.country %></p>
+      <tr>
+        <td><%= student.name %></td>
+        <td><%= student.classroom.name %></td>
+        <td><%= address.street %></td>
+        <td><%= address.neighborhood %></td>
+        <td><%= address.number %> / <%= address.unit %></td>
+  
+        <td><%= address.city %></td>
+        <td><%= address.state %></td>
+        <td><%= address.zip_code %><t/d>
+        <td><%= address.country %></td>
+      </tr>
     <% end %>
-<% end %>
+  <% end %>
+      </tr>
+    </tbody>
+  </table>
+</div>

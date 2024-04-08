@@ -26,7 +26,11 @@ RSpec.describe 'User vê listagem de alunos' do
     login_as(admin)
     visit(root_path)
     click_on('Endereços')
-    expect(page).to have_content('Aluno(a): Venossaur')
-    expect(page).to have_content('Professor(a): Carvalho')
+    expect(page).to have_content('Venossaur')
+    expect(page).to have_content('Rua das Covas')
+    expect(page).to have_content('23 / 232')
+    expect(page).to have_content('Santos Dumont')
+    expect(page).to have_content('Juiz de Fora')
+    expect(page).to have_content('34050-098')
   end
 end

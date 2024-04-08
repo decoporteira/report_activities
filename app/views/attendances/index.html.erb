@@ -1,15 +1,16 @@
 <h1>Lista de Presenças</h1>
-  <div class="table-responsive small">
-    <table class="table table-striped table-sm">
-      <thead>
-        <tr>
-          <th scope="col">Nome</th>
-          <th scope="col">Turma</th>
-          <th scope="col">Professor</th>
-          <th scope="col">Status</th>
-        </tr>
-      </thead>
-      <tbody>
+<div class=''>
+  <table class="fs-9 mb-0 border-top border-translucent table">
+    <thead>
+      <tr>
+        <th style="width: 30%;">Nome</th>
+        <th style="width: 20%;">Turma</th>
+        <th style="width: 20%;">Professor(a)</th>
+        <th style="width: 30%;">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
         <% @students.each do |student|%>
           <tr>
             <td><%= link_to student.name, attendance_path(student) %></td>
@@ -18,6 +19,7 @@
             <td><%= student.status %></td>
           </tr>
         <% end %>
-      </tbody>
-    </table>
+      </tr>
+    </tbody>
+  </table>
 </div>
