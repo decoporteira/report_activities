@@ -21,6 +21,9 @@ RSpec.describe 'Usuário cria um responsável financeiro' do
     click_on 'Salvar'
 
     expect(page).to have_content('Responsável foi criado, porém sem nenhum aluno ligado a ele.')
+    expect(page).to have_content('CPF: 000.000.000-01')
+    expect(page).to have_content('Email: oak@email.com')
+    expect(page).to have_content('Telefone: 3299900-0000')
   end
 
   it 'likando um aluno com sucesso' do
