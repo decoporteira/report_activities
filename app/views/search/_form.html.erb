@@ -1,4 +1,8 @@
-<%= form_tag(url_for(controller: '/search'), method: 'get', remote: true) do %>
-  <%= text_field_tag 'query', params[:q], placeholder: 'Procurar por aluno...', id: 'search' %>
-  <%= submit_tag 'Search', class: 'btn btn-outline-primary' %>
+
+<%= form_tag(url_for(controller: '/search'), method: 'get', remote: true,  class:"d-flex w-25") do %>
+
+    <%= text_field_tag 'query', params[:q], placeholder: 'Procurar por aluno...', id: 'search', class: 'form-control w-50' %>
+
+    <%= submit_tag 'Search', class: 'btn btn-outline-primary' %>
+ 
 <% end %>

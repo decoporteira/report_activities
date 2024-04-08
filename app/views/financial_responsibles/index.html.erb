@@ -1,16 +1,17 @@
 <h1>Responsáveis Financeiros</h1>
-<%= link_to 'Criar Responsável', new_financial_responsible_path, class: 'btn btn-primary' %>
-<div class="table-responsive small">
-    <table class="table table-striped table-sm">
-      <thead>
-        <tr>
-          <th scope="col">Nome</th>
-          <th scope="col">CPF</th>
-          <th scope="col">Telefone</th>
-          <th scope="col">Email</th>
-        </tr>
-      </thead>
-      <tbody>
+<%= link_to 'Criar Responsável', new_financial_responsible_path, class: 'btn btn-primary mb-2' %>
+<div class=''>
+  <table class="fs-9 mb-0 border-top border-translucent table">
+    <thead>
+      <tr>
+        <th style="width: 30%;">Nome</th>
+        <th style="width: 20%;">CPF</th>
+        <th style="width: 20%;">Telefone</th>
+        <th style="width: 30%;">Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
         <% @financial_responsibles.each do |responsable| %>
           <tr>
             <td><%= link_to responsable.name, responsable %></td>
@@ -19,6 +20,7 @@
             <td><%= responsable.email %></td>
           </tr>
         <% end %>
-      </tbody>
-    </table>
+      </tr>
+    </tbody>
+  </table>
 </div>
