@@ -16,14 +16,13 @@
       <% end %>
       <div class="field">
         <%= f.label :cpf, class:'form-label' %><span class='text-body-secondary'> (apenas os números)</span><br />
-        <%= f.text_field :cpf, autofocus: true, autocomplete: "CPF", id:"cpf", class:'form-control' %>
+        <%= f.text_field :cpf, autofocus: true, autocomplete: "CPF", id:"cpf", placeholder:'Digite seu CPF...', class:'form-control' %>
       </div>
       <div class="field">
-        <%= f.label :password, class:'form-label' %> <i>(leave blank if you don't want to change it)</i><br />
+        <%= f.label :password, class:'form-label' %> <i>(Deixe em branco caso não deseje alterá-la)</i><br />
         <%= f.password_field :password, autocomplete: "new-password", class:'form-control' %>
         <% if @minimum_password_length %>
-          <br />
-          <em><%= @minimum_password_length %> characters minimum</em>
+          <em><%= @minimum_password_length %> letras no mínimo</em>
         <% end %>
       </div>
       <div class="field">
