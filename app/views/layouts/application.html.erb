@@ -6,88 +6,22 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="icon" type="image/x-icon" href="https://www.englishglobe.com.br/wp-content/themes/english/favicon.png">
     <%= javascript_importmap_tags %>
   </head>
   <body>
-    <%if current_user%>
-      <nav class="navbar navbar-expand-lg bg-body-tertiary ">
-        <div class="container">
-          <span class="navbar-brand" >
-            <%=link_to image_tag("https://www.englishglobe.com.br/wp-content/themes/english/favicon.png", border: 0), {action: 'index', controller: '/home'}, {class: 'dock-item'} %>
-          </span>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <% if current_user.teacher? %>
-                <li class="nav-item">
-                  <%= link_to "Turmas", classrooms_path, class: "nav-link" %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "Alunos", students_path, class: "nav-link"%>
-                </li>
-                <li class="nav-item">
-                  <% link_to "Atividades", activities_path, class: "nav-link"%>
-                </li>
-              <% elsif current_user.accounting? %>
-                <li class="nav-item">
-                  <%= link_to "Alunos", students_path, class: "nav-link"%>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "Professores", teachers_path, class: "nav-link"%>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "Não matriculados", not_registered_students_path, class: "nav-link"%>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "Responsáveis", financial_responsibles_path, class: "nav-link" %>
-                </li>
-              <% elsif current_user.admin? %>
-                <li class="nav-item">
-                  <%= link_to "Turmas", classrooms_path, class: "nav-link" %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "Alunos", students_path, class: "nav-link"%>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "Atividades", activities_path, class: "nav-link"%>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "Professores", teachers_path, class: "nav-link"%>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "Endereços", addresses_path, class: "nav-link"%>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "Não matriculados", not_registered_students_path, class: "nav-link"%>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "Presenças", attendances_path, class: "nav-link" %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "Responsáveis", financial_responsibles_path, class: "nav-link" %>
-                </li>
-              <%end%>
-            </ul>
-            <% if !current_user.default? %>
-            <%= render "search/form"%>
-          <% end %>
-          </div>
-          
-          <%= link_to "Perfil", edit_user_registration_path, class:"btn btn-outline-secondary mx-2" %>
-          <%= link_to "Sair", destroy_user_session_path, 'data-turbo-method': :delete, class:"btn btn-outline-secondary" %>
-        </div>
-      </nav>
-    <%end%>
+    <%= render "layouts/menu"%>
+    
     <div class="container py-3">
       <div><%= flash[:notice] %></div>
       <div><%= alert %></div>
       <%= yield %>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+ 
+  
   </body>
 </html>
