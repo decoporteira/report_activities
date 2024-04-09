@@ -1,19 +1,18 @@
 <h1>Endereços</h1>
-  
-
 <div class=''>
   <table class="fs-9 mb-0 border-top border-translucent table">
     <thead>
       <tr>
         <th style="width: 20%;">Nome</th>
         <th style="width: 10%;">Turma</th>
-        <th style="width: 20%;">Rua</th>
+        <th style="width: 19%;">Rua</th>
         <th style="width: 10%;">Bairro</th>
-        <th style="width: 10%;">Número/Apto</th>
+        <th style="width: 10%;">Núm./Apt.</th>
         <th style="width: 10%;">Cidade</th>
         <th style="width: 5%;">UF</th>
         <th style="width: 10%;">CEP</th>
         <th style="width: 10%;">País</th>
+        <th style="width: 1%;"></th>
       </tr>
     </thead>
     <tbody>
@@ -32,7 +31,11 @@
         <td><%= address.state %></td>
         <td><%= address.zip_code %><t/d>
         <td><%= address.country %></td>
+        <td> <%= link_to edit_student_address_path(student, address) do %>
+          <i class="fa-regular fa-pen-to-square"  style="color: #0d6efd;"  alt= 'Editar'></i></td>
+        <% end %>
       </tr>
+      
     <% end %>
   <% end %>
       </tr>
