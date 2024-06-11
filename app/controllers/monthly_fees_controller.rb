@@ -5,6 +5,11 @@ class MonthlyFeesController < ApplicationController
     @monthly_fee = MonthlyFee.new
   end
 
+  def index
+    @student = Student.find(params[:student_id])
+    @monthly_fees = MonthlyFee.where(student_id: @student.id)
+  end
+
   def create
     @student = Student.find(params[:student_id])
     @monthly_fee = @student.monthly_fees.build(monthly_fee_params)

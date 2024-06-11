@@ -1,0 +1,30 @@
+<h1>Mensalidades de <%= @student.name%></h1>
+<h2>Turma: <%= @student.classroom.name%></h2>
+<h4>Responsáveis: <% @student.financial_responsibles.each do |responsible| %>
+  <%= responsible.name%> | 
+<% end %>
+</h4>
+
+<div class=''>
+  <table class="fs-9 mb-0 border-top border-translucent table">
+    <thead>
+      <tr>
+        <th style="width: 30%;">Vencimento</th>
+        <th style="width: 20%;">Valor</th>
+        <th style="width: 20%;">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% @monthly_fees.each do |month| %>
+          <tr>
+            <td><%= month.due_date %></td>
+            <td>R$ <%= month.value %></td>
+            <td><%= month.status %></td>
+          </tr>
+        <% end %>
+      </tr>
+    </tbody>
+  </table>
+  <%= link_to 'Cadastrar Mensalidade', new_student_monthly_fee_path(@student), class: 'btn btn-primary mb-2' %>
+</div>
