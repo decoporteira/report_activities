@@ -1,0 +1,22 @@
+pt-BR:
+  activerecord:
+    models:
+      monthly_fee: 
+        one: Mensalidade
+        other: Mensalidades
+    attributes:
+      monthly_fee:
+        due_date: Vencimento
+        status: Status
+        value: Valor
+  monthly_fees:
+    create:
+      success: Mensalidade criada com sucesso.
+      fail: Não foi possível criar mensalidade.
+    update:
+      success: Mensalidade editado(a) com sucesso.
+      fail: Não foi possível editar o aluno(a).
+    destroy:
+      success: Mensalidade apagado(a) com sucesso.
+      fail: Não foi possível apagar a mensalidade.
+    denied: 'Acesso negado.' 

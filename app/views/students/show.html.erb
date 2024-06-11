@@ -31,6 +31,9 @@
       <div class="d-grid gap-2 d-md-flex justify-content-md-start">
         <%= link_to "Edit this student", edit_student_path(@student), class:'btn btn-outline-primary', style:"width:150px" %>
       </div>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <%= link_to "Cadastrar Mensalidade", new_student_monthly_fee_path(@student), class:'btn btn-outline-primary', style:"width:150px" %>
+      </div>
     </div>
     <div class="col-10 col-sm-8 col-lg-6">
       <% if current_user.admin? || current_user.accounting? %>
