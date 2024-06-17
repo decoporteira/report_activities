@@ -25,8 +25,6 @@
               <% else %>
               <td  style="color: #6c757d"><%= monthly_fee.status %></td>
             <% end %>
-            
-            
             <td><%= monthly_fee.due_date_month_name %> / <%= monthly_fee.due_date_year %></td>
             <td><%= link_to 'Detalhes', student_monthly_fee_path(monthly_fee.student, monthly_fee) %></td>
           </tr>

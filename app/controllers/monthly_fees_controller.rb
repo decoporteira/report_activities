@@ -14,6 +14,11 @@ class MonthlyFeesController < ApplicationController
     @monthly_fee = MonthlyFee.find(params[:id])
   end
 
+  def edit
+    @student = Student.find(params[:student_id])
+    @monthly_fee = MonthlyFee.find(params[:id])
+  end
+
   def create
     @student = Student.find(params[:student_id])
     @monthly_fee = @student.monthly_fees.build(monthly_fee_params)
@@ -21,6 +26,20 @@ class MonthlyFeesController < ApplicationController
       redirect_to student_path(@student), notice: t('.success')
     else
       render :new
+    end
+  end
+
+  def update
+    @monthly_fee = MonthlyFee.find(params[:id])
+    @student = Student.find(params[:student_id])
+    respond_to do |format|
+      if @monthly_fee.update(monthly_fee_params)
+        format.html { redirect_to student_monthly_fee_path(@monthly_fee.student, @monthly_fee), notice: 'Mensalidade was successfully updated.' }
+        format.json { render :info, status: :ok, location: @monthly_fee }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @monthly_fee.errors, status: :unprocessable_entity }
+      end
     end
   end
 
