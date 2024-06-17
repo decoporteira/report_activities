@@ -32,6 +32,8 @@ Rails.application.routes.draw do
 
   get 'addresses/',   to: 'addresses#index'
 
+  get 'monthly_fees/', to: 'monthly_fees#all'
+
   resources :students do
     collection do
       get 'not_registered'
@@ -40,7 +42,8 @@ Rails.application.routes.draw do
     get 'report', on: :member
     resources :resumes, only: [:new, :create, :index, :show, :edit, :update]
     resources :addresses, only: [:new, :create, :show, :edit, :update]
-    resources :monthly_fees, only: [:new, :create, :index, :show, :edit, :update]
+    resources :monthly_fees, only: [:index, :show, :new, :create, :edit, :update]
+
     
     collection do
       post :import

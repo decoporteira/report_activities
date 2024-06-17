@@ -18,7 +18,7 @@
       <tr>
         <% @monthly_fees.each do |month| %>
           <tr>
-            <td><%= month.due_date %></td>
+            <td><%= month.due_date.strftime("%d/%m") %></td>
             <td>R$ <%= month.value %></td>
             <td><%= month.status %></td>
           </tr>

@@ -1,0 +1,37 @@
+<h1>Todos os alunos</h1>
+<div class=''>
+  <table class="fs-9 mb-0 border-top border-translucent table">
+    <thead>
+      <tr>
+        <th style="width: 40%">Nome</th>
+        <th style="width: 10%">Valor</th>
+        <th style="width: 10%">Vencimento</th>
+        <th style="width: 20%">Status</th>
+        <th style="width: 20%">Referente</th>
+        <th style="width: 10%"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% @monthly_fees.each do |monthly_fee|  %>
+          <tr>
+            <td><%= monthly_fee.student.name %></td>
+            <td><%= monthly_fee.value %></td>
+            <td><%= monthly_fee.due_date.strftime("%d/%m/%Y") %></td>
+            <% if monthly_fee.status == 'Pago'   %>
+              <td style="color: #0d6efd"><%= monthly_fee.status %></td>
+            <% elsif monthly_fee.status == 'Pagamento em atraso' %>
+              <td  style="color: #dc3545"><%= monthly_fee.status %></td>
+              <% else %>
+              <td  style="color: #6c757d"><%= monthly_fee.status %></td>
+            <% end %>
+            
+            
+            <td><%= monthly_fee.due_date_month_name %> / <%= monthly_fee.due_date_year %></td>
+            <td><%= link_to 'Detalhes', student_monthly_fee_path(monthly_fee.student, monthly_fee) %></td>
+          </tr>
+        <% end %>
+      </tr>
+    </tbody>
+  </table>
+</div>

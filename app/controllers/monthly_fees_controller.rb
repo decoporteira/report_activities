@@ -1,5 +1,4 @@
 class MonthlyFeesController < ApplicationController
-
   def new
     @student = Student.find(params[:student_id])
     @monthly_fee = MonthlyFee.new
@@ -8,6 +7,11 @@ class MonthlyFeesController < ApplicationController
   def index
     @student = Student.find(params[:student_id])
     @monthly_fees = MonthlyFee.where(student_id: @student.id)
+  end
+
+  def show
+    @student = Student.find(params[:student_id])
+    @monthly_fee = MonthlyFee.find(params[:id])
   end
 
   def create
@@ -20,7 +24,11 @@ class MonthlyFeesController < ApplicationController
     end
   end
 
-  private 
+  def all
+    @monthly_fees = MonthlyFee.all
+  end
+
+  private
 
   def monthly_fee_params
     params.require(:monthly_fee).permit(:due_date, :value, :status)

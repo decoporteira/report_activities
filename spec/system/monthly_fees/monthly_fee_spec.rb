@@ -16,9 +16,9 @@ RSpec.describe 'Admin cria taxas mensais' do
     click_on('Detalhes')
     click_on('Cadastrar Mensalidade')
 
-    fill_in 'Vencimento', with: '5 de janeiro'
+    fill_in 'Vencimento', with: '2005/04/04'
     fill_in 'Valor', with: '300,00'
-    fill_in 'Status', with: 'Pagamento pendente'
+    fill_in 'Status', with: 'Pagamento em atraso'
 
     expect { click_on 'Criar Mensalidade' }.to change { MonthlyFee.count }.by(1)
     expect(page).to have_content('Mensalidade criada com sucesso.')
@@ -38,9 +38,9 @@ RSpec.describe 'Admin cria taxas mensais' do
     click_on('Detalhes')
     click_on('Cadastrar Mensalidade')
 
-    fill_in 'Vencimento', with: '5 de janeiro'
+    fill_in 'Vencimento', with: '2024/04/04'
     fill_in 'Valor', with: '300,00'
-    fill_in 'Status', with: 'Pagamento pendente'
+    fill_in 'Status', with: 'Pago'
 
     expect { click_on 'Criar Mensalidade' }.to change { MonthlyFee.count }.by(1)
     expect(page).to have_content('Mensalidade criada com sucesso.')
