@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   get 'search/index'
   get 'search/filter'
   match '/users',   to: 'users#index',   via: 'get'
+  
 
   get 'addresses/',   to: 'addresses#index'
 
@@ -43,10 +44,15 @@ Rails.application.routes.draw do
     resources :resumes, only: [:new, :create, :index, :show, :edit, :update]
     resources :addresses, only: [:new, :create, :show, :edit, :update]
     resources :monthly_fees, only: [:index, :show, :new, :create, :edit, :update]
-
-    
     collection do
       post :import
+    end
+  end
+  resources :monthly_fees do
+    member do
+      patch :update_paid
+      patch :update_late
+      patch :update_pending
     end
   end
   resources :financial_responsibles, only: [:new, :create, :index, :show, :edit, :update]

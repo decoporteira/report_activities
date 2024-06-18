@@ -49,6 +49,24 @@ class MonthlyFeesController < ApplicationController
     @monthly_fees = MonthlyFee.all
   end
 
+  def update_paid
+    monthly_fee = MonthlyFee.find(params[:id])
+    monthly_fee.update(status: 'Pago')
+    redirect_to student_monthly_fees_path(monthly_fee.student), notice: 'Mensalidade atualizada com sucesso.'
+  end
+
+  def update_pending
+    monthly_fee = MonthlyFee.find(params[:id])
+    monthly_fee.update(status: 'A pagar')
+    redirect_to student_monthly_fees_path(monthly_fee.student), notice: 'Mensalidade atualizada com sucesso.'
+  end
+
+  def update_late
+    monthly_fee = MonthlyFee.find(params[:id])
+    monthly_fee.update(status: 'Pagamento em atraso')
+    redirect_to student_monthly_fees_path(monthly_fee.student), notice: 'Mensalidade atualizada com sucesso.'
+  end
+
   private
 
   def monthly_fee_params
