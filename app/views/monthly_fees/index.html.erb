@@ -12,7 +12,7 @@
         <th style="width: 30%;">Vencimento</th>
         <th style="width: 20%;">Valor</th>
         <th style="width: 20%;">Status</th>
-        <th style="width: 20%;">Status</th>
+        <th style="width: 20%;"></th>
       </tr>
     </thead>
     <tbody>
@@ -24,8 +24,8 @@
             <td><%= month.status %></td>
             <td style='flex: auto;display: flex;'>  
               <%= button_to 'Pago', update_paid_monthly_fee_path(month), method: :patch, class:"btn btn-outline-primary btn-sm" %>
-              <%= button_to 'Atrasado', update_late_monthly_fee_path(month), method: :patch, class:"btn btn-outline-primary btn-sm mx-2" %>
-              <%= button_to 'Pendente', update_pending_monthly_fee_path(month), method: :patch, class:"btn btn-outline-primary btn-sm" %>
+              <%= button_to 'Pendente', update_pending_monthly_fee_path(month), method: :patch, class:"btn btn-outline-secondary btn-sm mx-2" %>
+              <%= button_to 'Atrasado', update_late_monthly_fee_path(month), method: :patch, class:"btn btn-outline-danger btn-sm" %>
             </td>   
           </tr>
         <% end %>

@@ -50,21 +50,22 @@ class MonthlyFeesController < ApplicationController
   end
 
   def update_paid
+    Rails.logger.info("-------------------------------------------> " + request.path)
     monthly_fee = MonthlyFee.find(params[:id])
     monthly_fee.update(status: 'Pago')
-    redirect_to student_monthly_fees_path(monthly_fee.student), notice: 'Mensalidade atualizada com sucesso.'
+    redirect_to request.referer, notice: 'Mensalidade foi paga com sucesso.'
   end
 
   def update_pending
     monthly_fee = MonthlyFee.find(params[:id])
     monthly_fee.update(status: 'A pagar')
-    redirect_to student_monthly_fees_path(monthly_fee.student), notice: 'Mensalidade atualizada com sucesso.'
+    redirect_to request.referer, notice: 'Mensalidade marcada como pendente.'
   end
 
   def update_late
     monthly_fee = MonthlyFee.find(params[:id])
     monthly_fee.update(status: 'Pagamento em atraso')
-    redirect_to student_monthly_fees_path(monthly_fee.student), notice: 'Mensalidade atualizada com sucesso.'
+    redirect_to request.referer, notice: 'Mensalidade marcada como atrasada.'
   end
 
   private
