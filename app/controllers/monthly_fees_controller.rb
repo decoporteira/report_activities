@@ -1,4 +1,6 @@
 class MonthlyFeesController < ApplicationController
+  before_action :authorize_admin!, only: %i[new index show edit update]
+
   def new
     @student = Student.find(params[:student_id])
     @monthly_fee = MonthlyFee.new
@@ -34,7 +36,7 @@ class MonthlyFeesController < ApplicationController
     @student = Student.find(params[:student_id])
     respond_to do |format|
       if @monthly_fee.update(monthly_fee_params)
-        format.html { redirect_to student_monthly_fee_path(@monthly_fee.student, @monthly_fee), notice: 'Mensalidade was successfully updated.' }
+        format.html { redirect_to student_monthly_fee_path(@monthly_fee.student, @monthly_fee), notice: t('.success')}
         format.json { render :info, status: :ok, location: @monthly_fee }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -51,5 +53,9 @@ class MonthlyFeesController < ApplicationController
 
   def monthly_fee_params
     params.require(:monthly_fee).permit(:due_date, :value, :status)
+  end
+
+  def authorize_admin!
+    redirect_to root_path, alert: t('.denied') unless current_user.admin? || current_user.accounting?
   end
 end
