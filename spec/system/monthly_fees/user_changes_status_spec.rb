@@ -14,11 +14,10 @@ RSpec.describe 'Admin edita taxas mensais' do
     login_as(admin)
     visit(root_path)
     click_on('Alunos')
-    click_on('Detalhes')
-    click_on('Cadastrar Mensalidade')
+    click_on('Financeiro')
+    click_on('Pendente')
 
-    select 'Pagamento Em Atraso', from: 'Status'
-
-    expect(page).to have_content('Mensalidade editada com sucesso.')
+    expect(page).to have_content('Mensalidade alterada com sucesso.')
+    expect(page).to have_content('A pagar')
   end
 end
