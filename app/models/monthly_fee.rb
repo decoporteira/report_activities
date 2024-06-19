@@ -1,7 +1,7 @@
 class MonthlyFee < ApplicationRecord
   belongs_to :student
   validates :due_date, :status, :value, presence: true
-  enum status: { 'A pagar': 1, 'Pagamento em atraso': 2, 'Pago': 3 }
+  enum status: { 'A pagar': 1, 'Atrasada': 2, 'Paga': 3 }
 
   def due_date_month_name
     due_date.present? ? I18n.l(due_date, format: '%B') : 'Data não definida'

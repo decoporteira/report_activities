@@ -23,10 +23,9 @@
             <td>R$ <%= month.value %></td>
             <td><%= month.status %></td>
             <td style='flex: auto;display: flex;'>  
-              <%= button_to 'Pago', update_paid_path(:items => {:id => month.id, status: 'Pago'}), method: :patch, class:"btn btn-outline-primary btn-sm" %>
-              <%= button_to 'Pendente', update_paid_path(:items => {:id => month.id, status: 'A pagar'}), method: :patch, class:"btn btn-outline-secondary btn-sm mx-2" %>
-              <%= button_to 'Atrasado', update_paid_path(:items => {:id => month.id, status: 'Pagamento em atraso'}), method: :patch, class:"btn btn-outline-danger btn-sm" %>
-             
+              <%= button_to 'Paga', update_paid_path(:items => {:id => month.id, status: 'Paga'}), method: :patch, class:"btn btn-outline-primary btn-sm" %>
+              <%= button_to 'A pagar', update_paid_path(:items => {:id => month.id, status: 'A pagar'}), method: :patch, class:"btn btn-outline-secondary btn-sm mx-2" %>
+              <%= button_to 'Atrasada', update_paid_path(:items => {:id => month.id, status: 'Atrasada'}), method: :patch, class:"btn btn-outline-danger btn-sm" %>
             </td>   
           </tr>
         <% end %>
