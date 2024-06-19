@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   get 'addresses/',   to: 'addresses#index'
 
   get 'monthly_fees/', to: 'monthly_fees#all'
+  patch 'update_paid', to: 'monthly_fees#update_paid'
 
   resources :students do
     collection do
@@ -48,13 +49,7 @@ Rails.application.routes.draw do
       post :import
     end
   end
-  resources :monthly_fees do
-    member do
-      patch :update_paid
-      patch :update_late
-      patch :update_pending
-    end
-  end
+  
   resources :financial_responsibles, only: [:new, :create, :index, :show, :edit, :update]
   resources :classrooms do
     collection do
