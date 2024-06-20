@@ -44,7 +44,11 @@ Rails.application.routes.draw do
     get 'report', on: :member
     resources :resumes, only: [:new, :create, :index, :show, :edit, :update]
     resources :addresses, only: [:new, :create, :show, :edit, :update]
-    resources :monthly_fees, only: [:index, :show, :new, :create, :edit, :update]
+    resources :monthly_fees, only: [:index, :show, :new, :create, :edit, :update] do
+      collection do
+        post :create_anual_fees
+      end
+    end
     collection do
       post :import
     end
