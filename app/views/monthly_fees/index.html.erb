@@ -25,9 +25,17 @@
              <td><%= monthly_fee.due_date_month_name %> / <%= monthly_fee.due_date_year %></td>
             <td><%= monthly_fee.status %></td>
             <td style='flex: auto;display: flex;'>  
-              <%= button_to 'Paga', update_paid_path(:items => {:id => monthly_fee.id, status: 'Paga'}), method: :patch, class:"btn btn-outline-primary btn-sm" %>
-              <%= button_to 'A pagar', update_paid_path(:items => {:id => monthly_fee.id, status: 'A pagar'}), method: :patch, class:"btn btn-outline-secondary btn-sm mx-2" %>
-              <%= button_to 'Atrasada', update_paid_path(:items => {:id => monthly_fee.id, status: 'Atrasada'}), method: :patch, class:"btn btn-outline-danger btn-sm" %>
+            <% statuses = {
+                'Paga' => { text: 'Paga', css_class: 'btn btn-outline-primary btn-sm mx-1' },
+                'A pagar' => { text: 'A pagar', css_class: 'btn btn-outline-secondary btn-sm mx-1' },
+                'Atrasada' => { text: 'Atrasada', css_class: 'btn btn-outline-danger btn-sm mx-1' }
+              } %>
+
+              <% statuses.each do |status, config| %>
+                <% if monthly_fee.status != status %>
+                  <%= button_to config[:text], update_paid_path(items: { id: monthly_fee.id, status: status }), method: :patch, class: config[:css_class] %>
+                <% end %>
+              <% end %> 
             </td>   
           </tr>
         <% end %>

@@ -54,20 +54,11 @@ class MonthlyFeesController < ApplicationController
   private
 
   def create_all_monthly_fees(student)
-    current_month = Date.today.month
-    current_year = Date.today.year
-    if current_month == 1
-      start_month = 2
-    else
-      start_month == current_month
-    end
+    current_month = Time.zone.today.month
+    current_year = Time.zone.today.year
+    start_month = current_month == 1 ? 2 : current_month
     (start_month..12).each do |month|
-      MonthlyFee.create!(
-        student:,
-        value: 300,
-        due_date: Date.new(current_year, month, 10),
-        status: 'A pagar'
-      )
+      MonthlyFee.create!(student:, value: 300, due_date: Date.new(current_year, month, 10), status: 'A pagar')
     end
   end
 
