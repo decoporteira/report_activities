@@ -15,7 +15,7 @@
       <tr>
           <tr>
             <td><%= @monthly_fee.student.name %></td>
-            <td><%= @monthly_fee.value %></td>
+            <td><%= number_to_currency(@monthly_fee.value, unit: "R$ ", separator: ",", delimiter: ".", precision: 2) %></td>
             <td><%= @monthly_fee.due_date.strftime("%d/%m/%Y") %></td>
             <% if @monthly_fee.status == 'Pago'   %>
               <td style="color: #0d6efd"><%= @monthly_fee.status %></td>

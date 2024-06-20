@@ -4,7 +4,7 @@
     <thead>
       <tr>
         <th style="width: 30%">Nome</th>
-        <th style="width: 5%">Valor</th>
+        <th style="width: 7%">Valor</th>
         <th style="width: 7%">Vencimento</th>
         <th style="width: 7%">Status</th>
         <th style="width: 13%">Referente</th>
@@ -17,7 +17,7 @@
         <% @monthly_fees.each do |monthly_fee|  %>
           <tr>
             <td><%= monthly_fee.student.name %></td>
-            <td><%= monthly_fee.value %></td>
+            <td><%= number_to_currency(monthly_fee.value, unit: "R$ ", separator: ",", delimiter: ".", precision: 2) %></td>
             <td><%= monthly_fee.due_date.strftime("%d/%m/%Y") %></td>
             <% if monthly_fee.status == 'Paga'   %>
               <td style="color: #0d6efd"><%= monthly_fee.status %></td>
