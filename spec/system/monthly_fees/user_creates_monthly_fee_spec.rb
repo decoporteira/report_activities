@@ -18,7 +18,7 @@ RSpec.describe 'Admin cria taxas mensais' do
 
     fill_in 'Vencimento', with: '2005/04/04'
     fill_in 'Valor', with: '300,00'
-    select 'Pagamento Em Atraso', from: 'Status'
+    select 'A Pagar', from: 'Status'
 
     expect { click_on 'Criar Mensalidade' }.to change { MonthlyFee.count }.by(1)
     expect(page).to have_content('Mensalidade criada com sucesso.')
@@ -40,7 +40,7 @@ RSpec.describe 'Admin cria taxas mensais' do
 
     fill_in 'Vencimento', with: '2024/04/04'
     fill_in 'Valor', with: '300,00'
-    select 'Pago', from: 'Status'
+    select 'Paga', from: 'Status'
 
     expect { click_on 'Criar Mensalidade' }.to change { MonthlyFee.count }.by(1)
     expect(page).to have_content('Mensalidade criada com sucesso.')
