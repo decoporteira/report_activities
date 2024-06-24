@@ -1,0 +1,53 @@
+<h1>Todos os alunos</h1>
+<div class=''>
+  <table class="fs-9 mb-0 border-top border-translucent table">
+    <thead>
+      <tr>
+        <th style="width: 30%">Nome</th>
+        <th style="width: 7%">Valor</th>
+        <th style="width: 7%">Vencimento</th>
+        <th style="width: 7%">Status</th>
+        <th style="width: 13%">Referente</th>
+        <th style="width: 20%"></th>
+        <th style="width: 5%"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% @monthly_fees.each do |monthly_fee|  %>
+          <tr>
+            <td><%= monthly_fee.student.name %></td>
+            <td><%= number_to_currency(monthly_fee.value, unit: "R$ ", separator: ",", delimiter: ".", precision: 2) %></td>
+            <td><%= monthly_fee.due_date.strftime("%d/%m/%Y") %></td>
+
+            <% color_statuses = {
+              'Paga' => {text: 'Paga',  style: 'color: #0d6efd' },
+              'A pagar' => {text: 'A pagar',  style: 'color: #6c757d'},
+              'Atrasada' => {text: 'Atrasada',  style: 'color: #dc3545'}
+            } %>
+            <% color_statuses.each do |color_status, config| %> 
+              <% if  monthly_fee.status == color_status %>
+                 <td style='<%=config[:style] %>'> <%=monthly_fee.status %></td> 
+              <% end %> 
+            <%end%>
+            <td><%= monthly_fee.due_date_month_name %> / <%= monthly_fee.due_date_year %></td>
+            <td style='flex: auto;display: flex;'>
+              <% statuses = {
+                'Paga' => { text: 'Paga', css_class: 'btn btn-outline-primary btn-sm mx-1' },
+                'A pagar' => { text: 'A pagar', css_class: 'btn btn-outline-secondary btn-sm mx-1' },
+                'Atrasada' => { text: 'Atrasada', css_class: 'btn btn-outline-danger btn-sm mx-1' }
+              } %>
+
+              <% statuses.each do |status, config| %>
+                <% if monthly_fee.status != status %>
+                  <%= button_to config[:text], update_paid_path(items: { id: monthly_fee.id, status: status }), method: :patch, class: config[:css_class] %>
+                <% end %>
+              <% end %>
+            </td>
+            <td><%= link_to 'Detalhes', student_monthly_fee_path(monthly_fee.student, monthly_fee) %></td>
+          </tr>
+        <% end %>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -45,6 +45,8 @@
                 <%= link_to "Atividades", report_student_path(student), class:'btn btn-outline-primary', style:"width:110px"  %>
                 <%= link_to 'Frequência', attendance_path(student.id), class:'btn btn-outline-primary', style:"width:110px"  %>
                 <%= link_to "Detalhes", student, class:'btn btn-outline-primary', style:"width:110px"  %>
+                <%= link_to "Financeiro", student_monthly_fees_path(student), class:'btn btn-outline-primary', style:"width:110px" %>
+                
               </div>
             </div>
           </div>
@@ -61,6 +63,7 @@
                 <p><strong>Status:</strong> <%= student.status %></p>
                 <p><strong>Classroom:</strong> <%= student.classroom.name%></p>
                 <%= link_to "Detalhes", student_path(student), class:'btn btn-outline-primary', style:"width:110px"  %>
+                <%= link_to "Financeiro", student_monthly_fees_path(student), class:'btn btn-outline-primary', style:"width:110px" %>
               </div>
             </div>
           </div>

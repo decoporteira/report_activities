@@ -1,0 +1,251 @@
+[33mcommit bda7f04128d8770981da6b0307e2f947e257abfc[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeat/create-monthly-charge[m[33m, [m[1;31morigin/feat/create-monthly-charge[m[33m)[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Tue Jun 18 10:24:05 2024 -0300
+
+    Testes passando.
+
+[33mcommit 235e268e382d187d10291fc22c58a3f16ac7e7ee[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Tue Jun 18 10:17:17 2024 -0300
+
+    Adiciona botões de alteração de status de pagamento em todas as páginas
+
+[33mcommit f2fae538296e28346d773c153b8f8f06fe9ec8ff[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Tue Jun 18 09:43:31 2024 -0300
+
+    Adiciona botões para mudar status de mensalidade
+
+[33mcommit d778e09009842ba8e9772197fe91e978119741fc[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Tue Jun 18 08:48:49 2024 -0300
+
+    Adiciona testes de edição
+
+[33mcommit cf59b10ae88ea3580250cc9b2ca4530556004c5b[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Mon Jun 17 16:11:22 2024 -0300
+
+    Edit funcionando
+
+[33mcommit 7aa16ea6b69a45168cbdbe4d6b7ea82a43efb89c[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Mon Jun 17 15:55:06 2024 -0300
+
+    WIP: views dos dados de pagamento
+
+[33mcommit 29125a63cc3809e55dd3752768070919b49c5167[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Tue Jun 11 16:42:15 2024 -0300
+
+    WIP: criando painel para mostrar dados financeiros
+
+[33mcommit 3c342db3605fb4cb5928217979746d6d66e41063[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Tue Jun 11 15:56:12 2024 -0300
+
+    bug corrigido de teste não passar
+
+[33mcommit f35f91b0f138a6149251e4ecedd704ec9707b0bd[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Tue Jun 11 15:52:16 2024 -0300
+
+    teste de criação de mensalidade passando
+
+[33mcommit 673bcc478ae8eef59f886661be3460e55cd4d81c[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Tue Jun 11 10:48:22 2024 -0300
+
+    Cria model
+
+[33mcommit ca51623ff71e3ab835097337fdf9da09b2452d1b[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Merge: 8b7bca5 8df1f75
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Tue Jun 11 08:46:32 2024 -0300
+
+    Merge pull request #70 from decoporteira/feat/create-financial-responsible
+    
+    Bug link atividades
+
+[33mcommit 8df1f7531cc40f09055e280b90d38c036ab80edd[m[33m ([m[1;31morigin/feat/create-financial-responsible[m[33m, [m[1;32mfeat/create-financial-responsible[m[33m)[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Tue Jun 11 08:45:43 2024 -0300
+
+    Bug link atividades
+
+[33mcommit 8b7bca54e2b8f3452eb784c039e71e2e818df788[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Thu Apr 25 15:17:32 2024 -0300
+
+    Update README.md
+
+[33mcommit 023248e7cb7c53681cc13c869159ef2c1aec5857[m
+Merge: 9261b3c e079a64
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Tue Apr 9 13:36:05 2024 -0300
+
+    Merge pull request #69 from decoporteira/feat/create-financial-responsible
+    
+    Alterações de menu
+
+[33mcommit e079a645a0aa8c1f9d29be36f6148384fd6fcad5[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Tue Apr 9 13:35:10 2024 -0300
+
+    Alterações de menu
+
+[33mcommit 9261b3cbf2c6a16f2e99dc67f668e4c7e96213f4[m
+Merge: 6f17e48 f601ede
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Mon Apr 8 16:02:48 2024 -0300
+
+    Merge pull request #68 from decoporteira/feat/create-financial-responsible
+    
+    Adiciona validação de campos nos inputs
+
+[33mcommit f601ede0a161870389d329d1afdc938861692ea4[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Mon Apr 8 16:02:22 2024 -0300
+
+    Adiciona validação de campos nos inputs
+
+[33mcommit 6f17e483af95766f3833f7f57c16c44d4f041e1b[m
+Merge: 0a59184 7f311fa
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Mon Apr 8 13:56:46 2024 -0300
+
+    Merge pull request #67 from decoporteira/feat/create-financial-responsible
+    
+    Erro do digitação na view
+
+[33mcommit 7f311fae7188c41955aa4d0ca73bf81d37939e60[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Mon Apr 8 13:55:33 2024 -0300
+
+    Erro do digitação na view
+
+[33mcommit 0a5918497a8d5ed16bfed6665cc06981c210c5a7[m
+Merge: fff5fd9 25acc09
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Mon Apr 8 13:48:43 2024 -0300
+
+    Merge pull request #66 from decoporteira/feat/create-financial-responsible
+    
+    Conserta bug do cpf
+
+[33mcommit 25acc09fc799d4ca920f74cc73b8027549f77d3c[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Mon Apr 8 13:48:23 2024 -0300
+
+    Conserta bug do cpf
+
+[33mcommit fff5fd9dd6d9dd8a392aac64e360e6aa98c20f69[m
+Merge: 99f717b 853978f
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Thu Mar 28 13:21:03 2024 -0300
+
+    Merge pull request #65 from decoporteira/feat/create-financial-responsible
+    
+    Feat/create financial responsible
+
+[33mcommit 853978fea5fb182b03f400f24e60921f81fbc2dd[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Thu Mar 28 13:18:43 2024 -0300
+
+    testes de login
+
+[33mcommit 413edde2061f6ca82272d2bc470457da82a3aae3[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Thu Mar 28 12:15:34 2024 -0300
+
+    layout de forms
+
+[33mcommit 99f717bc31ba1cebe386ed45bcde7465c9e11ef7[m
+Merge: f6fb497 40449e2
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Thu Mar 28 10:16:54 2024 -0300
+
+    Merge pull request #64 from decoporteira/feat/create-financial-responsible
+    
+    Feat/create financial responsible
+
+[33mcommit 40449e24082dc4b86ea4fd337bf7be9d3174fe7e[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Thu Mar 28 10:15:54 2024 -0300
+
+    responsável financeiro funcionando
+
+[33mcommit 03009dda9165bbcea3020d2dbd9ec350b7420867[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Wed Mar 27 16:05:05 2024 -0300
+
+    WIP: menu dropdown
+
+[33mcommit f6fb49799eac8c127270e1e93b22c0e3fb28fffd[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Tue Mar 26 15:42:21 2024 -0300
+
+    Conserta erro na pesquisa
+
+[33mcommit e8e54a34119c60d252f16e61ac5146bd20b2f2b8[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Tue Mar 26 15:27:20 2024 -0300
+
+    adiciona função de apagar vínculo entre aluno e responsável
+
+[33mcommit 6c09b481692ae07e0c0d34d2aa9148c019a74542[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Tue Mar 26 11:13:05 2024 -0300
+
+    Cria validação para mesmo Responsável ser vinculado duas vezes ao mesmo estudante.
+
+[33mcommit ca307770dcd07ba856ee778bed2adaa86b088ef4[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Tue Mar 26 10:49:43 2024 -0300
+
+    Cadastro de vinculo entre aluno e responsável
+
+[33mcommit f22e670d3681b0dd09b007c65c9228aedca642b2[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Mon Mar 25 16:35:52 2024 -0300
+
+    Criação de Responsável Financeiro sem aluno
+
+[33mcommit 8ce0e459034b0146aa7e9d0f28f6e45fe3fa225c[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Fri Mar 22 10:26:57 2024 -0300
+
+    Conserta criação de Responsável Financeiro
+
+[33mcommit 93019f0072d9e8cd99428fbeea838d120d54172e[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Thu Mar 21 17:06:53 2024 -0300
+
+    WIP: Cadastrando Responsável financeiro com aluno
+
+[33mcommit 4367b422ae019d1737821e0ae51a19facd953da1[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Wed Mar 20 16:40:28 2024 -0300
+
+    WIP: testes e layout de responsáveis professores
+
+[33mcommit 17699668012b1f973e5df1281131cfa0736c3ef5[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Wed Mar 20 16:18:25 2024 -0300
+
+    .gitignore Fixed
+
+[33mcommit 5e10882444e706b85a42b56ebe2ba110fb7d665c[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Wed Mar 20 15:29:20 2024 -0300
+
+    Testes de permissão de usuários
+
+[33mcommit 4556364e2e5b91df7422f3c16143081be5945412[m
+Author: André Pereira <andreporteira@gmail.com>
+Date:   Tue Mar 19 17:17:33 2024 -0300
+
+    Adiciona edição de resposnáveis(bug)
+
+[33mcommit f6a30c008a9f709d1d962229bd234daa456fb7ba[m
+Author: André Pereira <andreporteir

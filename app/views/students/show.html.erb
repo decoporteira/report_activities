@@ -31,49 +31,54 @@
       <div class="d-grid gap-2 d-md-flex justify-content-md-start">
         <%= link_to "Edit this student", edit_student_path(@student), class:'btn btn-outline-primary', style:"width:150px" %>
       </div>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <% if current_user.admin? || current_user.accounting? %>
+          <%= link_to "Cadastrar Mensalidade", new_student_monthly_fee_path(@student), class:'btn btn-outline-primary', style:"width:150px" %>
+        <% end %>
+      </div>
     </div>
     <div class="col-10 col-sm-8 col-lg-6">
       <% if current_user.admin? || current_user.accounting? %>
-      <div class='mb-5'>
-      <div>
-          <% if @student.responsibles.any? %>
-            <h3>Responsável Financeiro:</h3>
-            <ul>
-            <% @student.responsibles.each do |fr| %>
-              <li><strong>Nome:</strong> <%= fr.financial_responsible.name %> | <strong>Telefone:</strong> <%= fr.financial_responsible.phone %></li>
-              <%= link_to 'Detalhes', financial_responsible_path(fr.financial_responsible.id) %>
+        <div class='mb-5'>
+          <div>
+            <% if @student.responsibles.any? %>
+              <h3>Responsável Financeiro:</h3>
+              <ul>
+              <% @student.responsibles.each do |fr| %>
+                <li><strong>Nome:</strong> <%= fr.financial_responsible.name %> | <strong>Telefone:</strong> <%= fr.financial_responsible.phone %></li>
+                <%= link_to 'Detalhes', financial_responsible_path(fr.financial_responsible.id) %>
+              <% end %>
+              </ul>
+            <% else %>
+              <h3> Não existe responsável financeiro cadastrado. </h3>
             <% end %>
-            </ul>
-          <% else %>
-            <h3> Não existe responsável financeiro cadastrado. </h3>
-          <% end %>
+            </div>
+            <%= link_to 'Criar Responsável', new_financial_responsible_path(student_id: @student.id), class: 'btn btn-primary' %>
+            <br>
+            <%= link_to 'Vincular Responsável Existente', new_responsible_path(student_id: @student.id), class: 'btn btn-primary my-2' %>
           </div>
-          <%= link_to 'Criar Responsável', new_financial_responsible_path(student_id: @student.id), class: 'btn btn-primary' %>
-          <br>
-          <%= link_to 'Vincular Responsável Existente', new_responsible_path(student_id: @student.id), class: 'btn btn-primary my-2' %>
-      </div>
-        <% @student.addresses.each do |address| %>
-          <h3>Endereço</h3>
-          <dt>Rua: </dt>
-          <dd><%=address.street%></dd>
-          <dt>Número: </dt>
-          <dd><%=address.number%></dd>
-          <dt>Complemento: </dt>
-          <dd><%=address.unit%></dd>
-          <dt>Bairro: </dt>
-          <dd><%=address.neighborhood%></dd>
-          <dt>Cidade: </dt>
-          <dd><%=address.city%></dd>
-          <dt>Estado: </dt>
-          <dd><%=address.state%></dd>
-          <dt>CEP: </dt>
-          <dd><%=address.zip_code%></dd>
-          <dt>País: </dt>
-          <dd><%=address.country%></dd>
-          <%= link_to 'Editar Endereço', edit_student_address_path(@student, address), class: 'btn btn-outline-primary', style: 'width:150px' %>
-        <% end %>
-        <%= link_to 'Cadastrar Endereço', new_student_address_path(@student), class:'btn btn-outline-primary', style:"width:200px" %>
-      </div>
+          <% @student.addresses.each do |address| %>
+            <h3>Endereço</h3>
+            <dt>Rua: </dt>
+            <dd><%=address.street%></dd>
+            <dt>Número: </dt>
+            <dd><%=address.number%></dd>
+            <dt>Complemento: </dt>
+            <dd><%=address.unit%></dd>
+            <dt>Bairro: </dt>
+            <dd><%=address.neighborhood%></dd>
+            <dt>Cidade: </dt>
+            <dd><%=address.city%></dd>
+            <dt>Estado: </dt>
+            <dd><%=address.state%></dd>
+            <dt>CEP: </dt>
+            <dd><%=address.zip_code%></dd>
+            <dt>País: </dt>
+            <dd><%=address.country%></dd>
+            <%= link_to 'Editar Endereço', edit_student_address_path(@student, address), class: 'btn btn-outline-primary', style: 'width:150px' %>
+          <% end %>
+          <%= link_to 'Cadastrar Endereço', new_student_address_path(@student), class:'btn btn-outline-primary', style:"width:200px" %>
+        </div>
     <%end%>
     
   </div>

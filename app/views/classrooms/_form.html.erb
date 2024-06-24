@@ -23,7 +23,6 @@
 
   <div class='mb-3'>
     <%= form.label :teacher_id, class:'form-label'  %>
-    
     <%=form.collection_select :teacher_id, Teacher.all, :id, :name, {:prompt => 'Selecione um professor(a)'}, class:"form-select"  %><br/>
   </div>
 

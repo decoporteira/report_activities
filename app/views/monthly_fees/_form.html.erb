@@ -1,0 +1,32 @@
+<%= form_with(model: [@student, @monthly_fee]) do |form| %>
+  <% if monthly_fee.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(monthly_fee.errors.count, "error") %> prohibited this monthly_fee from being saved:</h2>
+
+      <ul>
+        <% monthly_fee.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class='mb-3'>
+    <%= form.label :due_date, class:'form-label'  %>
+    <%= form.date_field :due_date, class:'form-control' %>
+  </div>
+
+  <div class='mb-3'>
+    <%= form.label :value, class:'form-label'  %>
+    <%= form.text_field :value, class:'form-control' %>
+  </div>
+
+  <div class='mb-3'>
+    <%= form.label :status, class:'form-label'  %>
+    <%= form.select :status, options_for_select(MonthlyFee.statuses.map {|key, value| [key.titleize, MonthlyFee.statuses.key(value)]}, @monthly_fee.status), {:prompt => 'Selecione um status'}, class:"form-select" %>
+  </div>
+
+  <div class='mb-1'> 
+    <%= form.submit class:'btn btn-primary mt-1' %>
+  </div>
+<% end %>
