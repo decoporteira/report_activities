@@ -2,14 +2,10 @@ class DailyJob
   include Sidekiq::Job
 
   def perform(*args)
-    monthly_fees = MonthlyFee.all
+    monthly_fees = MonthlyFee.where(status: 'A pagar').where('due_date < ?', Date.today)
     monthly_fees.each do |monthly_fee|
-      if monthly_fee.status == 'A pagar'
-        monthly_fee.update(status: 'Atrasada')
-        puts "Mensalidade de #{monthly_fee.student.name} foi marcada como #{monthly_fee.status} às #{Time.now}"
-      else
-        puts "Mensalidade de #{monthly_fee.student.name} estava com status: #{monthly_fee.status} paga"
-      end
+      monthly_fee.update(status: 'Atrasada')
+      puts "Mensalidade de #{monthly_fee.student.name} foi marcada como #{monthly_fee.status} às #{Time.now}"
     end
   end
 end
