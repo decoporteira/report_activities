@@ -83,6 +83,15 @@ class StudentsController < ApplicationController
     @number_of_absence = @student.attendances.where(presence: false).where('attendance_date >= ?',
                                                                            Date.new(2024, 1, 1)).length
     @attendance_rate = @number_of_days
+
+    start_date = Date.new(2024, 1, 1)
+    end_date = Date.new(2024, 7, 31).end_of_day
+
+    @total_activities = @student.activities.where(created_at: start_date..end_date)
+    @total_activities_done = @total_activities.where(late: 'feito')
+    @total_activities_late = @total_activities.where(late: 'entregue com atraso')
+    @total_activities_not_done = @total_activities.where(late: 'não fez')
+
   end
 
   def link_responsible
