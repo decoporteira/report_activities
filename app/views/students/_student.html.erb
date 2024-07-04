@@ -1,3 +1,41 @@
+<style>
+    .bb-arc-Não-feitas {
+        fill: rgb(220 53 69) !important;
+        cursor: pointer;
+    }
+    .bb-legend-item.bb-legend-item-Não-feitas .bb-legend-item-tile {
+        stroke: rgb(220, 53, 69) !important;
+    }
+    .bb-arc-Feitas {
+        fill: rgb(13 110 253) !important;
+        cursor: pointer;
+    }
+    .bb-legend-item.bb-legend-item-Feitas .bb-legend-item-tile {
+        stroke: rgb(13 110 253) !important;
+    }
+    .bb-arc-Entregues-com-atraso {
+        fill: rgb(255 193 7) !important;
+        cursor: pointer;
+    }
+    .bb-legend-item.bb-legend-item-Entregues-com-atraso .bb-legend-item-tile {
+        stroke: rgb(255 193 7) !important;
+    }
+    .bb-arc-Presente {
+        fill: rgb(13 110 253) !important;
+        cursor: pointer;
+    }
+    .bb-legend-item.bb-legend-item-Presente .bb-legend-item-tile {
+        stroke: rgb(13 110 253) !important;
+    }
+    .bb-arc-Ausente {
+        fill: rgb(220, 53, 69) !important;
+        cursor: pointer;
+    }
+    .bb-legend-item.bb-legend-item-Ausente .bb-legend-item-tile {
+        stroke: rgb(220, 53, 69) !important;
+    }
+
+</style>
 <section class="py-1 text-center container">
   <div class="row py-lg-5">
     <div class="col-lg-6 col-md-8 mx-auto">
@@ -14,10 +52,25 @@
     <% end %>
   </div>
 </section>
+
+<section class='chart d-flex justify-content-around align-items-center flex-wrap' >
+  <div class='d-flex flex-column'>
+    <div>
+      <h2>Atividades do Semestre</h2>
+    </div>
+    <div id="donut-chart-activity" class='donut-chart d-flex justify-content-center flex-column'></div>
+  </div>
+ <div  class='d-flex flex-column'>
+  <div><h2>Presenças no Semestre</h2>
+  </div>
+  <div id="donut-chart-presence" class='donut-chart  d-flex justify-content-center flex-column'></div>
+  </div>
+  </section>
+  
 <div class="album py-5 bg-body-tertiary">
   <div class="container">
-    <p><strong>Total de aulas:</strong> <%= @attendance_rate%> | <strong>Faltas:</strong> <%=  @number_of_absence%> | <strong>Frequência: </strong> <%= number_with_precision(((@attendance_rate - @number_of_absence).to_f / @attendance_rate * 100), precision: 1) %>%
-      <p>
+    <p><strong>Total de aulas:</strong> <%= @attendance_rate%> | <strong>Faltas:</strong> <%=  @number_of_absence%> | <strong>Frequência: </strong> <%= number_with_precision(((@attendance_rate - @number_of_absence).to_f / @attendance_rate * 100), precision: 1) %>%</p>
+    <p><strong>Total de atividades:</strong> <%= @total_activities.count %> | <strong>Feitas:</strong> <%= @total_activities_done.count %> | <strong>Entregues com atraso:</strong> <%= @total_activities_late.count %> | <strong>Nao feitas:</strong> <%= @total_activities_not_done.count %> | <strong>Total de atividades feitas:</strong> <%= number_with_precision(((@total_activities.count - @total_activities_not_done.count).to_f / @total_activities.count * 100), precision: 1) %>%
         <p><span class="text-primary">Atividades feitas</span> | <span class="text-warning">Atividades entregues com atraso ou incompletas</span> |  <span class="text-danger">Atividades não entregues</span></p>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
           <% @dates_with_actitivies.uniq.each do |date|%>
@@ -50,3 +103,44 @@
         </div>
       </div>
     </div>
+    <script src=
+"https://d3js.org/d3.v4.min.js"></script>
+<script src=
+"https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.js"></script>
+<link rel="stylesheet"
+      href=
+"https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.css" />
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.1/Chart.min.js">
+</script>
+    <script>
+        let chart = bb.generate({
+            data: {
+                columns: [
+                    ["Feitas", <%= @total_activities_done.count %>],
+                    ["Entregues com atraso",  <%= @total_activities_late.count %>],
+                    ["Não feitas",  <%= @total_activities_not_done.count %>]
+                ],
+                type: "donut"
+            
+            },
+            donut: {
+                title: "Atividades",
+            },
+            bindto: "#donut-chart-activity",
+        });
+        let chart2 = bb.generate({
+            data: {
+                columns: [
+                    ["Presente", <%= @attendance_rate - @number_of_absence %>],
+                    ["Ausente",  <%= @number_of_absence %>],
+                ],
+                type: "donut"
+            
+            },
+            donut: {
+                title: "Presença",
+            },
+            bindto: "#donut-chart-presence",
+        });
+    </script>
