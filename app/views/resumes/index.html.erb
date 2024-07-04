@@ -1,10 +1,12 @@
-<h1>Resume</h1>
+<h1>Relatórios</h1>
 <div>
   <% @resumes.each do |resume|%>
+    <h4>Criado em: <%= resume.created_at.strftime("%d/%m/%Y") %></h4>
     <p><%= resume.written_report%></p>
-    <%= link_to 'Editar', edit_student_resume_path(@student, resume), class:'btn btn-outline-primary', style:"width:200px"%>
+    <div class='d-flex'><%= link_to 'Editar', edit_student_resume_path(@student, resume), class:'btn btn-outline-primary', style:"width:200px"%>
+    <%= button_to "Apagar esse relatório", student_resume_path(@student, resume), method: :delete,  form: { data: { turbo_confirm: 'Are you sure?' } }, class:'btn btn-outline-danger mx-2', style:"width:200px" %></div>
   <% end %>
-  <% if @resumes.count <= 1 %>
-    <%= link_to 'Novo', new_student_resume_path, class:'btn btn-outline-primary', style:"width:200px"%>
-  <% end %>
+  <br>
+  <br>
+    <%= link_to 'Novo', new_student_resume_path, class:'btn btn-primary', style:"width:200px"%>
 </div>

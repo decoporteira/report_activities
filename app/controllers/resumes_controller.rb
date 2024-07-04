@@ -1,6 +1,6 @@
 class ResumesController < ApplicationController
   before_action :set_student
-  before_action :set_resume, only: %i[show edit update]
+  before_action :set_resume, only: %i[show edit update destroy]
   before_action :authorize_admin!
 
   def new
@@ -40,6 +40,11 @@ class ResumesController < ApplicationController
         format.json { render json: @resume.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def destroy
+    @resume.destroy
+    redirect_to student_resume_path(@student), notice: 'Relatório foi removido com sucesso.'
   end
 
   private
