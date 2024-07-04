@@ -1,41 +1,43 @@
 <style>
     .bb-arc-Não-feitas {
         fill: rgb(220 53 69) !important;
-        cursor: pointer;
+       
     }
     .bb-legend-item.bb-legend-item-Não-feitas .bb-legend-item-tile {
         stroke: rgb(220, 53, 69) !important;
     }
     .bb-arc-Feitas {
         fill: rgb(13 110 253) !important;
-        cursor: pointer;
+       
     }
     .bb-legend-item.bb-legend-item-Feitas .bb-legend-item-tile {
         stroke: rgb(13 110 253) !important;
     }
     .bb-arc-Entregues-com-atraso {
         fill: rgb(255 193 7) !important;
-        cursor: pointer;
+       
     }
     .bb-legend-item.bb-legend-item-Entregues-com-atraso .bb-legend-item-tile {
         stroke: rgb(255 193 7) !important;
     }
     .bb-arc-Presente {
         fill: rgb(13 110 253) !important;
-        cursor: pointer;
+        
     }
     .bb-legend-item.bb-legend-item-Presente .bb-legend-item-tile {
         stroke: rgb(13 110 253) !important;
     }
     .bb-arc-Ausente {
         fill: rgb(220, 53, 69) !important;
-        cursor: pointer;
+        
     }
     .bb-legend-item.bb-legend-item-Ausente .bb-legend-item-tile {
         stroke: rgb(220, 53, 69) !important;
     }
 
 </style>
+
+
 <section class="py-1 text-center container">
   <div class="row py-lg-5">
     <div class="col-lg-6 col-md-8 mx-auto">
@@ -53,7 +55,7 @@
   </div>
 </section>
 
-<section class='chart d-flex justify-content-around align-items-center flex-wrap' >
+<section class='chart d-flex justify-content-around align-items-center flex-wrap' data-turbo="false">
   <div class='d-flex flex-column'>
     <div>
       <h2>Atividades do Semestre</h2>
@@ -104,18 +106,28 @@
         </div>
       </div>
     </div>
-    <script src=
-"https://d3js.org/d3.v4.min.js"></script>
+  
+
+<script src="
+https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js
+"></script>
 <script src=
-"https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.js"></script>
+"https://cdn.jsdelivr.net/npm/billboard.js@3.12.4/dist/billboard.min.js"></script>
+<script src="
+https://cdn.jsdelivr.net/npm/billboard.js@3.12.4/dist/billboard.min.js
+"></script>
 <link rel="stylesheet"
       href=
-"https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.css" />
+"https://cdn.jsdelivr.net/npm/billboard.js@3.12.4/dist/billboard.min.css" />
+
+
+
+ 
 <script src=
 "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.1/Chart.min.js">
 </script>
-    <script>
-        let chart = bb.generate({
+ <script>
+         chart = bb.generate({
             data: {
                 columns: [
                     ["Feitas", <%= @total_activities_done.count %>],
@@ -130,7 +142,7 @@
             },
             bindto: "#donut-chart-activity",
         });
-        let chart2 = bb.generate({
+        chartPresence = bb.generate({
             data: {
                 columns: [
                     ["Presente", <%= @attendance_rate - @number_of_absence %>],
@@ -145,3 +157,4 @@
             bindto: "#donut-chart-presence",
         });
     </script>
+    
