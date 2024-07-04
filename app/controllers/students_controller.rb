@@ -70,8 +70,10 @@ class StudentsController < ApplicationController
       @resume = @student.resumes.first
     else
       @activities = @student.activities.where('date >= ?', Date.new(2024, 1, 1)).order(:date)
-      @resume
     end
+    start_date = Date.new(2024, 7, 1)
+    end_date = Date.new(2024, 7, 31).end_of_day
+    @resume =  @student.resumes.where(created_at: start_date..end_date).first
 
     @dates_with_actitivies = []
     @activities.each do |activity|

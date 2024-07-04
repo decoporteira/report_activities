@@ -42,7 +42,7 @@ Rails.application.routes.draw do
     end
     get 'activities_by_student', on: :member
     get 'report', on: :member
-    resources :resumes, only: [:new, :create, :index, :show, :edit, :update]
+    resources :resumes, only: [:new, :create, :index, :show, :edit, :update, :destroy]
     resources :addresses, only: [:new, :create, :show, :edit, :update]
     resources :monthly_fees, only: [:index, :show, :new, :create, :edit, :update] do
       collection do
