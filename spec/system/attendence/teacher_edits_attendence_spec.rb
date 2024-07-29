@@ -34,7 +34,7 @@ RSpec.describe 'Teacher edita presença' do
     click_on 'Marcar como Ausente'
 
     expect(page).to have_content('Presença marcada como Ausente.')
-    expect(page).to have_content('Megaevolução (feito)')
+    expect(page).to have_content('Megaevolução (não fez)')
     expect(page).to have_content('Marcar como Presente')
     expect(page).to have_content('Blastoise | Ausente')
   end

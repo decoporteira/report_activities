@@ -107,7 +107,7 @@ class StudentsController < ApplicationController
   end
 
   def student_params
-    params.require(:student).permit(:name, :status, :classroom_id, :cpf, :phone, :cel_phone)
+    params.require(:student).permit(:name, :status, :classroom_id, :cpf, :phone, :cel_phone, :email)
   end
 
   def cant_see

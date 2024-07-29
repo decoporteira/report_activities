@@ -61,14 +61,14 @@ class ClassroomsController < ApplicationController
   end
 
   def destroy
-    if current_user.admin?
+    if current_user.admin? && @classroom.students.count.zero?
       @classroom.destroy
       respond_to do |format|
         format.html { redirect_to classrooms_url, notice: t('.success') }
         format.json { head :no_content }
       end
     else
-      redirect_to root_path, alert: t('.fail')
+      redirect_to @classroom, alert: t('.fail')
     end
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_11_131631) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_29_130038) do
   create_table "activities", force: :cascade do |t|
     t.string "report"
     t.integer "late"
@@ -102,6 +102,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_11_131631) do
     t.string "cpf"
     t.string "phone"
     t.string "cel_phone"
+    t.string "email"
     t.index ["classroom_id"], name: "index_students_on_classroom_id"
   end
 
