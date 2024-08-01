@@ -46,4 +46,27 @@
         </div>
       <% end %>
     </div>
+     <h3>Responsáveis encontrados: <%= @financial_responsibles.count%></h3>
+    <% if @financial_responsibles.count == 0 %>
+      <h4>Nenhum responsável encontrado.</h4>      
+    <% end %>
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+      <%@financial_responsibles.each do |financial_responsible|%>
+        <div class="col">
+          <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title"><%= financial_responsible.name %></h1>
+              <ul class="list-unstyled mt-3 mb-4">
+                <li>Responsável por: <strong></strong></li>
+                <%  financial_responsible.students.each do |student| %>
+                  <li><%=student.name %></li>
+
+                <% end %>
+              </ul>
+              <%= link_to "Ver Responsável", financial_responsible, class:'btn btn-outline-success', style:"width:150px"  %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
 </main>

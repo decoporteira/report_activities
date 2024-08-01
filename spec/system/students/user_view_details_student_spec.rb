@@ -12,7 +12,9 @@ RSpec.describe 'User vê listagem de alunos' do
     Student.create!(name: 'Pikachu', status: 'Matriculado', classroom_id: classroom.id, cpf: '')
     Student.create!(name: 'Bulbassaur', status: 'Matriculado', classroom_id: classroom.id, cpf: nil)
     User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
-    user_student = User.create!(email: 'student@email.com', password: 'password', cpf: '065.654.654-01')
+    user_student = User.create!(email: 'oak@email.com', password: 'password', cpf: '000.000.000-01')
+    responsible = FinancialResponsible.create!(name: 'Oak', cpf: '000.000.000-01', email: 'oak@email.com', phone: '32 0000-0000')
+    Responsible.create!(student_id: student.id, financial_responsible_id: responsible.id)
 
     login_as(user_student)
     visit(report_student_path(student))

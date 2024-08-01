@@ -34,15 +34,18 @@ RSpec.describe 'user creates new Address' do
     user = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
     teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: user.id, cpf: '087.097.098-01')
     classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id,
+    student_two = Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id,
                     cpf: '000.000.000-01')
     student = Student.create!(name: 'Pikachu', status: 'Matriculado', classroom_id: classroom.id,
                               cpf: '000.000.000-02')
     Address.create!(street: 'Rua das Covas', number: '23', unit: '232', neighborhood: 'Santos Dumont',
                     city: 'Juiz de Fora', state: 'MG', country: 'Brasil', zip_code: '34050-098',
                     addressable_id: student.id, addressable_type: 'Student')
-    user_two = User.create!(email: 'student@student.com.br', password: 'password', role: 'default',
-                            cpf: '000.000.000-01')
+    user_two = User.create!(email: 'oak@email.com', password: 'password', role: 'default',
+                            cpf: '000.000.000-99')
+    responsible = FinancialResponsible.create!(name: 'Oak', cpf: '000.000.000-99', email: 'oak@email.com', phone: '32 0000-0000')
+    Responsible.create!(student_id: student_two.id, financial_responsible_id: responsible.id)
+
     # act
     login_as(user_two)
     visit(root_path)
@@ -59,15 +62,18 @@ RSpec.describe 'user creates new Address' do
     user = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
     teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: user.id, cpf: '087.097.098-01')
     classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id,
+    student_two = Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id,
                     cpf: '000.000.000-01')
     student = Student.create!(name: 'Entei', status: 'Matriculado', classroom_id: classroom.id,
                               cpf: '000.000.000-02')
     Address.create!(street: 'Rua das Covas', number: '23', unit: '232', neighborhood: 'Santos Dumont',
                     city: 'Juiz de Fora', state: 'MG', country: 'Brasil', zip_code: '34050-098',
                     addressable_id: student.id, addressable_type: 'Student')
-    user_two = User.create!(email: 'student@student.com.br', password: 'password', role: 'default',
+    user_two = User.create!(email: 'oak@email.com', password: 'password', role: 'default',
                             cpf: '000.000.000-01')
+    responsible = FinancialResponsible.create!(name: 'Oak', cpf: '000.000.000-01', email: 'oak@email.com', phone: '32 0000-0000')
+    Responsible.create!(student_id: student_two.id, financial_responsible_id: responsible.id)
+
     # act
     login_as(user_two)
     visit(root_path)

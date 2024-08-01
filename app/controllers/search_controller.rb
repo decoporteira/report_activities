@@ -6,6 +6,7 @@ class SearchController < ApplicationController
     @students = Student.where('LOWER(name) LIKE ?', "%#{query_sem_acento.downcase}%")
     @classrooms = Classroom.where('LOWER(name) LIKE ?', "%#{query_sem_acento.downcase}%")
     @teachers = filter_teachers
+    @financial_responsibles = FinancialResponsible.where('LOWER(name) LIKE ?', "%#{query_sem_acento.downcase}%")
   end
 
   def filter
