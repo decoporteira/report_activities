@@ -113,9 +113,16 @@ class StudentsController < ApplicationController
   def cant_see
     @student = Student.find(params[:id])
     return unless current_user.default?
-    return if current_user.cpf == @student.cpf && @student.cpf != '' && !@student.cpf.nil?
+
+    return if current_user_is_financial_responsible?(@student)
 
     redirect_to root_path, alert: 'Você não possui acesso a esse aluno.'
+  end
+
+  def current_user_is_financial_responsible?(student)
+    student.financial_responsibles.exists?(
+      ['cpf = :cpf OR email = :email', { cpf: current_user.cpf, email: current_user.email }]
+    )
   end
 
   def is_admin?
