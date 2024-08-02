@@ -1,26 +1,29 @@
-<h1>Responsáveis Financeiros</h1>
-<%= link_to 'Criar Responsável', new_financial_responsible_path, class: 'btn btn-primary mb-2' %>
-<div class=''>
-  <table class="fs-9 mb-0 border-top border-translucent table">
-    <thead>
-      <tr>
-        <th style="width: 30%;">Nome</th>
-        <th style="width: 20%;">CPF</th>
-        <th style="width: 20%;">Telefone</th>
-        <th style="width: 30%;">Email</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <% @financial_responsibles.each do |responsable| %>
-          <tr>
-            <td><%= link_to responsable.name, responsable %></td>
-            <td><%= responsable.cpf %></td>
-            <td><%= responsable.phone %></td>
-            <td><%= responsable.email %></td>
-          </tr>
-        <% end %>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <h1>Responsáveis</h1>
+  <%= link_to 'Criar Responsável', new_financial_responsible_path, class: 'btn btn-primary mb-2' %>
+  <input class="form-control" id="myInput" type="text" placeholder="Digite o nome, email ou telefone do responsável para filtrar...">
+  <br>
+  <ul class="list-group" id="myList">
+    <% @financial_responsibles.each do |responsable| %>
+      <li class="list-group-item ">
+          <div class='d-flex'>
+            <div style="width: 30%;"><%= link_to responsable.name, responsable %></div>
+            <div style="width: 30%;"><%= responsable.cpf %></div>
+            <div style="width: 30%;"><%= responsable.phone %></div>
+            <div style="width: 30%;"><%= responsable.email %></div>
+          </div>
+      </li>
+    <% end %>
+  </ul>  
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myList li").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
