@@ -66,24 +66,19 @@ class StudentsController < ApplicationController
 
   def report
     if params[:year].to_i == 2023
-      @activities = @student.activities.where('date <= ?', Date.new(2023, 12, 31)).order(:date)
-      @resume = @student.resumes.where('date <= ?', Date.new(2023, 12, 31)).first
-      @dates_with_actitivies = []
+      start_date = Date.new(2023, 8, 1)
+      end_date = Date.new(2023, 12, 31).end_of_day
     elsif params[:year].to_i == 2024
       start_date = Date.new(2024, 1, 1)
       end_date = Date.new(2024, 7, 31).end_of_day
-      @activities = @student.activities
-                            .where('date >= ? AND date <= ?', start_date, end_date)
-                            .order(:date)
-      set_report(start_date, end_date)
     else
       start_date = Date.new(2024, 8, 1)
       end_date = Date.new(2024, 12, 31).end_of_day
-      @activities = @student.activities
-                            .where('date >= ? AND date <= ?', start_date, end_date)
-                            .order(:date)
-      set_report(start_date, end_date)
     end
+    @activities = @student.activities
+                          .where('date >= ? AND date <= ?', start_date, end_date)
+                          .order(:date)
+    set_report(start_date, end_date)
   end
 
   private
@@ -95,10 +90,11 @@ class StudentsController < ApplicationController
       @dates_with_actitivies << activity.date
     end
     @number_of_days = @dates_with_actitivies.uniq.length
-    @number_of_absence = @student.attendances.where(presence: false)
-                                              .where('attendance_date >= ? AND attendance_date <= ?', start_date, end_date).length
+    @number_of_absence = @student.attendances
+                                  .where(presence: false)
+                                  .where('attendance_date >= ? AND attendance_date <= ?', start_date, end_date).length
     @attendance_rate = @number_of_days
-    @total_activities = @student.activities.where(created_at: start_date..end_date)
+    @total_activities = @student.activities.where(date: start_date..end_date)
     @total_activities_done = @total_activities.where(late: 'feito')
     @total_activities_late = @total_activities.where(late: 'entregue com atraso')
     @total_activities_not_done = @total_activities.where(late: 'não fez')
