@@ -1,7 +1,7 @@
 class StudentsController < ApplicationController
   before_action :cant_see, only: [:report]
   before_action :is_admin?, except: [:report]
-  before_action :set_student, only: %i[show edit update report activities_by_student link_responsible]
+  before_action :set_student, only: %i[show edit update report activities_by_student]
   before_action :set_info
 
   def index
@@ -68,34 +68,56 @@ class StudentsController < ApplicationController
     if params[:year].to_i == 2023
       @activities = @student.activities.where('date <= ?', Date.new(2023, 12, 31)).order(:date)
       @resume = @student.resumes.first
+      @dates_with_actitivies = []
+    elsif params[:year].to_i == 2024
+      @activities = @student.activities
+                            .where('date >= ? AND date <= ?', Date.new(2024, 1, 1), Date.new(2024, 8, 1))
+                            .order(:date)
+      start_date = Date.new(2024, 7, 1)
+      end_date = Date.new(2024, 7, 31).end_of_day
+      @resume =  @student.resumes.where(created_at: start_date..end_date).first
+
+      @dates_with_actitivies = []
+      @activities.each do |activity|
+        @dates_with_actitivies << activity.date
+      end
+      @number_of_days = @dates_with_actitivies.uniq.length
+      @number_of_absence = @student.attendances.where(presence: false).where('attendance_date >= ?',
+                                                                            Date.new(2024, 1, 1)).length
+      @attendance_rate = @number_of_days
+
+      start_date = Date.new(2024, 1, 1)
+      end_date = Date.new(2024, 7, 31).end_of_day
+
+      @total_activities = @student.activities.where(created_at: start_date..end_date)
+      @total_activities_done = @total_activities.where(late: 'feito')
+      @total_activities_late = @total_activities.where(late: 'entregue com atraso')
+      @total_activities_not_done = @total_activities.where(late: 'não fez')
     else
-      @activities = @student.activities.where('date >= ?', Date.new(2024, 1, 1)).order(:date)
+      @activities = @student.activities.where('date >= ?', Date.new(2024, 8, 1)).order(:date)
+      start_date = Date.new(2024, 8, 1)
+      end_date = Date.new(2024, 12, 31).end_of_day
+      @resume =  @student.resumes.where(created_at: start_date..end_date).first
+
+      @dates_with_actitivies = []
+      @activities.each do |activity|
+        @dates_with_actitivies << activity.date
+      end
+      @number_of_days = @dates_with_actitivies.uniq.length
+      @number_of_absence = @student.attendances.where(presence: false).where('attendance_date >= ?',
+                                                                      Date.new(2024, 8, 1)).length
+      @attendance_rate = @number_of_days
+
+      start_date = Date.new(2024, 8, 1)
+      end_date = Date.new(2024,12, 31).end_of_day
+
+      @total_activities = @student.activities.where(created_at: start_date..end_date)
+      @total_activities_done = @total_activities.where(late: 'feito')
+      @total_activities_late = @total_activities.where(late: 'entregue com atraso')
+      @total_activities_not_done = @total_activities.where(late: 'não fez')
     end
-    start_date = Date.new(2024, 7, 1)
-    end_date = Date.new(2024, 7, 31).end_of_day
-    @resume =  @student.resumes.where(created_at: start_date..end_date).first
-
-    @dates_with_actitivies = []
-    @activities.each do |activity|
-      @dates_with_actitivies << activity.date
-    end
-    @number_of_days = @dates_with_actitivies.uniq.length
-    @number_of_absence = @student.attendances.where(presence: false).where('attendance_date >= ?',
-                                                                           Date.new(2024, 1, 1)).length
-    @attendance_rate = @number_of_days
-
-    start_date = Date.new(2024, 1, 1)
-    end_date = Date.new(2024, 7, 31).end_of_day
-
-    @total_activities = @student.activities.where(created_at: start_date..end_date)
-    @total_activities_done = @total_activities.where(late: 'feito')
-    @total_activities_late = @total_activities.where(late: 'entregue com atraso')
-    @total_activities_not_done = @total_activities.where(late: 'não fez')
-
   end
 
-  def link_responsible
-  end
   private
 
   def set_info
