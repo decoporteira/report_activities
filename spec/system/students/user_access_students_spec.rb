@@ -15,14 +15,13 @@ RSpec.describe 'User vê alunos' do
     user_student = User.create!(email: 'oak@email.com', password: 'password', cpf: '000.000.000-01')
     responsible = FinancialResponsible.create!(name: 'Oak', cpf: '000.000.000-01', email: 'oak@email.com', phone: '32 0000-0000')
     Responsible.create!(student_id: student.id, financial_responsible_id: responsible.id)
-    
 
     # act
     login_as(user_student)
     visit(report_student_path(student))
 
     expect(page).to have_content('Venossaur')
-    expect(page).to have_content('Relatório de 2024')
+    expect(page).to have_content('Relatório do Segundo Semestre de 2024')
   end
   it 'Usando o cpf errado' do
     # arrange
