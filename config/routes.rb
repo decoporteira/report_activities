@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :billings
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   root to: 'home#index'
   get 'users/index'

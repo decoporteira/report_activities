@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_29_130038) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_13_170238) do
   create_table "activities", force: :cascade do |t|
     t.string "report"
     t.integer "late"
@@ -44,6 +44,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_29_130038) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["student_id"], name: "index_attendances_on_student_id"
+  end
+
+  create_table "billings", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "classrooms", force: :cascade do |t|
@@ -96,7 +103,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_29_130038) do
   create_table "students", force: :cascade do |t|
     t.string "name"
     t.integer "status"
-    t.integer "classroom_id", null: false
+    t.integer "classroom_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "cpf"

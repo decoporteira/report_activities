@@ -14,8 +14,8 @@
         <% @students.each do |student|%>
           <tr>
             <td><%= link_to student.name, attendance_path(student) %></td>
-            <td><%= student.classroom.name %></td>
-            <td><%= student.classroom.teacher.name %></td>
+            <td><%= student.classroom.nil? ? 'Não possui turma cadastrada' : student.classroom.name %></td>
+            <td><%= student.classroom.nil? ? 'Não possui turma cadastrada' : student.classroom.teacher.name %></td>
             <td><%= student.status %></td>
           </tr>
         <% end %>

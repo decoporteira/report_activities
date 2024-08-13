@@ -33,8 +33,10 @@
             </div>
               <div class="card-body">
                 <p class="card-text"></p>
-                <p><strong>Status:</strong> <%= fr.student.classroom.name %> </p>
-                <p><strong>Professor:</strong> <%= fr.student.classroom.teacher.name %></p>
+                <p><strong>Status:</strong>  <%= fr.student.classroom.nil? ? 'Não possui turma cadastrada' : fr.student.classroom.name %> </p>
+               
+                <p><strong>Professor:</strong> <%= fr.student.classroom.nil? ? 'Não possui turma cadastrada' : fr.student.classroom.teacher.name %></p>
+                
                 <%= link_to 'Editar Vínculo', responsible_path(fr.id), class:"btn btn-outline-primary" %>
               </div>
             </div>

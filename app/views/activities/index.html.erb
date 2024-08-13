@@ -14,9 +14,9 @@
                 </div>
                 <div class="card-body">
                   <p class="card-text"></p>
-                  <p><strong>Turma: </strong><%= student.classroom.name %></p>
+                  <p><strong>Turma: </strong><%= student.classroom.nil? ? 'Não possui turma cadastrada' : student.classroom.name %></p>
                   <p>
-                    <strong>Teacher: </strong><%= Teacher.find_by(id: student.classroom.teacher.id).name %>
+                    <strong>Teacher: </strong><%= student.classroom.nil? ? 'Não possui turma cadastrada' : student.classroom.teacher.name %>
                   </p>
                 </div>
               </div>
@@ -33,9 +33,9 @@
               </div>
               <div class="card-body">
                 <p class="card-text"></p>
-                <p><strong>Turma: </strong><%= student.classroom.name %></p>
+                <p><strong>Turma: </strong><%= student.classroom.nil? ? 'Não possui turma cadastrada' : student.classroom.name %></p>
                 <p>
-                  <strong>Teacher: </strong><%= Teacher.find_by(id: student.classroom.teacher.id).name %>
+                  <strong>Teacher: </strong><%= student.classroom.nil? ? 'Não possui turma cadastrada' : student.classroom.teacher.name %>
                 </p>
                 <%= link_to ' Ver Atividades ', activities_by_student_student_path(student),class:'btn btn-outline-primary', style:"width:200px" %>
               </div>

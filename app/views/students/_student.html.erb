@@ -43,8 +43,8 @@
     <div class="col-lg-6 col-md-8 mx-auto">
       <img src="https://englishglobe.com.br/wp-content/themes/english/images/logo.png" class="pb-3" style="width:150px" alt="...">
       <h1 class="fw-light"><%= @student.name %></h1>
-      <p class="lead text-body-secondary">Turma: <strong><%= @student.classroom.name%></strong></p>
-      <p class="lead text-body-secondary">Professor(a): <strong><%= @student.classroom.teacher.name%></strong></p>
+      <p class="lead text-body-secondary">Turma: <strong><%= @student.classroom.nil? ? 'Não possui turma cadastrada' : @student.classroom.name %></strong></p>
+      <p class="lead text-body-secondary">Professor(a): <strong><%= @student.classroom.nil? ? 'Não possui turma cadastrada' : @student.classroom.teacher.name %></strong></p>
     </div>
   </div>
   <h2>Relatório do Segundo Semestre de 2024</h2>
