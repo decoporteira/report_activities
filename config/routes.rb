@@ -38,6 +38,7 @@ Rails.application.routes.draw do
 
   resources :students do
     collection do
+      get 'incomplete'
       get 'not_registered'
     end
     get 'activities_by_student', on: :member

@@ -1,6 +1,6 @@
 class StudentsController < ApplicationController
   before_action :cant_see, only: [:report]
-  before_action :is_admin?, except: [:report]
+  before_action :admin?, except: [:report]
   before_action :set_student, only: %i[show edit update report activities_by_student]
   before_action :set_info
 
@@ -81,6 +81,11 @@ class StudentsController < ApplicationController
     set_report(start_date, end_date)
   end
 
+  def incomplete
+    @students = Student.where(cpf: '')
+    @students = @students.left_outer_joins(:financial_responsibles).where(financial_responsibles: { id: nil })
+  end
+
   private
 
   def set_report(start_date, end_date)
@@ -127,7 +132,7 @@ class StudentsController < ApplicationController
     )
   end
 
-  def is_admin?
+  def admin?
     return if current_user.admin? || current_user.accounting? || current_user.teacher?
 
     redirect_to root_path,

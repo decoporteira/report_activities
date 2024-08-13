@@ -1,0 +1,32 @@
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <h1>Alunos sem CPF e Responsável Cadastrado</h1>
+  <%= link_to 'Criar Responsável', new_financial_responsible_path, class: 'btn btn-primary mb-2' %>
+  <input class="form-control" id="myInput" type="text" placeholder="Digite o nome, email ou telefone do responsável para filtrar...">
+  <br>
+  <ul class="list-group" id="myList">
+    <%  @students.each do |student| %>
+      <li class="list-group-item ">
+          <div class='d-flex'>
+            <div style="width: 30%;"><%= link_to student.name, student %></div>
+            <div style="width: 30%;"><%= student.status %></div>
+            <div style="width: 30%;"><%= student.classroom.teacher.name %></div>
+            <div style="width: 30%;"><%= student.classroom.name %></div>
+            <div style="width: 30%;"><%= student.email %></div>
+            
+          </div>
+      </li>
+    <% end %>
+  </ul>  
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myList li").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>

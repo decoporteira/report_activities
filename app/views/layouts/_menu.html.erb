@@ -70,6 +70,9 @@
                   </li>
                 </ul>
             </li>
+            <li class="nav-item">
+              <%= link_to "Cadastros Incompletos", incomplete_students_path, class: "nav-link" %>
+            </li>
             <%end%>
           </ul>
           <% if !current_user.default? %>
