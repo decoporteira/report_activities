@@ -82,8 +82,10 @@ class StudentsController < ApplicationController
   end
 
   def incomplete
-    @students = Student.where(cpf: '')
-    @students = @students.left_outer_joins(:financial_responsibles).where(financial_responsibles: { id: nil })
+    @students = Student
+                .where(cpf: '', status: 'Matriculado')
+                .left_outer_joins(:financial_responsibles)
+                .where(financial_responsibles: { id: nil })
   end
 
   private
