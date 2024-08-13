@@ -11,8 +11,8 @@
 
   <p>
     <strong>Classroom:</strong>
-    <%student.classroom_id %>
-    <%= student.classroom.name%>
+    <%= student.classroom.nil? ? 'Não possui turma cadastrada' : student.classroom.name %>
+   
   </p>
 
 </div>

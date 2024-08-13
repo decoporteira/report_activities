@@ -22,7 +22,7 @@
       <% student = address.addressable %>
       <tr>
         <td><%= student.name %></td>
-        <td><%= student.classroom.name %></td>
+        <td><%= student.classroom.nil? ? 'Não possui turma cadastrada' : student.classroom.name %></td>
         <td><%= address.street %></td>
         <td><%= address.neighborhood %></td>
         <td><%= address.number %> / <%= address.unit %></td>

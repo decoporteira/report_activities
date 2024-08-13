@@ -36,7 +36,9 @@
     <%if current_user.teacher? %>
       <%= form.collection_select :classroom_id, current_user.teacher.classrooms, :id, :name, class:"form-select" %>
     <% else %>
-      <%=form.collection_select :classroom_id, Classroom.all, :id, :name_with_teacher_name, {:prompt => 'Selecione uma turma'}, class:"form-select"   %>
+      <%form.collection_select :classroom_id, Classroom.all, :id, :name_with_teacher_name, {:prompt => 'Selecione uma turma'}, class:"form-select"   %>
+      <%= form.collection_select :classroom_id, Classroom.all, :id, :name_with_teacher_name, { prompt: 'Selecione uma turma', include_blank: 'Nenhuma' }, class: "form-select" %>
+    
     <% end %>
     <br/>
   </div>

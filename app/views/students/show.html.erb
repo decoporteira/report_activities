@@ -6,11 +6,13 @@
       <p class="lead">
         <dl>
           <dt>Professor(a): </dt>
-          <dd><%=@student.classroom.teacher.name%></dd>
+          <dd>
+           <%= @student.classroom.nil? ? 'Não possui turma cadastrada' : @student.classroom.teacher.name %>
+          </dd>
           <dt>Turma: </dt>
-          <dd><%=@student.classroom.name%></dd>
+          <dd> <%= @student.classroom.nil? ? 'Não possui turma cadastrada' : @student.classroom.name %></dd>
           <dt>Horário: </dt>
-          <dd><%=@student.classroom.time%></dd>
+          <dd> <%= @student.classroom.nil? ? 'Não possui turma cadastrada' : @student.classroom.time %></dd>
           <dt>Status: </dt>
           <dd><%=@student.status%></dd>
           
