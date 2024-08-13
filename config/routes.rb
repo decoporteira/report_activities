@@ -55,7 +55,7 @@ Rails.application.routes.draw do
       post :import
     end
   end
-  
+  resources :plans, only: [:new, :create, :index, :show, :edit, :update, :destroy]
   resources :financial_responsibles, only: [:new, :create, :index, :show, :edit, :update]
   resources :classrooms do
     collection do
