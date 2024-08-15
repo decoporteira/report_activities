@@ -7,7 +7,7 @@ RSpec.describe 'Cria todas as mensalidades do ano' do
     teacher = Teacher.create!(name: 'Bianca', status: 'disponível', user_id: user_teacher.id,
                               cpf: '087.097.098-01')
     classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id,
+    Student.create!(name: 'Venossaur', status: :registered, classroom_id: classroom.id,
                     cpf: '065.654.654-01')
 
     login_as(admin)
@@ -25,7 +25,7 @@ RSpec.describe 'Cria todas as mensalidades do ano' do
     teacher = Teacher.create!(name: 'Bianca', status: 'disponível', user_id: user_teacher.id,
                               cpf: '087.097.098-01')
     classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id,
+    Student.create!(name: 'Venossaur', status: :registered, classroom_id: classroom.id,
                     cpf: '065.654.654-01')
 
     login_as(admin)
@@ -57,7 +57,7 @@ RSpec.describe 'Cria todas as mensalidades do ano' do
     teacher = Teacher.create!(name: 'Bianca', status: 'disponível', user_id: user_teacher.id,
                               cpf: '087.097.098-01')
     classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id,
+    Student.create!(name: 'Venossaur', status: :registered, classroom_id: classroom.id,
                     cpf: '065.654.654-01')
 
     login_as(admin)
@@ -89,7 +89,7 @@ RSpec.describe 'Cria todas as mensalidades do ano' do
     teacher = Teacher.create!(name: 'Bianca', status: 'disponível', user_id: user_teacher.id,
                               cpf: '087.097.098-01')
     classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id,
+    Student.create!(name: 'Venossaur', status: :registered, classroom_id: classroom.id,
                     cpf: '065.654.654-01')
 
     login_as(admin)
@@ -121,7 +121,7 @@ RSpec.describe 'Cria todas as mensalidades do ano' do
     teacher = Teacher.create!(name: 'Bianca', status: 'disponível', user_id: user_teacher.id,
                               cpf: '087.097.098-01')
     classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id,
+    Student.create!(name: 'Venossaur', status: :registered, classroom_id: classroom.id,
                     cpf: '065.654.654-01')
 
     login_as(admin)

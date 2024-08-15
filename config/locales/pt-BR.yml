@@ -8,3 +8,10 @@ pt-BR:
             attributes:
               name:
                 blank: "não pode ficar em branco"
+          student:
+            statuses:
+              registered: "Matriculado"
+              not_registered: "Não Matriculado"
+  
+  registered: "Matriculado"
+  not_registered: "Não Matriculado"

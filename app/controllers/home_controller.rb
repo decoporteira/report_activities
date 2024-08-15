@@ -1,18 +1,18 @@
 class HomeController < ApplicationController
-  before_action :set_students
-  before_action :set_classrooms
-  before_action :set_activities
 
-  def set_students
-    @students = Student.where(status: 'Matriculado')
-    @total_students = @students.count
-  end
-
-  def set_classrooms
-    @classrooms = Classroom.all
-  end
-
-  def set_activities
-    @activities = Activity.all
+  def index
+    if current_user.default?
+      financial_responsible = FinancialResponsible.where(cpf: current_user.cpf).or(FinancialResponsible.where(email: current_user.email)).first
+      if financial_responsible.blank?
+        @students = Student.where(cpf: current_user.cpf).where.not(cpf: [nil, '']).registered
+      else
+        @students = financial_responsible.students
+      end
+    elsif current_user.teacher?
+      @classrooms = Classroom.includes(:students).where(teacher_id: current_user.teacher.id)
+    else
+      @classrooms = Classroom.all
+      @students = Student.registered
+    end
   end
 end

@@ -7,7 +7,7 @@ RSpec.describe 'Usuário cadastra um responsável financeiro' do
     teacher = Teacher.create!(name: 'Bianca', status: 'disponível', user_id: user_teacher.id,
                               cpf: '087.097.098-01')
     classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id,
+    Student.create!(name: 'Venossaur', status: :registered, classroom_id: classroom.id,
                     cpf: '065.654.654-01')
 
     login_as(user)
@@ -34,7 +34,7 @@ RSpec.describe 'Usuário cadastra um responsável financeiro' do
     teacher = Teacher.create!(name: 'Bianca', status: 'disponível', user_id: user_teacher.id,
                               cpf: '087.097.098-01')
     Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    #Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id, cpf: '065.654.654-01')
+    #Student.create!(name: 'Venossaur', status: :registered, classroom_id: classroom.id, cpf: '065.654.654-01')
 
     login_as(user)
     visit(root_path)
@@ -55,7 +55,7 @@ RSpec.describe 'Usuário cadastra um responsável financeiro' do
     teacher = Teacher.create!(name: 'Bianca', status: 'disponível', user_id: user_teacher.id,
                               cpf: '087.097.098-01')
     classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id,
+    Student.create!(name: 'Venossaur', status: :registered, classroom_id: classroom.id,
                     cpf: '065.654.654-01')
     FinancialResponsible.create!(name: 'Carvalho', cpf: '000.000.000-01', email: 'carvalho@gmail.com', phone: '32 0000-0000')
 

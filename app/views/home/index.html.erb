@@ -5,23 +5,16 @@
     Listagem de turmas de <%= current_user.teacher.name%></h1>
   <% elsif current_user.admin? || current_user.accounting?%>
     Listagem de turmas</h1>
-    Total de alunos matriculados: <%= @total_students%>
+    Total de alunos matriculados: <%= @students.count %>
   <% else %>
     Listagem de turmas</h1>
   <% end %>
 <div class="album py-5 bg-body-tertiary">
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-      <% if (current_user.default?)%>
-        <% financial_responsible = FinancialResponsible.where(cpf: current_user.cpf).or(FinancialResponsible.where(email: current_user.email)).first%>
-         <% students = financial_responsible.present? ? financial_responsible.students : [] %>
-        <% if students.count == 0 %>
-          <div class='text-center'>
-            <h3>Sem alunos para mostrar.</h3><br>
-            <p>Entre em contato conosco para completar o seu cadastro e visualizar os relatórios dos alunos.</p>
-          </div>
-        <% else %>
-          <% students.each do |student| %>
+      <% if current_user.default? %>
+        <% if @students.any? %>
+          <% @students.each do |student| %>
             <div class="col">
               <div class="card shadow-sm">
                 <div class="card-header py-1">
@@ -33,108 +26,115 @@
                   <p class="card-text">
                   </p>
                   <h5 class="text-secondary fs-5">
-                    Teacher: <%= Teacher.find_by(id: student.classroom.teacher_id).name %></h5>
-                  Turma: <%= student.classroom.name%></h5>
-              </p>
-              <%= link_to 'Ver Atividades', report_student_path(student),class:'btn btn-outline-primary', style:"width:200px" %>
+                    Teacher: <%= student.classroom.nil? ? 'Não possui turma cadastrada' : student.classroom.teacher.name %></h5>
+                    Turma: <%= student.classroom.nil? ? 'Não possui turma cadastrada' : student.classroom.name %></h5>
+                  </p>
+                  <%= link_to 'Ver Atividades', report_student_path(student),class:'btn btn-outline-primary', style:"width:200px" %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <div class='text-center'>
+            <h3>Sem alunos para mostrar.</h3><br>
+            <p>Entre em contato conosco para completar o seu cadastro e visualizar os relatórios dos alunos.</p>
+          </div>
+        <% end %>
+      <% elsif current_user.teacher? %>
+          <% @classrooms.each do |entry| %>
+            <div class="col">
+              <div class="card shadow-sm">
+                <div class="card-header py-1">
+                  <h4 class="my-1 fw-normal fs-5">
+                    <%= link_to entry.name, classroom_path(entry.id), class: 'text-decoration-none link-primary' %>
+                  </h4>
+                </div>
+                <div class="card-body">
+                  <h5 class="text-secondary fs-5">Teacher: <%= entry.teacher.name %></h5>
+                  <% entry.students.registered.each do |student| %>
+                    <div class='d-flex justify-content-between'>
+                      <div class='ps-1'>
+                        <%= student.name %>
+                      </div>
+                      <div>
+                        <%= link_to report_student_path(student), class: 'text-decoration-none', alt: "Atividade do aluno" do %>
+                          <i class="fa-solid fa-list-check pe-2" style="color: #0d6efd;" alt="Atividades"></i>
+                        <% end %>
+                        <%= link_to student, alt: "Detalhes do aluno" do %>
+                          <i class="fa-solid fa-user" style="color: #0d6efd;"></i>
+                        <% end %>
+                      </div>
+                    </div>
+                    <hr class="border-1 my-2 opacity-25 text-secondary">
+                  <% end %>
+
+                  <%= link_to 'Enter Classroom', classroom_path(entry.id), class: 'btn btn-outline-primary' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+      
+      <% elsif current_user.accounting? %>
+        <% @classrooms.each do |classroom|%>
+          <div class="col">
+            <div class="card shadow-sm">
+              <div class="card-header py-1">
+                <h4 class="my-1 fw-normal fs-5">
+                  <strong><%= classroom.name %> </strong> <span class='fs-6'>- Alunos: <%=classroom.students.length%></span>
+                </h4>
+              </div>
+              <div class="card-body">
+                <h5 class="text-secondary fs-5"><%= Teacher.find_by(id: classroom.teacher_id).name %></h5>
+                <% students = classroom.students.where(status: :registered)%>
+                <%students.each do |student| %>
+                  <div class='d-flex justify-content-between'>
+                    <div class='ps-1 '>
+                      <%= student.name%>
+                    </div>
+                    <div>
+                      <%= link_to "Detalhes", student_path(student), class:' btn-sm btn btn-outline-primary small', style:"width:110px; height:30px;"  %>
+                    </div>
+                  </div>
+                  <hr  class="border-1 my-2 opacity-25 text-secondary">
+                <% end%>
+              </div>
             </div>
           </div>
-        </div>
-        <% end %>
+        <%end%>
+      <% elsif current_user.admin? %>
+        <% @classrooms.each do |classroom|%>
+          <div class="col">
+            <div class="card shadow-sm">
+              <div class="card-header py-1">
+                <h4 class="my-1 fw-normal fs-5">
+                  <%= link_to  classroom.name, classroom_path(classroom.id), class:'text-decoration-none link-primary'  %> <span class='fs-6'>- Alunos: <strong><%=classroom.students.length%></strong></span>
+                </h4>
+              </div>
+              <div class="card-body">
+                <h5 class="text-secondary fs-5"><%= Teacher.find_by(id: classroom.teacher_id).name %></h5>
+                <% students = classroom.students.where(status: :registered)%>
+                <%students.each do |student| %>
+                  <div class='d-flex justify-content-between'>
+                    <div class='ps-1 '>
+                      <%= student.name%>
+                    </div>
+                    <div>
+                      <%= link_to  report_student_path(student), class:'text-decoration-none', alt: "Atividade" do %>
+                        <i class="fa-solid fa-list-check pe-2"  style="color: #0d6efd;" ></i>
+                      <% end %>
+                      <%= link_to student, id:'details', alt: "Detalhes" do %>
+                        <i class="fa-solid fa-user" style="color: #0d6efd;"></i>
+                      <% end %>
+                    </div>
+                  </div>
+                  <hr  class="border-1 my-2 opacity-25 text-secondary">
+                <% end%>
+                <%= link_to  'Ver turma', classroom_path(classroom.id), class:'btn btn-outline-primary'  %>
+              </div>
+            </div>
+          </div>
+        <%end%>
       <% end %>
-  <% elsif (current_user.teacher?) %>
-    <% current_classrooms = current_user.teacher.classrooms%>
-    <% current_classrooms.each do |classroom|%>
-      <div class="col">
-        <div class="card shadow-sm">
-          <div class="card-header py-1">
-            <h4 class="my-1 fw-normal fs-5">
-              <%= link_to  classroom.name, classroom_path(classroom.id), class:'text-decoration-none link-primary'  %>
-            </h4>
-          </div>
-          <div class="card-body">
-            <h5 class="text-secondary fs-5"><%= Teacher.find_by(id: classroom.teacher_id).name %></h5>
-            <% students = classroom.students.where(status: 'Matriculado')%>
-            <%  students.each do |student| %>
-              <div class='d-flex justify-content-between'>
-                <div class='ps-1 '>
-                  <%= student.name%>
-                </div>
-                <div>
-                  <%= link_to report_student_path(student), class:'text-decoration-none', alt: "Atividade do aluno" do %>
-                    <i class="fa-solid fa-list-check pe-2"  style="color: #0d6efd;" alt="Atividades"></i>
-                  <% end %>
-                  <% link_to student, alt: "Detalhes do aluno" do %>
-                    <i class="fa-solid fa-user" style="color: #0d6efd;" ></i>
-                  <% end %>
-                </div>
-              </div>
-              <hr  class="border-1 my-2 opacity-25 text-secondary">
-            <% end%>
-            <%= link_to  'Enter Classroom', classroom_path(classroom.id), class:'btn btn-outline-primary'  %>
-          </div>
-        </div>
-      </div>
-    <%end%>
-  <% elsif current_user.accounting? %>
-    <% @classrooms.each do |classroom|%>
-      <div class="col">
-        <div class="card shadow-sm">
-          <div class="card-header py-1">
-            <h4 class="my-1 fw-normal fs-5">
-              <strong><%= classroom.name %> </strong> <span class='fs-6'>- Alunos: <%=classroom.students.length%></span>
-            </h4>
-          </div>
-          <div class="card-body">
-            <h5 class="text-secondary fs-5"><%= Teacher.find_by(id: classroom.teacher_id).name %></h5>
-            <% students = classroom.students.where(status: 'Matriculado')%>
-            <%students.each do |student| %>
-              <div class='d-flex justify-content-between'>
-                <div class='ps-1 '>
-                  <%= student.name%>
-                </div>
-                <div>
-                  <%= link_to "Detalhes", student_path(student), class:' btn-sm btn btn-outline-primary small', style:"width:110px; height:30px;"  %>
-                </div>
-              </div>
-              <hr  class="border-1 my-2 opacity-25 text-secondary">
-            <% end%>
-          </div>
-        </div>
-      </div>
-    <%end%>
-  <% elsif current_user.admin? %>
-    <% @classrooms.each do |classroom|%>
-      <div class="col">
-        <div class="card shadow-sm">
-          <div class="card-header py-1">
-            <h4 class="my-1 fw-normal fs-5">
-              <%= link_to  classroom.name, classroom_path(classroom.id), class:'text-decoration-none link-primary'  %> <span class='fs-6'>- Alunos: <strong><%=classroom.students.length%></strong></span>
-            </h4>
-          </div>
-          <div class="card-body">
-            <h5 class="text-secondary fs-5"><%= Teacher.find_by(id: classroom.teacher_id).name %></h5>
-            <% students = classroom.students.where(status: 'Matriculado')%>
-            <%students.each do |student| %>
-              <div class='d-flex justify-content-between'>
-                <div class='ps-1 '>
-                  <%= student.name%>
-                </div>
-                <div>
-                  <%= link_to  report_student_path(student), class:'text-decoration-none', alt: "Atividade" do %>
-                    <i class="fa-solid fa-list-check pe-2"  style="color: #0d6efd;" ></i>
-                  <% end %>
-                  <%= link_to student, id:'details', alt: "Detalhes" do %>
-                    <i class="fa-solid fa-user" style="color: #0d6efd;"></i>
-                  <% end %>
-                </div>
-              </div>
-              <hr  class="border-1 my-2 opacity-25 text-secondary">
-            <% end%>
-            <%= link_to  'Ver turma', classroom_path(classroom.id), class:'btn btn-outline-primary'  %>
-          </div>
-        </div>
-      </div>
-    <%end%>
-  <% end %>
+    </div>
+  </div>
 </div>

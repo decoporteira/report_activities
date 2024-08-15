@@ -14,8 +14,7 @@
           <dt>Horário: </dt>
           <dd> <%= @student.classroom.nil? ? 'Não possui turma cadastrada' : @student.classroom.time %></dd>
           <dt>Status: </dt>
-          <dd><%=@student.status%></dd>
-          
+          <dd><%= I18n.t(@student.status) %></dd>
           <dt>Telefone celular: </dt>
           <dd><%= @student.cel_phone.present? ? @student.cel_phone : "Telefone celular não cadastrado."%></dd>
           <dt>Email: </dt>

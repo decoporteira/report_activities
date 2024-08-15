@@ -8,7 +8,7 @@ class Student < ApplicationRecord
   has_many :resumes, dependent: :destroy
   has_many :attendances, dependent: :destroy
   has_many :addresses, as: :addressable, dependent: :destroy
-  enum status: { 'Matriculado': 1, 'Não matriculado': 2 }
+  enum status: { registered: 1, not_registered: 2 }
   validates :name, uniqueness: { scope: :classroom }
   validates :name, :status, presence: true
 

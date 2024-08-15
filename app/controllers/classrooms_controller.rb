@@ -27,7 +27,7 @@ class ClassroomsController < ApplicationController
 
 
   def create_activity
-    students = Student.where(classroom_id: params[:classroom_id], status: 'Matriculado')
+    students = Student.where(classroom_id: params[:classroom_id], status: :registered)
     students.each do |student|
       create_activity_and_attendance(student)
     end
@@ -97,7 +97,7 @@ class ClassroomsController < ApplicationController
   end
 
   def set_students
-    @students = Student.where(classroom_id: params[:id], status: 'Matriculado')
+    @students = Student.where(classroom_id: params[:id], status: :registered)
   end
 
   def create_activity_and_attendance(student)
