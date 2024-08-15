@@ -10,7 +10,7 @@
       <li class="list-group-item ">
           <div class='d-flex'>
             <div style="width: 30%;"><%= link_to student.name, student %></div>
-            <div style="width: 30%;"><%= student.status %></div>
+            <div style="width: 30%;"><%= I18n.t(student.status) %></div>
             <div style="width: 30%;"><%= student.classroom.teacher.name %></div>
             <div style="width: 30%;"><%= student.classroom.name %></div>
             <div style="width: 30%;"><%= student.email %></div>         

@@ -1,7 +1,7 @@
 class StudentsController < ApplicationController
   before_action :cant_see, only: [:report]
   before_action :admin?, except: [:report]
-  before_action :set_student, only: %i[show edit update report activities_by_student]
+  before_action :set_student, only: %i[show edit update report activities_by_student cant_see]
   before_action :set_info
 
   def index
@@ -57,7 +57,7 @@ class StudentsController < ApplicationController
   end
 
   def not_registered
-    @students = Student.where(status: 'Não matriculado')
+    @students = Student.where(status: :not_registered)
   end
 
   def activities_by_student
@@ -83,7 +83,7 @@ class StudentsController < ApplicationController
 
   def incomplete
     @students = Student
-                .where(cpf: '', status: 'Matriculado')
+                .where(cpf: '', status: :registered)
                 .left_outer_joins(:financial_responsibles)
                 .where(financial_responsibles: { id: nil })
   end
@@ -121,7 +121,7 @@ class StudentsController < ApplicationController
 
   def cant_see
     @student = Student.find(params[:id])
-    return unless current_user.default?
+    return if current_user.cpf == @student.cpf || !current_user.default?
 
     return if current_user_is_financial_responsible?(@student)
 

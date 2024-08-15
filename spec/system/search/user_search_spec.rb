@@ -21,9 +21,9 @@ RSpec.describe 'Usuário pesquisa' do
                               cpf: '087.097.098-01')
     Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
     classroom = Classroom.create!(name: 'Sala dos Chamanders e evoluções', teacher_id: teacher.id, time: '11:00')
-    Student.create!(name: 'Chameleon', status: 'Matriculado', classroom_id: classroom.id, cpf: '065.654.654-01')
-    Student.create!(name: 'Charmander', status: 'Matriculado', classroom_id: classroom.id, cpf: '077.654.654-01')
-    Student.create!(name: 'Blastoise', status: 'Não matriculado', classroom_id: classroom.id, cpf: '065.654.654-01')
+    Student.create!(name: 'Chameleon', status: :registered, classroom_id: classroom.id, cpf: '065.654.654-01')
+    Student.create!(name: 'Charmander', status: :registered, classroom_id: classroom.id, cpf: '077.654.654-01')
+    Student.create!(name: 'Blastoise', status: :not_registered, classroom_id: classroom.id, cpf: '065.654.654-01')
 
     login_as user
     visit root_path
@@ -51,9 +51,9 @@ RSpec.describe 'Usuário pesquisa' do
     Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
     classroom = Classroom.create!(name: 'MW 13:00', teacher_id: teacher.id, time: '23:00')
     classroom_two = Classroom.create!(name: 'MW 19:00', teacher_id: teacher_two.id, time: '11:00')
-    Student.create!(name: 'Chameleon', status: 'Matriculado', classroom_id: classroom_two.id, cpf: '065.654.654-01')
-    Student.create!(name: 'Charmander', status: 'Matriculado', classroom_id: classroom.id, cpf: '077.654.654-01')
-    Student.create!(name: 'Blastoise', status: 'Não matriculado', classroom_id: classroom.id, cpf: '065.654.654-01')
+    Student.create!(name: 'Chameleon', status: :registered, classroom_id: classroom_two.id, cpf: '065.654.654-01')
+    Student.create!(name: 'Charmander', status: :registered, classroom_id: classroom.id, cpf: '077.654.654-01')
+    Student.create!(name: 'Blastoise', status: :not_registered, classroom_id: classroom.id, cpf: '065.654.654-01')
 
     login_as user
     visit root_path
@@ -81,9 +81,9 @@ RSpec.describe 'Usuário pesquisa' do
     Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
     classroom = Classroom.create!(name: 'MW 13:00', teacher_id: teacher.id, time: '23:00')
     classroom_two = Classroom.create!(name: 'MW 19:00', teacher_id: teacher_two.id, time: '11:00')
-    Student.create!(name: 'Chameleon', status: 'Matriculado', classroom_id: classroom_two.id, cpf: '065.654.654-01')
-    Student.create!(name: 'Charmander', status: 'Matriculado', classroom_id: classroom.id, cpf: '077.654.654-01')
-    Student.create!(name: 'Blastoise', status: 'Não matriculado', classroom_id: classroom.id, cpf: '065.654.654-01')
+    Student.create!(name: 'Chameleon', status: :registered, classroom_id: classroom_two.id, cpf: '065.654.654-01')
+    Student.create!(name: 'Charmander', status: :registered, classroom_id: classroom.id, cpf: '077.654.654-01')
+    Student.create!(name: 'Blastoise', status: :not_registered, classroom_id: classroom.id, cpf: '065.654.654-01')
 
     login_as user
     visit root_path
@@ -106,9 +106,9 @@ RSpec.describe 'Usuário pesquisa' do
     teacher = Teacher.create!(name: 'Bianca', status: 'disponível', user_id: user_teacher.id,
                               cpf: '087.097.098-01')
     classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(name: 'Charmeléon', status: 'Matriculado', classroom_id: classroom.id, cpf: '065.654.654-01')
-    Student.create!(name: 'Charmander', status: 'Matriculado', classroom_id: classroom.id, cpf: '077.654.654-01')
-    Student.create!(name: 'Blastoise', status: 'Não matriculado', classroom_id: classroom.id, cpf: '065.654.654-01')
+    Student.create!(name: 'Charmeléon', status: :registered, classroom_id: classroom.id, cpf: '065.654.654-01')
+    Student.create!(name: 'Charmander', status: :registered, classroom_id: classroom.id, cpf: '077.654.654-01')
+    Student.create!(name: 'Blastoise', status: :not_registered, classroom_id: classroom.id, cpf: '065.654.654-01')
 
     login_as user
     visit root_path

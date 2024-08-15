@@ -21,7 +21,7 @@ RSpec.describe 'Teacher ve lista de presença' do
     user_teacher = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
     teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: user_teacher.id, cpf: '087.097.098-01')
     classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    student = Student.create!(name: 'Ratata', classroom_id: classroom.id, status: 'Matriculado')
+    student = Student.create!(name: 'Ratata', classroom_id: classroom.id, status: :registered)
     Attendance.create!(presence: true, attendance_date: '2023-05-05', student_id: student.id)
 
     login_as(user)
@@ -41,7 +41,7 @@ RSpec.describe 'Teacher ve lista de presença' do
     user_teacher = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
     teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: user_teacher.id, cpf: '087.097.098-01')
     classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    student = Student.create!(name: 'Raticate', classroom_id: classroom.id, status: 'Matriculado')
+    student = Student.create!(name: 'Raticate', classroom_id: classroom.id, status: :registered)
     Attendance.create!(presence: false, attendance_date: '2023-05-05', student_id: student.id)
 
     login_as(user)

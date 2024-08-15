@@ -6,7 +6,7 @@ RSpec.describe 'user edit address' do
     user = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
     teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: user.id, cpf: '087.097.098-01')
     classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    student = Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id,
+    student = Student.create!(name: 'Venossaur', status: :registered, classroom_id: classroom.id,
                               cpf: '000.097.098-01')
     Address.create!(street: 'Rua das Covas', number: '23', unit: '232', neighborhood: 'Santos Dumont',
                     city: 'Juiz de Fora', state: 'MG', country: 'Brasil', zip_code: '34050-098',
@@ -37,7 +37,7 @@ RSpec.describe 'user edit address' do
     user = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
     teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: user.id, cpf: '087.097.098-01')
     classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id,
+    Student.create!(name: 'Venossaur', status: :registered, classroom_id: classroom.id,
                     cpf: '000.097.098-01')
     Address.create!(street: 'Rua das Covas', number: '23', unit: '232', neighborhood: 'Santos Dumont',
                     city: 'Juiz de Fora', state: 'MG', country: 'Brasil', zip_code: '34050-098',
@@ -69,7 +69,7 @@ RSpec.describe 'user edit address' do
     user = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
     teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: user.id, cpf: '087.097.098-01')
     classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id,
+    Student.create!(name: 'Venossaur', status: :registered, classroom_id: classroom.id,
                     cpf: '000.097.098-01')
     Address.create!(street: 'Rua das Covas', number: '23', unit: '232', neighborhood: 'Santos Dumont',
                     city: 'Juiz de Fora', state: 'MG', country: 'Brasil', zip_code: '34050-098',

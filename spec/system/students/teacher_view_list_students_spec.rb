@@ -11,12 +11,12 @@ RSpec.describe 'User vê listagem de alunos' do
                                   cpf: '088.088.098-01')
     classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
     classroom_two = Classroom.create!(name: 'MW 18:00', teacher_id: teacher_two.id, time: '18:00')
-    Student.create!(name: 'Venossaur', status: 'Matriculado', classroom_id: classroom.id, cpf: '065.654.654-01')
-    Student.create!(name: 'Charmander', status: 'Matriculado', classroom_id: classroom.id,
+    Student.create!(name: 'Venossaur', status: :registered, classroom_id: classroom.id, cpf: '065.654.654-01')
+    Student.create!(name: 'Charmander', status: :registered, classroom_id: classroom.id,
                     cpf: '077.654.654-01')
-    Student.create!(name: 'Blastoise', status: 'Não matriculado', classroom_id: classroom.id, cpf: '065.654.654-01')
-    Student.create!(name: 'Pikachu', status: 'Matriculado', classroom_id: classroom.id, cpf: '')
-    Student.create!(name: 'Bulbassaur', status: 'Matriculado', classroom_id: classroom_two.id, cpf: nil)
+    Student.create!(name: 'Blastoise', status: :not_registered, classroom_id: classroom.id, cpf: '065.654.654-01')
+    Student.create!(name: 'Pikachu', status: :registered, classroom_id: classroom.id, cpf: '')
+    Student.create!(name: 'Bulbassaur', status: :registered, classroom_id: classroom_two.id, cpf: nil)
     User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
     User.create!(email: 'student@email.com', password: 'password', cpf: '065.654.654-01')
 
