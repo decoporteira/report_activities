@@ -8,7 +8,7 @@ class MonthlyFeesController < ApplicationController
   end
 
   def index
-    @monthly_fees = MonthlyFee.where(student_id: @student.id)
+    @monthly_fees = MonthlyFee.includes([:student]).where(student_id: @student.id)
   end
 
   def show; end
@@ -37,7 +37,8 @@ class MonthlyFeesController < ApplicationController
   end
 
   def all
-    @monthly_fees = MonthlyFee.all
+    @monthly_fees = MonthlyFee.includes([:student])
+
   end
 
   def update_paid

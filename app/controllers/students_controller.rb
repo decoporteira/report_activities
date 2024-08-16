@@ -5,7 +5,7 @@ class StudentsController < ApplicationController
   before_action :set_info
 
   def index
-    @students = Student.all
+    @students = Student.includes([:classroom])
   end
 
   def show
@@ -57,7 +57,7 @@ class StudentsController < ApplicationController
   end
 
   def not_registered
-    @students = Student.where(status: :not_registered)
+    @students = Student.includes([:classroom]).where(status: :not_registered)
   end
 
   def activities_by_student
@@ -65,6 +65,7 @@ class StudentsController < ApplicationController
   end
 
   def report
+    @student = Student.find(params[:id])
     if params[:year].to_i == 2023
       start_date = Date.new(2023, 8, 1)
       end_date = Date.new(2023, 12, 31).end_of_day
@@ -76,13 +77,13 @@ class StudentsController < ApplicationController
       end_date = Date.new(2024, 12, 31).end_of_day
     end
     @activities = @student.activities
-                          .where('date >= ? AND date <= ?', start_date, end_date)
+                          .where(date: start_date..end_date)
                           .order(:date)
     set_report(start_date, end_date)
   end
 
   def incomplete
-    @students = Student
+    @students = Student.includes(classroom: :teacher)
                 .where(cpf: '', status: :registered)
                 .left_outer_joins(:financial_responsibles)
                 .where(financial_responsibles: { id: nil })
@@ -92,19 +93,20 @@ class StudentsController < ApplicationController
 
   def set_report(start_date, end_date)
     @resume = @student.resumes.where(created_at: start_date..end_date).first
-    @dates_with_actitivies = []
-    @activities.each do |activity|
-      @dates_with_actitivies << activity.date
-    end
-    @number_of_days = @dates_with_actitivies.uniq.length
-    @number_of_absence = @student.attendances
+
+    @dates_with_activities = @student.activities.where(date: start_date..end_date).pluck(:date).uniq
+    @number_of_days = @dates_with_activities.size
+
+    @number_of_absence =  @student.attendances
                                   .where(presence: false)
-                                  .where('attendance_date >= ? AND attendance_date <= ?', start_date, end_date).length
-    @attendance_rate = @number_of_days
+                                  .where(attendance_date: start_date..end_date).count
+
     @total_activities = @student.activities.where(date: start_date..end_date)
     @total_activities_done = @total_activities.where(late: 'feito')
     @total_activities_late = @total_activities.where(late: 'entregue com atraso')
     @total_activities_not_done = @total_activities.where(late: 'não fez')
+
+    @attendance_rate = @number_of_days
   end
 
   def set_info
@@ -112,7 +114,15 @@ class StudentsController < ApplicationController
   end
 
   def set_student
-    @student = Student.find(params[:id])
+    @student =  if report_page?
+                  Student.find(params[:id])
+                else
+                  Student.includes(responsibles: :financial_responsible).find(params[:id])
+                end
+  end
+
+  def report_page?
+    action_name == 'report'
   end
 
   def student_params

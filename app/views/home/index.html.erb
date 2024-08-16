@@ -112,8 +112,8 @@
               </div>
               <div class="card-body">
                 <h5 class="text-secondary fs-5"><%= Teacher.find_by(id: classroom.teacher_id).name %></h5>
-                <% students = classroom.students.where(status: :registered)%>
-                <%students.each do |student| %>
+               
+                <%classroom.students.each do |student| %>
                   <div class='d-flex justify-content-between'>
                     <div class='ps-1 '>
                       <%= student.name%>

@@ -8,7 +8,7 @@ class ClassroomsController < ApplicationController
   before_action :set_students, only: %i[show get_info]
 
   def index
-    @classrooms = Classroom.all
+    @classrooms = Classroom.includes([:teacher])
   end
 
   def show

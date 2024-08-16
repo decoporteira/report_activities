@@ -81,6 +81,9 @@ GEM
     bootsnap (1.16.0)
       msgpack (~> 1.2)
     builder (3.2.4)
+    bullet (7.2.0)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11)
     capistrano (3.17.3)
       airbrussh (>= 1.0.0)
       i18n
@@ -348,6 +351,7 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
+    uniform_notifier (1.16.0)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.2.0)
@@ -373,6 +377,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt_pbkdf (< 2.0)
   bootsnap
+  bullet
   capistrano (~> 3.17)
   capistrano-dotenv
   capistrano-passenger (~> 0.2.0)

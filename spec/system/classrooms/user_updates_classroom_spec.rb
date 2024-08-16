@@ -4,8 +4,9 @@ RSpec.describe 'Admin edita classroom' do
   it 'com sucesso' do
     user = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
     teacher = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
-    teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: teacher.id, cpf: '087.097.098-01')
-    Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
+    teacher = Teacher.create!(name: 'Bianca', status: 'disponível', user_id: teacher.id, cpf: '087.097.098-01')
+    classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
+    Student.create!(name: 'Venussaur', classroom:, status: :registered)
 
     login_as(user)
     visit(root_path)
@@ -21,7 +22,8 @@ RSpec.describe 'Admin edita classroom' do
     user = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
     teacher = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
     teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: teacher.id, cpf: '087.097.098-01')
-    Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
+    classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
+    Student.create!(name: 'Venussaur', classroom:, status: :registered)
 
     login_as(user)
     visit(root_path)

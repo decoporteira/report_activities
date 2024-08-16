@@ -11,7 +11,8 @@ class HomeController < ApplicationController
     elsif current_user.teacher?
       @classrooms = Classroom.includes(:students).where(teacher_id: current_user.teacher.id)
     else
-      @classrooms = Classroom.all
+      @classrooms = Classroom.includes(:students).where(students: { status: 'registered' })
+
       @students = Student.registered
     end
   end
