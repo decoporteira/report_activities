@@ -11,7 +11,7 @@ class StudentsController < ApplicationController
   def show
     return unless current_user.default?
 
-    redirect_to root_path, alert: 'Você não possui acesso a esse aluno.'
+    redirect_to root_path, alert: 'Você naaão possui acesso a esse aluno.'
   end
 
   def new
@@ -29,11 +29,11 @@ class StudentsController < ApplicationController
       @student = Student.new(student_params)
       respond_to do |format|
         if @student.save
-          format.html { redirect_to student_path(@student), notice: 'Student was successfully created.' }
+          format.html { redirect_to student_path(@student), notice: t('.success') }
           format.json { render :show, status: :created, location: @student }
         else
           format.html do
-            flash.now[:alert] = 'Failed to create student.'
+            flash.now[:alert] = t('.fail')
             render :new, status: :unprocessable_entity
           end
           format.json { render json: @student.errors, status: :unprocessable_entity }
@@ -66,20 +66,16 @@ class StudentsController < ApplicationController
 
   def report
     @student = Student.find(params[:id])
-    if params[:year].to_i == 2023
-      start_date = Date.new(2023, 8, 1)
-      end_date = Date.new(2023, 12, 31).end_of_day
-    elsif params[:year].to_i == 2024
-      start_date = Date.new(2024, 1, 1)
-      end_date = Date.new(2024, 7, 31).end_of_day
-    else
-      start_date = Date.new(2024, 8, 1)
-      end_date = Date.new(2024, 12, 31).end_of_day
-    end
-    @activities = @student.activities
-                          .where(date: start_date..end_date)
-                          .order(:date)
-    set_report(start_date, end_date)
+    start_date, end_date = determine_date_range(params[:year].to_i)
+    @activities = @student.find_activities(start_date, end_date)
+    @resume = @student.set_resume(start_date, end_date)
+    @total_activities_done = @student.set_done_activities
+    @total_activities_late = @student.set_late_activities
+    @total_activities_not_done = @student.set_not_done_activities
+    @dates_with_activities = @student.activities.where(date: start_date..end_date).pluck(:date).uniq
+
+    @attendance_rate = 10
+    @number_of_absence = 1
   end
 
   def incomplete
@@ -91,23 +87,35 @@ class StudentsController < ApplicationController
 
   private
 
-  def set_report(start_date, end_date)
-    @resume = @student.resumes.where(created_at: start_date..end_date).first
-
-    @dates_with_activities = @student.activities.where(date: start_date..end_date).pluck(:date).uniq
-    @number_of_days = @dates_with_activities.size
-
-    @number_of_absence =  @student.attendances
-                                  .where(presence: false)
-                                  .where(attendance_date: start_date..end_date).count
-
-    @total_activities = @student.activities.where(date: start_date..end_date)
-    @total_activities_done = @total_activities.where(late: 'feito')
-    @total_activities_late = @total_activities.where(late: 'entregue com atraso')
-    @total_activities_not_done = @total_activities.where(late: 'não fez')
-
-    @attendance_rate = @number_of_days
+  def determine_date_range(year)
+    case year
+    when 2023
+      start_date = Date.new(2023, 8, 1)
+      end_date = Date.new(2023, 12, 31).end_of_day
+    when 2024
+      start_date = Date.new(2024, 1, 1)
+      end_date = Date.new(2024, 7, 31).end_of_day
+    else
+      start_date = Date.new(2024, 8, 1)
+      end_date = Date.new(2024, 12, 31).end_of_day
+    end
+    [start_date, end_date]
   end
+  # def set_report(start_date, end_date)
+   
+
+  #   @dates_with_activities = @student.activities.where(date: start_date..end_date).pluck(:date).uniq
+  #   @number_of_days = @dates_with_activities.size
+
+  #   @number_of_absence =  @student.attendances
+  #                                 .where(presence: false)
+  #                                 .where(attendance_date: start_date..end_date).count
+
+  #   @total_activities = @student.activities.where(date: start_date..end_date)
+    
+
+  #   @attendance_rate = @number_of_days
+  # end
 
   def set_info
     @activities = Activity.where(student_id: params[:id])
@@ -135,7 +143,7 @@ class StudentsController < ApplicationController
 
     return if current_user_is_financial_responsible?(@student)
 
-    redirect_to root_path, alert: 'Você não possui acesso a esse aluno.'
+    redirect_to root_path, alert: t('.cant_see')
   end
 
   def current_user_is_financial_responsible?(student)

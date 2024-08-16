@@ -72,10 +72,10 @@
 <div class="album py-5 bg-body-tertiary">
   <div class="container">
     <p><strong>Total de aulas:</strong> <%= @attendance_rate%> | <strong>Faltas:</strong> <%=  @number_of_absence%> | <strong>Frequência: </strong> <%= number_with_precision(((@attendance_rate - @number_of_absence).to_f / @attendance_rate * 100), precision: 1) %>%</p>
-    <p><strong>Total de atividades:</strong> <%= @total_activities.count %> | <strong>Entregues no prazo:</strong> <%= @total_activities_done.count %> | <strong>Entregues com atraso:</strong> <%= @total_activities_late.count %> | <strong>Não feitas:</strong> <%= @total_activities_not_done.count %> | <strong>Total de atividades feitas:</strong> <%= number_with_precision(((@total_activities.count - @total_activities_not_done.count).to_f  / @total_activities.count * 100), precision: 1) %>%
+    <p><strong>Total de atividades:</strong> <%= @activities.count %> | <strong>Entregues no prazo:</strong> <%= @student.set_done_activities.count %> | <strong>Entregues com atraso:</strong> <%= @student.set_done_activities.count %> | <strong>Não feitas:</strong> <%= @student.set_not_done_activities.count %> | <strong>Total de atividades feitas:</strong> <%= number_with_precision(((@activities.count - @student.set_done_activities.count).to_f  / @activities.count * 100), precision: 1) %>%
         <p><span class="text-primary">Atividades feitas</span> | <span class="text-warning">Atividades entregues com atraso ou incompletas</span> |  <span class="text-danger">Atividades não entregues</span></p>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          <% @dates_with_activities.uniq.each do |date|%>
+          <% @dates_with_activities.each do |date|%>
             <div class="col">
             
               <div class="card shadow-sm">

@@ -15,4 +15,24 @@ class Student < ApplicationRecord
   def self.ransackable_attributes(_auth_object = nil)
     %w[classroom_id created_at id name status updated_at activities classroom]
   end
+
+  def find_activities(start_date, end_date)
+    activities.where(date: start_date..end_date).order(:date)
+  end
+
+  def set_resume(start_date, end_date)
+    resumes.where(created_at: start_date..end_date).first
+  end
+
+  def set_done_activities
+    activities.where(late: 'feito')
+  end
+  
+  def set_late_activities
+    activities.where(late: 'entregue com atraso')
+  end
+
+  def set_not_done_activities
+    activities.where(late: 'não fez')
+  end
 end

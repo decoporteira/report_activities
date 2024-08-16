@@ -11,7 +11,7 @@ pt-BR:
         cel_phone: "Telefone celular"
         phone: "Telefone fixo"
         classroom_id: "Turma"
-  teachers:
+  students:
     create:
       success: Aluno(a) criado(a) com sucesso.
       fail: Não foi possível criar o aluno(a).
@@ -22,3 +22,4 @@ pt-BR:
       success: Aluno(a) apagado(a) com sucesso.
       fail: Não foi possível apagar o(a) aluno(a).
     denied: 'Acesso negado.' 
+    cant_see: 'Você não possui acesso a esse aluno.'
