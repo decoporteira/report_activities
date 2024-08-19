@@ -4,7 +4,7 @@ class AddressesController < ApplicationController
   before_action :set_addresses, only: %i[show update]
 
   def index
-    @addresses = Address.all
+    @addresses = Address.includes(addressable: :classroom ).all
   end
 
   def new
@@ -81,7 +81,7 @@ class AddressesController < ApplicationController
   def set_addressable
     if params.key?('student_id')
       @teacher = nil
-      @student = Student.find(params[:student_id])
+      @student = Student.includes([:classroom]).find(params[:student_id])
     else
       @student = nil
       @teacher = Teacher.find(params[:teacher_id])

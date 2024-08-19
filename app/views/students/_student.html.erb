@@ -36,8 +36,6 @@
     }
 
 </style>
-
-
 <section class="py-1 text-center container">
   <div class="row py-lg-5">
     <div class="col-lg-6 col-md-8 mx-auto">
@@ -47,7 +45,11 @@
       <p class="lead text-body-secondary">Professor(a): <strong><%= @student.classroom.nil? ? 'Não possui turma cadastrada' : @student.classroom.teacher.name %></strong></p>
     </div>
   </div>
-  <h2>Relatório do Segundo Semestre de 2024</h2>
+  <% if params[:year].to_i == 2024 %>
+    <h2>Relatório do Primeiro Semestre de 2024</h2>
+  <%else %>
+    <h2>Relatório do Segundo Semestre de 2024</h2>
+  <% end %>
   <div>
     <% if @resume&.ativo? %>
       <%= simple_format(@resume.written_report) %>
@@ -71,13 +73,13 @@
   
 <div class="album py-5 bg-body-tertiary">
   <div class="container">
-    <p><strong>Total de aulas:</strong> <%= @attendance_rate%> | <strong>Faltas:</strong> <%=  @number_of_absence%> | <strong>Frequência: </strong> <%= number_with_precision(((@attendance_rate - @number_of_absence).to_f / @attendance_rate * 100), precision: 1) %>%</p>
-    <p><strong>Total de atividades:</strong> <%= @total_activities.count %> | <strong>Entregues no prazo:</strong> <%= @total_activities_done.count %> | <strong>Entregues com atraso:</strong> <%= @total_activities_late.count %> | <strong>Não feitas:</strong> <%= @total_activities_not_done.count %> | <strong>Total de atividades feitas:</strong> <%= number_with_precision(((@total_activities.count - @total_activities_not_done.count).to_f  / @total_activities.count * 100), precision: 1) %>%
+    <% days_with_activities =  @report_data[:activities].pluck(:date).uniq.count %>
+    <p><strong>Total de aulas:</strong> <%= days_with_activities%> | <strong>Faltas:</strong> <%=  @report_data[:number_of_absence]%> | <strong>Frequência: </strong> <%= number_with_precision(((days_with_activities - @report_data[:number_of_absence]).to_f / days_with_activities * 100), precision: 1) %>%</p>
+    <p><strong>Total de atividades:</strong> <%= @report_data[:activities].count %> | <strong>Entregues no prazo:</strong> <%= @report_data[:activities].set_done_activities.count %> | <strong>Entregues com atraso:</strong> <%= @report_data[:activities].set_late_activities.count %> | <strong>Não feitas:</strong> <%= @report_data[:activities].set_not_done_activities.count %> | <strong>Total de atividades feitas:</strong> <%= number_with_precision(((@report_data[:activities].count - @report_data[:activities].set_not_done_activities.count).to_f  / @report_data[:activities].count * 100), precision: 1) %>%
         <p><span class="text-primary">Atividades feitas</span> | <span class="text-warning">Atividades entregues com atraso ou incompletas</span> |  <span class="text-danger">Atividades não entregues</span></p>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          <% @dates_with_actitivies.uniq.each do |date|%>
+          <%@report_data[:activities].pluck(:date).uniq.each do |date|%>
             <div class="col">
-            
               <div class="card shadow-sm">
                 <div class="card-header py-1">
                   <h4 class="my-1 fw-normal fs-5"><%=date.strftime("%d/%m/%y") unless date.nil?%>
@@ -114,9 +116,9 @@
          chart = bb.generate({
             data: {
                 columns: [
-                    ["Feitas", <%= @total_activities_done.count %>],
-                    ["Entregues com atraso",  <%= @total_activities_late.count %>],
-                    ["Não feitas",  <%= @total_activities_not_done.count %>]
+                    ["Feitas", <%= @report_data[:activities].set_done_activities.count %>],
+                    ["Entregues com atraso",  <%= @report_data[:activities].set_late_activities.count %>],
+                    ["Não feitas",  <%= @report_data[:activities].set_not_done_activities.count %>]
                 ],
                 type: "donut"
             
@@ -129,8 +131,8 @@
         chartPresence = bb.generate({
             data: {
                 columns: [
-                    ["Presente", <%= @attendance_rate - @number_of_absence %>],
-                    ["Ausente",  <%= @number_of_absence %>],
+                    ["Presente", <%= @report_data[:activities].pluck(:date).uniq.count - @report_data[:number_of_absence] %>],
+                    ["Ausente",  <%= @report_data[:number_of_absence] %>],
                 ],
                 type: "donut"
             

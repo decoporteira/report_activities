@@ -8,4 +8,8 @@ class User < ApplicationRecord
   def set_default_role
     self.role ||= :default
   end
+
+  def authorized_user?
+    admin? || accounting?
+  end
 end

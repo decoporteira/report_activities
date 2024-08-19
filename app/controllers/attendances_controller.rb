@@ -1,6 +1,6 @@
 class AttendancesController < ApplicationController
   def index
-    @students = Student.all
+    @students = Student.includes(classroom: :teacher)
     @attendances = Attendance.all
   end
 

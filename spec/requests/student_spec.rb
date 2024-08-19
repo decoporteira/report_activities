@@ -39,7 +39,7 @@ RSpec.describe 'Students', type: :request do
       login_as(user)
 
       expect { post students_path, params: { student: student_attributes } }.to change(Student, :count).by(1)
-      expect(flash[:notice]).to eq('Student was successfully created.')
+      expect(flash[:notice]).to eq('Aluno(a) criado(a) com sucesso.')
     end
 
     it 'com falha pois não tem permissão' do
@@ -51,7 +51,7 @@ RSpec.describe 'Students', type: :request do
       login_as(teacher_user)
 
       expect { post students_path, params: { student: student_attributes } }.to change(Student, :count).by(0)
-      expect(flash[:alert]).to eq('Você não tem permissão para cadastrar novos alunos.')
+      expect(flash[:alert]).to eq('Você não possui acesso a esse aluno.')
     end
 
     it 'e falha por nome do estudante está em branco' do
@@ -64,7 +64,7 @@ RSpec.describe 'Students', type: :request do
       login_as(user)
 
       expect { post students_path, params: { student: student_attributes } }.to change(Student, :count).by(0)
-      expect(flash[:alert]).to eq('Failed to create student.')
+      expect(flash[:alert]).to eq('Não foi possível criar o aluno(a).')
     end
   end
 

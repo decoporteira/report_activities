@@ -4,7 +4,7 @@ class ActivitiesController < ApplicationController
   before_action :admin?
 
   def index
-    @activities = Activity.all
+    @activities = Activity.includes(classroom: :teacher).all
   end
 
   def show; end
@@ -83,8 +83,8 @@ class ActivitiesController < ApplicationController
   private
 
   def set_info
-    @students = Student.all
-    @classrooms = Classroom.all
+    @students = Student.includes(classroom: :teacher)
+    @classrooms = Classroom.includes([:teacher])
   end
 
   def set_activity
