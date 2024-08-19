@@ -2,7 +2,6 @@ class StudentsController < ApplicationController
   before_action :cant_see, only: [:report]
   before_action :admin?, except: [:report]
   before_action :set_student, only: %i[show edit update report activities_by_student cant_see]
-  include DateRangeHelper
 
   def index
     @students = Student.includes([:classroom])
@@ -61,11 +60,7 @@ class StudentsController < ApplicationController
   end
 
   def report
-    start_date, end_date = get_date_range(params[:year].to_i)
-    @activities = @student.find_activities(start_date, end_date)
-    @dates_with_activities = @activities.pluck(:date).uniq
-    @resume = @student.set_resume(start_date, end_date)
-    @number_of_absence = @student.number_of_absences(start_date, end_date)
+    @report_data = @student.generate_report(params[:year].to_i)
   end
 
   private

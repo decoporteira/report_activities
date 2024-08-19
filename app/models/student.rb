@@ -11,6 +11,7 @@ class Student < ApplicationRecord
   enum status: { registered: 1, not_registered: 2 }
   validates :name, uniqueness: { scope: :classroom }
   validates :name, :status, presence: true
+  include DateRangeHelper
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[classroom_id created_at id name status updated_at activities classroom]
@@ -28,5 +29,14 @@ class Student < ApplicationRecord
     attendances.where(presence: false)
                .where('attendance_date >= ? AND attendance_date <= ?', start_date, end_date)
                .count
+  end
+
+  def generate_report(year)
+    start_date, end_date = get_date_range(year)
+    {
+      activities: find_activities(start_date, end_date),
+      resume: set_resume(start_date, end_date),
+      number_of_absence: number_of_absences(start_date, end_date)
+    }
   end
 end

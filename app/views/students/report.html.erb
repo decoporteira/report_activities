@@ -1,10 +1,4 @@
-<% if params[:year].to_i == 2023 %>
-  <%= render "student_2023" %>
-<% elsif params[:year].to_i == 2024 %>
-  <%= render "student_2024_1" %>
-<%else %>
-  <%= render @student %>
-<% end %>
+<%= render @student %>
 <div>
   <% if (current_user.default?)%>
     <%= link_to "Início", root_path,  class:'btn btn-outline-primary', style:"width:200px" %>
