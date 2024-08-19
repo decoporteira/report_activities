@@ -24,15 +24,9 @@ class Student < ApplicationRecord
     resumes.where(created_at: start_date..end_date).first
   end
 
-  def set_done_activities
-    activities.where(late: 'feito')
-  end
-  
-  def set_late_activities
-    activities.where(late: 'entregue com atraso')
-  end
-
-  def set_not_done_activities
-    activities.where(late: 'não fez')
+  def number_of_absences(start_date, end_date)
+    attendances.where(presence: false)
+               .where('attendance_date >= ? AND attendance_date <= ?', start_date, end_date)
+               .count
   end
 end

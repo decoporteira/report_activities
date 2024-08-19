@@ -2,7 +2,7 @@ class StudentsController < ApplicationController
   before_action :cant_see, only: [:report]
   before_action :admin?, except: [:report]
   before_action :set_student, only: %i[show edit update report activities_by_student cant_see]
-  before_action :set_info
+  include DateRangeHelper
 
   def index
     @students = Student.includes([:classroom])
@@ -11,7 +11,7 @@ class StudentsController < ApplicationController
   def show
     return unless current_user.default?
 
-    redirect_to root_path, alert: 'Você naaão possui acesso a esse aluno.'
+    redirect_to root_path, alert: t('unauthorized_action')
   end
 
   def new
@@ -25,22 +25,11 @@ class StudentsController < ApplicationController
   end
 
   def create
-    if current_user.admin? || current_user.accounting?
+    if current_user.authorized_user?
       @student = Student.new(student_params)
-      respond_to do |format|
-        if @student.save
-          format.html { redirect_to student_path(@student), notice: t('.success') }
-          format.json { render :show, status: :created, location: @student }
-        else
-          format.html do
-            flash.now[:alert] = t('.fail')
-            render :new, status: :unprocessable_entity
-          end
-          format.json { render json: @student.errors, status: :unprocessable_entity }
-        end
-      end
+      save_student
     else
-      redirect_to root_path, alert: 'Você não tem permissão para cadastrar novos alunos.'
+      redirect_to root_path, alert: t('unauthorized_action')
     end
   end
 
@@ -64,20 +53,6 @@ class StudentsController < ApplicationController
     @activities = @student.activities
   end
 
-  def report
-    @student = Student.find(params[:id])
-    start_date, end_date = determine_date_range(params[:year].to_i)
-    @activities = @student.find_activities(start_date, end_date)
-    @resume = @student.set_resume(start_date, end_date)
-    @total_activities_done = @student.set_done_activities
-    @total_activities_late = @student.set_late_activities
-    @total_activities_not_done = @student.set_not_done_activities
-    @dates_with_activities = @student.activities.where(date: start_date..end_date).pluck(:date).uniq
-
-    @attendance_rate = 10
-    @number_of_absence = 1
-  end
-
   def incomplete
     @students = Student.includes(classroom: :teacher)
                 .where(cpf: '', status: :registered)
@@ -85,48 +60,18 @@ class StudentsController < ApplicationController
                 .where(financial_responsibles: { id: nil })
   end
 
+  def report
+    start_date, end_date = get_date_range(params[:year].to_i)
+    @activities = @student.find_activities(start_date, end_date)
+    @dates_with_activities = @activities.pluck(:date).uniq
+    @resume = @student.set_resume(start_date, end_date)
+    @number_of_absence = @student.number_of_absences(start_date, end_date)
+  end
+
   private
 
-  def determine_date_range(year)
-    case year
-    when 2023
-      start_date = Date.new(2023, 8, 1)
-      end_date = Date.new(2023, 12, 31).end_of_day
-    when 2024
-      start_date = Date.new(2024, 1, 1)
-      end_date = Date.new(2024, 7, 31).end_of_day
-    else
-      start_date = Date.new(2024, 8, 1)
-      end_date = Date.new(2024, 12, 31).end_of_day
-    end
-    [start_date, end_date]
-  end
-  # def set_report(start_date, end_date)
-   
-
-  #   @dates_with_activities = @student.activities.where(date: start_date..end_date).pluck(:date).uniq
-  #   @number_of_days = @dates_with_activities.size
-
-  #   @number_of_absence =  @student.attendances
-  #                                 .where(presence: false)
-  #                                 .where(attendance_date: start_date..end_date).count
-
-  #   @total_activities = @student.activities.where(date: start_date..end_date)
-    
-
-  #   @attendance_rate = @number_of_days
-  # end
-
-  def set_info
-    @activities = Activity.where(student_id: params[:id])
-  end
-
   def set_student
-    @student =  if report_page?
-                  Student.find(params[:id])
-                else
-                  Student.includes(responsibles: :financial_responsible).find(params[:id])
-                end
+    @student = report_page? ? Student.find(params[:id]) : Student.includes(responsibles: :financial_responsible).find(params[:id])
   end
 
   def report_page?
@@ -155,7 +100,25 @@ class StudentsController < ApplicationController
   def admin?
     return if current_user.admin? || current_user.accounting? || current_user.teacher?
 
-    redirect_to root_path,
-                alert: 'Você não possui acesso.'
+    redirect_to root_path, alert: t('unauthorized_action')
+  end
+
+  def save_student
+    respond_to do |format|
+      if @student.save
+        format.html { redirect_to student_path(@student), notice: t('.success') }
+        format.json { render :show, status: :created, location: @student }
+      else
+        handle_save_failure(format)
+      end
+    end
+  end
+
+  def handle_save_failure(format)
+    format.html do
+      flash.now[:alert] = t('.fail')
+      render :new, status: :unprocessable_entity
+    end
+    format.json { render json: @student.errors, status: :unprocessable_entity }
   end
 end

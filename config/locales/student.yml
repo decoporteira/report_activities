@@ -23,3 +23,4 @@ pt-BR:
       fail: Não foi possível apagar o(a) aluno(a).
     denied: 'Acesso negado.' 
     cant_see: 'Você não possui acesso a esse aluno.'
+  unauthorized_action: Você não possui acesso a esse aluno.

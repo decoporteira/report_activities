@@ -71,8 +71,8 @@
   
 <div class="album py-5 bg-body-tertiary">
   <div class="container">
-    <p><strong>Total de aulas:</strong> <%= @attendance_rate%> | <strong>Faltas:</strong> <%=  @number_of_absence%> | <strong>Frequência: </strong> <%= number_with_precision(((@attendance_rate - @number_of_absence).to_f / @attendance_rate * 100), precision: 1) %>%</p>
-    <p><strong>Total de atividades:</strong> <%= @activities.count %> | <strong>Entregues no prazo:</strong> <%= @student.set_done_activities.count %> | <strong>Entregues com atraso:</strong> <%= @student.set_done_activities.count %> | <strong>Não feitas:</strong> <%= @student.set_not_done_activities.count %> | <strong>Total de atividades feitas:</strong> <%= number_with_precision(((@activities.count - @student.set_done_activities.count).to_f  / @activities.count * 100), precision: 1) %>%
+    <p><strong>Total de aulas:</strong> <%= @dates_with_activities.count%> | <strong>Faltas:</strong> <%=  @number_of_absence%> | <strong>Frequência: </strong> <%= number_with_precision(((@dates_with_activities.count - @number_of_absence).to_f / @dates_with_activities.count * 100), precision: 1) %>%</p>
+    <p><strong>Total de atividades:</strong> <%= @activities.count %> | <strong>Entregues no prazo:</strong> <%= @activities.set_done_activities.count %> | <strong>Entregues com atraso:</strong> <%= @activities.set_late_activities.count %> | <strong>Não feitas:</strong> <%= @activities.set_not_done_activities.count %> | <strong>Total de atividades feitas:</strong> <%= number_with_precision(((@activities.count - @activities.set_not_done_activities.count).to_f  / @activities.count * 100), precision: 1) %>%
         <p><span class="text-primary">Atividades feitas</span> | <span class="text-warning">Atividades entregues com atraso ou incompletas</span> |  <span class="text-danger">Atividades não entregues</span></p>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
           <% @dates_with_activities.each do |date|%>
@@ -114,9 +114,9 @@
          chart = bb.generate({
             data: {
                 columns: [
-                    ["Feitas", <%= @total_activities_done.count %>],
-                    ["Entregues com atraso",  <%= @total_activities_late.count %>],
-                    ["Não feitas",  <%= @total_activities_not_done.count %>]
+                    ["Feitas", <%= @activities.set_done_activities.count %>],
+                    ["Entregues com atraso",  <%= @activities.set_late_activities.count %>],
+                    ["Não feitas",  <%= @activities.set_not_done_activities.count %>]
                 ],
                 type: "donut"
             
@@ -129,7 +129,7 @@
         chartPresence = bb.generate({
             data: {
                 columns: [
-                    ["Presente", <%= @attendance_rate - @number_of_absence %>],
+                    ["Presente", <%= @dates_with_activities.count - @number_of_absence %>],
                     ["Ausente",  <%= @number_of_absence %>],
                 ],
                 type: "donut"
