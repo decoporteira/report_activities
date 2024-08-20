@@ -3,9 +3,9 @@
   <% if (current_user.default?)%>
     <%= link_to "Início", root_path,  class:'btn btn-outline-primary', style:"width:200px" %>
     <%= link_to 'Relatório atual', report_student_path(@student), class:'btn btn-outline-primary', style:"width:200px" %>
-    <%= link_to 'Relatório 2024/1', report_student_path(@student, year: 2024), class:'btn btn-outline-primary', style:"width:200px" %>
+    <%= link_to 'Relatório Semestre Anterior', report_student_path(@student, last_semester: true), class:'btn btn-outline-primary', style:"width:200px" %>
   <% else %>
-    <%= link_to 'Relatório 2024/1', report_student_path(@student, year: 2024), class:'btn btn-outline-primary', style:"width:200px" %>
+    <%= link_to 'Relatório Semestre Anterior', report_student_path(@student, last_semester: true), class:'btn btn-outline-primary', style:"width:200px" %>
     <%= link_to 'Relatórios Escritos', student_resumes_path(@student), class:'btn btn-outline-primary', style:"width:200px" %>
     <%= link_to "Details", student_path(@student), class:'btn btn-outline-primary', style:"width:200px" %>
     <%= link_to "Back to students", students_path,  class:'btn btn-outline-primary', style:"width:200px" %>

@@ -9,7 +9,7 @@
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       <%if current_user.teacher? %>
         <%current_students = []%>
-        <% current_classrooms = current_user.teacher.classrooms%>
+        <% current_classrooms = current_user.teacher.classrooms.includes([:students])%>
         <%current_classrooms.each do |classroom|%>
           <% classroom.students.each do |student|%>
             <% current_students << student %>

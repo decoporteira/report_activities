@@ -60,7 +60,7 @@ class StudentsController < ApplicationController
   end
 
   def report
-    @report_data = @student.generate_report(params[:year].to_i)
+    @report_data = @student.generate_report(params[:last_semester])
   end
 
   private

@@ -31,8 +31,8 @@ class Student < ApplicationRecord
                .count
   end
 
-  def generate_report(year)
-    start_date, end_date = get_date_range(year)
+  def generate_report(last_semester)
+    start_date, end_date = get_date_range(last_semester)
     {
       activities: find_activities(start_date, end_date),
       resume: set_resume(start_date, end_date),
