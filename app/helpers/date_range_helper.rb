@@ -1,7 +1,7 @@
 module DateRangeHelper
   def get_date_range(last_semester)
     if last_semester
-     start_date, end_date = set_last_semester
+      start_date, end_date = set_last_semester
     else
       start_date, end_date = set_current_semester
     end

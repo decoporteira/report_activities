@@ -45,14 +45,14 @@
       <p class="lead text-body-secondary">Professor(a): <strong><%= @student.classroom.nil? ? 'Não possui turma cadastrada' : @student.classroom.teacher.name %></strong></p>
     </div>
   </div>
-  <% if params[:year].to_i == 2024 %>
+  <% if params[:last_semester] %>
     <h2>Relatório do Primeiro Semestre de 2024</h2>
   <%else %>
     <h2>Relatório do Segundo Semestre de 2024</h2>
   <% end %>
   <div>
-    <% if @resume&.ativo? %>
-      <%= simple_format(@resume.written_report) %>
+    <% if @report_data[:resume]&.ativo? %>
+      <%= simple_format(@report_data[:resume].written_report) %>
     <% end %>
   </div>
 </section>
