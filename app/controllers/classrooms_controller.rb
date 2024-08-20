@@ -1,18 +1,17 @@
 # frozen_string_literal: true
 
 class ClassroomsController < ApplicationController
-  before_action :set_classroom, only: %i[show edit update destroy activities_by_date]
+  before_action :set_classroom, only: %i[show edit update destroy]
   before_action :set_info
   before_action :authorize_admin!, only: %i[index show edit update destroy]
   before_action :authorize_creation, only: %i[new]
-  before_action :set_students, only: %i[show get_info]
+  before_action :set_students, only: %i[show]
 
   def index
     @classrooms = Classroom.includes([:teacher])
   end
 
   def show
-    @classroom = Classroom.find(params[:id])
     @attendances = Attendance.all
     activities_organized = @activities.sort_by(&:date)
     dates = activities_organized.map(&:date)
@@ -24,7 +23,6 @@ class ClassroomsController < ApplicationController
   end
 
   def edit; end
-
 
   def create_activity
     students = Student.where(classroom_id: params[:classroom_id], status: :registered)
@@ -85,7 +83,7 @@ class ClassroomsController < ApplicationController
   def set_info
     @students = set_students
     array_ids = @students.map(&:id)
-    @activities = Activity.where(student_id: array_ids).where('date >= ?', Date.new(2024, 1, 1))
+    @activities = Activity.where(student_id: array_ids).where('date >= ?', Date.new(2024, 8, 1)) #já funciona
   end
 
   def set_classroom
