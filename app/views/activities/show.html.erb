@@ -1,7 +1,31 @@
 <%= render @activity %>
 <div>
-  <%= link_to link_to "Classroom", classroom_path(@activity.student.classroom_id), class:'btn btn-outline-primary', style:"width:200px"  %> |
-  <%= link_to "Edit this activity", edit_activity_path(@activity), class:'btn btn-outline-primary', style:"width:200px" %> |
-  <%= link_to "Back to activities", activities_path, class:'btn btn-outline-primary', style:"width:200px" %>
-  <%= button_to "Destroy this activity", @activity, method: :delete,  form: { data: { turbo_confirm: 'Are you sure?' } }, class:'btn btn-danger mt-4', style:"width:200px" %>
+  <%=
+    link_to link_to 'Classroom',
+                    classroom_path(@activity.student.classroom_id),
+                    class: 'btn btn-outline-primary',
+                    style: 'width:200px'
+  %>
+  |
+  <%=
+    link_to 'Edit this activity',
+            edit_activity_path(@activity),
+            class: 'btn btn-outline-primary',
+            style: 'width:200px'
+  %>
+  |
+  <%=
+    link_to 'Back to activities',
+            activities_path,
+            class: 'btn btn-outline-primary',
+            style: 'width:200px'
+  %>
+  <%=
+    button_to 'Destroy this activity',
+              @activity,
+              method: :delete,
+              form: { data: { turbo_confirm: 'Are you sure?' } },
+              class: 'btn btn-danger mt-4',
+              style: 'width:200px'
+  %>
 </div>

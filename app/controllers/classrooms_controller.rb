@@ -2,7 +2,6 @@
 
 class ClassroomsController < ApplicationController
   before_action :set_classroom, only: %i[show edit update destroy]
-  before_action :set_info
   before_action :authorize_admin!, only: %i[index show edit update destroy]
   before_action :authorize_creation, only: %i[new]
   before_action :set_students, only: %i[show]
@@ -12,10 +11,7 @@ class ClassroomsController < ApplicationController
   end
 
   def show
-    @attendances = Attendance.all
-    activities_organized = @activities.sort_by(&:date)
-    dates = activities_organized.map(&:date)
-    @dates = dates.reverse
+    @classroom_data = @classroom.generate_data(params[:last_semester])
   end
 
   def new
@@ -25,10 +21,9 @@ class ClassroomsController < ApplicationController
   def edit; end
 
   def create_activity
-    students = Student.where(classroom_id: params[:classroom_id], status: :registered)
-    students.each do |student|
-      create_activity_and_attendance(student)
-    end
+    students =
+      Student.where(classroom_id: params[:classroom_id], status: :registered)
+    students.each { |student| create_activity_and_attendance(student) }
     redirect_to request.referer, notice: t('.success')
   end
 
@@ -37,11 +32,15 @@ class ClassroomsController < ApplicationController
 
     respond_to do |format|
       if @classroom.save
-        format.html { redirect_to classroom_url(@classroom), notice: t('.success') }
+        format.html do
+          redirect_to classroom_url(@classroom), notice: t('.success')
+        end
         format.json { render :show, status: :created, location: @classroom }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @classroom.errors, status: :unprocessable_entity }
+        format.json do
+          render json: @classroom.errors, status: :unprocessable_entity
+        end
       end
     end
   end
@@ -49,11 +48,17 @@ class ClassroomsController < ApplicationController
   def update
     respond_to do |format|
       if @classroom.update(classroom_params)
-        format.html { redirect_to classroom_url(@classroom), notice: t('.success') }
+        format.html do
+          redirect_to classroom_url(@classroom), notice: t('.success')
+        end
         format.json { render :show, status: :ok, location: @classroom }
       else
-        format.html { render :edit, status: :unprocessable_entity, notice: t('.fail') }
-        format.json { render json: @classroom.errors, status: :unprocessable_entity }
+        format.html do
+          render :edit, status: :unprocessable_entity, notice: t('.fail')
+        end
+        format.json do
+          render json: @classroom.errors, status: :unprocessable_entity
+        end
       end
     end
   end
@@ -73,17 +78,13 @@ class ClassroomsController < ApplicationController
   private
 
   def authorize_admin!
-    redirect_to root_path, alert: t('.denied') unless current_user.admin? || current_user.teacher?
+    unless current_user.admin? || current_user.teacher?
+      redirect_to root_path, alert: t('.denied')
+    end
   end
 
   def authorize_creation
     redirect_to root_path, alert: t('.denied') unless current_user.admin?
-  end
-
-  def set_info
-    @students = set_students
-    array_ids = @students.map(&:id)
-    @activities = Activity.where(student_id: array_ids).where('date >= ?', Date.new(2024, 8, 1)) #já funciona
   end
 
   def set_classroom
@@ -99,7 +100,16 @@ class ClassroomsController < ApplicationController
   end
 
   def create_activity_and_attendance(student)
-    Activity.create!(student_id: student.id, report: params[:report], date: params[:date], late: params[:late])
-    Attendance.find_or_create_by!(student_id: student.id, attendance_date: params[:date], presence: true)
+    Activity.create!(
+      student_id: student.id,
+      report: params[:report],
+      date: params[:date],
+      late: params[:late]
+    )
+    Attendance.find_or_create_by!(
+      student_id: student.id,
+      attendance_date: params[:date],
+      presence: true
+    )
   end
 end

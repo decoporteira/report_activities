@@ -1,7 +1,7 @@
 pt-BR:
   activerecord:
     models:
-      teacher: 
+      teacher:
         one: Professor(a)
         other: Professores
     attributes:
@@ -22,4 +22,4 @@ pt-BR:
     destroy:
       success: Professor(a) apagado(a) com sucesso.
       fail: Não foi possível apagar o(a) professor(a).
-    denied: 'Acesso negado.' 
+    denied: "Acesso negado."

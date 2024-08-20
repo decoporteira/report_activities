@@ -26,9 +26,14 @@ class Student < ApplicationRecord
   end
 
   def number_of_absences(start_date, end_date)
-    attendances.where(presence: false)
-               .where('attendance_date >= ? AND attendance_date <= ?', start_date, end_date)
-               .count
+    attendances
+      .where(presence: false)
+      .where(
+        'attendance_date >= ? AND attendance_date <= ?',
+        start_date,
+        end_date
+      )
+      .count
   end
 
   def generate_report(last_semester)

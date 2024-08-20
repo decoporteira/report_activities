@@ -3,7 +3,7 @@
   <div class="row flex-lg-row g-5 py-5">
   <div class="col-lg-6">
       <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3"><%= @student.name%></h1>
-      <p class="lead">
+      <p class="lead"></p>
         <dl>
           <dt>Professor(a): </dt>
           <dd>
@@ -30,7 +30,7 @@
             <% end %></dd>
           
         </dl>
-      </p>
+      
       <div class="d-grid gap-2 d-md-flex justify-content-md-start">
         <%= link_to "Edit this student", edit_student_path(@student), class:'btn btn-outline-primary', style:"width:150px" %>
       </div>

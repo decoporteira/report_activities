@@ -1,7 +1,8 @@
 class StudentsController < ApplicationController
   before_action :cant_see, only: [:report]
   before_action :admin?, except: [:report]
-  before_action :set_student, only: %i[show edit update report activities_by_student cant_see]
+  before_action :set_student,
+                only: %i[show edit update report activities_by_student cant_see]
 
   def index
     @students = Student.includes([:classroom])
@@ -35,11 +36,16 @@ class StudentsController < ApplicationController
   def update
     respond_to do |format|
       if @student.update(student_params)
-        format.html { redirect_to student_path(@student), notice: 'Student was successfully updated.' }
+        format.html do
+          redirect_to student_path(@student),
+                      notice: 'Student was successfully updated.'
+        end
         format.json { render :info, status: :ok, location: @student }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @student.errors, status: :unprocessable_entity }
+        format.json do
+          render json: @student.errors, status: :unprocessable_entity
+        end
       end
     end
   end
@@ -53,10 +59,12 @@ class StudentsController < ApplicationController
   end
 
   def incomplete
-    @students = Student.includes(classroom: :teacher)
-                .where(cpf: '', status: :registered)
-                .left_outer_joins(:financial_responsibles)
-                .where(financial_responsibles: { id: nil })
+    @students =
+      Student
+        .includes(classroom: :teacher)
+        .where(cpf: '', status: :registered)
+        .left_outer_joins(:financial_responsibles)
+        .where(financial_responsibles: { id: nil })
   end
 
   def report
@@ -66,7 +74,12 @@ class StudentsController < ApplicationController
   private
 
   def set_student
-    @student = report_page? ? Student.find(params[:id]) : Student.includes(responsibles: :financial_responsible).find(params[:id])
+    @student =
+      if report_page?
+        Student.find(params[:id])
+      else
+        Student.includes(responsibles: :financial_responsible).find(params[:id])
+      end
   end
 
   def report_page?
@@ -74,7 +87,9 @@ class StudentsController < ApplicationController
   end
 
   def student_params
-    params.require(:student).permit(:name, :status, :classroom_id, :cpf, :phone, :cel_phone, :email)
+    params
+      .require(:student)
+      .permit(:name, :status, :classroom_id, :cpf, :phone, :cel_phone, :email)
   end
 
   def cant_see
@@ -88,12 +103,17 @@ class StudentsController < ApplicationController
 
   def current_user_is_financial_responsible?(student)
     student.financial_responsibles.exists?(
-      ['cpf = :cpf OR email = :email', { cpf: current_user.cpf, email: current_user.email }]
+      [
+        'cpf = :cpf OR email = :email',
+        { cpf: current_user.cpf, email: current_user.email }
+      ]
     )
   end
 
   def admin?
-    return if current_user.admin? || current_user.accounting? || current_user.teacher?
+    if current_user.admin? || current_user.accounting? || current_user.teacher?
+      return
+    end
 
     redirect_to root_path, alert: t('unauthorized_action')
   end
@@ -101,7 +121,9 @@ class StudentsController < ApplicationController
   def save_student
     respond_to do |format|
       if @student.save
-        format.html { redirect_to student_path(@student), notice: t('.success') }
+        format.html do
+          redirect_to student_path(@student), notice: t('.success')
+        end
         format.json { render :show, status: :created, location: @student }
       else
         handle_save_failure(format)

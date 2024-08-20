@@ -1,2 +1,1 @@
-module BillingsHelper
-end
+module BillingsHelper; end

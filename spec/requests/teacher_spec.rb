@@ -2,21 +2,52 @@ require 'rails_helper'
 
 RSpec.describe 'Teachers', type: :request do
   it 'Apaga um professor' do
-    admin = User.create!(email: 'admin@email.com.br', password: 'password', role: 'admin')
-    teacher_user = User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
-    teacher = Teacher.create!(name: 'Carvalho', cpf: '000.000.000-01', user: teacher_user)
+    admin =
+      User.create!(
+        email: 'admin@email.com.br',
+        password: 'password',
+        role: 'admin'
+      )
+    teacher_user =
+      User.create!(
+        email: 'teacher@email.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
+    teacher =
+      Teacher.create!(
+        name: 'Carvalho',
+        cpf: '000.000.000-01',
+        user: teacher_user
+      )
     Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
 
     login_as(admin)
 
-    expect { delete "/teachers/#{teacher.id}" }.to change(Teacher, :count).by(-1)
+    expect { delete "/teachers/#{teacher.id}" }.to change(Teacher, :count).by(
+      -1
+    )
     expect(flash[:notice]).to eq('Professor(a) apagado(a) com sucesso.')
   end
 
   it 'falha ao tentar apagar um professor' do
-    User.create!(email: 'admin@email.com.br', password: 'password', role: 'admin')
-    teacher_user = User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
-    teacher = Teacher.create!(name: 'Carvalho', cpf: '000.000.000-01', user: teacher_user)
+    User.create!(
+      email: 'admin@email.com.br',
+      password: 'password',
+      role: 'admin'
+    )
+    teacher_user =
+      User.create!(
+        email: 'teacher@email.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
+    teacher =
+      Teacher.create!(
+        name: 'Carvalho',
+        cpf: '000.000.000-01',
+        user: teacher_user
+      )
     Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
 
     login_as(teacher_user)

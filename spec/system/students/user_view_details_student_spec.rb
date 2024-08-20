@@ -2,19 +2,74 @@ require 'rails_helper'
 
 RSpec.describe 'User vê listagem de alunos' do
   it 'com sucesso' do
-    user_teacher = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
-    teacher = Teacher.create!(name: 'Bianca', status: 'disponível', user_id: user_teacher.id, cpf: '087.097.098-01')
-    classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    student = Student.create!(name: 'Venossaur', status: :registered, classroom_id: classroom.id,
-                              cpf: '065.654.654-01')
-    Student.create!(name: 'Charmander', status: :registered, classroom_id: classroom.id, cpf: '077.654.654-01')
-    Student.create!(name: 'Blastoise', status: :not_registered, classroom_id: classroom.id, cpf: '065.654.654-01')
-    Student.create!(name: 'Pikachu', status: :registered, classroom_id: classroom.id, cpf: '')
-    Student.create!(name: 'Bulbassaur', status: :registered, classroom_id: classroom.id, cpf: nil)
-    User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
-    user_student = User.create!(email: 'oak@email.com', password: 'password', cpf: '000.000.000-01')
-    responsible = FinancialResponsible.create!(name: 'Oak', cpf: '000.000.000-01', email: 'oak@email.com', phone: '32 0000-0000')
-    Responsible.create!(student_id: student.id, financial_responsible_id: responsible.id)
+    user_teacher =
+      User.create!(
+        email: 'teacher@admin.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
+    teacher =
+      Teacher.create!(
+        name: 'Bianca',
+        status: 'disponível',
+        user_id: user_teacher.id,
+        cpf: '087.097.098-01'
+      )
+    classroom =
+      Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
+    student =
+      Student.create!(
+        name: 'Venossaur',
+        status: :registered,
+        classroom_id: classroom.id,
+        cpf: '065.654.654-01'
+      )
+    Student.create!(
+      name: 'Charmander',
+      status: :registered,
+      classroom_id: classroom.id,
+      cpf: '077.654.654-01'
+    )
+    Student.create!(
+      name: 'Blastoise',
+      status: :not_registered,
+      classroom_id: classroom.id,
+      cpf: '065.654.654-01'
+    )
+    Student.create!(
+      name: 'Pikachu',
+      status: :registered,
+      classroom_id: classroom.id,
+      cpf: ''
+    )
+    Student.create!(
+      name: 'Bulbassaur',
+      status: :registered,
+      classroom_id: classroom.id,
+      cpf: nil
+    )
+    User.create!(
+      email: 'admin@admin.com.br',
+      password: 'password',
+      role: 'admin'
+    )
+    user_student =
+      User.create!(
+        email: 'oak@email.com',
+        password: 'password',
+        cpf: '000.000.000-01'
+      )
+    responsible =
+      FinancialResponsible.create!(
+        name: 'Oak',
+        cpf: '000.000.000-01',
+        email: 'oak@email.com',
+        phone: '32 0000-0000'
+      )
+    Responsible.create!(
+      student_id: student.id,
+      financial_responsible_id: responsible.id
+    )
 
     login_as(user_student)
     visit(report_student_path(student))
@@ -27,17 +82,63 @@ RSpec.describe 'User vê listagem de alunos' do
   end
 
   it 'e falha por não ter acesso ao aluno' do
-    user_teacher = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
-    teacher = Teacher.create!(name: 'Bianca', status: 'disponível', user_id: user_teacher.id, cpf: '087.097.098-01')
-    classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    student = Student.create!(name: 'Charmander', status: :registered, classroom_id: classroom.id,
-                              cpf: '077.654.654-01')
-    Student.create!(name: 'Venossaur', status: :registered, classroom_id: classroom.id, cpf: '065.654.654-01')
-    Student.create!(name: 'Blastoise', status: :not_registered, classroom_id: classroom.id, cpf: '065.654.654-01')
-    Student.create!(name: 'Pikachu', status: :registered, classroom_id: classroom.id, cpf: '')
-    Student.create!(name: 'Bulbassaur', status: :registered, classroom_id: classroom.id, cpf: nil)
-    User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
-    user_default = User.create!(email: 'default@email.com', password: 'password', cpf: '065.654.654-01')
+    user_teacher =
+      User.create!(
+        email: 'teacher@admin.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
+    teacher =
+      Teacher.create!(
+        name: 'Bianca',
+        status: 'disponível',
+        user_id: user_teacher.id,
+        cpf: '087.097.098-01'
+      )
+    classroom =
+      Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
+    student =
+      Student.create!(
+        name: 'Charmander',
+        status: :registered,
+        classroom_id: classroom.id,
+        cpf: '077.654.654-01'
+      )
+    Student.create!(
+      name: 'Venossaur',
+      status: :registered,
+      classroom_id: classroom.id,
+      cpf: '065.654.654-01'
+    )
+    Student.create!(
+      name: 'Blastoise',
+      status: :not_registered,
+      classroom_id: classroom.id,
+      cpf: '065.654.654-01'
+    )
+    Student.create!(
+      name: 'Pikachu',
+      status: :registered,
+      classroom_id: classroom.id,
+      cpf: ''
+    )
+    Student.create!(
+      name: 'Bulbassaur',
+      status: :registered,
+      classroom_id: classroom.id,
+      cpf: nil
+    )
+    User.create!(
+      email: 'admin@admin.com.br',
+      password: 'password',
+      role: 'admin'
+    )
+    user_default =
+      User.create!(
+        email: 'default@email.com',
+        password: 'password',
+        cpf: '065.654.654-01'
+      )
 
     login_as(user_default)
     visit(report_student_path(student))
@@ -46,24 +147,74 @@ RSpec.describe 'User vê listagem de alunos' do
   end
 
   it 'como admin com sucesso' do
-    user_teacher = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
-    teacher = Teacher.create!(name: 'Bianca', status: 'disponível', user_id: user_teacher.id, cpf: '087.097.098-01')
-    classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    student = Student.create!(name: 'Venossaur', status: :registered, classroom_id: classroom.id,
-                              cpf: '065.654.654-01')
-    Student.create!(name: 'Charmander', status: :registered, classroom_id: classroom.id, cpf: '077.654.654-01')
-    Student.create!(name: 'Blastoise', status: :not_registered, classroom_id: classroom.id, cpf: '065.654.654-01')
-    Student.create!(name: 'Pikachu', status: :registered, classroom_id: classroom.id, cpf: '')
-    Student.create!(name: 'Bulbassaur', status: :registered, classroom_id: classroom.id, cpf: nil)
-    responsible = FinancialResponsible.create!(name: 'Carvalho', cpf: '000.000.000-00', email: 'oak@gmail.com', phone: '00 0000-0000')
-    Responsible.create!(student_id: student.id, financial_responsible_id: responsible.id)
-    user = User.create!(email: 'admin@email.com', password: 'password', cpf: '000.000.000-01', role: 'admin')
+    user_teacher =
+      User.create!(
+        email: 'teacher@admin.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
+    teacher =
+      Teacher.create!(
+        name: 'Bianca',
+        status: 'disponível',
+        user_id: user_teacher.id,
+        cpf: '087.097.098-01'
+      )
+    classroom =
+      Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
+    student =
+      Student.create!(
+        name: 'Venossaur',
+        status: :registered,
+        classroom_id: classroom.id,
+        cpf: '065.654.654-01'
+      )
+    Student.create!(
+      name: 'Charmander',
+      status: :registered,
+      classroom_id: classroom.id,
+      cpf: '077.654.654-01'
+    )
+    Student.create!(
+      name: 'Blastoise',
+      status: :not_registered,
+      classroom_id: classroom.id,
+      cpf: '065.654.654-01'
+    )
+    Student.create!(
+      name: 'Pikachu',
+      status: :registered,
+      classroom_id: classroom.id,
+      cpf: ''
+    )
+    Student.create!(
+      name: 'Bulbassaur',
+      status: :registered,
+      classroom_id: classroom.id,
+      cpf: nil
+    )
+    responsible =
+      FinancialResponsible.create!(
+        name: 'Carvalho',
+        cpf: '000.000.000-00',
+        email: 'oak@gmail.com',
+        phone: '00 0000-0000'
+      )
+    Responsible.create!(
+      student_id: student.id,
+      financial_responsible_id: responsible.id
+    )
+    user =
+      User.create!(
+        email: 'admin@email.com',
+        password: 'password',
+        cpf: '000.000.000-01',
+        role: 'admin'
+      )
 
     login_as(user)
     visit(student_path(student))
     expect(page).to have_content('Carvalho')
     expect(page).to have_content('Venossaur')
-    
   end
-
 end

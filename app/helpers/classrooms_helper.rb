@@ -1,2 +1,1 @@
-module ClassroomsHelper
-end
+module ClassroomsHelper; end

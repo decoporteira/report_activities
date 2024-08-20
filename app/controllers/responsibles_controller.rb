@@ -6,9 +6,14 @@ class ResponsiblesController < ApplicationController
   end
 
   def create
-    @financial_responsible = FinancialResponsible.find(params[:financial_responsible_id])
+    @financial_responsible =
+      FinancialResponsible.find(params[:financial_responsible_id])
 
-    responsible = Responsible.new(student_id: @student.id, financial_responsible_id: @financial_responsible.id)
+    responsible =
+      Responsible.new(
+        student_id: @student.id,
+        financial_responsible_id: @financial_responsible.id
+      )
     if responsible.save
       redirect_to @student, notice: 'Responsável vinculado com sucesso.'
     else
@@ -24,7 +29,10 @@ class ResponsiblesController < ApplicationController
   def destroy
     @responsible = Responsible.find(params[:id])
     @responsible.destroy
-    redirect_to financial_responsible_path(@responsible.financial_responsible.id), notice: 'Responsável removido com sucesso.'
+    redirect_to financial_responsible_path(
+                  @responsible.financial_responsible.id
+                ),
+                notice: 'Responsável removido com sucesso.'
   end
 
   private

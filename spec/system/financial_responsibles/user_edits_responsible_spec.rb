@@ -2,9 +2,19 @@ require 'rails_helper'
 
 RSpec.describe 'Usuário editar Responsável financeiro' do
   it 'com sucesso' do
-    user = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
-    financial_responsible = FinancialResponsible.create!(name: 'Oak', cpf: '000.000.000-00', email: 'oak@gmail.com',
-                                                         phone: '00 0000-0000')
+    user =
+      User.create!(
+        email: 'admin@admin.com.br',
+        password: 'password',
+        role: 'admin'
+      )
+    financial_responsible =
+      FinancialResponsible.create!(
+        name: 'Oak',
+        cpf: '000.000.000-00',
+        email: 'oak@gmail.com',
+        phone: '00 0000-0000'
+      )
 
     login_as(user)
     visit financial_responsible_path(financial_responsible)
@@ -24,9 +34,19 @@ RSpec.describe 'Usuário editar Responsável financeiro' do
   end
 
   it 'e falha.' do
-    user = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
-    financial_responsible = FinancialResponsible.create!(name: 'Oak', cpf: '000.000.000-00', email: 'oak@gmail.com',
-                                                         phone: '00 0000-0000')
+    user =
+      User.create!(
+        email: 'admin@admin.com.br',
+        password: 'password',
+        role: 'admin'
+      )
+    financial_responsible =
+      FinancialResponsible.create!(
+        name: 'Oak',
+        cpf: '000.000.000-00',
+        email: 'oak@gmail.com',
+        phone: '00 0000-0000'
+      )
 
     login_as(user)
     visit financial_responsible_path(financial_responsible)
@@ -38,6 +58,8 @@ RSpec.describe 'Usuário editar Responsável financeiro' do
     click_on 'Salvar'
 
     expect(page).to have_content('Não foi possível editar o Responsável.')
-    expect(current_path).to eq(financial_responsible_path(financial_responsible))
+    expect(current_path).to eq(
+      financial_responsible_path(financial_responsible)
+    )
   end
 end

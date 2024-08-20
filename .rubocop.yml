@@ -5,13 +5,13 @@ AllCops:
   NewCops: disable
   TargetRubyVersion: 3.2.0
   Exclude:
-    - 'bin/**/*'
-    - 'vendor/**/*'
-    - 'db/**/*'
-    - 'config/**/*'
-    - 'script/**/*'
-    - 'spec/rails_helper.rb'
-    - 'node_modules/**/*'
+    - "bin/**/*"
+    - "vendor/**/*"
+    - "db/**/*"
+    - "config/**/*"
+    - "script/**/*"
+    - "spec/rails_helper.rb"
+    - "node_modules/**/*"
   SuggestExtensions: false
 
 Style/Documentation:
@@ -24,6 +24,6 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 
 Metrics/BlockLength:
-  AllowedMethods: ['describe', 'context', 'feature', 'scenario', 'let', 'it']
+  AllowedMethods: ["describe", "context", "feature", "scenario", "let", "it"]
   Exclude:
-    - 'spec/factories/**/*'
+    - "spec/factories/**/*"

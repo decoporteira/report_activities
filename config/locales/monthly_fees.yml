@@ -1,7 +1,7 @@
 pt-BR:
   activerecord:
     models:
-      monthly_fee: 
+      monthly_fee:
         one: Mensalidade
         other: Mensalidades
     attributes:
@@ -19,7 +19,7 @@ pt-BR:
     destroy:
       success: Mensalidade apagada com sucesso.
       fail: Não foi possível apagar a mensalidade.
-    denied: Acesso negado. 
-    create_anual_fees: 
+    denied: Acesso negado.
+    create_anual_fees:
       success: Mensalidades criadas com sucesso.
       fail: Mensalidades não foram criadas.

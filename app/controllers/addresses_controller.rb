@@ -4,15 +4,12 @@ class AddressesController < ApplicationController
   before_action :set_addresses, only: %i[show update]
 
   def index
-    @addresses = Address.includes(addressable: :classroom ).all
+    @addresses = Address.includes(addressable: :classroom).all
   end
 
   def new
-    @address = if @student.nil?
-                 @teacher.addresses.build
-               else
-                 @student.addresses.build
-               end
+    @address =
+      @student.nil? ? @teacher.addresses.build : @student.addresses.build
   end
 
   def show; end
@@ -71,11 +68,24 @@ class AddressesController < ApplicationController
   private
 
   def authorize_admin!
-    redirect_to root_path, alert: t('.denied') unless current_user.admin? || current_user.accounting?
+    unless current_user.admin? || current_user.accounting?
+      redirect_to root_path, alert: t('.denied')
+    end
   end
 
   def address_params
-    params.require(:address).permit(:street, :number, :unit, :neighborhood, :city, :state, :country, :zip_code)
+    params
+      .require(:address)
+      .permit(
+        :street,
+        :number,
+        :unit,
+        :neighborhood,
+        :city,
+        :state,
+        :country,
+        :zip_code
+      )
   end
 
   def set_addressable
@@ -89,10 +99,11 @@ class AddressesController < ApplicationController
   end
 
   def set_addresses
-    @addresses = if params.key?('student_id')
-                   Address.find_by(addressable_id: params[:student_id])
-                 else
-                   Address.find_by(addressable_id: params[:teacher_id])
-                 end
+    @addresses =
+      if params.key?('student_id')
+        Address.find_by(addressable_id: params[:student_id])
+      else
+        Address.find_by(addressable_id: params[:teacher_id])
+      end
   end
 end

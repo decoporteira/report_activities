@@ -27,8 +27,12 @@ class TeachersController < ApplicationController
         format.html { redirect_to teacher_url(@teacher), notice: t('.success') }
         format.json { render :show, status: :created, location: @teacher }
       else
-        format.html { render :new, status: :unprocessable_entity, notice: t('.fail') }
-        format.json { render json: @teacher.errors, status: :unprocessable_entity }
+        format.html do
+          render :new, status: :unprocessable_entity, notice: t('.fail')
+        end
+        format.json do
+          render json: @teacher.errors, status: :unprocessable_entity
+        end
       end
     end
   end
@@ -40,8 +44,12 @@ class TeachersController < ApplicationController
         format.html { redirect_to teacher_url(@teacher), notice: t('.success') }
         format.json { render :show, status: :ok, location: @teacher }
       else
-        format.html { render :edit, status: :unprocessable_entity, notice: t('.fail') }
-        format.json { render json: @teacher.errors, status: :unprocessable_entity }
+        format.html do
+          render :edit, status: :unprocessable_entity, notice: t('.fail')
+        end
+        format.json do
+          render json: @teacher.errors, status: :unprocessable_entity
+        end
       end
     end
   end
@@ -61,7 +69,9 @@ class TeachersController < ApplicationController
   private
 
   def authorize_admin!
-    redirect_to root_path, alert: t('.denied') unless current_user.admin? || current_user.accounting?
+    unless current_user.admin? || current_user.accounting?
+      redirect_to root_path, alert: t('.denied')
+    end
   end
 
   def set_teacher
@@ -69,6 +79,8 @@ class TeachersController < ApplicationController
   end
 
   def teacher_params
-    params.require(:teacher).permit(:name, :status, :cpf, :user_id, :cel_phone, :phone)
+    params
+      .require(:teacher)
+      .permit(:name, :status, :cpf, :user_id, :cel_phone, :phone)
   end
 end

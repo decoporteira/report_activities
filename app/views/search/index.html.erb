@@ -1,8 +1,7 @@
 <h1>Resultados</h1>
 <main class="mt-4">
-<h3>Alunos encontrados: <%= @students.count%></h3>
+  <h3>Alunos encontrados: <%= @students.count %></h3>
   <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-  
     <% if @students.count == 0 %>
       <h4>Nenhum aluno encontrado.</h4>
     <% end %>
@@ -12,61 +11,94 @@
           <div class="card-body">
             <h1 class="card-title pricing-card-title"><%= student.name %></h1>
             <ul class="list-unstyled mt-3 mb-4">
-              <li>Aluno: <strong><%= student.classroom.name %></strong></li>
-              <li>Turma: <strong><%= student.classroom.teacher.name %></strong></li>
+              <li>
+                Aluno: <strong><%= student.classroom.name %></strong>
+              </li>
+              <li>
+                Turma: <strong><%= student.classroom.teacher.name %></strong>
+              </li>
             </ul>
-            <%= link_to "Show Activities", report_student_path(student), class:'btn btn-outline-primary', style:"width:150px"  %>
-            <%= link_to "Show Student", student, class:'btn btn-outline-primary', style:"width:150px"  %>
+            <%=
+              link_to 'Show Activities',
+                      report_student_path(student),
+                      class: 'btn btn-outline-primary',
+                      style: 'width:150px'
+            %>
+            <%=
+              link_to 'Show Student',
+                      student,
+                      class: 'btn btn-outline-primary',
+                      style: 'width:150px'
+            %>
           </div>
         </div>
       </div>
     <% end %>
   </div>
-      <h3>Turmas encontradas: <%= @classrooms.count%></h3>
-    <% if @classrooms.count == 0 %>
-      <h4>Nenhuma turma encontrada.</h4>
-      <% else %>
-      <% @teachers.each do |teacher| %>
-        <%= link_to "Turmas de #{Teacher.find(teacher).name}", search_filter_path(teacher_id: teacher, q: params[:q]), class: 'btn btn-outline-success mx-2 my-2' %>
-      <% end %>
+  <h3>Turmas encontradas: <%= @classrooms.count %></h3>
+  <% if @classrooms.count == 0 %>
+    <h4>Nenhuma turma encontrada.</h4>
+  <% else %>
+    <% @teachers.each do |teacher| %>
+      <%=
+        link_to "Turmas de #{Teacher.find(teacher).name}",
+                search_filter_path(teacher_id: teacher, q: params[:q]),
+                class: 'btn btn-outline-success mx-2 my-2'
+      %>
     <% end %>
-    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-      <%@classrooms.each do |classroom|%>
-        <div class="col">
-          <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-body">
-              <h1 class="card-title pricing-card-title"><%= classroom.name %></h1>
-              <ul class="list-unstyled mt-3 mb-4">
-                <li>Professor(a): <strong><%= classroom.teacher.name %></strong></li>
-                <li>Horário: <strong><%=  classroom.time %></strong></li>
-              </ul>
-              <%= link_to "Ver turma", classroom, class:'btn btn-outline-success', style:"width:150px"  %>
-            </div>
+  <% end %>
+  <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+    <%@classrooms.each do |classroom|%>
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm">
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title"><%= classroom.name %></h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>
+                Professor(a): <strong><%= classroom.teacher.name %></strong>
+              </li>
+              <li>
+                Horário: <strong><%= classroom.time %></strong>
+              </li>
+            </ul>
+            <%=
+              link_to 'Ver turma',
+                      classroom,
+                      class: 'btn btn-outline-success',
+                      style: 'width:150px'
+            %>
           </div>
         </div>
-      <% end %>
-    </div>
-     <h3>Responsáveis encontrados: <%= @financial_responsibles.count%></h3>
-    <% if @financial_responsibles.count == 0 %>
-      <h4>Nenhum responsável encontrado.</h4>      
+      </div>
     <% end %>
-    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-      <%@financial_responsibles.each do |financial_responsible|%>
-        <div class="col">
-          <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-body">
-              <h1 class="card-title pricing-card-title"><%= financial_responsible.name %></h1>
-              <ul class="list-unstyled mt-3 mb-4">
-                <li>Responsável por: <strong></strong></li>
-                <%  financial_responsible.students.each do |student| %>
-                  <li><%=student.name %></li>
-
-                <% end %>
-              </ul>
-              <%= link_to "Ver Responsável", financial_responsible, class:'btn btn-outline-success', style:"width:150px"  %>
-            </div>
+  </div>
+  <h3>Responsáveis encontrados: <%= @financial_responsibles.count %></h3>
+  <% if @financial_responsibles.count == 0 %>
+    <h4>Nenhum responsável encontrado.</h4>
+  <% end %>
+  <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+    <%@financial_responsibles.each do |financial_responsible|%>
+      <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm">
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">
+              <%= financial_responsible.name %>
+            </h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>Responsável por: <strong></strong></li>
+              <%  financial_responsible.students.each do |student| %>
+                <li><%= student.name %></li>
+              <% end %>
+            </ul>
+            <%=
+              link_to 'Ver Responsável',
+                      financial_responsible,
+                      class: 'btn btn-outline-success',
+                      style: 'width:150px'
+            %>
           </div>
         </div>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
+  </div>
 </main>

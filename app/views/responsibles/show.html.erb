@@ -1,4 +1,11 @@
-<h1>Responsável: </h1>
+<h1>Responsável:</h1>
 <h2><%= @responsible.financial_responsible.name %></h2>
 <h3>Responsável por: <%= @responsible.student.name %></h3>
-<%= button_to 'Remover Responsável', @responsible, method: :delete,  form: { data: { turbo_confirm: 'Are you sure?' } }, class:'btn btn-danger mt-4', style:"width:200px" %>
+<%=
+  button_to 'Remover Responsável',
+            @responsible,
+            method: :delete,
+            form: { data: { turbo_confirm: 'Are you sure?' } },
+            class: 'btn btn-danger mt-4',
+            style: 'width:200px'
+%>

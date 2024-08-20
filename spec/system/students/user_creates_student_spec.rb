@@ -3,10 +3,26 @@ require 'rails_helper'
 RSpec.describe 'Tipo de usuário cria uma student' do
   it 'Admin a partir do menu' do
     # arrange
-    user_teacher = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
-    teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: user_teacher.id, cpf: '087.097.098-01')
+    user_teacher =
+      User.create!(
+        email: 'teacher@admin.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
+    teacher =
+      Teacher.create(
+        name: 'Bianca',
+        status: 'disponível',
+        user_id: user_teacher.id,
+        cpf: '087.097.098-01'
+      )
     Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    user = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
+    user =
+      User.create!(
+        email: 'admin@admin.com.br',
+        password: 'password',
+        role: 'admin'
+      )
 
     # act
     login_as(user)
@@ -29,8 +45,19 @@ RSpec.describe 'Tipo de usuário cria uma student' do
 
   it 'accounting a partir do menu e falha pois não tem permissão' do
     # arrange
-    user = User.create!(email: 'accounting@admin.com.br', password: 'password', role: 'accounting')
-    teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: user.id, cpf: '087.097.098-01')
+    user =
+      User.create!(
+        email: 'accounting@admin.com.br',
+        password: 'password',
+        role: 'accounting'
+      )
+    teacher =
+      Teacher.create(
+        name: 'Bianca',
+        status: 'disponível',
+        user_id: user.id,
+        cpf: '087.097.098-01'
+      )
     Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
 
     # act
@@ -53,8 +80,19 @@ RSpec.describe 'Tipo de usuário cria uma student' do
   end
   it 'a partir do menu e falha pois não tem permissão' do
     # arrange
-    user = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
-    teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: user.id, cpf: '087.097.098-01')
+    user =
+      User.create!(
+        email: 'teacher@admin.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
+    teacher =
+      Teacher.create(
+        name: 'Bianca',
+        status: 'disponível',
+        user_id: user.id,
+        cpf: '087.097.098-01'
+      )
     Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
 
     # act
@@ -67,8 +105,19 @@ RSpec.describe 'Tipo de usuário cria uma student' do
   end
   it 'a partir do menu e falha pois não tem permissão' do
     # arrange
-    user = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
-    teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: user.id, cpf: '087.097.098-01')
+    user =
+      User.create!(
+        email: 'teacher@admin.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
+    teacher =
+      Teacher.create(
+        name: 'Bianca',
+        status: 'disponível',
+        user_id: user.id,
+        cpf: '087.097.098-01'
+      )
     Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
 
     # act

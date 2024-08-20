@@ -2,8 +2,18 @@ require 'rails_helper'
 
 RSpec.describe 'Usuário editar professor' do
   it 'e é admin' do
-    admin = User.create!(email: 'admin@email.com.br', password: 'password', role: 'admin')
-    teacher_user = User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
+    admin =
+      User.create!(
+        email: 'admin@email.com.br',
+        password: 'password',
+        role: 'admin'
+      )
+    teacher_user =
+      User.create!(
+        email: 'teacher@email.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
     Teacher.create!(name: 'Carvalho', cpf: '000.000.000-01', user: teacher_user)
 
     login_as(admin)
@@ -21,8 +31,18 @@ RSpec.describe 'Usuário editar professor' do
   end
 
   it 'e é admin mas não preenche todos os campos' do
-    admin = User.create!(email: 'admin@email.com.br', password: 'password', role: 'admin')
-    teacher_user = User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
+    admin =
+      User.create!(
+        email: 'admin@email.com.br',
+        password: 'password',
+        role: 'admin'
+      )
+    teacher_user =
+      User.create!(
+        email: 'teacher@email.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
     Teacher.create!(name: 'Carvalho', cpf: '000.000.000-01', user: teacher_user)
 
     login_as(admin)
@@ -38,8 +58,18 @@ RSpec.describe 'Usuário editar professor' do
   end
 
   it 'e é accounting' do
-    accouting = User.create!(email: 'admin@email.com.br', password: 'password', role: 'accounting')
-    teacher_user = User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
+    accouting =
+      User.create!(
+        email: 'admin@email.com.br',
+        password: 'password',
+        role: 'accounting'
+      )
+    teacher_user =
+      User.create!(
+        email: 'teacher@email.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
     Teacher.create!(name: 'Carvalho', cpf: '000.000.000-01', user: teacher_user)
 
     login_as(accouting)
@@ -57,8 +87,17 @@ RSpec.describe 'Usuário editar professor' do
   end
 
   it 'e é teacher' do
-    User.create!(email: 'admin@email.com.br', password: 'password', role: 'admin')
-    teacher_user = User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
+    User.create!(
+      email: 'admin@email.com.br',
+      password: 'password',
+      role: 'admin'
+    )
+    teacher_user =
+      User.create!(
+        email: 'teacher@email.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
     Teacher.create!(name: 'Carvalho', cpf: '000.000.000-01', user: teacher_user)
 
     login_as(teacher_user)
@@ -68,8 +107,18 @@ RSpec.describe 'Usuário editar professor' do
   end
 
   it 'e é default' do
-    default = User.create!(email: 'admin@email.com.br', password: 'password', role: 'default')
-    teacher_user = User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
+    default =
+      User.create!(
+        email: 'admin@email.com.br',
+        password: 'password',
+        role: 'default'
+      )
+    teacher_user =
+      User.create!(
+        email: 'teacher@email.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
     Teacher.create!(name: 'Carvalho', cpf: '000.000.000-01', user: teacher_user)
 
     login_as(default)

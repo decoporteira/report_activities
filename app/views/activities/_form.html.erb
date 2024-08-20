@@ -1,7 +1,10 @@
 <%= form_with(model: activity) do |form| %>
   <% if activity.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(activity.errors.count, "error") %> prohibited this activity from being saved:</h2>
+      <h2>
+        <%= pluralize(activity.errors.count, 'error') %> prohibited this
+        activity from being saved:
+      </h2>
       <ul>
         <% activity.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -9,24 +12,41 @@
       </ul>
     </div>
   <% end %>
-  <div class='mb-3'>
-    <%= form.label :date, class:'form-label' %>
-    <%= form.date_field :date, class:'form-control' %>
+  <div class="mb-3">
+    <%= form.label :date, class: 'form-label' %>
+    <%= form.date_field :date, class: 'form-control' %>
   </div>
-  <div class='mb-3'>
-    <%= form.label :report, class:'form-label' %>
-    <%= form.text_field :report, class:'form-control' %>
+  <div class="mb-3">
+    <%= form.label :report, class: 'form-label' %>
+    <%= form.text_field :report, class: 'form-control' %>
   </div>
-  <div class='mb-3'>
-    <%= form.label :late, class:'form-label' %>
+  <div class="mb-3">
+    <%= form.label :late, class: 'form-label' %>
     <% form.number_field :late %>
-    <%= form.select :late, options_for_select(Activity.lates.map {|key, value| [key.titleize, Activity.lates.key(value)]}, @activity.late), {:prompt => 'Selecione um status'}, class:"form-select" %>
+    <%=
+      form.select :late,
+                  options_for_select(
+                    Activity.lates.map { |key, value|
+                      [key.titleize, Activity.lates.key(value)]
+                    },
+                    @activity.late,
+                  ),
+                  { prompt: 'Selecione um status' },
+                  class: 'form-select'
+    %>
   </div>
-  <div class='mb-3'>
-    <%= form.label :student_id, class:'form-label' %>
-    <%=form.collection_select :student_id, Student.all, :id, :name, {:prompt => 'Selecione um aluno'}, class:"form-select"  %><br/>
+  <div class="mb-3">
+    <%= form.label :student_id, class: 'form-label' %>
+    <%=
+      form.collection_select :student_id,
+                             Student.all,
+                             :id,
+                             :name,
+                             { prompt: 'Selecione um aluno' },
+                             class: 'form-select'
+    %><br />
   </div>
-  <div class='mb-1'>
-    <%= form.submit class:'btn btn-primary'  %>
+  <div class="mb-1">
+    <%= form.submit class: 'btn btn-primary' %>
   </div>
 <% end %>

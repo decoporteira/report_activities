@@ -1,10 +1,21 @@
 <h1>Editing teacher</h1>
 
-<%= render "form", teacher: @teacher %>
+<%= render 'form', teacher: @teacher %>
 
-<br>
+<br />
 
 <div>
-  <%= link_to "Show this teacher", @teacher, class:'btn btn-outline-primary', style:"width:200px"  %> |
-  <%= link_to "Back to teachers", teachers_path, class:'btn btn-outline-primary', style:"width:200px"  %>
+  <%=
+    link_to 'Show this teacher',
+            @teacher,
+            class: 'btn btn-outline-primary',
+            style: 'width:200px'
+  %>
+  |
+  <%=
+    link_to 'Back to teachers',
+            teachers_path,
+            class: 'btn btn-outline-primary',
+            style: 'width:200px'
+  %>
 </div>

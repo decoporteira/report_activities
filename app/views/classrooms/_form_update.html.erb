@@ -1,8 +1,10 @@
-
 <%= form_with(model: classroom) do |form| %>
   <% if classroom.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(classroom.errors.count, "error") %> prohibited this classroom from being saved:</h2>
+      <h2>
+        <%= pluralize(classroom.errors.count, 'error') %> prohibited this
+        classroom from being saved:
+      </h2>
       <ul>
         <% classroom.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -11,22 +13,22 @@
     </div>
   <% end %>
   <div>
-    <%= form.label :name, style: "display: block" %>
+    <%= form.label :name, style: 'display: block' %>
     <%= form.text_field :name %>
   </div>
   <div>
-    <%= form.label :time, style: "display: block" %>
+    <%= form.label :time, style: 'display: block' %>
     <%= form.text_field :time %>
   </div>
   <div>
-    <%= form.label :teacher_id, style: "display: block" %>
-    <%=form.collection_select :teacher_id, Teacher.all, :id, :name  %><br/>
+    <%= form.label :teacher_id, style: 'display: block' %>
+    <%= form.collection_select :teacher_id, Teacher.all, :id, :name %><br />
   </div>
   <div>
-    <%= form.label :name, style: "display: block" %>
+    <%= form.label :name, style: 'display: block' %>
     <%= form.text_field :name %>
   </div>
   <div>
-    <%= form.submit class:'btn btn-primary mt-4' %>
+    <%= form.submit class: 'btn btn-primary mt-4' %>
   </div>
 <% end %>

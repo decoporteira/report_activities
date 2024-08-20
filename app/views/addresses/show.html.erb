@@ -1,14 +1,14 @@
-<h1>Endereço de <%#= @student.name%></h1>
-<h2><%#= @student.classroom.name%></h2>
+<h1>Endereço de <%#= @student.name %></h1>
+<h2><%#= @student.classroom.name %></h2>
 <% if @address %>
-  <p><strong>Rua: </strong><%= @address.street%> </p>
-  <p><strong>Número: </strong> <%= @address.number%></p>
-  <p><strong>Complemento: </strong> <%= @address.unit%></p>
-  <p><strong>Bairro: </strong> <%= @address.neighborhood%></p>
-  <p><strong>Cidade: </strong> <%= @address.city%></p>
-  <p><strong>Estado:</strong> <%= @address.state%> </p>
-  <p><strong>País: </strong> <%= @address.country%></p>
-  <p><strong>CEP: </strong> <%= @address.zip_code%></p>
+  <p><strong>Rua: </strong><%= @address.street %></p>
+  <p><strong>Número: </strong> <%= @address.number %></p>
+  <p><strong>Complemento: </strong> <%= @address.unit %></p>
+  <p><strong>Bairro: </strong> <%= @address.neighborhood %></p>
+  <p><strong>Cidade: </strong> <%= @address.city %></p>
+  <p><strong>Estado:</strong> <%= @address.state %></p>
+  <p><strong>País: </strong> <%= @address.country %></p>
+  <p><strong>CEP: </strong> <%= @address.zip_code %></p>
   <%#= link_to 'Editar Endereço', edit_student_address_path(@student), class:'btn btn-outline-primary', style:"width:200px" %>
 <% else %>
   <p>Não existe endereço cadastrado.</p>

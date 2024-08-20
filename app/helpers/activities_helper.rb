@@ -1,2 +1,1 @@
-module ActivitiesHelper
-end
+module ActivitiesHelper; end

@@ -1,6 +1,4 @@
 {
-    "emmet.preferences": {
-
-    },
-    "prettier.useTabs": true
+  "emmet.preferences": {},
+  "prettier.useTabs": true
 }

@@ -1,2 +1,1 @@
-class Billing < ApplicationRecord
-end
+class Billing < ApplicationRecord; end

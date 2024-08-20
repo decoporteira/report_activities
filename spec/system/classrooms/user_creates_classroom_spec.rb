@@ -6,9 +6,24 @@ RSpec.describe 'Tipo de usuário cria uma turma' do
   context 'a partir do menu' do
     it 'como user Admin' do
       # arrange
-      user = User.create!(email: 'admin@email.com.br', password: 'password', role: 'admin')
-      teacher = User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
-      Teacher.create!(name: 'Carvalho', cpf: '000.000.000-01', user: teacher, status: 'disponível')
+      user =
+        User.create!(
+          email: 'admin@email.com.br',
+          password: 'password',
+          role: 'admin'
+        )
+      teacher =
+        User.create!(
+          email: 'teacher@email.com.br',
+          password: 'password',
+          role: 'teacher'
+        )
+      Teacher.create!(
+        name: 'Carvalho',
+        cpf: '000.000.000-01',
+        user: teacher,
+        status: 'disponível'
+      )
 
       # act
       login_as(user)
@@ -27,9 +42,24 @@ RSpec.describe 'Tipo de usuário cria uma turma' do
     end
     it 'e falha' do
       # arrange
-      user = User.create!(email: 'admin@email.com.br', password: 'password', role: 'admin')
-      teacher = User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
-      Teacher.create!(name: 'Carvalho', cpf: '000.000.000-01', user: teacher, status: 'disponível')
+      user =
+        User.create!(
+          email: 'admin@email.com.br',
+          password: 'password',
+          role: 'admin'
+        )
+      teacher =
+        User.create!(
+          email: 'teacher@email.com.br',
+          password: 'password',
+          role: 'teacher'
+        )
+      Teacher.create!(
+        name: 'Carvalho',
+        cpf: '000.000.000-01',
+        user: teacher,
+        status: 'disponível'
+      )
 
       # act
       login_as(user)
@@ -46,9 +76,24 @@ RSpec.describe 'Tipo de usuário cria uma turma' do
     end
     it 'como user accounting' do
       # arrange
-      accounting = User.create!(email: 'admin@email.com.br', password: 'password', role: 'accounting')
-      teacher = User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
-      Teacher.create!(name: 'Carvalho', cpf: '000.000.000-01', user: teacher, status: 'disponível')
+      accounting =
+        User.create!(
+          email: 'admin@email.com.br',
+          password: 'password',
+          role: 'accounting'
+        )
+      teacher =
+        User.create!(
+          email: 'teacher@email.com.br',
+          password: 'password',
+          role: 'teacher'
+        )
+      Teacher.create!(
+        name: 'Carvalho',
+        cpf: '000.000.000-01',
+        user: teacher,
+        status: 'disponível'
+      )
 
       # act
       login_as(accounting)
@@ -59,9 +104,19 @@ RSpec.describe 'Tipo de usuário cria uma turma' do
     end
     it 'como user teacher' do
       # arrange
-      User.create!(email: 'admin@email.com.br', password: 'password', role: 'admin')
-      teacher = User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
+      User.create!(
+        email: 'admin@email.com.br',
+        password: 'password',
+        role: 'admin'
+      )
+      teacher =
+        User.create!(
+          email: 'teacher@email.com.br',
+          password: 'password',
+          role: 'teacher'
+        )
       Teacher.create!(name: 'Carvalho', cpf: '000.000.000-01', user: teacher)
+
       # act
       login_as(teacher)
       visit(root_path)
@@ -72,9 +127,20 @@ RSpec.describe 'Tipo de usuário cria uma turma' do
     end
     it 'como user default' do
       # arrange
-      user = User.create!(email: 'admin@email.com.br', password: 'password', role: 'default')
-      teacher = User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
+      user =
+        User.create!(
+          email: 'admin@email.com.br',
+          password: 'password',
+          role: 'default'
+        )
+      teacher =
+        User.create!(
+          email: 'teacher@email.com.br',
+          password: 'password',
+          role: 'teacher'
+        )
       Teacher.create!(name: 'Carvalho', cpf: '000.000.000-01', user: teacher)
+
       # act
       login_as(user)
       visit(root_path)
@@ -87,9 +153,24 @@ RSpec.describe 'Tipo de usuário cria uma turma' do
   context 'direto no link dos professores' do
     it 'Admin direto pelo link de edição' do
       # arrange
-      user = User.create!(email: 'admin@email.com.br', password: 'password', role: 'admin')
-      teacher = User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
-      Teacher.create!(name: 'Carvalho', cpf: '000.000.000-01', user: teacher, status: 'disponível')
+      user =
+        User.create!(
+          email: 'admin@email.com.br',
+          password: 'password',
+          role: 'admin'
+        )
+      teacher =
+        User.create!(
+          email: 'teacher@email.com.br',
+          password: 'password',
+          role: 'teacher'
+        )
+      Teacher.create!(
+        name: 'Carvalho',
+        cpf: '000.000.000-01',
+        user: teacher,
+        status: 'disponível'
+      )
 
       # act
       login_as(user)
@@ -109,8 +190,17 @@ RSpec.describe 'Tipo de usuário cria uma turma' do
     end
     it 'Accounting direto pelo link de criação' do
       # arrange
-      accounting = User.create!(email: 'admin@email.com.br', password: 'password', role: 'accounting')
-      User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
+      accounting =
+        User.create!(
+          email: 'admin@email.com.br',
+          password: 'password',
+          role: 'accounting'
+        )
+      User.create!(
+        email: 'teacher@email.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
 
       # act
       login_as(accounting)
@@ -123,9 +213,19 @@ RSpec.describe 'Tipo de usuário cria uma turma' do
 
     it 'teacher a partir do menu e falha pois não tem permissão' do
       # arrange
-      User.create!(email: 'admin@email.com.br', password: 'password', role: 'admin')
-      teacher = User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
+      User.create!(
+        email: 'admin@email.com.br',
+        password: 'password',
+        role: 'admin'
+      )
+      teacher =
+        User.create!(
+          email: 'teacher@email.com.br',
+          password: 'password',
+          role: 'teacher'
+        )
       Teacher.create!(name: 'Carvalho', cpf: '000.000.000-01', user: teacher)
+
       # act
       login_as(teacher)
       visit(new_classroom_path)
@@ -139,8 +239,19 @@ RSpec.describe 'Tipo de usuário cria uma turma' do
 
     it 'Default a partir do menu e falha pois não tem permissão' do
       # arrange
-      user = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'accounting')
-      teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: user.id, cpf: '087.097.098-01')
+      user =
+        User.create!(
+          email: 'teacher@admin.com.br',
+          password: 'password',
+          role: 'accounting'
+        )
+      teacher =
+        Teacher.create(
+          name: 'Bianca',
+          status: 'disponível',
+          user_id: user.id,
+          cpf: '087.097.098-01'
+        )
       Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
 
       # act

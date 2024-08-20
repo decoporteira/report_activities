@@ -1,9 +1,7 @@
 require 'test_helper'
 
 class TeachersControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @teacher = teachers(:one)
-  end
+  setup { @teacher = teachers(:one) }
 
   test 'should get index' do
     get teachers_url
@@ -17,7 +15,8 @@ class TeachersControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create teacher' do
     assert_difference('Teacher.count') do
-      post teachers_url, params: { teacher: { name: @teacher.name, status: @teacher.status } }
+      post teachers_url,
+           params: { teacher: { name: @teacher.name, status: @teacher.status } }
     end
 
     assert_redirected_to teacher_url(Teacher.last)
@@ -34,14 +33,13 @@ class TeachersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should update teacher' do
-    patch teacher_url(@teacher), params: { teacher: { name: @teacher.name, status: @teacher.status } }
+    patch teacher_url(@teacher),
+          params: { teacher: { name: @teacher.name, status: @teacher.status } }
     assert_redirected_to teacher_url(@teacher)
   end
 
   test 'should destroy teacher' do
-    assert_difference('Teacher.count', -1) do
-      delete teacher_url(@teacher)
-    end
+    assert_difference('Teacher.count', -1) { delete teacher_url(@teacher) }
 
     assert_redirected_to teachers_url
   end

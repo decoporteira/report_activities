@@ -34,6 +34,7 @@ gem 'devise'
 gem 'dotenv-rails', groups: %i[development test]
 gem 'jbuilder'
 gem 'ransack'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
@@ -96,8 +97,7 @@ gem 'bcrypt_pbkdf', '< 2.0', require: false
 gem 'cssbundling-rails'
 gem 'pg', '~> 1.5', '>= 1.5.4'
 gem 'rails_admin', '~> 3.1', '>= 3.1.2'
-gem 'rbnacl', '~> 7.1', '>= 7.1.1',
-    require: false
+gem 'rbnacl', '~> 7.1', '>= 7.1.1', require: false
 gem 'rbnacl-libsodium', require: false
 
 gem 'sentry-rails'

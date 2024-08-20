@@ -1,2 +1,1 @@
-module SearchHelper
-end
+module SearchHelper; end

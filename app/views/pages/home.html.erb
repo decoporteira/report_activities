@@ -3,14 +3,27 @@
 <% if current_user %>
   <p>Hello, <%= current_user.email %></p>
   <p>You are successfully signed in.</p>
-  <p>You are <%= current_user.role%></p>
+  <p>You are <%= current_user.role %></p>
   <% if current_user.admin?%>
-    There are <%= User.count%> user in the system.<br/>
+    There are <%= User.count %> user in the system.<br />
   <% end%>
-  <%= link_to "Sign out", destroy_user_session_path, 'data-turbo-method': :delete, class:'text-decoration-none link-primary' %>
+  <%=
+    link_to 'Sign out',
+            destroy_user_session_path,
+            'data-turbo-method': :delete,
+            class: 'text-decoration-none link-primary'
+  %>
 <% else %>
   <p>You are not signed in.</p>
-  <%= link_to "Sign Up!", new_user_registration_path, class:'text-decoration-none link-primary' %>
-  <br>
-  <%= link_to "Sign In!", new_user_session_path, class:'text-decoration-none link-primary' %>
+  <%=
+    link_to 'Sign Up!',
+            new_user_registration_path,
+            class: 'text-decoration-none link-primary'
+  %>
+  <br />
+  <%=
+    link_to 'Sign In!',
+            new_user_session_path,
+            class: 'text-decoration-none link-primary'
+  %>
 <% end %>
