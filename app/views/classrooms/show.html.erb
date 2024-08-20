@@ -3,55 +3,58 @@
 <br />
 <%= render "create_activity" %> 
 <div>
-
-  <% @dates.uniq.each do |date|%>
-    <div class="col mb-4" id="<%= date %>">
-      <div class="card shadow-sm">
-        <div class="card-header py-1">
-          <h4 class="my-1 fw-normal fs-5"><%= date.strftime("%d/%m/%y") %></h4>
-        </div>
-        <div class="card-body">
-          <% @students.each  do |student|%>
-            <strong><%= student.name%></strong> |  <% attendance = @attendances.find_by(student_id: student.id, attendance_date: date)%>
-            <%= attendance.presence ? 'Presente' : "<span class='text-danger'>Ausente</span>".html_safe %>
-            <br/>
-            <% @activities.where(student_id: student.id, date: date).each do |activity|%>
-              <ul class='mt-2'> 
-                <li class="d-flex p-2">
-                  <%= activity.report %> 
-                  <% late_color = case activity.late
-                                  when 'feito'
-                                    'blue'
-                                  when 'entregue com atraso'
-                                    'orange'
-                                  else
-                                    'red'
-                                  end %>
-                  <span class='mx-1' style="color: <%= late_color %>; font-size: 14px;">(<%= activity.late %>)</span>
-                  <%= button_to 'Feito', update_late_activity_path(:items =>{:activity_id => activity.id, late: 'feito'}, anchor:  date), data: { turbo: false }, method: :patch, class:"btn btn-outline-primary btn-sm" %>
-                  <span class='mx-1'> | </span>
-                  <%= button_to 'Atrasado', update_late_activity_path(:items =>{:activity_id => activity.id, late: 'entregue com atraso'}, anchor:  date), data: { turbo: false }, method: :patch, class:"btn btn-outline-warning btn-sm" %>
-                   <span class='mx-1'> | </span>
-                  <%= button_to 'Não fez', update_late_activity_path(:items =>{:activity_id => activity.id, late: 'não fez'}, anchor:  date), data: { turbo: false }, method: :patch, class:"btn btn-outline-danger btn-sm" %>
-                   <span class='mx-1'></span>
-                  <%= link_to "Editar", edit_activity_path(activity), class:"btn btn-outline-secondary btn-sm ms-3"%> 
-                </li>
-              </ul>
+<% @classroom_data[:students_data].values.flat_map { |data| data[:activities].map(&:date) }.uniq.each do |date| %>
+  <div class="col mb-4" id="<%= date %>">
+    <div class="card shadow-sm">
+      <div class="card-header py-1">
+        <h4 class="my-1 fw-normal fs-5"><%= date.strftime("%d/%m/%y") %></h4>
+      </div>
+      <div class="card-body">
+        <% @classroom_data[:students].each do |student| %>
+          <strong><%= student.name%></strong> |  <% attendance = student.attendances.find_by(attendance_date: date)%>
+          <%= attendance&.presence ? 'Presente' : "<span class='text-danger'>Ausente</span>".html_safe %>
+          <br/>
+          <ul class='mt-2'> 
+            <% activities_for_student = @classroom_data[:students_data][student.id][:activities].select { |activity| activity.date == date } %>
+            <% activities_for_student.each do |activity| %>
+              <li class="d-flex p-2">
+              <%= activity.report %>
+              <% late_color = case activity.late
+                              when 'feito'
+                                'blue'
+                              when 'entregue com atraso'
+                                'orange'
+                              else
+                                'red'
+                              end %>
+              <span class='mx-1' style="color: <%= late_color %>; font-size: 14px;">(<%= activity.late %>)</span>
+              <%= button_to 'Feito', update_late_activity_path(:items =>{:activity_id => activity.id, late: 'feito'}, anchor:  date), data: { turbo: false }, method: :patch, class:"btn btn-outline-primary btn-sm" %>
+              <span class='mx-1'> | </span>
+              <%= button_to 'Atrasado', update_late_activity_path(:items =>{:activity_id => activity.id, late: 'entregue com atraso'}, anchor:  date), data: { turbo: false }, method: :patch, class:"btn btn-outline-warning btn-sm" %>
+                <span class='mx-1'> | </span>
+              <%= button_to 'Não fez', update_late_activity_path(:items =>{:activity_id => activity.id, late: 'não fez'}, anchor:  date), data: { turbo: false }, method: :patch, class:"btn btn-outline-danger btn-sm" %>
+                <span class='mx-1'></span>
+              <%= link_to "Editar", edit_activity_path(activity), class:"btn btn-outline-secondary btn-sm ms-3"%> 
+              </li>
             <%end%>
-            <%= button_to "Marcar como #{attendance.presence ? 'Ausente' : 'Presente'}", update_attendance_attendance_path(items: { student_id: student.id, date: date, presence: attendance.presence }, anchor:  date), data: { turbo: false }, method: :patch, class: "btn #{attendance.presence ? 'btn-outline-danger' : 'btn-outline-primary'}" %>
-            
-         <br><br><%end%>
-        </div>
+          </ul>
+          <%= button_to "Marcar como #{attendance.presence ? 'Ausente' : 'Presente'}", update_attendance_attendance_path(items: { student_id: student.id, date: date, presence: attendance.presence }, anchor:  date), data: { turbo: false }, method: :patch, class: "btn #{attendance.presence ? 'btn-outline-danger' : 'btn-outline-primary'}" %>
+          <br>
+          <br>
+        <%end%>
       </div>
     </div>
-  <%end%>
-  <br />
-  <%= link_to "Edit this classroom" , edit_classroom_path(@classroom),
-	class:'btn btn-outline-primary', style:"width:200px" %> | <%= link_to "Back to
-	classrooms" , classrooms_path, class:'btn btn-outline-primary',
-	style:"width:200px" %>
-  <% if current_user.admin?%>
-    <%= button_to "Destroy this classroom" , @classroom,method: :delete,  form: { data: { turbo_confirm: 'Are you sure?' } }, class:'btn btn-outline-danger mt-4', style:"width:200px" %>
-  <% end %>
+  </div>
+<%end%>
+<br />
+<%= link_to "Edit this classroom" , edit_classroom_path(@classroom),
+class:'btn btn-outline-primary', style:"width:200px" %> | <%= link_to "Back to
+classrooms" , classrooms_path, class:'btn btn-outline-primary',
+style:"width:200px" %>
+<% if current_user.admin?%>
+  <%= button_to "Destroy this classroom" , @classroom,method: :delete,  form: { data: { turbo_confirm: 'Are you sure?' } }, class:'btn btn-outline-danger mt-4', style:"width:200px" %>
+<% end %>
+ 
+  
  
  

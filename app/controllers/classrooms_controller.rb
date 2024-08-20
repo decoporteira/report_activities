@@ -2,7 +2,6 @@
 
 class ClassroomsController < ApplicationController
   before_action :set_classroom, only: %i[show edit update destroy]
-  before_action :set_info
   before_action :authorize_admin!, only: %i[index show edit update destroy]
   before_action :authorize_creation, only: %i[new]
   before_action :set_students, only: %i[show]
@@ -12,10 +11,7 @@ class ClassroomsController < ApplicationController
   end
 
   def show
-    @attendances = Attendance.all
-    activities_organized = @activities.sort_by(&:date)
-    dates = activities_organized.map(&:date)
-    @dates = dates.reverse
+    @classroom_data = @classroom.generate_data(params[:last_semester])
   end
 
   def new
@@ -78,12 +74,6 @@ class ClassroomsController < ApplicationController
 
   def authorize_creation
     redirect_to root_path, alert: t('.denied') unless current_user.admin?
-  end
-
-  def set_info
-    @students = set_students
-    array_ids = @students.map(&:id)
-    @activities = Activity.where(student_id: array_ids).where('date >= ?', Date.new(2024, 8, 1)) #já funciona
   end
 
   def set_classroom
