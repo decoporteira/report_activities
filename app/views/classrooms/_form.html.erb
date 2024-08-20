@@ -1,7 +1,10 @@
 <%= form_with(model: classroom) do |form| %>
   <% if classroom.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(classroom.errors.count, "error") %> prohibited this classroom from being saved:</h2>
+      <h2>
+        <%= pluralize(classroom.errors.count, 'error') %> prohibited this
+        classroom from being saved:
+      </h2>
 
       <ul>
         <% classroom.errors.each do |error| %>
@@ -11,22 +14,29 @@
     </div>
   <% end %>
 
-  <div class='mb-3'>
-    <%= form.label :name, class:'form-label'  %>
-    <%= form.text_field :name, class:'form-control' %>
+  <div class="mb-3">
+    <%= form.label :name, class: 'form-label' %>
+    <%= form.text_field :name, class: 'form-control' %>
   </div>
 
-  <div class='mb-3'>
-    <%= form.label :time, class:'form-label'  %>
-    <%= form.text_field :time, class:'form-control' %>
+  <div class="mb-3">
+    <%= form.label :time, class: 'form-label' %>
+    <%= form.text_field :time, class: 'form-control' %>
   </div>
 
-  <div class='mb-3'>
-    <%= form.label :teacher_id, class:'form-label'  %>
-    <%=form.collection_select :teacher_id, Teacher.all, :id, :name, {:prompt => 'Selecione um professor(a)'}, class:"form-select"  %><br/>
+  <div class="mb-3">
+    <%= form.label :teacher_id, class: 'form-label' %>
+    <%=
+      form.collection_select :teacher_id,
+                             Teacher.all,
+                             :id,
+                             :name,
+                             { prompt: 'Selecione um professor(a)' },
+                             class: 'form-select'
+    %><br />
   </div>
 
-  <div class='mb-1'> 
-    <%= form.submit class:'btn btn-primary mt-1' %>
+  <div class="mb-1">
+    <%= form.submit class: 'btn btn-primary mt-1' %>
   </div>
 <% end %>

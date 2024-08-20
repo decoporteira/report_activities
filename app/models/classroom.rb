@@ -15,8 +15,16 @@ class Classroom < ApplicationRecord
   def set_students_data(start_date, end_date)
     students.each_with_object({}) do |student, result|
       result[student.id] = {
-        activities: student.activities.where(date: start_date..end_date).order(date: :desc),
-        attendances: student.attendances.where(attendance_date: start_date..end_date).order(:attendance_date)
+        activities:
+          student
+            .activities
+            .where(date: start_date..end_date)
+            .order(date: :desc),
+        attendances:
+          student
+            .attendances
+            .where(attendance_date: start_date..end_date)
+            .order(:attendance_date)
       }
     end
   end
@@ -25,7 +33,7 @@ class Classroom < ApplicationRecord
     start_date, end_date = get_date_range(last_semester)
     {
       students: students.where(status: :registered),
-      students_data: set_students_data(start_date, end_date),
+      students_data: set_students_data(start_date, end_date)
     }
   end
 end

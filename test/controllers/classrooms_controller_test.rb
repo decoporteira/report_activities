@@ -1,9 +1,7 @@
 require 'test_helper'
 
 class ClassroomsControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @classroom = classrooms(:one)
-  end
+  setup { @classroom = classrooms(:one) }
 
   test 'should get index' do
     get classrooms_url
@@ -18,7 +16,13 @@ class ClassroomsControllerTest < ActionDispatch::IntegrationTest
   test 'should create classroom' do
     assert_difference('Classroom.count') do
       post classrooms_url,
-           params: { classroom: { name: @classroom.name, teacher_id: @classroom.teacher_id, time: @classroom.time } }
+           params: {
+             classroom: {
+               name: @classroom.name,
+               teacher_id: @classroom.teacher_id,
+               time: @classroom.time
+             }
+           }
     end
 
     assert_redirected_to classroom_url(Classroom.last)
@@ -36,7 +40,13 @@ class ClassroomsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should update classroom' do
     patch classroom_url(@classroom),
-          params: { classroom: { name: @classroom.name, teacher_id: @classroom.teacher_id, time: @classroom.time } }
+          params: {
+            classroom: {
+              name: @classroom.name,
+              teacher_id: @classroom.teacher_id,
+              time: @classroom.time
+            }
+          }
     assert_redirected_to classroom_url(@classroom)
   end
 

@@ -1,21 +1,20 @@
-<h1>Relatório de presença de <%= @student.name%></h1>
+<h1>Relatório de presença de <%= @student.name %></h1>
 
- 
-  <div class="table-responsive small">
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              <th scope="col">Data</th>
-              <th scope="col">Presença</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @attendances.each do |attendance|%>
-              <tr>
-              <td><%= attendance.attendance_date.strftime("%d/%m/%y") %></td>
-              <td><%= attendance.presence? ? 'Presente' : 'Ausente' %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
+<div class="table-responsive small">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th scope="col">Data</th>
+        <th scope="col">Presença</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @attendances.each do |attendance|%>
+        <tr>
+          <td><%= attendance.attendance_date.strftime('%d/%m/%y') %></td>
+          <td><%= attendance.presence? ? 'Presente' : 'Ausente' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>

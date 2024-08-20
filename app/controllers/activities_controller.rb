@@ -20,11 +20,16 @@ class ActivitiesController < ApplicationController
 
     respond_to do |format|
       if @activity.save
-        format.html { redirect_to activity_url(@activity), notice: 'Activity was successfully created.' }
+        format.html do
+          redirect_to activity_url(@activity),
+                      notice: 'Activity was successfully created.'
+        end
         format.json { render :show, status: :created, location: @activity }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @activity.errors, status: :unprocessable_entity }
+        format.json do
+          render json: @activity.errors, status: :unprocessable_entity
+        end
       end
     end
   end
@@ -32,11 +37,16 @@ class ActivitiesController < ApplicationController
   def update
     respond_to do |format|
       if @activity.update(activity_params)
-        format.html { redirect_to activity_url(@activity), notice: 'Activity was successfully updated.' }
+        format.html do
+          redirect_to activity_url(@activity),
+                      notice: 'Activity was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: @activity }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @activity.errors, status: :unprocessable_entity }
+        format.json do
+          render json: @activity.errors, status: :unprocessable_entity
+        end
       end
     end
   end
@@ -44,11 +54,16 @@ class ActivitiesController < ApplicationController
   def another_update
     respond_to do |format|
       if @activity.update(activity_params)
-        format.html { redirect_to activity_url(@activity), notice: 'Activity was successfully updated.' }
+        format.html do
+          redirect_to activity_url(@activity),
+                      notice: 'Activity was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: @activity }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @activity.errors, status: :unprocessable_entity }
+        format.json do
+          render json: @activity.errors, status: :unprocessable_entity
+        end
       end
     end
   end
@@ -57,16 +72,21 @@ class ActivitiesController < ApplicationController
     @activity.destroy
 
     respond_to do |format|
-      format.html { redirect_to activities_url, notice: 'Activity was successfully destroyed.' }
+      format.html do
+        redirect_to activities_url,
+                    notice: 'Activity was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end
 
   def update_late_to_missing
-    activities = Activity.where(student_id: params[:items][:student_id], date: params[:items][:date])
-    activities.each do |item|
-      item.update(late: 'ausente')
-    end
+    activities =
+      Activity.where(
+        student_id: params[:items][:student_id],
+        date: params[:items][:date]
+      )
+    activities.each { |item| item.update(late: 'ausente') }
     student = Student.find(params[:items][:student_id])
     classroom = Classroom.find(student.classroom_id)
     redirect_to classroom, notice: 'Atividades marcadas como Ausente.'
@@ -92,13 +112,16 @@ class ActivitiesController < ApplicationController
   end
 
   def activity_params
-    params.require(:activity).permit(:report, :late, :missing, :student_id, :date)
+    params
+      .require(:activity)
+      .permit(:report, :late, :missing, :student_id, :date)
   end
 
   def admin?
-    return if current_user.admin? || current_user.accounting? || current_user.teacher?
+    if current_user.admin? || current_user.accounting? || current_user.teacher?
+      return
+    end
 
-    redirect_to root_path,
-                alert: 'Você não possui acesso.'
+    redirect_to root_path, alert: 'Você não possui acesso.'
   end
 end

@@ -2,11 +2,31 @@ require 'rails_helper'
 
 RSpec.describe 'Teacher edita presença' do
   it 'com sucesso' do
-    User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
-    user_teacher = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
-    teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: user_teacher.id, cpf: '087.097.098-01')
-    classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(name: 'Blastoise', classroom_id: classroom.id, status: :registered)
+    User.create!(
+      email: 'admin@admin.com.br',
+      password: 'password',
+      role: 'admin'
+    )
+    user_teacher =
+      User.create!(
+        email: 'teacher@admin.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
+    teacher =
+      Teacher.create(
+        name: 'Bianca',
+        status: 'disponível',
+        user_id: user_teacher.id,
+        cpf: '087.097.098-01'
+      )
+    classroom =
+      Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
+    Student.create!(
+      name: 'Blastoise',
+      classroom_id: classroom.id,
+      status: :registered
+    )
     login_as(user_teacher)
     visit(root_path)
     click_on 'Enter Classroom'
@@ -21,12 +41,38 @@ RSpec.describe 'Teacher edita presença' do
   end
 
   it 'E marca como ausente' do
-    User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
-    user_teacher = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
-    teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: user_teacher.id, cpf: '087.097.098-01')
-    classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    student = Student.create!(name: 'Blastoise', classroom_id: classroom.id, status: :registered)
-    Activity.create!(report: 'Megaevolução', date: '10/10/2024', student_id: student.id, late: 'feito')
+    User.create!(
+      email: 'admin@admin.com.br',
+      password: 'password',
+      role: 'admin'
+    )
+    user_teacher =
+      User.create!(
+        email: 'teacher@admin.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
+    teacher =
+      Teacher.create(
+        name: 'Bianca',
+        status: 'disponível',
+        user_id: user_teacher.id,
+        cpf: '087.097.098-01'
+      )
+    classroom =
+      Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
+    student =
+      Student.create!(
+        name: 'Blastoise',
+        classroom_id: classroom.id,
+        status: :registered
+      )
+    Activity.create!(
+      report: 'Megaevolução',
+      date: '10/10/2024',
+      student_id: student.id,
+      late: 'feito'
+    )
     Attendance.create!(student_id: student.id, attendance_date: '10/10/2024')
 
     login_as(user_teacher)
@@ -39,13 +85,43 @@ RSpec.describe 'Teacher edita presença' do
     expect(page).to have_content('Blastoise | Ausente')
   end
   it 'E marca como presente' do
-    User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
-    user_teacher = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
-    teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: user_teacher.id, cpf: '087.097.098-01')
-    classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    student = Student.create!(name: 'Blastoise', classroom_id: classroom.id, status: :registered)
-    Activity.create!(report: 'Megaevolução', date: '10/10/2024', student_id: student.id, late: 'feito')
-    Attendance.create!(student_id: student.id, attendance_date: '10/10/2024', presence: false)
+    User.create!(
+      email: 'admin@admin.com.br',
+      password: 'password',
+      role: 'admin'
+    )
+    user_teacher =
+      User.create!(
+        email: 'teacher@admin.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
+    teacher =
+      Teacher.create(
+        name: 'Bianca',
+        status: 'disponível',
+        user_id: user_teacher.id,
+        cpf: '087.097.098-01'
+      )
+    classroom =
+      Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
+    student =
+      Student.create!(
+        name: 'Blastoise',
+        classroom_id: classroom.id,
+        status: :registered
+      )
+    Activity.create!(
+      report: 'Megaevolução',
+      date: '10/10/2024',
+      student_id: student.id,
+      late: 'feito'
+    )
+    Attendance.create!(
+      student_id: student.id,
+      attendance_date: '10/10/2024',
+      presence: false
+    )
 
     login_as(user_teacher)
     visit(classroom_path(classroom))

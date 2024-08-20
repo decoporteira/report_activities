@@ -2,10 +2,33 @@
 <section class="py-1 text-center container">
   <div class="row py-lg-5">
     <div class="col-lg-6 col-md-8 mx-auto">
-      <img src="https://englishglobe.com.br/wp-content/themes/english/images/logo.png" class="pb-3" style="width:150px" alt="...">
+      <img
+        src="https://englishglobe.com.br/wp-content/themes/english/images/logo.png"
+        class="pb-3"
+        style="width:150px"
+        alt="..."
+      />
       <h1 class="fw-light"><%= @student.name %></h1>
-      <p class="lead text-body-secondary">Turma: <strong><%= @student.classroom.nil? ? 'Não possui turma cadastrada' : @student.classroom.name %></strong></p>
-      <p class="lead text-body-secondary">Professor(a): <strong><%= @student.classroom.nil? ? 'Não possui turma cadastrada' : @student.classroom.teacher.name %></strong></p>
+      <p class="lead text-body-secondary">
+        Turma:
+        <strong><%=
+            if @student.classroom.nil?
+              'Não possui turma cadastrada'
+            else
+              @student.classroom.name
+            end
+          %></strong>
+      </p>
+      <p class="lead text-body-secondary">
+        Professor(a):
+        <strong><%=
+            if @student.classroom.nil?
+              'Não possui turma cadastrada'
+            else
+              @student.classroom.teacher.name
+            end
+          %></strong>
+      </p>
     </div>
   </div>
   <h2>Relatório de 2023</h2>
@@ -18,50 +41,83 @@
 <div class="album py-5 bg-body-tertiary">
   <div class="container">
     <% if true %>
-      <p><span class="text-primary">Atividades feitas</span> | <span class="text-warning">Atividades entregues com atraso ou incompletas</span> |  <span class="text-danger">Atividades não entregues ou incompletas</span></p>
+      <p>
+        <span class="text-primary">Atividades feitas</span> |
+        <span class="text-warning"
+          >Atividades entregues com atraso ou incompletas</span
+        >
+        |
+        <span class="text-danger">Atividades não entregues ou incompletas</span>
+      </p>
     <% end %>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       <% @dates_with_activities.uniq.each do |date|%>
         <div class="col">
           <div class="card shadow-sm">
             <div class="card-header py-1">
-              <h4 class="my-1 fw-normal fs-5"><%=date.strftime("%d/%m/%y") unless date.nil?%>
-                <% all_activities = @student.activities.where(date: date)%>
+              <h4 class="my-1 fw-normal fs-5">
+                <%= date.strftime('%d/%m/%y') unless date.nil? %>
+                <% all_activities = @student.activities.where(date: date) %>
                 <% if all_activities.any? { |activity| activity.late == 'ausente' } %>
-                  - <span class='text-danger'></span>
+                  - <span class="text-danger"></span>
                 <% end %>
               </h4>
             </div>
             <div class="card-body ">
               <% @student.activities.where(date: date).each do |activity|%>
                 <% if activity.late == "feito" %>
-                  <p class="card-text text-primary"><strong class="text-dark">Atividade(s):</strong> <%=activity.report%>
-                    <% link_to "Show", activity %> </p>
+                  <p class="card-text text-primary">
+                    <strong class="text-dark">Atividade(s):</strong> <%=
+                      activity.report
+                    %>
+                    <% link_to 'Show', activity %>
+                  </p>
                 <% elsif activity.late == 'entregue com atraso'  %>
-                  <p class="card-text text-warning"> <strong class="text-dark">Atividade(s):</strong> <%=activity.report%>
-                    <% link_to "Show", activity %> </p>
+                  <p class="card-text text-warning">
+                    <strong class="text-dark">Atividade(s):</strong> <%=
+                      activity.report
+                    %>
+                    <% link_to 'Show', activity %>
+                  </p>
                 <% elsif activity.late == 'não fez'  %>
-                  <p class="card-text text-warning"> <strong class="text-dark">Atividade(s):</strong> <%=activity.report%>
-                    <% link_to "Show", activity %> </p>
+                  <p class="card-text text-warning">
+                    <strong class="text-dark">Atividade(s):</strong> <%=
+                      activity.report
+                    %>
+                    <% link_to 'Show', activity %>
+                  </p>
                 <%else %>
-                  <p class="card-text text-danger"> <strong class="text-dark">Atividade(s)</strong> <%=activity.report%> (Ausente)
-                    <% link_to "Show", activity %> </p>
+                  <p class="card-text text-danger">
+                    <strong class="text-dark">Atividade(s)</strong> <%=
+                      activity.report
+                    %>
+                    (Ausente) <% link_to 'Show', activity %>
+                  </p>
                 <%end%>
                 <div class="d-flex justify-content-between align-items-center">
                   <% if false %>
                     <div class="btn-group">
-                      <small> <strong>ok:</strong> feita / <strong>late:</strong> entregue com atraso / <strong>no:</strong> não feita</small>
+                      <small>
+                        <strong>ok:</strong> feita /
+                        <strong>late:</strong> entregue com atraso /
+                        <strong>no:</strong> não feita</small
+                      >
                     </div>
                   <% end %>
-                  <% if false %><%# começa a treta %>
+                  <% if false %>
+                    <%# começa a treta %>
                     <% if activity.late == "feito" %>
-                      <small class="card-text text-primary"><strong>Status:</strong>  <%= activity.late%></small>
+                      <small class="card-text text-primary"
+                        ><strong>Status:</strong> <%= activity.late %></small>
                     <% elsif activity.late == 'entregue com atraso'  %>
-                      <small class="card-text text-warning"><strong>Status:</strong>  <%= activity.late%></small>
+                      <small class="card-text text-warning"
+                        ><strong>Status:</strong> <%= activity.late %></small>
                     <% elsif activity.late == 'não fez' %>
-                      <small class="card-text text-danger"><strong>Status:</strong>  <%= activity.late%></small>
-                    <% else activity.late == 'ausente' %>
-                      <small class="card-text text-danger"><strong>Status:</strong>  <%= activity.late%></small>
+                      <small class="card-text text-danger"
+                        ><strong>Status:</strong> <%= activity.late %></small>
+                      <% else activity.late == 'ausente' %>
+                      <small class="card-text text-danger"
+                        ><strong>Status:</strong> <%= activity.late %></small>
                     <%end%>
                   <% end%>
                 </div>
@@ -73,4 +129,9 @@
     </div>
   </div>
 </div>
-<% link_to 'Relatório 2024', report_student_path(@student), class:'btn btn-outline-primary', style:"width:200px" %>
+<%
+  link_to 'Relatório 2024',
+          report_student_path(@student),
+          class: 'btn btn-outline-primary',
+          style: 'width:200px'
+%>

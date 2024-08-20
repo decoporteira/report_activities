@@ -3,10 +3,16 @@ class SearchController < ApplicationController
     query = params[:query].to_s
     query_sem_acento = substitui_vogais_com_acento(query)
 
-    @students = Student.where('LOWER(name) LIKE ?', "%#{query_sem_acento.downcase}%")
-    @classrooms = Classroom.where('LOWER(name) LIKE ?', "%#{query_sem_acento.downcase}%")
+    @students =
+      Student.where('LOWER(name) LIKE ?', "%#{query_sem_acento.downcase}%")
+    @classrooms =
+      Classroom.where('LOWER(name) LIKE ?', "%#{query_sem_acento.downcase}%")
     @teachers = filter_teachers
-    @financial_responsibles = FinancialResponsible.where('LOWER(name) LIKE ?', "%#{query_sem_acento.downcase}%")
+    @financial_responsibles =
+      FinancialResponsible.where(
+        'LOWER(name) LIKE ?',
+        "%#{query_sem_acento.downcase}%"
+      )
   end
 
   def filter
@@ -21,14 +27,14 @@ class SearchController < ApplicationController
   private
 
   def substitui_vogais_com_acento(query)
-    query.gsub(/[áàãâäéèêëíìîïóòõôöúùûüÁÀÃÂÄÉÈÊËÍÌÎÏÓÒÕÔÖÚÙÛÜ]/, '_').gsub(/[aeiouAEIOU]/, '_')
+    query
+      .gsub(/[áàãâäéèêëíìîïóòõôöúùûüÁÀÃÂÄÉÈÊËÍÌÎÏÓÒÕÔÖÚÙÛÜ]/, '_')
+      .gsub(/[aeiouAEIOU]/, '_')
   end
 
   def filter_teachers
     teachers = []
-    @classrooms.each do |classroom|
-      teachers << classroom.teacher_id
-    end
+    @classrooms.each { |classroom| teachers << classroom.teacher_id }
     teachers.uniq
   end
 end

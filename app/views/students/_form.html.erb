@@ -1,7 +1,10 @@
 <%= form_with(model: student) do |form| %>
   <% if student.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
+      <h2>
+        <%= pluralize(student.errors.count, 'error') %> prohibited this student
+        from being saved:
+      </h2>
       <ul>
         <% student.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -10,58 +13,100 @@
     </div>
   <% end %>
   <div class="mb-3">
-    <%= form.label :name, class:'form-label' %>
-    <%= form.text_field :name, class:'form-control' %>
+    <%= form.label :name, class: 'form-label' %>
+    <%= form.text_field :name, class: 'form-control' %>
   </div>
   <div class="mb-3">
-    <%= form.label :email, class:'form-label' %>
-    <%= form.text_field :email, id: "email", class:'form-control'  %>
+    <%= form.label :email, class: 'form-label' %>
+    <%= form.text_field :email, id: 'email', class: 'form-control' %>
   </div>
   <div class="mb-3">
-    <%= form.label :status, class:'form-label' %>
-    <%= form.select :status, options_for_select(Student.statuses.keys.map { |key| [I18n.t("#{key}"), key] }, @student.status), { prompt: 'Selecione um status' }, class: "form-select" %>
+    <%= form.label :status, class: 'form-label' %>
+    <%=
+      form.select :status,
+                  options_for_select(
+                    Student.statuses.keys.map { |key| [I18n.t("#{key}"), key] },
+                    @student.status,
+                  ),
+                  { prompt: 'Selecione um status' },
+                  class: 'form-select'
+    %>
   </div>
   <div class="mb-3">
-    <%= form.label 'CPF do Aluno ou CPF do responsável caso menor de 18 anos', class:'form-label' %>
-    <%= form.text_field :cpf, autocomplete: "CPF", id:"cpf", class:'form-control'  %>
+    <%=
+      form.label 'CPF do Aluno ou CPF do responsável caso menor de 18 anos',
+                 class: 'form-label'
+    %>
+    <%=
+      form.text_field :cpf,
+                      autocomplete: 'CPF',
+                      id: 'cpf',
+                      class: 'form-control'
+    %>
   </div>
   <div class="mb-3">
-    <%= form.label :cel_phone, class:'form-label' %>
-    <%= form.text_field :cel_phone, id: "cel_phone", class:'form-control'  %>
+    <%= form.label :cel_phone, class: 'form-label' %>
+    <%= form.text_field :cel_phone, id: 'cel_phone', class: 'form-control' %>
   </div>
-  
+
   <div class="mb-3">
-    <%= form.label :classroom_id, class:'form-label' %>
+    <%= form.label :classroom_id, class: 'form-label' %>
     <% form.text_field :classroom_id %>
     <%if current_user.teacher? %>
-      <%= form.collection_select :classroom_id, current_user.teacher.classrooms, :id, :name, class:"form-select" %>
+      <%=
+        form.collection_select :classroom_id,
+                               current_user.teacher.classrooms,
+                               :id,
+                               :name,
+                               class: 'form-select'
+      %>
     <% else %>
-      <%form.collection_select :classroom_id, Classroom.all, :id, :name_with_teacher_name, {:prompt => 'Selecione uma turma'}, class:"form-select"   %>
-      <%= form.collection_select :classroom_id, Classroom.all, :id, :name_with_teacher_name, { prompt: 'Selecione uma turma', include_blank: 'Nenhuma' }, class: "form-select" %>
-    
+      <%
+        form.collection_select :classroom_id,
+                               Classroom.all,
+                               :id,
+                               :name_with_teacher_name,
+                               { prompt: 'Selecione uma turma' },
+                               class: 'form-select'
+      %>
+      <%=
+        form.collection_select :classroom_id,
+                               Classroom.all,
+                               :id,
+                               :name_with_teacher_name,
+                               {
+                                 prompt: 'Selecione uma turma',
+                                 include_blank: 'Nenhuma',
+                               },
+                               class: 'form-select'
+      %>
     <% end %>
-    <br/>
+    <br />
   </div>
   <div class="mb-3">
-    <% form.label :phone, class:'form-label' %>
-    <% form.text_field :phone, id: "phone", class:'form-control'  %>
+    <% form.label :phone, class: 'form-label' %>
+    <% form.text_field :phone, id: 'phone', class: 'form-control' %>
   </div>
   <div>
-    <%= form.submit class:'btn btn-primary mt-4'  %>
+    <%= form.submit class: 'btn btn-primary mt-4' %>
   </div>
 <% end %>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 <script>
-  document.getElementById('cpf').addEventListener('input', function(e) {
-    x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,3})(\d{0,2})/);
-    e.target.value = !x[2] ? x[1] : x[1] + '.' + x[2] + (x[3] ? '.' : '') + x[3] + (x[4] ? '-' + x[4] : '');
-    let valor = e.target.value.replace(/[^0-9]/g, '');
+  document.getElementById("cpf").addEventListener("input", function (e) {
+    x = e.target.value
+      .replace(/\D/g, "")
+      .match(/(\d{0,3})(\d{0,3})(\d{0,3})(\d{0,2})/);
+    e.target.value = !x[2]
+      ? x[1]
+      : x[1] + "." + x[2] + (x[3] ? "." : "") + x[3] + (x[4] ? "-" + x[4] : "");
+    let valor = e.target.value.replace(/[^0-9]/g, "");
   });
-   $(document).ready(function() {
-   $("#cel_phone").mask("(99) 99999-9999");
+  $(document).ready(function () {
+    $("#cel_phone").mask("(99) 99999-9999");
   });
-  $(document).ready(function() {
-   $("#phone").mask("(99) 9999-9999");
+  $(document).ready(function () {
+    $("#phone").mask("(99) 9999-9999");
   });
 </script>

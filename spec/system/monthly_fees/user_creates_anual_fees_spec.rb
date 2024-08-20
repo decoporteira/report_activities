@@ -2,13 +2,33 @@ require 'rails_helper'
 
 RSpec.describe 'Cria todas as mensalidades do ano' do
   it 'com sucesso' do
-    admin = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
-    user_teacher = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
-    teacher = Teacher.create!(name: 'Bianca', status: 'disponível', user_id: user_teacher.id,
-                              cpf: '087.097.098-01')
-    classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(name: 'Venossaur', status: :registered, classroom_id: classroom.id,
-                    cpf: '065.654.654-01')
+    admin =
+      User.create!(
+        email: 'admin@admin.com.br',
+        password: 'password',
+        role: 'admin'
+      )
+    user_teacher =
+      User.create!(
+        email: 'teacher@admin.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
+    teacher =
+      Teacher.create!(
+        name: 'Bianca',
+        status: 'disponível',
+        user_id: user_teacher.id,
+        cpf: '087.097.098-01'
+      )
+    classroom =
+      Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
+    Student.create!(
+      name: 'Venossaur',
+      status: :registered,
+      classroom_id: classroom.id,
+      cpf: '065.654.654-01'
+    )
 
     login_as(admin)
     visit(root_path)
@@ -20,13 +40,33 @@ RSpec.describe 'Cria todas as mensalidades do ano' do
   end
 
   it 'com sucesso em janeiro' do
-    admin = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
-    user_teacher = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
-    teacher = Teacher.create!(name: 'Bianca', status: 'disponível', user_id: user_teacher.id,
-                              cpf: '087.097.098-01')
-    classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(name: 'Venossaur', status: :registered, classroom_id: classroom.id,
-                    cpf: '065.654.654-01')
+    admin =
+      User.create!(
+        email: 'admin@admin.com.br',
+        password: 'password',
+        role: 'admin'
+      )
+    user_teacher =
+      User.create!(
+        email: 'teacher@admin.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
+    teacher =
+      Teacher.create!(
+        name: 'Bianca',
+        status: 'disponível',
+        user_id: user_teacher.id,
+        cpf: '087.097.098-01'
+      )
+    classroom =
+      Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
+    Student.create!(
+      name: 'Venossaur',
+      status: :registered,
+      classroom_id: classroom.id,
+      cpf: '065.654.654-01'
+    )
 
     login_as(admin)
     visit(root_path)
@@ -52,13 +92,33 @@ RSpec.describe 'Cria todas as mensalidades do ano' do
   end
 
   it 'com sucesso em março, antes do dia 10' do
-    admin = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
-    user_teacher = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
-    teacher = Teacher.create!(name: 'Bianca', status: 'disponível', user_id: user_teacher.id,
-                              cpf: '087.097.098-01')
-    classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(name: 'Venossaur', status: :registered, classroom_id: classroom.id,
-                    cpf: '065.654.654-01')
+    admin =
+      User.create!(
+        email: 'admin@admin.com.br',
+        password: 'password',
+        role: 'admin'
+      )
+    user_teacher =
+      User.create!(
+        email: 'teacher@admin.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
+    teacher =
+      Teacher.create!(
+        name: 'Bianca',
+        status: 'disponível',
+        user_id: user_teacher.id,
+        cpf: '087.097.098-01'
+      )
+    classroom =
+      Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
+    Student.create!(
+      name: 'Venossaur',
+      status: :registered,
+      classroom_id: classroom.id,
+      cpf: '065.654.654-01'
+    )
 
     login_as(admin)
     visit(root_path)
@@ -84,13 +144,33 @@ RSpec.describe 'Cria todas as mensalidades do ano' do
   end
 
   it 'com sucesso em março, depois dia 10' do
-    admin = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
-    user_teacher = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
-    teacher = Teacher.create!(name: 'Bianca', status: 'disponível', user_id: user_teacher.id,
-                              cpf: '087.097.098-01')
-    classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(name: 'Venossaur', status: :registered, classroom_id: classroom.id,
-                    cpf: '065.654.654-01')
+    admin =
+      User.create!(
+        email: 'admin@admin.com.br',
+        password: 'password',
+        role: 'admin'
+      )
+    user_teacher =
+      User.create!(
+        email: 'teacher@admin.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
+    teacher =
+      Teacher.create!(
+        name: 'Bianca',
+        status: 'disponível',
+        user_id: user_teacher.id,
+        cpf: '087.097.098-01'
+      )
+    classroom =
+      Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
+    Student.create!(
+      name: 'Venossaur',
+      status: :registered,
+      classroom_id: classroom.id,
+      cpf: '065.654.654-01'
+    )
 
     login_as(admin)
     visit(root_path)
@@ -116,13 +196,33 @@ RSpec.describe 'Cria todas as mensalidades do ano' do
   end
 
   it 'com sucesso em dezembro, depois dia 10' do
-    admin = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
-    user_teacher = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
-    teacher = Teacher.create!(name: 'Bianca', status: 'disponível', user_id: user_teacher.id,
-                              cpf: '087.097.098-01')
-    classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(name: 'Venossaur', status: :registered, classroom_id: classroom.id,
-                    cpf: '065.654.654-01')
+    admin =
+      User.create!(
+        email: 'admin@admin.com.br',
+        password: 'password',
+        role: 'admin'
+      )
+    user_teacher =
+      User.create!(
+        email: 'teacher@admin.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
+    teacher =
+      Teacher.create!(
+        name: 'Bianca',
+        status: 'disponível',
+        user_id: user_teacher.id,
+        cpf: '087.097.098-01'
+      )
+    classroom =
+      Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
+    Student.create!(
+      name: 'Venossaur',
+      status: :registered,
+      classroom_id: classroom.id,
+      cpf: '065.654.654-01'
+    )
 
     login_as(admin)
     visit(root_path)

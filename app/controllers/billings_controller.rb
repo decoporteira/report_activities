@@ -1,5 +1,5 @@
 class BillingsController < ApplicationController
-  before_action :set_billing, only: %i[ show edit update destroy ]
+  before_action :set_billing, only: %i[show edit update destroy]
 
   # GET /billings or /billings.json
   def index
@@ -7,8 +7,7 @@ class BillingsController < ApplicationController
   end
 
   # GET /billings/1 or /billings/1.json
-  def show
-  end
+  def show; end
 
   # GET /billings/new
   def new
@@ -16,8 +15,7 @@ class BillingsController < ApplicationController
   end
 
   # GET /billings/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /billings or /billings.json
   def create
@@ -25,14 +23,18 @@ class BillingsController < ApplicationController
 
     respond_to do |format|
       if @billing.save
-
         # BillingMailer.with(name: @billing.name).billing_email.deliver_later
         BillingJob.perform_async(@billing.id)
-        format.html { redirect_to billing_url(@billing), notice: "Billing was successfully created." }
+        format.html do
+          redirect_to billing_url(@billing),
+                      notice: 'Billing was successfully created.'
+        end
         format.json { render :show, status: :created, location: @billing }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @billing.errors, status: :unprocessable_entity }
+        format.json do
+          render json: @billing.errors, status: :unprocessable_entity
+        end
       end
     end
   end
@@ -41,11 +43,16 @@ class BillingsController < ApplicationController
   def update
     respond_to do |format|
       if @billing.update(billing_params)
-        format.html { redirect_to billing_url(@billing), notice: "Billing was successfully updated." }
+        format.html do
+          redirect_to billing_url(@billing),
+                      notice: 'Billing was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: @billing }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @billing.errors, status: :unprocessable_entity }
+        format.json do
+          render json: @billing.errors, status: :unprocessable_entity
+        end
       end
     end
   end
@@ -55,19 +62,22 @@ class BillingsController < ApplicationController
     @billing.destroy
 
     respond_to do |format|
-      format.html { redirect_to billings_url, notice: "Billing was successfully destroyed." }
+      format.html do
+        redirect_to billings_url, notice: 'Billing was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_billing
-      @billing = Billing.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def billing_params
-      params.require(:billing).permit(:name, :email)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_billing
+    @billing = Billing.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def billing_params
+    params.require(:billing).permit(:name, :email)
+  end
 end

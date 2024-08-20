@@ -1,21 +1,37 @@
 <div class="text-center">
   <div class="mb-4 mt-5 ">
-    <%=link_to image_tag("https://englishglobe.com.br/wp-content/themes/english/images/logo.png", width: 140, border: 0), {action: 'index', controller: '/home'}, {class: 'dock-item '} %>
+    <%=
+      link_to image_tag(
+                'https://englishglobe.com.br/wp-content/themes/english/images/logo.png',
+                width: 140,
+                border: 0,
+              ),
+              { action: 'index', controller: '/home' },
+              { class: 'dock-item ' }
+    %>
   </div>
   <main class="form-signin">
-  <div class='d-inline-flex flex-column p-2'>
-    <h2>Esqueceu sua senha?</h2>
-    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-      <%= render "devise/shared/error_messages", resource: resource %>
-      <div class="field">
-        <%= f.label :email, class:'form-label' %><br />
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class:'form-control' %>
-      </div>
-      <div class="actions">
-        <%= f.submit "Enviar um email com instruções", class:'btn btn-primary my-3' %>
-      </div>
-    <% end %>
-    <%= render "devise/shared/links" %>
+    <div class="d-inline-flex flex-column p-2">
+      <h2>Esqueceu sua senha?</h2>
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <%= render 'devise/shared/error_messages', resource: resource %>
+        <div class="field">
+          <%= f.label :email, class: 'form-label' %><br />
+          <%=
+            f.email_field :email,
+                          autofocus: true,
+                          autocomplete: 'email',
+                          class: 'form-control'
+          %>
+        </div>
+        <div class="actions">
+          <%=
+            f.submit 'Enviar um email com instruções',
+                     class: 'btn btn-primary my-3'
+          %>
+        </div>
+      <% end %>
+      <%= render 'devise/shared/links' %>
     </div>
   </main>
 </div>

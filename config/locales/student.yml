@@ -1,7 +1,7 @@
 pt-BR:
   activerecord:
     models:
-      student: 
+      student:
         one: Aluno
         other: Alunos
     attributes:
@@ -21,6 +21,6 @@ pt-BR:
     destroy:
       success: Aluno(a) apagado(a) com sucesso.
       fail: Não foi possível apagar o(a) aluno(a).
-    denied: 'Acesso negado.' 
-    cant_see: 'Você não possui acesso a esse aluno.'
+    denied: "Acesso negado."
+    cant_see: "Você não possui acesso a esse aluno."
   unauthorized_action: Você não possui acesso a esse aluno.

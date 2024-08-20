@@ -1,2 +1,1 @@
-module StudentsHelper
-end
+module StudentsHelper; end

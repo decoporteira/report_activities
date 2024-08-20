@@ -1,9 +1,14 @@
 <h1>New classroom</h1>
 
-<%= render "form", classroom: @classroom %>
+<%= render 'form', classroom: @classroom %>
 
-<br>
+<br />
 
 <div>
-  <%= link_to "Back to classrooms", classrooms_path, class:'btn btn-outline-primary', style:"width:200px" %>
+  <%=
+    link_to 'Back to classrooms',
+            classrooms_path,
+            class: 'btn btn-outline-primary',
+            style: 'width:200px'
+  %>
 </div>

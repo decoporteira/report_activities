@@ -1,9 +1,14 @@
 <h1>Nova mensalidade</h1>
 
-<%= render "form", monthly_fee: @monthly_fee %>
+<%= render 'form', monthly_fee: @monthly_fee %>
 
-<br>
+<br />
 
 <div>
-  <%= link_to "Back to student", classrooms_path, class:'btn btn-outline-primary', style:"width:200px" %>
+  <%=
+    link_to 'Back to student',
+            classrooms_path,
+            class: 'btn btn-outline-primary',
+            style: 'width:200px'
+  %>
 </div>

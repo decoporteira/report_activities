@@ -2,7 +2,12 @@ require 'rails_helper'
 
 RSpec.describe 'Usuário pesquisa' do
   it 'E não vê nenhum resultado' do
-    user = User.create!(email: 'admin@emailcom.br', password: 'password', role: 'admin')
+    user =
+      User.create!(
+        email: 'admin@emailcom.br',
+        password: 'password',
+        role: 'admin'
+      )
 
     login_as user
     visit root_path
@@ -15,15 +20,50 @@ RSpec.describe 'Usuário pesquisa' do
   end
 
   it 'E vê resultados de alunos e turmas' do
-    user = User.create!(email: 'admin@emailcom.br', password: 'password', role: 'admin')
-    user_teacher = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
-    teacher = Teacher.create!(name: 'Bianca', status: 'disponível', user_id: user_teacher.id,
-                              cpf: '087.097.098-01')
+    user =
+      User.create!(
+        email: 'admin@emailcom.br',
+        password: 'password',
+        role: 'admin'
+      )
+    user_teacher =
+      User.create!(
+        email: 'teacher@admin.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
+    teacher =
+      Teacher.create!(
+        name: 'Bianca',
+        status: 'disponível',
+        user_id: user_teacher.id,
+        cpf: '087.097.098-01'
+      )
     Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    classroom = Classroom.create!(name: 'Sala dos Chamanders e evoluções', teacher_id: teacher.id, time: '11:00')
-    Student.create!(name: 'Chameleon', status: :registered, classroom_id: classroom.id, cpf: '065.654.654-01')
-    Student.create!(name: 'Charmander', status: :registered, classroom_id: classroom.id, cpf: '077.654.654-01')
-    Student.create!(name: 'Blastoise', status: :not_registered, classroom_id: classroom.id, cpf: '065.654.654-01')
+    classroom =
+      Classroom.create!(
+        name: 'Sala dos Chamanders e evoluções',
+        teacher_id: teacher.id,
+        time: '11:00'
+      )
+    Student.create!(
+      name: 'Chameleon',
+      status: :registered,
+      classroom_id: classroom.id,
+      cpf: '065.654.654-01'
+    )
+    Student.create!(
+      name: 'Charmander',
+      status: :registered,
+      classroom_id: classroom.id,
+      cpf: '077.654.654-01'
+    )
+    Student.create!(
+      name: 'Blastoise',
+      status: :not_registered,
+      classroom_id: classroom.id,
+      cpf: '065.654.654-01'
+    )
 
     login_as user
     visit root_path
@@ -41,19 +81,65 @@ RSpec.describe 'Usuário pesquisa' do
   end
 
   it 'E vê filtro de professores' do
-    user = User.create!(email: 'admin@email.com.br', password: 'password', role: 'admin')
-    user_teacher = User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
-    teacher = Teacher.create!(name: 'Carvalho', status: 'disponível', user_id: user_teacher.id,
-                              cpf: '087.097.098-01')
-    user_teacher_two = User.create!(email: 'teacher_two@email.com.br', password: 'password', role: 'teacher')
-    teacher_two = Teacher.create!(name: 'Oak', status: 'disponível', user_id: user_teacher_two.id,
-                                  cpf: '087.097.098-01')
+    user =
+      User.create!(
+        email: 'admin@email.com.br',
+        password: 'password',
+        role: 'admin'
+      )
+    user_teacher =
+      User.create!(
+        email: 'teacher@email.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
+    teacher =
+      Teacher.create!(
+        name: 'Carvalho',
+        status: 'disponível',
+        user_id: user_teacher.id,
+        cpf: '087.097.098-01'
+      )
+    user_teacher_two =
+      User.create!(
+        email: 'teacher_two@email.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
+    teacher_two =
+      Teacher.create!(
+        name: 'Oak',
+        status: 'disponível',
+        user_id: user_teacher_two.id,
+        cpf: '087.097.098-01'
+      )
     Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    classroom = Classroom.create!(name: 'MW 13:00', teacher_id: teacher.id, time: '23:00')
-    classroom_two = Classroom.create!(name: 'MW 19:00', teacher_id: teacher_two.id, time: '11:00')
-    Student.create!(name: 'Chameleon', status: :registered, classroom_id: classroom_two.id, cpf: '065.654.654-01')
-    Student.create!(name: 'Charmander', status: :registered, classroom_id: classroom.id, cpf: '077.654.654-01')
-    Student.create!(name: 'Blastoise', status: :not_registered, classroom_id: classroom.id, cpf: '065.654.654-01')
+    classroom =
+      Classroom.create!(name: 'MW 13:00', teacher_id: teacher.id, time: '23:00')
+    classroom_two =
+      Classroom.create!(
+        name: 'MW 19:00',
+        teacher_id: teacher_two.id,
+        time: '11:00'
+      )
+    Student.create!(
+      name: 'Chameleon',
+      status: :registered,
+      classroom_id: classroom_two.id,
+      cpf: '065.654.654-01'
+    )
+    Student.create!(
+      name: 'Charmander',
+      status: :registered,
+      classroom_id: classroom.id,
+      cpf: '077.654.654-01'
+    )
+    Student.create!(
+      name: 'Blastoise',
+      status: :not_registered,
+      classroom_id: classroom.id,
+      cpf: '065.654.654-01'
+    )
 
     login_as user
     visit root_path
@@ -71,19 +157,65 @@ RSpec.describe 'Usuário pesquisa' do
   end
 
   it 'E vê filtro de professores e clica em um professor' do
-    user = User.create!(email: 'admin@email.com.br', password: 'password', role: 'admin')
-    user_teacher = User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
-    teacher = Teacher.create!(name: 'Carvalho', status: 'disponível', user_id: user_teacher.id,
-                              cpf: '087.097.098-01')
-    user_teacher_two = User.create!(email: 'teacher_two@email.com.br', password: 'password', role: 'teacher')
-    teacher_two = Teacher.create!(name: 'Oak', status: 'disponível', user_id: user_teacher_two.id,
-                                  cpf: '087.097.098-01')
+    user =
+      User.create!(
+        email: 'admin@email.com.br',
+        password: 'password',
+        role: 'admin'
+      )
+    user_teacher =
+      User.create!(
+        email: 'teacher@email.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
+    teacher =
+      Teacher.create!(
+        name: 'Carvalho',
+        status: 'disponível',
+        user_id: user_teacher.id,
+        cpf: '087.097.098-01'
+      )
+    user_teacher_two =
+      User.create!(
+        email: 'teacher_two@email.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
+    teacher_two =
+      Teacher.create!(
+        name: 'Oak',
+        status: 'disponível',
+        user_id: user_teacher_two.id,
+        cpf: '087.097.098-01'
+      )
     Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    classroom = Classroom.create!(name: 'MW 13:00', teacher_id: teacher.id, time: '23:00')
-    classroom_two = Classroom.create!(name: 'MW 19:00', teacher_id: teacher_two.id, time: '11:00')
-    Student.create!(name: 'Chameleon', status: :registered, classroom_id: classroom_two.id, cpf: '065.654.654-01')
-    Student.create!(name: 'Charmander', status: :registered, classroom_id: classroom.id, cpf: '077.654.654-01')
-    Student.create!(name: 'Blastoise', status: :not_registered, classroom_id: classroom.id, cpf: '065.654.654-01')
+    classroom =
+      Classroom.create!(name: 'MW 13:00', teacher_id: teacher.id, time: '23:00')
+    classroom_two =
+      Classroom.create!(
+        name: 'MW 19:00',
+        teacher_id: teacher_two.id,
+        time: '11:00'
+      )
+    Student.create!(
+      name: 'Chameleon',
+      status: :registered,
+      classroom_id: classroom_two.id,
+      cpf: '065.654.654-01'
+    )
+    Student.create!(
+      name: 'Charmander',
+      status: :registered,
+      classroom_id: classroom.id,
+      cpf: '077.654.654-01'
+    )
+    Student.create!(
+      name: 'Blastoise',
+      status: :not_registered,
+      classroom_id: classroom.id,
+      cpf: '065.654.654-01'
+    )
 
     login_as user
     visit root_path
@@ -101,14 +233,45 @@ RSpec.describe 'Usuário pesquisa' do
   end
 
   it 'E vê resultados de alunos com acento' do
-    user = User.create!(email: 'admin@emailcom.br', password: 'password', role: 'admin')
-    user_teacher = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
-    teacher = Teacher.create!(name: 'Bianca', status: 'disponível', user_id: user_teacher.id,
-                              cpf: '087.097.098-01')
-    classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(name: 'Charmeléon', status: :registered, classroom_id: classroom.id, cpf: '065.654.654-01')
-    Student.create!(name: 'Charmander', status: :registered, classroom_id: classroom.id, cpf: '077.654.654-01')
-    Student.create!(name: 'Blastoise', status: :not_registered, classroom_id: classroom.id, cpf: '065.654.654-01')
+    user =
+      User.create!(
+        email: 'admin@emailcom.br',
+        password: 'password',
+        role: 'admin'
+      )
+    user_teacher =
+      User.create!(
+        email: 'teacher@admin.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
+    teacher =
+      Teacher.create!(
+        name: 'Bianca',
+        status: 'disponível',
+        user_id: user_teacher.id,
+        cpf: '087.097.098-01'
+      )
+    classroom =
+      Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
+    Student.create!(
+      name: 'Charmeléon',
+      status: :registered,
+      classroom_id: classroom.id,
+      cpf: '065.654.654-01'
+    )
+    Student.create!(
+      name: 'Charmander',
+      status: :registered,
+      classroom_id: classroom.id,
+      cpf: '077.654.654-01'
+    )
+    Student.create!(
+      name: 'Blastoise',
+      status: :not_registered,
+      classroom_id: classroom.id,
+      cpf: '065.654.654-01'
+    )
 
     login_as user
     visit root_path

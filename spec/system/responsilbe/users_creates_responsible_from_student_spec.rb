@@ -2,13 +2,33 @@ require 'rails_helper'
 
 RSpec.describe 'Usuário cadastra um responsável financeiro' do
   it 'com sucesso' do
-    user = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
-    user_teacher = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
-    teacher = Teacher.create!(name: 'Bianca', status: 'disponível', user_id: user_teacher.id,
-                              cpf: '087.097.098-01')
-    classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(name: 'Venossaur', status: :registered, classroom_id: classroom.id,
-                    cpf: '065.654.654-01')
+    user =
+      User.create!(
+        email: 'admin@admin.com.br',
+        password: 'password',
+        role: 'admin'
+      )
+    user_teacher =
+      User.create!(
+        email: 'teacher@admin.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
+    teacher =
+      Teacher.create!(
+        name: 'Bianca',
+        status: 'disponível',
+        user_id: user_teacher.id,
+        cpf: '087.097.098-01'
+      )
+    classroom =
+      Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
+    Student.create!(
+      name: 'Venossaur',
+      status: :registered,
+      classroom_id: classroom.id,
+      cpf: '065.654.654-01'
+    )
 
     login_as(user)
     visit(root_path)
@@ -29,11 +49,27 @@ RSpec.describe 'Usuário cadastra um responsável financeiro' do
   end
 
   it 'e falha' do
-    user = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
-    user_teacher = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
-    teacher = Teacher.create!(name: 'Bianca', status: 'disponível', user_id: user_teacher.id,
-                              cpf: '087.097.098-01')
+    user =
+      User.create!(
+        email: 'admin@admin.com.br',
+        password: 'password',
+        role: 'admin'
+      )
+    user_teacher =
+      User.create!(
+        email: 'teacher@admin.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
+    teacher =
+      Teacher.create!(
+        name: 'Bianca',
+        status: 'disponível',
+        user_id: user_teacher.id,
+        cpf: '087.097.098-01'
+      )
     Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
+
     #Student.create!(name: 'Venossaur', status: :registered, classroom_id: classroom.id, cpf: '065.654.654-01')
 
     login_as(user)
@@ -50,14 +86,39 @@ RSpec.describe 'Usuário cadastra um responsável financeiro' do
   end
 
   it 'e falha pois cpf foi duplicado' do
-    user = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
-    user_teacher = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
-    teacher = Teacher.create!(name: 'Bianca', status: 'disponível', user_id: user_teacher.id,
-                              cpf: '087.097.098-01')
-    classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(name: 'Venossaur', status: :registered, classroom_id: classroom.id,
-                    cpf: '065.654.654-01')
-    FinancialResponsible.create!(name: 'Carvalho', cpf: '000.000.000-01', email: 'carvalho@gmail.com', phone: '32 0000-0000')
+    user =
+      User.create!(
+        email: 'admin@admin.com.br',
+        password: 'password',
+        role: 'admin'
+      )
+    user_teacher =
+      User.create!(
+        email: 'teacher@admin.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
+    teacher =
+      Teacher.create!(
+        name: 'Bianca',
+        status: 'disponível',
+        user_id: user_teacher.id,
+        cpf: '087.097.098-01'
+      )
+    classroom =
+      Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
+    Student.create!(
+      name: 'Venossaur',
+      status: :registered,
+      classroom_id: classroom.id,
+      cpf: '065.654.654-01'
+    )
+    FinancialResponsible.create!(
+      name: 'Carvalho',
+      cpf: '000.000.000-01',
+      email: 'carvalho@gmail.com',
+      phone: '32 0000-0000'
+    )
 
     login_as(user)
     visit(root_path)

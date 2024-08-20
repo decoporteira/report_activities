@@ -1,9 +1,7 @@
 require 'application_system_test_case'
 
 class ActivitiesTest < ApplicationSystemTestCase
-  setup do
-    @activity = activities(:one)
-  end
+  setup { @activity = activities(:one) }
 
   test 'visiting the index' do
     visit activities_url

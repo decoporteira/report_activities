@@ -1,9 +1,7 @@
 require 'test_helper'
 
 class ActivitiesControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @activity = activities(:one)
-  end
+  setup { @activity = activities(:one) }
 
   test 'should get index' do
     get activities_url
@@ -18,8 +16,14 @@ class ActivitiesControllerTest < ActionDispatch::IntegrationTest
   test 'should create activity' do
     assert_difference('Activity.count') do
       post activities_url,
-           params: { activity: { late: @activity.late, missing: @activity.missing, report: @activity.report,
-                                 student_id: @activity.student_id } }
+           params: {
+             activity: {
+               late: @activity.late,
+               missing: @activity.missing,
+               report: @activity.report,
+               student_id: @activity.student_id
+             }
+           }
     end
 
     assert_redirected_to activity_url(Activity.last)
@@ -37,15 +41,19 @@ class ActivitiesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should update activity' do
     patch activity_url(@activity),
-          params: { activity: { late: @activity.late, missing: @activity.missing, report: @activity.report,
-                                student_id: @activity.student_id } }
+          params: {
+            activity: {
+              late: @activity.late,
+              missing: @activity.missing,
+              report: @activity.report,
+              student_id: @activity.student_id
+            }
+          }
     assert_redirected_to activity_url(@activity)
   end
 
   test 'should destroy activity' do
-    assert_difference('Activity.count', -1) do
-      delete activity_url(@activity)
-    end
+    assert_difference('Activity.count', -1) { delete activity_url(@activity) }
 
     assert_redirected_to activities_url
   end

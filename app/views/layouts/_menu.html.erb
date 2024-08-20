@@ -1,86 +1,150 @@
-  <%if current_user%>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container py-3">
-        <span class="navbar-brand" >
-          <%=link_to image_tag("https://www.englishglobe.com.br/wp-content/themes/english/favicon.png", border: 0), {action: 'index', controller: '/home'}, {class: 'dock-item'} %>
-        </span>
-         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+<%if current_user%>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container py-3">
+      <span class="navbar-brand">
+        <%=
+          link_to image_tag(
+                    'https://www.englishglobe.com.br/wp-content/themes/english/favicon.png',
+                    border: 0,
+                  ),
+                  { action: 'index', controller: '/home' },
+                  { class: 'dock-item' }
+        %>
+      </span>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <% if current_user.teacher? %>
-                <li class="nav-item">
-                  <%= link_to "Turmas", classrooms_path, class: "nav-link" %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "Alunos", students_path, class: "nav-link"%>
-                </li>
-                <li class="nav-item">
-                  <% link_to "Atividades", activities_path, class: "nav-link"%>
-                </li>
-              <% elsif current_user.accounting? %>
-                <li class="nav-item">
-                  <%= link_to "Alunos", students_path, class: "nav-link"%>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "Mensalidades", monthly_fees_path, class: "nav-link"%>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "Professores", teachers_path, class: "nav-link"%>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "Não matriculados", not_registered_students_path, class: "nav-link"%>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "Responsáveis", financial_responsibles_path, class: "nav-link" %>
-                </li>
-              <% elsif current_user.admin? %>
-             <li class="nav-item">
-              <%= link_to "Turmas", classrooms_path, class: "nav-link" %>
+            <li class="nav-item">
+              <%= link_to 'Turmas', classrooms_path, class: 'nav-link' %>
             </li>
             <li class="nav-item">
-              <%= link_to "Alunos", students_path, class: "nav-link"%>
+              <%= link_to 'Alunos', students_path, class: 'nav-link' %>
             </li>
             <li class="nav-item">
-              <%= link_to "Professores", teachers_path, class: "nav-link"%>
+              <% link_to 'Atividades', activities_path, class: 'nav-link' %>
+            </li>
+          <% elsif current_user.accounting? %>
+            <li class="nav-item">
+              <%= link_to 'Alunos', students_path, class: 'nav-link' %>
             </li>
             <li class="nav-item">
-                  <%= link_to "Mensalidades", monthly_fees_path, class: "nav-link"%>
-                </li>
+              <%=
+                link_to 'Mensalidades', monthly_fees_path, class: 'nav-link'
+              %>
+            </li>
             <li class="nav-item">
-              <%= link_to "Responsáveis", financial_responsibles_path, class: "nav-link" %>
+              <%= link_to 'Professores', teachers_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+              <%=
+                link_to 'Não matriculados',
+                        not_registered_students_path,
+                        class: 'nav-link'
+              %>
+            </li>
+            <li class="nav-item">
+              <%=
+                link_to 'Responsáveis',
+                        financial_responsibles_path,
+                        class: 'nav-link'
+              %>
+            </li>
+          <% elsif current_user.admin? %>
+            <li class="nav-item">
+              <%= link_to 'Turmas', classrooms_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Alunos', students_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Professores', teachers_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+              <%=
+                link_to 'Mensalidades', monthly_fees_path, class: 'nav-link'
+              %>
+            </li>
+            <li class="nav-item">
+              <%=
+                link_to 'Responsáveis',
+                        financial_responsibles_path,
+                        class: 'nav-link'
+              %>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
                 Info Alunos
               </a>
               <ul class="dropdown-menu">
-                  <li>
-                    <%= link_to "Atividades", activities_path, class: "dropdown-item"%>
-                  </li>
-                  <li>
-                    <%= link_to "Endereços", addresses_path, class: "dropdown-item"%>
-                  </li>
-                  <li>
-                    <%= link_to "Presenças", attendances_path, class: "dropdown-item" %>
-                  </li>
-                  <li>
-                    <%= link_to "Não matriculados", not_registered_students_path, class: "dropdown-item"%>
-                  </li>
-                </ul>
+                <li>
+                  <%=
+                    link_to 'Atividades',
+                            activities_path,
+                            class: 'dropdown-item'
+                  %>
+                </li>
+                <li>
+                  <%=
+                    link_to 'Endereços', addresses_path, class: 'dropdown-item'
+                  %>
+                </li>
+                <li>
+                  <%=
+                    link_to 'Presenças',
+                            attendances_path,
+                            class: 'dropdown-item'
+                  %>
+                </li>
+                <li>
+                  <%=
+                    link_to 'Não matriculados',
+                            not_registered_students_path,
+                            class: 'dropdown-item'
+                  %>
+                </li>
+              </ul>
             </li>
             <li class="nav-item">
-              <%= link_to "Cadastros Incompletos", incomplete_students_path, class: "nav-link" %>
+              <%=
+                link_to 'Cadastros Incompletos',
+                        incomplete_students_path,
+                        class: 'nav-link'
+              %>
             </li>
-            <%end%>
-          </ul>
-          <% if !current_user.default? %>
-            <%= render "search/form"%>
-          <% end %>
-          <%= link_to "Perfil", edit_user_registration_path, class:"btn btn-outline-secondary mx-2" %>
-          <%= link_to "Sair", destroy_user_session_path, 'data-turbo-method': :delete, class:"btn btn-outline-secondary" %>
-        </div>
+          <%end%>
+        </ul>
+        <% if !current_user.default? %>
+          <%= render 'search/form' %>
+        <% end %>
+        <%=
+          link_to 'Perfil',
+                  edit_user_registration_path,
+                  class: 'btn btn-outline-secondary mx-2'
+        %>
+        <%=
+          link_to 'Sair',
+                  destroy_user_session_path,
+                  'data-turbo-method': :delete,
+                  class: 'btn btn-outline-secondary'
+        %>
       </div>
-    </nav>
-  <% end %>
+    </div>
+  </nav>
+<% end %>

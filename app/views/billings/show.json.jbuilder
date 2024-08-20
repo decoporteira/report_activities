@@ -1,1 +1,1 @@
-json.partial! "billings/billing", billing: @billing
+json.partial! 'billings/billing', billing: @billing

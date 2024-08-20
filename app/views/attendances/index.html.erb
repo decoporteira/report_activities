@@ -1,5 +1,5 @@
 <h1>Lista de Presenças</h1>
-<div class=''>
+<div class="">
   <table class="fs-9 mb-0 border-top border-translucent table">
     <thead>
       <tr>
@@ -14,8 +14,24 @@
         <% @students.each do |student|%>
           <tr>
             <td><%= link_to student.name, attendance_path(student) %></td>
-            <td><%= student.classroom.nil? ? 'Não possui turma cadastrada' : student.classroom.name %></td>
-            <td><%= student.classroom.nil? ? 'Não possui turma cadastrada' : student.classroom.teacher.name %></td>
+            <td>
+              <%=
+                if student.classroom.nil?
+                  'Não possui turma cadastrada'
+                else
+                  student.classroom.name
+                end
+              %>
+            </td>
+            <td>
+              <%=
+                if student.classroom.nil?
+                  'Não possui turma cadastrada'
+                else
+                  student.classroom.teacher.name
+                end
+              %>
+            </td>
             <td><%= I18n.t(student.status) %></td>
           </tr>
         <% end %>

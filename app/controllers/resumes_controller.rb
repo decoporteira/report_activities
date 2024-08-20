@@ -20,12 +20,16 @@ class ResumesController < ApplicationController
     @resume.student_id = @student.id
     respond_to do |format|
       if @resume.save
-        format.html { redirect_to @student, notice: 'Resume was successfully created.' }
+        format.html do
+          redirect_to @student, notice: 'Resume was successfully created.'
+        end
         format.json { render :show, status: :created, location: @resume }
       else
         format.html { render :new, status: :unprocessable_entity }
         flash.now[:alert] = 'Já existe um Relatório cadastrado.'
-        format.json { render json: @resume.errors, status: :unprocessable_entity }
+        format.json do
+          render json: @resume.errors, status: :unprocessable_entity
+        end
       end
     end
   end
@@ -33,18 +37,23 @@ class ResumesController < ApplicationController
   def update
     respond_to do |format|
       if @resume.update(resume_params)
-        format.html { redirect_to @student, notice: 'Resume was successfully created.' }
+        format.html do
+          redirect_to @student, notice: 'Resume was successfully created.'
+        end
         format.json { render :show, status: :created, location: @resume }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @resume.errors, status: :unprocessable_entity }
+        format.json do
+          render json: @resume.errors, status: :unprocessable_entity
+        end
       end
     end
   end
 
   def destroy
     @resume.destroy
-    redirect_to student_resume_path(@student), notice: 'Relatório foi removido com sucesso.'
+    redirect_to student_resume_path(@student),
+                notice: 'Relatório foi removido com sucesso.'
   end
 
   private
@@ -62,9 +71,10 @@ class ResumesController < ApplicationController
   end
 
   def authorize_admin!
-    return if current_user.admin? || current_user.accounting? || current_user.teacher?
+    if current_user.admin? || current_user.accounting? || current_user.teacher?
+      return
+    end
 
-    redirect_to root_path,
-                alert: 'Access denied.'
+    redirect_to root_path, alert: 'Access denied.'
   end
 end

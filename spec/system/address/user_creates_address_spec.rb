@@ -3,11 +3,27 @@ require 'rails_helper'
 RSpec.describe 'user creates new Address' do
   it 'e cria um endereço para um aluno' do
     # arrange
-    user = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
-    teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: user.id, cpf: '087.097.098-01')
-    classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(name: 'Venossaur', status: :registered, classroom_id: classroom.id,
-                    cpf: '000.097.098-01')
+    user =
+      User.create!(
+        email: 'admin@admin.com.br',
+        password: 'password',
+        role: 'admin'
+      )
+    teacher =
+      Teacher.create(
+        name: 'Bianca',
+        status: 'disponível',
+        user_id: user.id,
+        cpf: '087.097.098-01'
+      )
+    classroom =
+      Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
+    Student.create!(
+      name: 'Venossaur',
+      status: :registered,
+      classroom_id: classroom.id,
+      cpf: '000.097.098-01'
+    )
 
     # act
     login_as(user)
@@ -25,6 +41,7 @@ RSpec.describe 'user creates new Address' do
       fill_in 'CEP', with: '36038-030'
       click_on('Criar Endereço')
     end
+
     # #assert
     expect(page).not_to have_content('Charizard')
     expect(page).to have_content('Venossaur')
@@ -34,8 +51,19 @@ RSpec.describe 'user creates new Address' do
 
   it 'criar um endereço para um professor' do
     # arrange
-    user = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
-    teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: user.id, cpf: '087.097.098-01')
+    user =
+      User.create!(
+        email: 'admin@admin.com.br',
+        password: 'password',
+        role: 'admin'
+      )
+    teacher =
+      Teacher.create(
+        name: 'Bianca',
+        status: 'disponível',
+        user_id: user.id,
+        cpf: '087.097.098-01'
+      )
     Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
 
     # act
@@ -56,6 +84,7 @@ RSpec.describe 'user creates new Address' do
       fill_in 'CEP', with: '36038-030'
       click_on('Criar Endereço')
     end
+
     # #assert
     expect(page).to have_content('Bianca')
     expect(page).to have_content('MW 17:00')

@@ -1,4 +1,3 @@
-
 class FinancialResponsible < ApplicationRecord
   has_many :responsibles
   has_many :students, through: :responsibles

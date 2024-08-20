@@ -3,11 +3,32 @@ require 'rails_helper'
 RSpec.describe 'Students', type: :request do
   context 'Tenta acessar a página de edição de estudantes' do
     it 'e é admin' do
-      user = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
-      teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: user.id, cpf: '087.097.098-01')
-      classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-      student = Student.create!(name: 'Venossaur', status: :registered, classroom_id: classroom.id,
-                                cpf: '000.097.098-01')
+      user =
+        User.create!(
+          email: 'admin@admin.com.br',
+          password: 'password',
+          role: 'admin'
+        )
+      teacher =
+        Teacher.create(
+          name: 'Bianca',
+          status: 'disponível',
+          user_id: user.id,
+          cpf: '087.097.098-01'
+        )
+      classroom =
+        Classroom.create!(
+          name: 'MW 17:00',
+          teacher_id: teacher.id,
+          time: '23:00'
+        )
+      student =
+        Student.create!(
+          name: 'Venossaur',
+          status: :registered,
+          classroom_id: classroom.id,
+          cpf: '000.097.098-01'
+        )
       login_as(user)
       get edit_student_path(student)
 
@@ -15,11 +36,32 @@ RSpec.describe 'Students', type: :request do
     end
 
     it 'e é default' do
-      user = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'default')
-      teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: user.id, cpf: '087.097.098-01')
-      classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-      student = Student.create!(name: 'Venossaur', status: :registered, classroom_id: classroom.id,
-                                cpf: '000.097.098-01')
+      user =
+        User.create!(
+          email: 'admin@admin.com.br',
+          password: 'password',
+          role: 'default'
+        )
+      teacher =
+        Teacher.create(
+          name: 'Bianca',
+          status: 'disponível',
+          user_id: user.id,
+          cpf: '087.097.098-01'
+        )
+      classroom =
+        Classroom.create!(
+          name: 'MW 17:00',
+          teacher_id: teacher.id,
+          time: '23:00'
+        )
+      student =
+        Student.create!(
+          name: 'Venossaur',
+          status: :registered,
+          classroom_id: classroom.id,
+          cpf: '000.097.098-01'
+        )
       login_as(user)
       get edit_student_path(student)
 
@@ -29,52 +71,155 @@ RSpec.describe 'Students', type: :request do
 
   context 'Cria um aluno' do
     it 'com sucesso' do
-      user = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
-      teacher_user = User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
-      teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: teacher_user.id, cpf: '087.097.098-01')
-      classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-      student_attributes = { name: 'Venossaur', status: :registered, classroom_id: classroom.id,
-                             cpf: '000.097.098-01' }
+      user =
+        User.create!(
+          email: 'admin@admin.com.br',
+          password: 'password',
+          role: 'admin'
+        )
+      teacher_user =
+        User.create!(
+          email: 'teacher@email.com.br',
+          password: 'password',
+          role: 'teacher'
+        )
+      teacher =
+        Teacher.create(
+          name: 'Bianca',
+          status: 'disponível',
+          user_id: teacher_user.id,
+          cpf: '087.097.098-01'
+        )
+      classroom =
+        Classroom.create!(
+          name: 'MW 17:00',
+          teacher_id: teacher.id,
+          time: '23:00'
+        )
+      student_attributes = {
+        name: 'Venossaur',
+        status: :registered,
+        classroom_id: classroom.id,
+        cpf: '000.097.098-01'
+      }
 
       login_as(user)
 
-      expect { post students_path, params: { student: student_attributes } }.to change(Student, :count).by(1)
+      expect {
+        post students_path, params: { student: student_attributes }
+      }.to change(Student, :count).by(1)
       expect(flash[:notice]).to eq('Aluno(a) criado(a) com sucesso.')
     end
 
     it 'com falha pois não tem permissão' do
-      User.create!(email: 'admin@admin.com.br', password: 'password', role: 'teacher')
-      teacher_user = User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
-      teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: teacher_user.id, cpf: '087.097.098-01')
-      classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-      student_attributes = { name: '', status: :registered, classroom_id: classroom.id, cpf: '000.097.098-01' }
+      User.create!(
+        email: 'admin@admin.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
+      teacher_user =
+        User.create!(
+          email: 'teacher@email.com.br',
+          password: 'password',
+          role: 'teacher'
+        )
+      teacher =
+        Teacher.create(
+          name: 'Bianca',
+          status: 'disponível',
+          user_id: teacher_user.id,
+          cpf: '087.097.098-01'
+        )
+      classroom =
+        Classroom.create!(
+          name: 'MW 17:00',
+          teacher_id: teacher.id,
+          time: '23:00'
+        )
+      student_attributes = {
+        name: '',
+        status: :registered,
+        classroom_id: classroom.id,
+        cpf: '000.097.098-01'
+      }
       login_as(teacher_user)
 
-      expect { post students_path, params: { student: student_attributes } }.to change(Student, :count).by(0)
+      expect {
+        post students_path, params: { student: student_attributes }
+      }.to change(Student, :count).by(0)
       expect(flash[:alert]).to eq('Você não possui acesso a esse aluno.')
     end
 
     it 'e falha por nome do estudante está em branco' do
-      user = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
-      teacher_user = User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
-      teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: teacher_user.id, cpf: '087.097.098-01')
-      classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-      student_attributes = { name: '', status: :registered, classroom_id: classroom.id, cpf: '000.097.098-01' }
+      user =
+        User.create!(
+          email: 'admin@admin.com.br',
+          password: 'password',
+          role: 'admin'
+        )
+      teacher_user =
+        User.create!(
+          email: 'teacher@email.com.br',
+          password: 'password',
+          role: 'teacher'
+        )
+      teacher =
+        Teacher.create(
+          name: 'Bianca',
+          status: 'disponível',
+          user_id: teacher_user.id,
+          cpf: '087.097.098-01'
+        )
+      classroom =
+        Classroom.create!(
+          name: 'MW 17:00',
+          teacher_id: teacher.id,
+          time: '23:00'
+        )
+      student_attributes = {
+        name: '',
+        status: :registered,
+        classroom_id: classroom.id,
+        cpf: '000.097.098-01'
+      }
 
       login_as(user)
 
-      expect { post students_path, params: { student: student_attributes } }.to change(Student, :count).by(0)
+      expect {
+        post students_path, params: { student: student_attributes }
+      }.to change(Student, :count).by(0)
       expect(flash[:alert]).to eq('Não foi possível criar o aluno(a).')
     end
   end
 
   context 'Edita um aluno' do
     it 'com sucesso' do
-      user = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'teacher')
-      teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: user.id, cpf: '087.097.098-01')
-      classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-      student = Student.create!(name: 'Bulbassaur', status: :registered, classroom_id: classroom.id,
-                                cpf: '000.097.098-01')
+      user =
+        User.create!(
+          email: 'admin@admin.com.br',
+          password: 'password',
+          role: 'teacher'
+        )
+      teacher =
+        Teacher.create(
+          name: 'Bianca',
+          status: 'disponível',
+          user_id: user.id,
+          cpf: '087.097.098-01'
+        )
+      classroom =
+        Classroom.create!(
+          name: 'MW 17:00',
+          teacher_id: teacher.id,
+          time: '23:00'
+        )
+      student =
+        Student.create!(
+          name: 'Bulbassaur',
+          status: :registered,
+          classroom_id: classroom.id,
+          cpf: '000.097.098-01'
+        )
       login_as(user)
       patch(student_path(student), params: { student: { name: 'Venossaur' } })
 
@@ -83,11 +228,32 @@ RSpec.describe 'Students', type: :request do
     end
 
     it 'e sucesso' do
-      user = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')
-      teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: user.id, cpf: '087.097.098-01')
-      classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-      student = Student.create!(name: 'Bulbassaur', status: :registered, classroom_id: classroom.id,
-                                cpf: '000.097.098-01')
+      user =
+        User.create!(
+          email: 'admin@admin.com.br',
+          password: 'password',
+          role: 'admin'
+        )
+      teacher =
+        Teacher.create(
+          name: 'Bianca',
+          status: 'disponível',
+          user_id: user.id,
+          cpf: '087.097.098-01'
+        )
+      classroom =
+        Classroom.create!(
+          name: 'MW 17:00',
+          teacher_id: teacher.id,
+          time: '23:00'
+        )
+      student =
+        Student.create!(
+          name: 'Bulbassaur',
+          status: :registered,
+          classroom_id: classroom.id,
+          cpf: '000.097.098-01'
+        )
       login_as(user)
       patch(student_path(student), params: { student: { name: '' } })
 

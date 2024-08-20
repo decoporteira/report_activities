@@ -11,8 +11,12 @@
 
   <p>
     <strong>Classroom:</strong>
-    <%= student.classroom.nil? ? 'Não possui turma cadastrada' : student.classroom.name %>
-   
+    <%=
+      if student.classroom.nil?
+        'Não possui turma cadastrada'
+      else
+        student.classroom.name
+      end
+    %>
   </p>
-
 </div>

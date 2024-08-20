@@ -1,9 +1,7 @@
 require 'application_system_test_case'
 
 class ClassroomsTest < ApplicationSystemTestCase
-  setup do
-    @classroom = classrooms(:one)
-  end
+  setup { @classroom = classrooms(:one) }
 
   test 'visiting the index' do
     visit classrooms_url

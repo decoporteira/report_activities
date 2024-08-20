@@ -4,8 +4,17 @@ RSpec.describe 'Tipo de usuário cria uma student' do
   context 'a partir do menu' do
     it 'Admin a partir do menu com sucesso' do
       # arrange
-      user = User.create!(email: 'admin@email.com.br', password: 'password', role: 'admin')
-      User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
+      user =
+        User.create!(
+          email: 'admin@email.com.br',
+          password: 'password',
+          role: 'admin'
+        )
+      User.create!(
+        email: 'teacher@email.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
 
       # act
       login_as(user)
@@ -29,8 +38,17 @@ RSpec.describe 'Tipo de usuário cria uma student' do
 
     it 'Admin a partir do menu com e falha' do
       # arrange
-      user = User.create!(email: 'admin@email.com.br', password: 'password', role: 'admin')
-      User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
+      user =
+        User.create!(
+          email: 'admin@email.com.br',
+          password: 'password',
+          role: 'admin'
+        )
+      User.create!(
+        email: 'teacher@email.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
 
       # act
       login_as(user)
@@ -49,9 +67,20 @@ RSpec.describe 'Tipo de usuário cria uma student' do
 
     it 'accounting a partir do menu' do
       # arrange
-      accounting = User.create!(email: 'admin@email.com.br', password: 'password', role: 'accounting')
-      teacher = User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
+      accounting =
+        User.create!(
+          email: 'admin@email.com.br',
+          password: 'password',
+          role: 'accounting'
+        )
+      teacher =
+        User.create!(
+          email: 'teacher@email.com.br',
+          password: 'password',
+          role: 'teacher'
+        )
       Teacher.create!(name: 'Carvalho', cpf: '000.000.000-01', user: teacher)
+
       # act
       login_as(accounting)
       visit(root_path)
@@ -75,9 +104,19 @@ RSpec.describe 'Tipo de usuário cria uma student' do
     it 'teacher a partir do menu e falha pois não tem permissão' do
       # arrange
       # arrange
-      User.create!(email: 'admin@email.com.br', password: 'password', role: 'admin')
-      teacher = User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
+      User.create!(
+        email: 'admin@email.com.br',
+        password: 'password',
+        role: 'admin'
+      )
+      teacher =
+        User.create!(
+          email: 'teacher@email.com.br',
+          password: 'password',
+          role: 'teacher'
+        )
       Teacher.create!(name: 'Carvalho', cpf: '000.000.000-01', user: teacher)
+
       # act
       login_as(teacher)
       visit(root_path)
@@ -89,8 +128,19 @@ RSpec.describe 'Tipo de usuário cria uma student' do
 
     it 'Default a partir do menu e falha pois não tem permissão' do
       # arrange
-      user = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
-      teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: user.id, cpf: '087.097.098-01')
+      user =
+        User.create!(
+          email: 'teacher@admin.com.br',
+          password: 'password',
+          role: 'teacher'
+        )
+      teacher =
+        Teacher.create(
+          name: 'Bianca',
+          status: 'disponível',
+          user_id: user.id,
+          cpf: '087.097.098-01'
+        )
       Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
 
       # act
@@ -106,8 +156,17 @@ RSpec.describe 'Tipo de usuário cria uma student' do
   context 'direto no link dos professores' do
     it 'Admin direto pelo link de edição' do
       # arrange
-      user = User.create!(email: 'admin@email.com.br', password: 'password', role: 'admin')
-      User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
+      user =
+        User.create!(
+          email: 'admin@email.com.br',
+          password: 'password',
+          role: 'admin'
+        )
+      User.create!(
+        email: 'teacher@email.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
 
       # act
       login_as(user)
@@ -130,8 +189,17 @@ RSpec.describe 'Tipo de usuário cria uma student' do
 
     it 'Accounting direto pelo link de edição' do
       # arrange
-      user = User.create!(email: 'admin@email.com.br', password: 'password', role: 'accounting')
-      User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
+      user =
+        User.create!(
+          email: 'admin@email.com.br',
+          password: 'password',
+          role: 'accounting'
+        )
+      User.create!(
+        email: 'teacher@email.com.br',
+        password: 'password',
+        role: 'teacher'
+      )
 
       # act
       login_as(user)
@@ -155,9 +223,19 @@ RSpec.describe 'Tipo de usuário cria uma student' do
     it 'teacher a partir do menu e falha pois não tem permissão' do
       # arrange
       # arrange
-      User.create!(email: 'admin@email.com.br', password: 'password', role: 'admin')
-      teacher = User.create!(email: 'teacher@email.com.br', password: 'password', role: 'teacher')
+      User.create!(
+        email: 'admin@email.com.br',
+        password: 'password',
+        role: 'admin'
+      )
+      teacher =
+        User.create!(
+          email: 'teacher@email.com.br',
+          password: 'password',
+          role: 'teacher'
+        )
       Teacher.create!(name: 'Carvalho', cpf: '000.000.000-01', user: teacher)
+
       # act
       login_as(teacher)
       visit(teachers_path)
@@ -171,8 +249,19 @@ RSpec.describe 'Tipo de usuário cria uma student' do
 
     it 'Default a partir do menu e falha pois não tem permissão' do
       # arrange
-      user = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
-      teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: user.id, cpf: '087.097.098-01')
+      user =
+        User.create!(
+          email: 'teacher@admin.com.br',
+          password: 'password',
+          role: 'teacher'
+        )
+      teacher =
+        Teacher.create(
+          name: 'Bianca',
+          status: 'disponível',
+          user_id: user.id,
+          cpf: '087.097.098-01'
+        )
       Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
 
       # act
