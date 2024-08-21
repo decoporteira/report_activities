@@ -1,91 +1,176 @@
 <div class="d-flex justify-content-between">
-  <h1 class="text-primary">Students</h1>
-  <% if current_user.admin? || current_user.accounting? %>
-    <%= link_to "New student", new_student_path, class:'btn btn-primary', style:"width:150px;height: 40px;"  %>
-  <% end %>
+	<h1 class="text-primary">Students</h1>
+	<% if current_user.admin? || current_user.accounting? %>
+		<%=
+			link_to 'New student',
+			        new_student_path,
+			        class: 'btn btn-primary',
+			        style: 'width:150px;height: 40px;'
+		%>
+	<% end %>
 </div>
 <div class="album py-5 bg-body-tertiary">
-  <div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-      <%if current_user.teacher? %>
-        <%current_students = []%>
-        <% current_classrooms = current_user.teacher.classrooms.includes([:students])%>
-        <%current_classrooms.each do |classroom|%>
-          <% classroom.students.each do |student|%>
-            <% current_students << student %>
-          <% end %>
-        <% end %>
-        <% current_students.each do |student| %>
-          <div class="col">
-            <div class="card shadow-sm">
-              <div class="card-header py-1">
-                <h4 class="my-1 fw-normal fs-5"><%= student.name %></h4>
-              </div>
-              <div class="card-body">
-                <p class="card-text"></p>
-                <p><strong>Status:</strong> <%= I18n.t(student.status) %></p>
-                <p><strong>Turma:</strong> <%= student.classroom.nil? ? 'Não possui turma cadastrada' : student.classroom.name %></p>
-                <%= link_to "Atividades", report_student_path(student), class:'btn btn-outline-primary', style:"width:110px"  %>
-                <%= link_to "Detalhes", student, class:'btn btn-outline-primary', style:"width:110px"  %>
-              </div>
-            </div>
-          </div>
-        <% end %>
-      <% elsif  current_user.admin? %>
-        <% @students.each do |student| %>
-          <div class="col">
-            <div class="card shadow-sm">
-              <div class="card-header py-1">
-                <h4 class="my-1 fw-normal fs-5"><%= student.name %></h4>
-              </div>
-              <div class="card-body">
-                <p class="card-text"></p>
-                <p><strong>Status:</strong> <%= I18n.t(student.status) %></p>
-                <p><strong>Turma:</strong> <%= student.classroom.nil? ? 'Não possui turma cadastrada' : student.classroom.name %></p>
-                <%= link_to "Atividades", report_student_path(student), class:'btn btn-outline-primary', style:"width:110px"  %>
-                <%= link_to 'Frequência', attendance_path(student.id), class:'btn btn-outline-primary', style:"width:110px"  %>
-                <%= link_to "Detalhes", student, class:'btn btn-outline-primary', style:"width:110px"  %>
-                <%= link_to "Financeiro", student_monthly_fees_path(student), class:'btn btn-outline-primary', style:"width:110px" %>
-                
-              </div>
-            </div>
-          </div>
-        <% end %>
-      <% elsif  current_user.accounting?%>
-        <% @students.each do |student| %>
-          <div class="col">
-            <div class="card shadow-sm">
-              <div class="card-header py-1">
-                <h4 class="my-1 fw-normal fs-5"><%= student.name %></h4>
-              </div>
-              <div class="card-body">
-                <p class="card-text"></p>
-                <p><strong>Status:</strong> <%= I18n.t(student.status) %></p>
-                <p><strong>Classroom:</strong> <%= student.classroom.nil? ? 'Não possui turma cadastrada' : student.classroom.name %></p>
-                <%= link_to "Detalhes", student_path(student), class:'btn btn-outline-primary', style:"width:110px"  %>
-                <%= link_to "Financeiro", student_monthly_fees_path(student), class:'btn btn-outline-primary', style:"width:110px" %>
-              </div>
-            </div>
-          </div>
-        <% end %>
-      <% else %>
-        <% @students.each do |student| %>
-          <div class="col">
-            <div class="card shadow-sm">
-              <div class="card-header py-1">
-                <h4 class="my-1 fw-normal fs-5"><%= student.name %></h4>
-              </div>
-              <div class="card-body">
-                <p class="card-text"></p>
-                <p><strong>Status:</strong> <%= I18n.t(student.status) %></p>
-                <p><strong>Classroom:</strong> <%= student.classroom.nil? ? 'Não possui turma cadastrada' : student.classroom.name %></p>
-                <%= link_to "Show this student", student, class:'btn btn-outline-primary', style:"width:200px"  %>
-              </div>
-            </div>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
-  </div>
-  <% render "import" %>
+	<div class="container">
+		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+			<%if current_user.teacher? %>
+				<% current_students = [] %>
+				<%
+					current_classrooms =
+						current_user.teacher.classrooms.includes([:students])
+				%>
+				<%current_classrooms.each do |classroom|%>
+					<% classroom.students.each do |student|%>
+						<% current_students << student %>
+					<% end %>
+				<% end %>
+				<% current_students.each do |student| %>
+					<div class="col">
+						<div class="card shadow-sm">
+							<div>dasda</div>
+							<div class="card-header py-1">
+								<h4 class="my-1 fw-normal fs-5"><%= student.name %></h4>
+							</div>
+							<div class="card-body">
+								<p class="card-text"></p>
+								<p><strong>Status:</strong> <%= I18n.t(student.status) %></p>
+								<p>
+									<strong>Turma:</strong> <%=
+										if student.classroom.nil?
+											'Não possui turma cadastrada'
+										else
+											student.classroom.name
+										end
+									%>
+								</p>
+								<%=
+									link_to 'Atividades',
+									        report_student_path(student),
+									        class: 'btn btn-outline-primary',
+									        style: 'width:110px'
+								%>
+								<%=
+									link_to 'Detalhes',
+									        student,
+									        class: 'btn btn-outline-primary',
+									        style: 'width:110px'
+								%>
+							</div>
+						</div>
+					</div>
+				<% end %>
+			<% elsif  current_user.admin? %>
+				<% @students.each do |student| %>
+					<div class="col">
+						<div class="card shadow-sm">
+							<div class="card-header py-1">
+								<h4 class="my-1 fw-normal fs-5"><%= student.name %></h4>
+							</div>
+							<div class="card-body">
+								<p class="card-text"></p>
+								<p><strong>Status:</strong> <%= I18n.t(student.status) %></p>
+								<p>
+									<strong>Turma:</strong> <%=
+										if student.classroom.nil?
+											'Não possui turma cadastrada'
+										else
+											student.classroom.name
+										end
+									%>
+								</p>
+								<%=
+									link_to 'Atividades',
+									        report_student_path(student),
+									        class: 'btn btn-outline-primary',
+									        style: 'width:110px'
+								%>
+								<%=
+									link_to 'Frequência',
+									        attendance_path(student.id),
+									        class: 'btn btn-outline-primary',
+									        style: 'width:110px'
+								%>
+								<%=
+									link_to 'Detalhes',
+									        student,
+									        class: 'btn btn-outline-primary',
+									        style: 'width:110px'
+								%>
+								<%=
+									link_to 'Financeiro',
+									        student_monthly_fees_path(student),
+									        class: 'btn btn-outline-primary',
+									        style: 'width:110px'
+								%>
+							</div>
+						</div>
+					</div>
+				<% end %>
+			<% elsif  current_user.accounting?%>
+				<% @students.each do |student| %>
+					<div class="col">
+						<div class="card shadow-sm">
+							<div class="card-header py-1">
+								<h4 class="my-1 fw-normal fs-5"><%= student.name %></h4>
+							</div>
+							<div class="card-body">
+								<p class="card-text"></p>
+								<p><strong>Status:</strong> <%= I18n.t(student.status) %></p>
+								<p>
+									<strong>Classroom:</strong> <%=
+										if student.classroom.nil?
+											'Não possui turma cadastrada'
+										else
+											student.classroom.name
+										end
+									%>
+								</p>
+								<%=
+									link_to 'Detalhes',
+									        student_path(student),
+									        class: 'btn btn-outline-primary',
+									        style: 'width:110px'
+								%>
+								<%=
+									link_to 'Financeiro',
+									        student_monthly_fees_path(student),
+									        class: 'btn btn-outline-primary',
+									        style: 'width:110px'
+								%>
+							</div>
+						</div>
+					</div>
+				<% end %>
+			<% else %>
+				<% @students.each do |student| %>
+					<div class="col">
+						<div class="card shadow-sm">
+							<div class="card-header py-1">
+								<h4 class="my-1 fw-normal fs-5"><%= student.name %></h4>
+							</div>
+							<div class="card-body">
+								<p class="card-text"></p>
+								<p><strong>Status:</strong> <%= I18n.t(student.status) %></p>
+								<p>
+									<strong>Classroom:</strong> <%=
+										if student.classroom.nil?
+											'Não possui turma cadastrada'
+										else
+											student.classroom.name
+										end
+									%>
+								</p>
+								<%=
+									link_to 'Show this student',
+									        student,
+									        class: 'btn btn-outline-primary',
+									        style: 'width:200px'
+								%>
+							</div>
+						</div>
+					</div>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+	<% render 'import' %>
 </div>

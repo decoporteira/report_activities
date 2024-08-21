@@ -33,8 +33,10 @@ class SearchController < ApplicationController
   end
 
   def filter_teachers
-    teachers = []
-    @classrooms.each { |classroom| teachers << classroom.teacher_id }
+    teachers =
+      @classrooms.each_with_object([]) do |classroom, teachers|
+        teachers << classroom.teacher_id
+      end
     teachers.uniq
   end
 end

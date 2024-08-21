@@ -18,7 +18,7 @@ class AttendancesController < ApplicationController
       student
         .activities
         .where(date: attendance_record.attendance_date)
-        .each { |activity| activity.update(late: 'não fez') }
+        .find_each { |activity| activity.update(late: 'não fez') }
       redirect_to classroom_path(classroom),
                   notice: 'Presença marcada como Ausente.'
     else
@@ -26,7 +26,7 @@ class AttendancesController < ApplicationController
       student
         .activities
         .where(date: attendance_record.attendance_date)
-        .each { |activity| activity.update(late: 'feito') }
+        .find_each { |activity| activity.update(late: 'feito') }
       redirect_to classroom_path(classroom),
                   notice: 'Presença marcada como Presente.'
     end

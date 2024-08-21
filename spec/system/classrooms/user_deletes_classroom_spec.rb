@@ -15,7 +15,6 @@ RSpec.describe 'Admin edita classroom' do
 
     expect(Classroom.count).to eq(0)
     expect(page).to have_content('Turma apagada com sucesso')
-
   end
 
   it 'fails because has 1 student' do
@@ -23,7 +22,7 @@ RSpec.describe 'Admin edita classroom' do
     teacher = User.create!(email: 'teacher@admin.com.br', password: 'password', role: 'teacher')
     teacher = Teacher.create(name: 'Bianca', status: 'disponível', user_id: teacher.id, cpf: '087.097.098-01')
     classroom = Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(name: 'Ash Ketchum', status: :registered, classroom: classroom )
+    Student.create!(name: 'Ash Ketchum', status: :registered, classroom:)
 
     login_as(user)
     visit(root_path)
@@ -33,7 +32,6 @@ RSpec.describe 'Admin edita classroom' do
 
     expect(Classroom.count).to eq(1)
     expect(page).to have_content('Não foi possível apagar a turma.')
-
   end
   it 'fails because has 2 students' do
     user = User.create!(email: 'admin@admin.com.br', password: 'password', role: 'admin')

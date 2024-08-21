@@ -68,9 +68,9 @@ class AddressesController < ApplicationController
   private
 
   def authorize_admin!
-    unless current_user.admin? || current_user.accounting?
-      redirect_to root_path, alert: t('.denied')
-    end
+    return if current_user.admin? || current_user.accounting?
+
+    redirect_to root_path, alert: t('.denied')
   end
 
   def address_params

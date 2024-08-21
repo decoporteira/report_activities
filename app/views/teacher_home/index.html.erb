@@ -1,0 +1,55 @@
+<h1 class="text-primary">
+  Listagem de turmas de Teacher <%= current_user.teacher.name %>
+</h1>
+<div class="album py-5 bg-body-tertiary">
+  <div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <% @classrooms.each do |entry| %>
+        <div class="col">
+          <div class="card shadow-sm">
+            <div class="card-header py-1">
+              <h4 class="my-1 fw-normal fs-5">
+                <%=
+                  link_to entry.name,
+                          classroom_path(entry.id),
+                          class: 'text-decoration-none link-primary'
+                %>
+              </h4>
+            </div>
+            <div class="card-body">
+              <h5 class="text-secondary fs-5">
+                Teacher: <%= entry.teacher.name %>
+              </h5>
+              <% entry.students.registered.each do |student| %>
+                <div class="d-flex justify-content-between">
+                  <div class="ps-1">
+                    <%= student.name %>
+                  </div>
+                  <div>
+                    <%= link_to report_student_path(student), class: 'text-decoration-none', alt: "Atividade do aluno" do %>
+                      <i
+                        class="fa-solid fa-list-check pe-2"
+                        style="color: #0d6efd;"
+                        alt="Atividades"
+                      ></i>
+                    <% end %>
+                    <%= link_to student, alt: "Detalhes do aluno" do %>
+                      <i class="fa-solid fa-user" style="color: #0d6efd;"></i>
+                    <% end %>
+                  </div>
+                </div>
+                <hr class="border-1 my-2 opacity-25 text-secondary" />
+              <% end %>
+
+              <%=
+                link_to 'Enter Classroom',
+                        classroom_path(entry.id),
+                        class: 'btn btn-outline-primary'
+              %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

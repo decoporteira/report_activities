@@ -20,8 +20,8 @@ class FinancialResponsiblesController < ApplicationController
         email: financial_responsible_params[:email]
       )
     if @financial_responsible.save
-      if financial_responsible_params[:student_id] == nil
-        return(
+      if financial_responsible_params[:student_id].nil?
+        (
           redirect_to @financial_responsible,
                       notice:
                         'Responsável foi criado, porém sem nenhum aluno ligado a ele.'
@@ -64,13 +64,13 @@ class FinancialResponsiblesController < ApplicationController
   private
 
   def set_student
-    @student = Student.find_by_id(params[:student_id])
+    @student = Student.find_by(id: params[:student_id])
   end
 
   def authorize_admin!
-    unless current_user.admin? || current_user.accounting?
-      redirect_to root_path, alert: t('.denied')
-    end
+    return if current_user.admin? || current_user.accounting?
+
+    redirect_to root_path, alert: t('.denied')
   end
 
   def financial_responsible_params

@@ -23,6 +23,11 @@ Rails/I18nLocaleTexts:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Layout/IndentationWidth:
+  Width: 2
+Layout/IndentationStyle:
+  EnforcedStyle: spaces
+
 Metrics/BlockLength:
   AllowedMethods: ["describe", "context", "feature", "scenario", "let", "it"]
   Exclude:

@@ -1,0 +1,75 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<h1 class="text-primary">Listagem de turmas - Administrativo</h1>
+
+<input
+  class="form-control mb-2"
+  id="myInput"
+  type="text"
+  placeholder="Digite o nome da turma, do aluno ou horário filtrar..."
+/>
+<div class="album py-2 bg-body-tertiary">
+  <div class="container">
+    <p class="py-1 text-end">Total de alunos matriculados: <%= @students.count %></p>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="item">
+      <% @classrooms.each do |classroom|%>
+        <div class="col">
+          <div class="card shadow-sm">
+            <div class="card-header py-1">
+              <h4 class="my-1 fw-normal fs-5">
+                <%=
+                  link_to classroom.name,
+                          classroom_path(classroom.id),
+                          class: 'text-decoration-none link-primary'
+                %>
+                <span class="fs-6"
+                  >- Alunos: <strong><%= classroom.students.length %></strong
+                ></span>
+              </h4>
+            </div>
+            <div class="card-body">
+              <h5 class="text-secondary fs-5">
+                <%= Teacher.find_by(id: classroom.teacher_id).name %>
+              </h5>
+
+              <%classroom.students.each do |student| %>
+                <div class="d-flex justify-content-between">
+                  <div class="ps-1 ">
+                    <%= student.name %>
+                  </div>
+                  <div>
+                    <%= link_to  report_student_path(student), class:'text-decoration-none', alt: "Atividade" do %>
+                      <i
+                        class="fa-solid fa-list-check pe-2"
+                        style="color: #0d6efd;"
+                      ></i>
+                    <% end %>
+                    <%= link_to student, id:'details', alt: "Detalhes" do %>
+                      <i class="fa-solid fa-user" style="color: #0d6efd;"></i>
+                    <% end %>
+                  </div>
+                </div>
+                <hr class="border-1 my-2 opacity-25 text-secondary" />
+              <% end%>
+              <%=
+                link_to 'Ver turma',
+                        classroom_path(classroom.id),
+                        class: 'btn btn-outline-primary'
+              %>
+            </div>
+          </div>
+        </div>
+      <%end%>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $("#myInput").on("keyup", function () {
+      var value = $(this).val().toLowerCase();
+      $("#item .col").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+      });
+    });
+  });
+</script>

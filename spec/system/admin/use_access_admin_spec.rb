@@ -18,6 +18,6 @@ RSpec.describe 'Usuário tenta acessar área administrativa' do
     login_as(user_teacher)
     visit(rails_admin_path)
 
-    expect(current_path).to eq root_path
+    expect(current_path).to eq teacher_home_path
   end
 end

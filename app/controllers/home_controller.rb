@@ -1,19 +1,23 @@
 class HomeController < ApplicationController
   def index
-    if current_user.default?
-      financial_responsible_blank
-    elsif current_user.teacher?
-      @classrooms =
-        Classroom.includes(:teacher).where(teacher_id: current_user.teacher.id)
+    case current_user.role
+    when 'admin'
+      redirect_to admin_home_path
+    when 'teacher'
+      redirect_to teacher_home_path
+    when 'accounting'
+      redirect_to accounting_home_path
     else
-      @classrooms =
-        Classroom.includes(:students).where(students: { status: 'registered' })
-
-      @students = Student.registered
+      set_info
+      render 'index'
     end
   end
 
   private
+
+  def set_info
+    financial_responsible_blank
+  end
 
   def financial_responsible_blank
     financial_responsible =
@@ -28,10 +32,10 @@ class HomeController < ApplicationController
           .where
           .not(cpf: [nil, ''])
           .registered
-          .includes([:classroom, classroom: :teacher])
+          .includes([:classroom, { classroom: :teacher }])
       else
         financial_responsible.students.includes(
-          [:classroom, classroom: :teacher]
+          [:classroom, { classroom: :teacher }]
         )
       end
   end
