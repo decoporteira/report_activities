@@ -18,9 +18,9 @@ class HomeController < ApplicationController
   def financial_responsible_blank
     financial_responsible =
       FinancialResponsible
-        .where(cpf: current_user.cpf)
-        .or(FinancialResponsible.where(email: current_user.email))
-        .first
+      .where(cpf: current_user.cpf)
+      .or(FinancialResponsible.where(email: current_user.email))
+      .first
     @students =
       if financial_responsible.blank?
         Student
@@ -28,10 +28,10 @@ class HomeController < ApplicationController
           .where
           .not(cpf: [nil, ''])
           .registered
-          .includes([:classroom, classroom: :teacher])
+          .includes([:classroom, { classroom: :teacher }])
       else
         financial_responsible.students.includes(
-          [:classroom, classroom: :teacher]
+          [:classroom, { classroom: :teacher }]
         )
       end
   end

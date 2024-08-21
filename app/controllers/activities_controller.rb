@@ -118,9 +118,7 @@ class ActivitiesController < ApplicationController
   end
 
   def admin?
-    if current_user.admin? || current_user.accounting? || current_user.teacher?
-      return
-    end
+    return if current_user.admin? || current_user.accounting? || current_user.teacher?
 
     redirect_to root_path, alert: 'Você não possui acesso.'
   end

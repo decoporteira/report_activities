@@ -61,10 +61,10 @@ class StudentsController < ApplicationController
   def incomplete
     @students =
       Student
-        .includes(classroom: :teacher)
-        .where(cpf: '', status: :registered)
-        .left_outer_joins(:financial_responsibles)
-        .where(financial_responsibles: { id: nil })
+      .includes(classroom: :teacher)
+      .where(cpf: '', status: :registered)
+      .left_outer_joins(:financial_responsibles)
+      .where(financial_responsibles: { id: nil })
   end
 
   def report
@@ -111,9 +111,7 @@ class StudentsController < ApplicationController
   end
 
   def admin?
-    if current_user.admin? || current_user.accounting? || current_user.teacher?
-      return
-    end
+    return if current_user.admin? || current_user.accounting? || current_user.teacher?
 
     redirect_to root_path, alert: t('unauthorized_action')
   end

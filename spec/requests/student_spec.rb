@@ -105,9 +105,9 @@ RSpec.describe 'Students', type: :request do
 
       login_as(user)
 
-      expect {
+      expect do
         post students_path, params: { student: student_attributes }
-      }.to change(Student, :count).by(1)
+      end.to change(Student, :count).by(1)
       expect(flash[:notice]).to eq('Aluno(a) criado(a) com sucesso.')
     end
 
@@ -144,9 +144,9 @@ RSpec.describe 'Students', type: :request do
       }
       login_as(teacher_user)
 
-      expect {
+      expect do
         post students_path, params: { student: student_attributes }
-      }.to change(Student, :count).by(0)
+      end.to change(Student, :count).by(0)
       expect(flash[:alert]).to eq('Você não possui acesso a esse aluno.')
     end
 
@@ -185,9 +185,9 @@ RSpec.describe 'Students', type: :request do
 
       login_as(user)
 
-      expect {
+      expect do
         post students_path, params: { student: student_attributes }
-      }.to change(Student, :count).by(0)
+      end.to change(Student, :count).by(0)
       expect(flash[:alert]).to eq('Não foi possível criar o aluno(a).')
     end
   end

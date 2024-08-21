@@ -27,7 +27,7 @@ class MonthlyFeesController < ApplicationController
   def update
     respond_to do |format|
       if @monthly_fee.update(monthly_fee_params)
-        format.html { redirect_to student_monthly_fee_path(@monthly_fee.student, @monthly_fee), notice: t('.success')}
+        format.html { redirect_to student_monthly_fee_path(@monthly_fee.student, @monthly_fee), notice: t('.success') }
         format.json { render :info, status: :ok, location: @monthly_fee }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -38,7 +38,6 @@ class MonthlyFeesController < ApplicationController
 
   def all
     @monthly_fees = MonthlyFee.includes([:student])
-
   end
 
   def update_paid

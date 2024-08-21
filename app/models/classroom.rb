@@ -17,14 +17,14 @@ class Classroom < ApplicationRecord
       result[student.id] = {
         activities:
           student
-            .activities
-            .where(date: start_date..end_date)
-            .order(date: :desc),
+                           .activities
+                           .where(date: start_date..end_date)
+                           .order(date: :desc),
         attendances:
           student
-            .attendances
-            .where(attendance_date: start_date..end_date)
-            .order(:attendance_date)
+                           .attendances
+                           .where(attendance_date: start_date..end_date)
+                           .order(:attendance_date)
       }
     end
   end

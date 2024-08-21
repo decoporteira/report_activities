@@ -35,8 +35,8 @@ RSpec.describe Attendance, type: :model do
       presence: true
     )
     date = '2023-05-05'
-    expect {
+    expect do
       Attendance.create!(student_id: student.id, attendance_date: date)
-    }.to change { Attendance.count }.by(1)
+    end.to change { Attendance.count }.by(1)
   end
 end

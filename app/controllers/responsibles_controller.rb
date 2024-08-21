@@ -30,8 +30,8 @@ class ResponsiblesController < ApplicationController
     @responsible = Responsible.find(params[:id])
     @responsible.destroy
     redirect_to financial_responsible_path(
-                  @responsible.financial_responsible.id
-                ),
+      @responsible.financial_responsible.id
+    ),
                 notice: 'Responsável removido com sucesso.'
   end
 
