@@ -56,4 +56,7 @@ Rails
       collection { post :create_activity }
     end
     resources :responsibles, only: %i[new create show destroy]
+    get 'admin_home', to: 'admin_home#index'
+    get 'teacher_home', to: 'teacher_home#index'
+    get 'accounting_home', to: 'accounting_home#index'
   end

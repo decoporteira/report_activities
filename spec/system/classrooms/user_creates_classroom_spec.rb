@@ -208,7 +208,7 @@ RSpec.describe 'Tipo de usuário cria uma turma' do
 
       # assert
       expect(page).to have_content('Acesso negado.')
-      expect(current_path).to eq root_path
+      expect(current_path).to eq accounting_home_path
     end
 
     it 'teacher a partir do menu e falha pois não tem permissão' do
@@ -232,7 +232,7 @@ RSpec.describe 'Tipo de usuário cria uma turma' do
 
       # assert
       expect(page).to have_content('Acesso negado.')
-      expect(current_path).to eq root_path
+      expect(current_path).to eq teacher_home_path
       expect(page).not_to have_content('Teachers')
       expect(page).not_to have_content('New Teacher')
     end
@@ -260,7 +260,7 @@ RSpec.describe 'Tipo de usuário cria uma turma' do
 
       # assert
       expect(page).to have_content('Acesso negado.')
-      expect(current_path).to eq root_path
+      expect(current_path).to eq accounting_home_path
     end
   end
 end

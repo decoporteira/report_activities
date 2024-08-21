@@ -242,7 +242,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
 
       # assert
       expect(page).to have_content('Acesso negado.')
-      expect(current_path).to eq root_path
+      expect(current_path).to eq teacher_home_path
       expect(page).not_to have_content('Teachers')
       expect(page).not_to have_content('New Teacher')
     end
@@ -270,7 +270,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
 
       # assert
       expect(page).to have_content('Acesso negado.')
-      expect(current_path).to eq root_path
+      expect(current_path).to eq teacher_home_path
       expect(page).not_to have_content('Teachers')
       expect(page).not_to have_content('New Teacher')
     end
