@@ -31,7 +31,7 @@ gem 'stimulus-rails'
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem 'capistrano-dotenv', require: false
 gem 'devise'
-gem 'dotenv-rails', groups: %i[development test]
+gem 'dotenv-rails', groups: %i[development test production]
 gem 'jbuilder'
 gem 'ransack'
 
