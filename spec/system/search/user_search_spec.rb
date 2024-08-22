@@ -60,7 +60,7 @@ RSpec.describe 'Usuário pesquisa' do
     )
     Student.create!(
       name: 'Blastoise',
-      status: :not_registered,
+      status: :unregistered,
       classroom_id: classroom.id,
       cpf: '065.654.654-01'
     )
@@ -136,7 +136,7 @@ RSpec.describe 'Usuário pesquisa' do
     )
     Student.create!(
       name: 'Blastoise',
-      status: :not_registered,
+      status: :unregistered,
       classroom_id: classroom.id,
       cpf: '065.654.654-01'
     )
@@ -212,7 +212,7 @@ RSpec.describe 'Usuário pesquisa' do
     )
     Student.create!(
       name: 'Blastoise',
-      status: :not_registered,
+      status: :unregistered,
       classroom_id: classroom.id,
       cpf: '065.654.654-01'
     )
@@ -268,7 +268,7 @@ RSpec.describe 'Usuário pesquisa' do
     )
     Student.create!(
       name: 'Blastoise',
-      status: :not_registered,
+      status: :unregistered,
       classroom_id: classroom.id,
       cpf: '065.654.654-01'
     )

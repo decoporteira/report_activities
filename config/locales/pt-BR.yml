@@ -11,7 +11,7 @@ pt-BR:
           student:
             statuses:
               registered: "Matriculado"
-              not_registered: "Não Matriculado"
+              unregistered: "Não Matriculado"
 
   registered: "Matriculado"
-  not_registered: "Não Matriculado"
+  unregistered: "Não Matriculado"
