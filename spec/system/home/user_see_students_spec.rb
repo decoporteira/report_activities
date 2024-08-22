@@ -34,7 +34,7 @@ RSpec.describe 'User vê alunos' do
     student_two =
       Student.create!(
         name: 'Blastoise',
-        status: :not_registered,
+        status: :unregistered,
         classroom_id: classroom.id,
         cpf: '065.654.654-01'
       )
@@ -106,7 +106,7 @@ RSpec.describe 'User vê alunos' do
     )
     Student.create!(
       name: 'Blastoise',
-      status: :not_registered,
+      status: :unregistered,
       classroom_id: classroom.id,
       cpf: ''
     )
@@ -159,7 +159,7 @@ RSpec.describe 'User vê alunos' do
     )
     Student.create!(
       name: 'Blastoise',
-      status: :not_registered,
+      status: :unregistered,
       classroom_id: classroom.id,
       cpf: nil
     )

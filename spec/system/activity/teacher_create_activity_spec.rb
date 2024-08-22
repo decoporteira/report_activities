@@ -33,7 +33,7 @@ RSpec.describe 'teacher creates activity' do
     )
     Student.create!(
       name: 'Blastoise',
-      status: :not_registered,
+      status: :unregistered,
       classroom_id: classroom.id,
       cpf: '000.000.000-03'
     )
@@ -89,7 +89,7 @@ RSpec.describe 'teacher creates activity' do
     )
     Student.create!(
       name: 'Blastoise',
-      status: :not_registered,
+      status: :unregistered,
       classroom_id: classroom.id,
       cpf: '000.000.000-03'
     )

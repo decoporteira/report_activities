@@ -9,7 +9,7 @@ ruby '3.2.0'
 gem 'rails', '~> 7.0.4', '>= 7.0.4.3'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-gem 'sidekiq'
+gem 'sidekiq', '~> 6.5.12'
 gem 'sidekiq-cron'
 gem 'sprockets-rails'
 
