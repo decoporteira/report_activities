@@ -1,0 +1,14 @@
+<h1>Novo Plano</h1>
+
+<%= render 'form', plan: @plan %>
+
+<br />
+
+<div>
+  <%=
+    link_to 'Back to Plans',
+            plans_path,
+            class: 'btn btn-outline-primary',
+            style: 'width:200px'
+  %>
+</div>
