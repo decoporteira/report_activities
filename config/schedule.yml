@@ -1,3 +1,7 @@
 daily_job:
   cron: "0 0 * * *"
   class: "DailyJob"
+
+billing_job:
+  cron: "0 5 10 * *"  # 5 da manhã, todo dia 10 => | 0 5 10 * * | * * * * * |
+  class: "BillingJob"
