@@ -1,0 +1,10 @@
+<h1>Editing current plan</h1>
+
+<%= render "form", current_plan: @current_plan %>
+
+<br>
+
+<div>
+  <%= link_to "Show this current plan", @current_plan %> |
+  <%= link_to "Back to current plans", current_plans_path %>
+</div>

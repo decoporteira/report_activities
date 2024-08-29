@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_23_182747) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_27_173123) do
   create_table "activities", force: :cascade do |t|
     t.string "report"
     t.integer "late"
@@ -55,6 +55,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_23_182747) do
     t.index ["teacher_id"], name: "index_classrooms_on_teacher_id"
   end
 
+  create_table "current_plans", force: :cascade do |t|
+    t.integer "plan_id", null: false
+    t.boolean "has_discount", default: false, null: false
+    t.integer "discount"
+    t.integer "student_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["plan_id"], name: "index_current_plans_on_plan_id"
+    t.index ["student_id"], name: "index_current_plans_on_student_id"
+  end
+
   create_table "financial_responsibles", force: :cascade do |t|
     t.string "name"
     t.string "phone"
@@ -65,17 +76,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_23_182747) do
   end
 
   create_table "monthly_fees", force: :cascade do |t|
-    t.integer "student_id", null: false
     t.decimal "value", precision: 10, scale: 2
     t.integer "status"
     t.date "due_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["student_id"], name: "index_monthly_fees_on_student_id"
+    t.integer "student_id"
+    t.boolean "has_discount", default: false, null: false
+    t.decimal "discount_rate", precision: 5, scale: 2
   end
 
   create_table "plans", force: :cascade do |t|
-    t.integer "plan_type"
+    t.string "name"
     t.decimal "price", precision: 10, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -142,7 +154,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_23_182747) do
   add_foreign_key "activities", "students"
   add_foreign_key "attendances", "students"
   add_foreign_key "classrooms", "teachers"
-  add_foreign_key "monthly_fees", "students"
+  add_foreign_key "current_plans", "plans"
+  add_foreign_key "current_plans", "students"
   add_foreign_key "responsibles", "financial_responsibles"
   add_foreign_key "responsibles", "students"
   add_foreign_key "resumes", "students"

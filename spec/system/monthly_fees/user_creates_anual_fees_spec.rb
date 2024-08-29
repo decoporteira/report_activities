@@ -23,12 +23,13 @@ RSpec.describe 'Cria todas as mensalidades do ano' do
       )
     classroom =
       Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(
+    student = Student.create!(
       name: 'Venossaur',
       status: :registered,
       classroom_id: classroom.id,
       cpf: '065.654.654-01'
     )
+    FactoryBot.create(:current_plan, student:)
 
     login_as(admin)
     visit(root_path)
@@ -61,12 +62,13 @@ RSpec.describe 'Cria todas as mensalidades do ano' do
       )
     classroom =
       Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(
+    student = Student.create!(
       name: 'Venossaur',
       status: :registered,
       classroom_id: classroom.id,
       cpf: '065.654.654-01'
     )
+    FactoryBot.create(:current_plan, student:)
 
     login_as(admin)
     visit(root_path)
@@ -113,13 +115,13 @@ RSpec.describe 'Cria todas as mensalidades do ano' do
       )
     classroom =
       Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(
+    student = Student.create!(
       name: 'Venossaur',
       status: :registered,
       classroom_id: classroom.id,
       cpf: '065.654.654-01'
     )
-
+    FactoryBot.create(:current_plan, student:)
     login_as(admin)
     visit(root_path)
     click_on('Alunos')
@@ -165,13 +167,13 @@ RSpec.describe 'Cria todas as mensalidades do ano' do
       )
     classroom =
       Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(
+    student = Student.create!(
       name: 'Venossaur',
       status: :registered,
       classroom_id: classroom.id,
       cpf: '065.654.654-01'
     )
-
+    FactoryBot.create(:current_plan, student:)
     login_as(admin)
     visit(root_path)
     click_on('Alunos')
@@ -217,12 +219,13 @@ RSpec.describe 'Cria todas as mensalidades do ano' do
       )
     classroom =
       Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(
+    student = Student.create!(
       name: 'Venossaur',
       status: :registered,
       classroom_id: classroom.id,
       cpf: '065.654.654-01'
     )
+    FactoryBot.create(:current_plan, student:)
 
     login_as(admin)
     visit(root_path)

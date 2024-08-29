@@ -2,6 +2,8 @@ class Student < ApplicationRecord
   # before_destroy :destroy_activities
   has_many :monthly_fees
   has_many :responsibles
+  has_one :current_plan
+  belongs_to :plan, optional: true
   has_many :financial_responsibles, through: :responsibles
   has_many :activities, dependent: :destroy
   belongs_to :classroom, optional: true
@@ -11,6 +13,7 @@ class Student < ApplicationRecord
   enum status: { registered: 1, unregistered: 2 }
   validates :name, uniqueness: { scope: :classroom }
   validates :name, :status, presence: true
+  
   include DateRangeHelper
 
   def self.ransackable_attributes(_auth_object = nil)

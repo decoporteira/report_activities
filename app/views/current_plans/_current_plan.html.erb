@@ -1,0 +1,22 @@
+<div id="<%= dom_id current_plan %>">
+  <p>
+    <strong>Curso:</strong>
+    <%= current_plan.plan.name %>
+  </p>
+
+  <p>
+    <strong>Desconto:</strong>
+    <%= current_plan.has_discount ? 'Desconto cadastrado' : 'Sem desconto' %>
+  </p>
+
+  <p>
+    <strong>Valor do desconto:</strong>
+    <%= current_plan.discount ? "#{current_plan.discount}%" : '0%'%>
+  </p>
+
+  <p>
+    <strong>Student:</strong>
+    <%= current_plan.student.name %>
+  </p>
+
+</div>

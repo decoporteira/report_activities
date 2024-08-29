@@ -1,12 +1,13 @@
 FactoryBot.define do
   factory :student do
-    name { 'Ash Ketchum' }
+    name { 'Ash Ketchum'}
     status { 1 }
-    classroom
+    association :classroom
   end
-  factory :student_two, class: Student do
+
+  factory :student_two, class: 'Student' do
     name { 'Carlos' }
     status { 1 }
-    classroom
+    association :classroom
   end
 end
