@@ -21,8 +21,14 @@ class CurrentPlansController < ApplicationController
 
   # POST /current_plans or /current_plans.json
   def create
+
     @current_plan = CurrentPlan.new(current_plan_params)
 
+    # if CurrentPlan.exists?(student_id: @current_plan.student_id)
+    #   flash.now[:alert] = t('.fail')
+    #   render :new, status: :unprocessable_entity
+    #   return
+    # end
     respond_to do |format|
       if @current_plan.save
         format.html { redirect_to current_plan_url(@current_plan), notice: t('.success')}

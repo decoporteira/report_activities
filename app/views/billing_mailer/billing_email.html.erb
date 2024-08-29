@@ -5,9 +5,15 @@
   </head>
   <body>
     <h1>Olá, <%= @recipient.name %>,</h1>
+    <%= @recipient.current_plan.plan.price%>
+    <% price = if @recipient.current_plan.has_discount %>
+             <%  @recipient.current_plan.plan.price * (1 - @recipient.current_plan.discount.to_f / 100)%>
+             <%else%>
+             <%  @recipient.current_plan.plan.price%>
+             <%end%>
     <p>
       Este é um e-mail automático para lembrá-lo(a) de que a sua mensalidade da
-      English Globe, refente ao mês de <%=  t("date.month_names")[Time.zone.today.month] %>, vence hoje, <%= Date.today.strftime('%d/%m/%Y') %>. Caso o
+      English Globe, no total de R$ <%= price %>, refente ao mês de <%=  t("date.month_names")[Time.zone.today.month] %>, vence hoje, <%= Date.today.strftime('%d/%m/%Y') %>. Caso o
       pagamento já tenha sido efetuado, por favor, desconsidere esta mensagem.
     </p>
 

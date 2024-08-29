@@ -57,7 +57,7 @@ class MonthlyFeesController < ApplicationController
     current_month = Time.zone.today.month
     current_year = Time.zone.today.year
     start_month = current_month == 1 ? 2 : current_month
-    total = if student.current_plan.has_discount 
+    total = if student.current_plan.has_discount
               student.current_plan.plan.price * (1 - student.current_plan.discount.to_f / 100)
             else
               student.current_plan.plan.price

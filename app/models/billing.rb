@@ -1,1 +1,0 @@
-class Billing < ApplicationRecord; end
