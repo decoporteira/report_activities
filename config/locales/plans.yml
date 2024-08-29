@@ -1,0 +1,23 @@
+pt-BR:
+  activerecord:
+    models:
+      plan:
+        one: Plano
+        other: Planos
+    attributes:
+      plan:
+        name: "Nome"
+        price: "Valor"
+  plans:
+    create:
+      success: Plano criado com sucesso.
+      fail: Não foi possível criar o Plano.
+    update:
+      success: Plano editado com sucesso.
+      fail: Não foi possível editar o Plano.
+    destroy:
+      success: Plano apagado com sucesso.
+      fail: Não foi possível apagar o Plano.
+    denied: "Acesso negado."
+    cant_see: "Você não possui acesso."
+  unauthorized_action: Você não possui acesso.

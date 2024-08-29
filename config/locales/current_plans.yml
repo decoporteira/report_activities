@@ -1,0 +1,26 @@
+pt-BR:
+  activerecord:
+    models:
+      current_plan:
+        one: Plano Atual
+        other: Planos Atuais
+    attributes:
+      current_plan:
+        plan_id: Plano
+        has_discount: Tem desconto
+        discount: Desconto
+        student_id: Aluno
+        student: Aluno
+  current_plans:
+    create:
+      success: Plano atual criado com sucesso.
+      fail: Não foi possível criar o Plano atual.
+    update:
+      success: Plano atual editado com sucesso.
+      fail: Não foi possível editar o Plano atual.
+    destroy:
+      success: Plano atual apagado com sucesso.
+      fail: Não foi possível apagar o Plano atual.
+    denied: "Acesso negado."
+    cant_see: "Você não possui acesso a esse aluno."
+  unauthorized_action: Você não possui acesso.
