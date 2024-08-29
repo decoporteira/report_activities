@@ -5,11 +5,11 @@
         
     </div>
     <div class="col-lg-6">
-      <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3"><%= @plan.plan_type%></h1>
+      <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3"><%= @plan.name%></h1>
       <p class="lead">
   
         <dt>Nome do plano: </dt>
-        <dd><%=@plan.plan_type%></dd>
+        <dd><%=@plan.name%></dd>
         <dt>Valor da mensalidade: </dt>
         <dd><%=
                 number_to_currency(

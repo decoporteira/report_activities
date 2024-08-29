@@ -1,0 +1,2 @@
+module CurrentPlansHelper
+end

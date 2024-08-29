@@ -2,7 +2,6 @@ Rails
   .application
   .routes
   .draw do
-    resources :billings
     mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
     root to: 'home#index'
     get 'users/index'
@@ -50,6 +49,7 @@ Rails
       collection { post :import }
     end
     resources :plans, only: %i[new create index show edit update destroy]
+    resources :current_plans, only: %i[new create index show edit update destroy]
     resources :financial_responsibles,
               only: %i[new create index show edit update]
     resources :classrooms do

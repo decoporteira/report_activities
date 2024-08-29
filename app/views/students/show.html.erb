@@ -3,6 +3,7 @@
   <div class="row flex-lg-row g-5 py-5">
   <div class="col-lg-6">
       <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3"><%= @student.name%></h1>
+      <h3 class=""><%= @student.plan.present? ? @student.plan.plan_type : 'Nenhum plano cadastrado' %></h3>
       <p class="lead"></p>
         <dl>
           <dt>Professor(a): </dt>

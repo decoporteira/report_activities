@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Current plans</h1>
+
+<div id="current_plans">
+  <% @current_plans.each do |current_plan| %>
+    <%= render current_plan %>
+    <p>
+      <%= link_to "Show this current plan", current_plan %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New current plan", new_current_plan_path %>
