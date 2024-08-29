@@ -18,6 +18,7 @@ class BillingJob
       return
     end
 
+    frs = FinancialResponsible.joins(:students).where(students: { status: 1 })
     students = Student.where(status: :registered)
 
     students.each do |student|

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Olá, <%= @recipient.name %>,</h1>
+    <p>
+      Este é um e-mail automático para lembrá-lo(a) de que a sua mensalidade da
+      English Globe, no total de R$ <%= @value %>, refente ao mês de <%=  t("date.month_names")[Time.zone.today.month] %>, vence hoje, <%= Date.today.strftime('%d/%m/%Y') %>. Caso o
+      pagamento já tenha sido efetuado, por favor, desconsidere esta mensagem.
+    </p>
+
+    <p>Agradecemos pela sua atenção e desejamos um excelente dia!</p>
+
+    <p>Atenciosamente,</p>
+    <p><strong>English Globe</strong></p>
+    <p><i>Inglês para falar, interagir e entender o mundo</i></p>
+  </body>
+</html>
