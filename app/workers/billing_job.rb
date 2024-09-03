@@ -17,21 +17,31 @@ class BillingJob
       BillingJob.perform_at(next_week_day.beginning_of_day)
       return
     end
-
-    students = Student.where(status: :registered)
-
-    students.each do |student|
-      recipient = student.financial_responsibles.blank? ? student : student.financial_responsibles.first
+    students_without_responsible = Student.left_outer_joins(:responsibles).where(responsibles: { id: nil })
+    students_without_responsible = students_without_responsible.where(status: :registered)
+    students_without_responsible.each do |recipient|
 
       if recipient.email.present?
-        recipient = Student.find(1)
         BillingMailer.with(recipient:).billing_email.deliver_now
-        Rails.logger.info "Email enviado para #{recipient.name}"
-        return
+        Rails.logger.info "Email enviado para #{recipient.name} (Estudante: #{recipient.name}, ID: #{recipient.id}), no email: #{recipient.email}"
       else
-        Rails.logger.info "Não foi encontrado email para o estudante com ID = #{student.id}, pulando esse envio."
+        Rails.logger.info "Não foi encontrado email para o estudante #{recipient.name}, pulando esse envio."
       end
     end
+    financial_responsibles = FinancialResponsible.joins(:responsibles)
+                                                  .where(responsibles: { student_id: Student.where(status: :registered).pluck(:id) })
+                                                  .distinct
+
+    financial_responsibles.each do |recipient|
+
+      if recipient.email.present?
+        BillingFinancialResponsibleMailer.with(recipient:).billing_email.deliver_now
+        Rails.logger.info "Email enviado para #{recipient.name} no email: #{recipient.email}"
+      else
+        Rails.logger.info "Não foi encontrado email para o estudante #{recipient.name}, pulando esse envio."
+      end
+    end
+    
   end
 
   private

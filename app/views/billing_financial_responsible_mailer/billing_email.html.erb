@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html>
 <head>
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
@@ -41,6 +40,13 @@
       English Globe referente ao mês de <%= t("date.month_names")[Time.zone.today.month] %>, vence hoje, <%= Date.today.strftime('%d/%m/%Y') %>.
     </p>
 
+    <p><strong>Aluno(s):</strong></p>
+    <ul class="list-unstyled">
+      <% @recipient.students.where(status: :registered).each do |student| %>
+        <li><%= student.name %></li>
+      <% end %>
+    </ul>
+
     <p>
       Caso o pagamento já tenha sido efetuado, por favor, desconsidere esta mensagem.
     </p>
@@ -48,11 +54,10 @@
     <p>Agradecemos pela sua atenção e desejamos um excelente dia!</p>
     <br>
     <div class='sign'>
-      <p>Atenciosamente,</p>
-      <p><strong>English Globe</strong></p>
-      <p><i>Inglês para falar, interagir e entender o mundo</i></p>
+    <p>Atenciosamente,</p>
+    <p><strong>English Globe</strong></p>
+    <p><i>Inglês para falar, interagir e entender o mundo</i></p>
     </div>
-
     <div class="footer">
       <img src="https://englishglobe.com.br/wp-content/themes/english/images/logo.png" alt="Logo English Globe">
     </div>

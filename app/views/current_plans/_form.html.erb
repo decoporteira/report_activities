@@ -13,14 +13,13 @@
 
   <div>
     <%= form.label :plan_id, style: "display: block" %>
-    <%= form.text_field :plan_id %>
     <%=
       form.collection_select(
         :plan_id,
         Plan.all,
         :id,
         :name,
-        { prompt: 'Select a plan' },
+        { prompt: 'Selecione um plano' },
         class: 'form-select',
       )
     %>

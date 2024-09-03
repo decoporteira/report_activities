@@ -147,7 +147,7 @@ RSpec.describe 'Students', type: :request do
       expect do
         post students_path, params: { student: student_attributes }
       end.to change(Student, :count).by(0)
-      expect(flash[:alert]).to eq('Você não possui acesso a esse aluno.')
+      expect(flash[:alert]).to eq('Você não possui acesso.')
     end
 
     it 'e falha por nome do estudante está em branco' do
