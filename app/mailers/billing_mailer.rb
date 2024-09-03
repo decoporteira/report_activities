@@ -1,5 +1,5 @@
 class BillingMailer < ApplicationMailer
-  default from: 'contato@englishglobe.com.br'
+  default from: 'English Globe <contato@englishglobe.com.br>'
 
   def billing_email
     @recipient = params[:recipient]
