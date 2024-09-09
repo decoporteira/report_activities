@@ -19,9 +19,11 @@ class BillingJob
     end
     students_without_responsible = Student.left_outer_joins(:responsibles).where(responsibles: { id: nil })
     students_without_responsible = students_without_responsible.where(status: :registered)
+    
     students_without_responsible.each do |recipient|
 
       if recipient.email.present?
+        puts recipient.email
         BillingMailer.with(recipient:).billing_email.deliver_now
         Rails.logger.info "Email enviado para #{recipient.name} (Estudante: #{recipient.name}, ID: #{recipient.id}), no email: #{recipient.email}"
       else

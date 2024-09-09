@@ -1,9 +1,10 @@
-Welcome to example.com, 
-===============================================
+Olá, <%= @recipient.name %>,
+Este é um e-mail automático para lembrá-lo(a) de que a sua mensalidade da English Globe referente ao mês de <%= t("date.month_names")[Time.zone.today.month] %>, vence hoje, <%= Date.today.strftime('%d/%m/%Y') %>. 
+Caso o pagamento já tenha sido efetuado, por favor, desconsidere esta mensagem.
 
-You have successfully signed up to example.com,
-your username is: .
+Agradecemos pela sua atenção e desejamos um excelente dia!
 
-To login to the site, just follow this link:.
-
-Thanks for joining and have a great day!
+Atenciosamente,
+English Globe
+Inglês para falar, interagir e entender o mundo
+  

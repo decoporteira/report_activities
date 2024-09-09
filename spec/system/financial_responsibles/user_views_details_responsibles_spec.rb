@@ -42,7 +42,7 @@ RSpec.describe 'Usuário vê detalhes de Responsável' do
     expect(page).to have_content('000.000.000-00')
     expect(page).to have_content('oak@gmail.com')
     expect(page).to have_content('00 0000-0000')
-    expect(page).to have_content('Ash Ketchum')
+    expect(page).to have_content('Jon Doe6')
     expect(page).not_to have_content('Joy')
     expect(page).not_to have_content('James')
     expect(page).not_to have_content('000.000.000-01')

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_27_173123) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_06_120216) do
   create_table "activities", force: :cascade do |t|
     t.string "report"
     t.integer "late"
@@ -62,6 +62,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_27_173123) do
     t.integer "student_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "total", precision: 10, scale: 2
     t.index ["plan_id"], name: "index_current_plans_on_plan_id"
     t.index ["student_id"], name: "index_current_plans_on_student_id"
   end

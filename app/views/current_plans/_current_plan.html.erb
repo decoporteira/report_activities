@@ -1,4 +1,8 @@
 <div id="<%= dom_id current_plan %>">
+ <p>
+    <strong>Aluno:</strong>
+    <%= current_plan.student.name %>
+  </p>
   <p>
     <strong>Curso:</strong>
     <%= current_plan.plan.name %>
@@ -14,9 +18,14 @@
     <%= current_plan.discount ? "#{current_plan.discount}%" : '0%'%>
   </p>
 
+ 
   <p>
-    <strong>Aluno:</strong>
-    <%= current_plan.student.name %>
+    <strong>Valor do Curso:</strong>
+    <%= number_to_currency(current_plan.plan.price) %>
   </p>
-
+  <p>
+    <strong>Valor total:</strong>
+      <%= number_to_currency(current_plan.total) %>
+  </p>
+ 
 </div>

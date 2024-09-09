@@ -23,5 +23,6 @@ RSpec.describe 'Usuário cria Plano atual para aluno' do
     expect(page).to have_content('Desconto: Desconto cadastrado')
     expect(page).to have_content('Valor do desconto: 10%')
     expect(page).to have_content('Aluno: Brock')
+    expect(page).to have_content('Valor total: R$ 297,00')
   end
 end
