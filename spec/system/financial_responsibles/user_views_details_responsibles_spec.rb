@@ -8,7 +8,7 @@ RSpec.describe 'Usuário vê detalhes de Responsável' do
         password: 'password',
         role: 'admin'
       )
-    student = create(:student)
+    student = create(:student, name: 'Ash Ketchum')
     responsible =
       FinancialResponsible.create!(
         name: 'Oak',

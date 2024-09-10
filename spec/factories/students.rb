@@ -1,13 +1,8 @@
 FactoryBot.define do
   factory :student do
-    name { 'Ash Ketchum'}
+    sequence(:name) { |n| "Jon Doe#{n}" }
     status { 1 }
-    association :classroom
-  end
-
-  factory :student_two, class: 'Student' do
-    name { 'Carlos' }
-    status { 1 }
+    sequence(:email) { |n| "student#{n}@email.com" }
     association :classroom
   end
 end

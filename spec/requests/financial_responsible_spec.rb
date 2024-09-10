@@ -20,7 +20,7 @@ RSpec.describe 'Usuário cadastra um responsável financeiro' do
   end
 
   it 'e é do tipo default' do
-    user_default = create(:user_two)
+    user_default = create(:user, role: 'default')
     create(:student)
     login_as user_default, scope: :user
     post '/financial_responsibles',
@@ -38,7 +38,7 @@ RSpec.describe 'Usuário cadastra um responsável financeiro' do
   end
 
   it 'e é do tipo teacher' do
-    user_teacher = create(:user_two, role: 'teacher')
+    user_teacher = create(:user, role: 'teacher')
     login_as user_teacher, scope: :user
     post '/financial_responsibles',
          params: {
