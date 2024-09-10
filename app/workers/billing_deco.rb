@@ -31,7 +31,6 @@ class BillingDeco
     financial_responsibles = FinancialResponsible.joins(:responsibles)
                                                   .where(responsibles: { student_id: Student.where(status: :registered).pluck(:id) })
                                                   .distinct
-    financial_responsibles = financial_responsibles.where(id: 7)
     financial_responsibles.each do |recipient|
       if recipient.email.present?
         BillingFinancialResponsibleMailer.with(recipient:).billing_email.deliver_now
