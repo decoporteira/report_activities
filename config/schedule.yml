@@ -3,5 +3,5 @@ daily_job:
   class: "DailyJob"
 
 billing_deco_job:
-  cron: "* * * * *"  # 7 da manhã, todos os dias # 5 da manhã, todo dia 10 => |  | * * * * * | |0 7 * * *|
+  cron: "0 0 * * *"  # 7 da manhã, todos os dias # 5 da manhã, todo dia 10 => |  | * * * * * | |0 7 * * *|
   class: "BillingDecoJob"
