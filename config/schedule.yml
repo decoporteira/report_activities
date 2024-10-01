@@ -1,7 +1,31 @@
-daily_job:
-  cron: "0 0 * * *"
-  class: "DailyJob"
+billing_responsibles_job:
+  cron: "0 14 1 * *"  # 7 da manhã, todos os dias # 5 da manhã, todo dia 10 => |  | * * * * * | |0 7 * * *|
+  class: "BillingResponsiblesJob"
 
-billing_job:
-  cron: "0 5 10 * * "  # 5 da manhã, todo dia 10 => | 0 5 10 * * | * * * * * |
-  class: "BillingJob"
+billing_responsibles_job:
+  cron: "0 14 2 * *"  # 7 da manhã, todos os dias # 5 da manhã, todo dia 10 => |  | * * * * * | |0 7 * * *|
+  class: "BillingResponsiblesJob"
+
+billing_responsibles_job:
+  cron: "0 14 3 * *"  # 7 da manhã, todos os dias # 5 da manhã, todo dia 10 => |  | * * * * * | |0 7 * * *|
+  class: "BillingResponsiblesJob"
+
+billing_responsibles_job:
+  cron: "0 14 4 * *"  # 7 da manhã, todos os dias # 5 da manhã, todo dia 10 => |  | * * * * * | |0 7 * * *|
+  class: "BillingResponsiblesJob"
+
+billing_responsibles_job:
+  cron: "0 14 5 * *"  # 7 da manhã, todos os dias # 5 da manhã, todo dia 10 => |  | * * * * * | |0 7 * * *|
+  class: "BillingResponsiblesJob"
+
+billing_responsibles_job:
+  cron: "0 14 6 * *"  # 7 da manhã, todos os dias # 5 da manhã, todo dia 10 => |  | * * * * * | |0 7 * * *|
+  class: "BillingResponsiblesJob"
+
+billing_students_even_job:
+  cron: "0 14 10 * *"  # 7 da manhã, todos os dias # 5 da manhã, todo dia 10 => |  | * * * * * | |0 7 * * *|
+  class: "BillingStudentsEvenJob"
+
+billing_students_odd_job:
+  cron: "0 14 10 * *"  # 7 da manhã, todos os dias # 5 da manhã, todo dia 10 => |  | * * * * * | |0 7 * * *|
+  class: "BillingStudentsOddJob"

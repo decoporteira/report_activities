@@ -22,6 +22,13 @@
     .footer img {
       width: 130px;
     }
+    .card {
+      padding: 15px;
+      background-color: #e9ecef47;
+    }
+    .card p {
+      margin: 0;
+    }
     .sign p {
       margin: 0;
       margin-block-start: 1em;
@@ -36,15 +43,25 @@
     </div>
 
     <p>
-      Este é um e-mail automático para lembrá-lo(a) de que a sua mensalidade da English Globe referente ao mês de <%= t("date.month_names")[Time.zone.today.month] %>, vence hoje, <%= Date.today.strftime('%d/%m/%Y') %>.
+      Este é um e-mail automático para lembrá-lo(a) de que a sua mensalidade da 
+      English Globe referente ao mês de <%= t("date.month_names")[Time.zone.today.month] %>, está próxima do vencimento, 
+      no dia <%= "10/#{Date.today.strftime('%m/%Y')}" %>.
     </p>
 
     <p>
-      Caso o pagamento já tenha sido efetuado, por favor, desconsidere esta mensagem.
+      <strong>Caso o pagamento já tenha sido efetuado, por favor, desconsidere esta mensagem.</strong>
     </p>
-
+    <p><strong>Aviso importante:</strong></p>
+    <p>Tivemos uma alteração no banco, a chave PIX continua a mesma, mas alteramos o banco.</p> 
+    <div class="card mb-4 rounded-3 shadow-sm">
+      <p><strong>CHAVE PIX: 32991823172</strong></p>
+      <p>Banco Safra</p>
+      <p>Ag: 0189</p>
+      <p>C/C: 582287-1</p>
+      <p>JF ENGLISH IDIOMAS LTDA </p>
+      <p>CNPJ: 20.543.527/0001-70</p>
+    </div>
     <p>Agradecemos pela sua atenção e desejamos um excelente dia!</p>
-    <br>
     <div class='sign'>
       <p>Atenciosamente,</p>
       <p><strong>English Globe</strong></p>
