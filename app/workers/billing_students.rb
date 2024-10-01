@@ -1,4 +1,4 @@
-class BillingJob
+class BillingStudents
   include Sidekiq::Job
 
   def perform(*_args)
@@ -9,12 +9,12 @@ class BillingJob
     if today.saturday?
       next_week_day = today + 2.days
       Rails.logger.info "Reagendado para #{next_week_day.strftime('%d/%m/%Y')}."
-      BillingJob.perform_at(next_week_day.beginning_of_day)
+      BillingStudents.perform_at(next_week_day.beginning_of_day)
       return
     elsif today.sunday?
       next_week_day = today + 1.day
       Rails.logger.info "Reagendado para #{next_week_day.strftime('%d/%m/%Y')}."
-      BillingJob.perform_at(next_week_day.beginning_of_day)
+      BillingStudents.perform_at(next_week_day.beginning_of_day)
       return
     end
     students_without_responsible = Student.left_outer_joins(:responsibles).where(responsibles: { id: nil })
@@ -27,7 +27,7 @@ class BillingJob
           Rails.logger.info "Email enviado para #{recipient.name} (Estudante: #{recipient.name}, ID: #{recipient.id}), no email: #{recipient.email}"
         else
           Rails.logger.info "Reagendado para #{next_week_day.strftime('%d/%m/%Y')}."
-          BillingJob.perform_at(next_week_day.beginning_of_day)
+          BillingStudents.perform_at(next_week_day.beginning_of_day)
         end
       else
         Rails.logger.info "Não foi encontrado email para o estudante #{recipient.name}, pulando esse envio."
