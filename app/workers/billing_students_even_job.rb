@@ -19,9 +19,9 @@ class BillingStudentsEvenJob
     end
     students_without_responsible = Student.left_outer_joins(:responsibles).where(responsibles: { id: nil })
     students_without_responsible = students_without_responsible.where(status: :registered)
-    students_without_responsible.select { |student| student.id.even? }.each do |recipient|
+    students_without_responsible.select { |student| student.id.odd? }.each do |recipient|
       if recipient.email.present?
-        #BillingMailer.with(recipient:).billing_email.deliver_now
+        BillingMailer.with(recipient:).billing_email.deliver_now
         Rails.logger.info "Email enviado para #{recipient.name} (Estudante: #{recipient.name}, ID: #{recipient.id}), no email: #{recipient.email}"
       else
         Rails.logger.info "Não foi encontrado email para o estudante #{recipient.name} e id: #{recipient.id}, pulando esse envio."

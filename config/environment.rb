@@ -26,7 +26,8 @@ ActionMailer::Base.smtp_settings = {
   user_name: 'no-reply@reports.englishglobe.com.br', # Replace with your Gmail email
   password: 'Virna1802!', # Replace with the App Password you generated
   authentication: 'plain',
+  ssl: true,
   enable_starttls_auto: true,
-  open_timeout: 5,
-  read_timeout: 5
+  open_timeout: 10,
+  read_timeout: 10
 }
