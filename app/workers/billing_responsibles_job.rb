@@ -1,5 +1,5 @@
 class BillingResponsiblesJob
-  include Sidekiq::Job
+  include Sidekiq::Worker
 
   def perform(*_args)
     today = Time.zone.today
