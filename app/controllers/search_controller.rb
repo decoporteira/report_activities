@@ -1,32 +1,16 @@
 class SearchController < ApplicationController
   def index
-    query = params[:query].to_s
+    clean_query = query_cleaner(params[:query].to_s).downcase
 
-    @students =
-    Student.where(
-      "TRANSLATE(LOWER(name), 'ÁÀÂÃÄáàâãäÉÈÊËéèêëÍÌÎÏíìîïÓÒÕÔÖóòôõöÚÙÛÜúùûüÇç', 
-       'AAAAAaaaaaEEEEeeeeIIIIiiiiOOOOOoooooUUUUuuuuÇc') LIKE ?", 
-       "%#{query.downcase}%"
-    )
-    @classrooms =
-      Classroom.where(
-        "TRANSLATE(LOWER(name), 'ÁÀÂÃÄáàâãäÉÈÊËéèêëÍÌÎÏíìîïÓÒÕÔÖóòôõöÚÙÛÜúùûüÇç', 
-         'AAAAAaaaaaEEEEeeeeIIIIiiiiOOOOOoooooUUUUuuuuÇc') LIKE ?", 
-         "%#{query.downcase}%"
-      )
+    @students = find_records(Student, clean_query)
+    @classrooms = find_records(Classroom, clean_query)
     @teachers = filter_teachers
-    @financial_responsibles =
-      FinancialResponsible.where(
-        'LOWER(name) LIKE ?',
-        "%#{query.downcase}%"
-      )
+    @financial_responsibles = find_records(FinancialResponsible, clean_query)
   end
 
   def filter
-    query = params[:query].to_s
-    @classrooms = Classroom.where( "TRANSLATE(LOWER(name), 'ÁÀÂÃÄáàâãäÉÈÊËéèêëÍÌÎÏíìîïÓÒÕÔÖóòôõöÚÙÛÜúùûüÇç', 
-    'AAAAAaaaaaEEEEeeeeIIIIiiiiOOOOOoooooUUUUuuuuÇc') LIKE ?", 
-    "%#{query.downcase}%")
+    clean_query = query_cleaner(params[:query].to_s).downcase
+    @classrooms = Classroom.where('name LIKE ?', "%#{clean_query}%")
     return if params[:teacher_id].blank?
 
     @classrooms = @classrooms.where(teacher_id: params[:teacher_id])
@@ -34,11 +18,23 @@ class SearchController < ApplicationController
 
   private
 
+  def find_records(model, clean_query)
+    model.where(
+      "TRANSLATE(LOWER(name), 'ÁÀÂÃÄáàâãäÉÈÊËéèêëÍÌÎÏíìîïÓÒÕÔÖóòôõöÚÙÛÜúùûüÇç',
+       'AAAAAaaaaaEEEEeeeeIIIIiiiiOOOOOoooooUUUUuuuuÇc') LIKE ?", "%#{clean_query}%"
+    )
+  end
+
+  def query_cleaner(query)
+    query
+      .gsub(/[áàãâä]/, 'a')
+      .gsub(/[éèêë]/, 'e')
+      .gsub(/[íìîï]/, 'i')
+      .gsub(/[óòõôö]/, 'o')
+      .gsub(/[úùûü]/, 'u')
+  end
+
   def filter_teachers
-    teachers =
-      @classrooms.each_with_object([]) do |classroom, teachers|
-        teachers << classroom.teacher_id
-      end
-    teachers.uniq
+    @classrooms.map(&:teacher_id).uniq
   end
 end
