@@ -261,7 +261,7 @@ RSpec.describe 'Usuário pesquisa' do
       cpf: '065.654.654-01'
     )
     Student.create!(
-      name: 'Charmander',
+      name: 'Charmeleon',
       status: :registered,
       classroom_id: classroom.id,
       cpf: '077.654.654-01'
@@ -279,8 +279,9 @@ RSpec.describe 'Usuário pesquisa' do
     fill_in 'search', with: 'Charmeleon'
     click_on 'Search'
 
-    expect(page).to have_content 'Alunos encontrados: 1'
+    expect(page).to have_content 'Alunos encontrados: 2'
     expect(page).to have_content 'Charmeléon'
+    expect(page).to have_content 'Charmeleon'
     expect(page).to have_content 'Turmas encontradas: 0'
   end
 end

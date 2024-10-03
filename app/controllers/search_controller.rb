@@ -18,13 +18,12 @@ class SearchController < ApplicationController
     @financial_responsibles =
       FinancialResponsible.where(
         'LOWER(name) LIKE ?',
-        "%#{query_sem_acento.downcase}%"
+        "%#{query.downcase}%"
       )
   end
 
   def filter
     query = params[:query].to_s
-    query_sem_acento = substitui_vogais_com_acento(query)
     @classrooms = Classroom.where( "TRANSLATE(LOWER(name), 'ÁÀÂÃÄáàâãäÉÈÊËéèêëÍÌÎÏíìîïÓÒÕÔÖóòôõöÚÙÛÜúùûüÇç', 
     'AAAAAaaaaaEEEEeeeeIIIIiiiiOOOOOoooooUUUUuuuuÇc') LIKE ?", 
     "%#{query.downcase}%")

@@ -9,7 +9,7 @@ RSpec.describe BillingJob, type: :job do
   it 'sends an email to each student when they have no financial responsible' do
     student = create(:student, email: 'student@example.com', status: :registered)
     student_two = create(:student, email: 'student_two@example.com', status: :registered)
-    student_three = create(:student, email: 'student_two@example.com', status: :registered)
+    student_three = create(:student, email: 'student_two@example.com', status: :unregistered)
 
     # Run the BillingJob
     BillingJob.new.perform
@@ -17,7 +17,7 @@ RSpec.describe BillingJob, type: :job do
     # Ensure `BillingMailer.with(recipient: student)` was called
     expect(BillingMailer).to have_received(:with).with(recipient: student).once
     expect(BillingMailer).to have_received(:with).with(recipient: student_two).once
-    expect(BillingMailer).to have_received(:with).with(recipient: student_three).once
+    expect(BillingMailer).not_to have_received(:with).with(recipient: student_three)
 
     # Ensure `billing_email.deliver_now` was called once for each student
     expect(BillingMailer.with(recipient: student).billing_email).to have_received(:deliver_now).twice
