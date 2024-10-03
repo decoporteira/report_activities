@@ -11,10 +11,13 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2024_09_06_120216) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "activities", force: :cascade do |t|
     t.string "report"
     t.integer "late"
-    t.integer "student_id", null: false
+    t.bigint "student_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "date"
@@ -33,12 +36,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_06_120216) do
     t.datetime "updated_at", null: false
     t.string "city"
     t.string "addressable_type"
-    t.integer "addressable_id"
+    t.bigint "addressable_id"
     t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable"
   end
 
   create_table "attendances", force: :cascade do |t|
-    t.integer "student_id", null: false
+    t.bigint "student_id", null: false
     t.boolean "presence", default: true
     t.date "attendance_date"
     t.datetime "created_at", null: false
@@ -49,17 +52,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_06_120216) do
   create_table "classrooms", force: :cascade do |t|
     t.string "name"
     t.string "time"
-    t.integer "teacher_id", null: false
+    t.bigint "teacher_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["teacher_id"], name: "index_classrooms_on_teacher_id"
   end
 
   create_table "current_plans", force: :cascade do |t|
-    t.integer "plan_id", null: false
+    t.bigint "plan_id", null: false
     t.boolean "has_discount", default: false, null: false
     t.integer "discount"
-    t.integer "student_id", null: false
+    t.bigint "student_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "total", precision: 10, scale: 2
@@ -77,14 +80,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_06_120216) do
   end
 
   create_table "monthly_fees", force: :cascade do |t|
+    t.bigint "student_id", null: false
     t.decimal "value", precision: 10, scale: 2
     t.integer "status"
     t.date "due_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "student_id"
     t.boolean "has_discount", default: false, null: false
     t.decimal "discount_rate", precision: 5, scale: 2
+    t.index ["student_id"], name: "index_monthly_fees_on_student_id"
   end
 
   create_table "plans", force: :cascade do |t|
@@ -95,8 +99,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_06_120216) do
   end
 
   create_table "responsibles", force: :cascade do |t|
-    t.integer "student_id", null: false
-    t.integer "financial_responsible_id", null: false
+    t.bigint "student_id", null: false
+    t.bigint "financial_responsible_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["financial_responsible_id"], name: "index_responsibles_on_financial_responsible_id"
@@ -107,7 +111,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_06_120216) do
     t.text "written_report"
     t.integer "status"
     t.date "date"
-    t.integer "student_id", null: false
+    t.bigint "student_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["student_id"], name: "index_resumes_on_student_id"
@@ -116,7 +120,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_06_120216) do
   create_table "students", force: :cascade do |t|
     t.string "name"
     t.integer "status"
-    t.integer "classroom_id"
+    t.bigint "classroom_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "cpf"
@@ -132,7 +136,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_06_120216) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "cpf"
-    t.integer "user_id", default: 0, null: false
+    t.bigint "user_id", default: 0, null: false
     t.string "cel_phone"
     t.string "phone"
     t.index ["user_id"], name: "index_teachers_on_user_id"
@@ -157,6 +161,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_06_120216) do
   add_foreign_key "classrooms", "teachers"
   add_foreign_key "current_plans", "plans"
   add_foreign_key "current_plans", "students"
+  add_foreign_key "monthly_fees", "students"
   add_foreign_key "responsibles", "financial_responsibles"
   add_foreign_key "responsibles", "students"
   add_foreign_key "resumes", "students"

@@ -4,7 +4,7 @@ RSpec.describe 'Usuário cadastra um responsável financeiro' do
   it 'com sucesso' do
     user_admin = create(:user, email: 'teste@email.com')
     login_as user_admin, scope: :user
-    create(:student)
+    student = create(:student)
     post '/financial_responsibles',
          params: {
            financial_responsible: {
@@ -12,7 +12,7 @@ RSpec.describe 'Usuário cadastra um responsável financeiro' do
              email: 'oak@email.com',
              phone: '00 0000-0000',
              cpf: '000.000.000-01',
-             student_id: 1
+             student_id: student.id
            }
          }
 
