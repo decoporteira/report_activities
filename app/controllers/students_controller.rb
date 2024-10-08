@@ -63,10 +63,15 @@ class StudentsController < ApplicationController
       Student
       .includes(classroom: :teacher)
       .where(status: :registered)
-      .where(cpf: '')
-      .or(Student.where(email: [nil, '']))
       .left_outer_joins(:financial_responsibles)
       .where(financial_responsibles: { id: nil })
+      .where(cpf: '')
+      .or(
+        Student
+        .where(status: :registered)
+        .where(financial_responsibles: { id: nil })
+        .where(email: [nil, ''])
+      )
   end
 
   def report
