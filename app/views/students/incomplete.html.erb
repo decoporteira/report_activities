@@ -1,5 +1,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<h1>Alunos sem CPF e Responsável Cadastrado</h1>
+<h1>Alunos com cadasttro incompleto</h1>
 
 <input
   class="form-control"
@@ -8,6 +8,7 @@
   placeholder="Digite alguma coisa para filtrar..."
 />
 <br />
+<h2>Aluno sem cpf e sem resposável cadastrado</h2>
 <ul class="list-group" id="myList">
   <%  @students.each do |student| %>
     <li class="list-group-item ">
@@ -17,6 +18,20 @@
         <div style="width: 30%;"><%= student.classroom.teacher.name %></div>
         <div style="width: 30%;"><%= student.classroom.name %></div>
         <div style="width: 30%;"><%= student.email %></div>
+      </div>
+    </li>
+  <% end %>
+</ul>
+<h2>Aluno sem email e sem resposável cadastrado</h2>
+<ul class="list-group" id="myList">
+  <%  @students_without_email.each do |student| %>
+    <li class="list-group-item ">
+      <div class="d-flex">
+        <div style="width: 30%;"><%= link_to student.name, student %></div>
+        <div style="width: 30%;"><%= I18n.t(student.status) %></div>
+        <div style="width: 30%;"><%= student.classroom.teacher.name %></div>
+        <div style="width: 30%;"><%= student.classroom.name %></div>
+        <div style="width: 30%;"><%= student.cpf %></div>
       </div>
     </li>
   <% end %>
