@@ -69,7 +69,7 @@ class StudentsController < ApplicationController
     @students_without_email =
       Student
       .includes(classroom: :teacher)
-      .where(email: '', status: :registered)
+      .where(email: '-', status: :registered)
       .left_outer_joins(:financial_responsibles)
       .where(financial_responsibles: { id: nil })
   end
