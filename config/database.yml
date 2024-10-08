@@ -5,24 +5,35 @@
 #   gem "sqlite3"
 #
 default: &default
-  adapter: sqlite3
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  adapter: postgresql
+  pool: 5
   timeout: 5000
+  
 
 development:
   <<: *default
-  database: db/development.sqlite3
+  database: report_activities
+  encoding: unicode
+  host: localhost
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+
+test:
+  <<: *default
+  database: report_activities_test
+  encoding: unicode
+  host: localhost
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
-test:
-  <<: *default
-  database: db/test.sqlite3
 
 production:
   <<: *default
-  database: <%= ENV["MY_APP_DATABASE_DATABASE"] %>
-  host: <%= ENV["MY_APP_DATABASE_HOST"] %>
-  username: <%= ENV["MY_APP_DATABASE_USERNAME"] %>
-  password: <%= ENV["MY_APP_DATABASE_PASSWORD"] %>
+  database: reports_production
+  host: 127.0.0.1
+  username: <%= Rails.application.credentials.dig(:db, :username) %>
+  password: <%= Rails.application.credentials.dig(:db, :password) %>

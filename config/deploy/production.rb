@@ -55,3 +55,18 @@ server '142.93.6.208', user: 'deploy', roles: %w[app db web]
 #     auth_methods: %w(publickey password)
 #     # password: "please use keys"
 #   }
+namespace :deploy do
+  desc 'Upload only master.key and credentials.yml.enc for testing'
+  task :upload_credentials_only do
+    on roles(:app) do
+      # Ensure the shared directory exists
+      execute "mkdir -p #{shared_path}/config"
+      # Upload the credentials and master key
+      upload! 'config/credentials.yml.enc', "#{shared_path}/config/credentials.yml.enc"
+      upload! 'config/master.key', "#{shared_path}/config/master.key"
+      # Create symlinks in the current release path
+      execute "ln -sf #{shared_path}/config/credentials.yml.enc #{release_path}/config/credentials.yml.enc"
+      execute "ln -sf #{shared_path}/config/master.key #{release_path}/config/master.key"
+    end
+  end
+end
