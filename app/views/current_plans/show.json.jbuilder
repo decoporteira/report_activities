@@ -1,1 +1,1 @@
-json.partial! "current_plans/current_plan", current_plan: @current_plan
+json.partial! 'current_plans/current_plan', current_plan: @current_plan

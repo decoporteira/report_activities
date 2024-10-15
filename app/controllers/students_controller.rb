@@ -37,8 +37,7 @@ class StudentsController < ApplicationController
     respond_to do |format|
       if @student.update(student_params)
         format.html do
-          redirect_to student_path(@student),
-                      notice: 'Student was successfully updated.'
+          redirect_to student_path(@student), notice: t('.success')
         end
         format.json { render :info, status: :ok, location: @student }
       else
@@ -67,10 +66,7 @@ class StudentsController < ApplicationController
       .where(financial_responsibles: { id: nil })
       .where(cpf: '')
       .or(
-        Student
-        .where(status: :registered)
-        .where(financial_responsibles: { id: nil })
-        .where(email: [nil, ''])
+        Student.where(status: :registered).where(financial_responsibles: { id: nil }).where(email: [nil, ''])
       )
   end
 

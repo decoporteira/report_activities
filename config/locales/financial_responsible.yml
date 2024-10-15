@@ -12,4 +12,6 @@ pt-BR:
     denied: Acesso negado.
     create:
       success: Responsável cadastrado com sucesso.
+      created_with_error: Responsável foi criado, porém sem nenhum aluno ligado a ele.
+      bond_error: Não foi possível criar o vinculo entre o Aluno e o Responsável Financeiro.
       fail: Não foi possível cadastrar o Responsável.

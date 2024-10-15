@@ -1,20 +1,18 @@
 class PlansController < ApplicationController
-  before_action :set_plan, only: [:show, :edit, :update, :destroy]
+  before_action :set_plan, only: %i[show edit update destroy]
   before_action :admin?
 
   def index
     @plans = Plan.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @plan = Plan.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @plan = Plan.new(plan_params)

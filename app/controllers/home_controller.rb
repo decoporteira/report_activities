@@ -22,9 +22,9 @@ class HomeController < ApplicationController
   def financial_responsible_blank
     financial_responsible =
       FinancialResponsible
-        .where(cpf: current_user.cpf)
-        .or(FinancialResponsible.where(email: current_user.email))
-        .first
+      .where(cpf: current_user.cpf)
+      .or(FinancialResponsible.where(email: current_user.email))
+      .first
     @students =
       if financial_responsible.blank?
         Student

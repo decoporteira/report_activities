@@ -41,7 +41,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
     click_on 'Atualizar Aluno'
 
     # assert
-    expect(page).to have_content('Student was successfully updated.')
+    expect(page).to have_content('Aluno(a) editado(a) com sucesso.')
     expect(page).to have_content('Bulbassaur')
     expect(page).to have_content('Professor(a): Bianca')
     expect(page).to have_content('Turma: MW 17:00')
@@ -88,7 +88,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
     click_on 'Atualizar Aluno'
 
     # assert
-    expect(page).to have_content('Student was successfully updated.')
+    expect(page).to have_content('Aluno(a) editado(a) com sucesso.')
     expect(page).to have_content('Bulbassaur')
     expect(page).to have_content('Professor(a): Bianca')
     expect(page).to have_content('Turma: MW 17:00')

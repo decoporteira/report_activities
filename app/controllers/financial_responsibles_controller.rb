@@ -22,9 +22,7 @@ class FinancialResponsiblesController < ApplicationController
     if @financial_responsible.save
       if financial_responsible_params[:student_id].nil?
         (
-          redirect_to @financial_responsible,
-                      notice:
-                        'Responsável foi criado, porém sem nenhum aluno ligado a ele.'
+          redirect_to @financial_responsible, notice: t('.created_with_error')
         )
       else
         @student = Student.find(financial_responsible_params[:student_id])
@@ -36,8 +34,7 @@ class FinancialResponsiblesController < ApplicationController
         if responsible.save
           redirect_to @financial_responsible, notice: t('.success')
         else
-          flash.now[:alert] =
-            'Não foi possível criar o vinculo entre o Aluno e o Responsável Financeiro'
+          flash.now[:alert] = t('.bond_error')
           render :new, status: :unprocessable_entity
         end
       end

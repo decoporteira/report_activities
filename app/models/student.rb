@@ -13,7 +13,7 @@ class Student < ApplicationRecord
   enum status: { registered: 1, unregistered: 2 }
   validates :name, uniqueness: { scope: :classroom }
   validates :name, :status, presence: true
-  
+
   include DateRangeHelper
 
   def self.ransackable_attributes(_auth_object = nil)

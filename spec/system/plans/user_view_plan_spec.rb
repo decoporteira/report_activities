@@ -11,7 +11,6 @@ RSpec.describe 'Usuário cadastra um Plano a partir da home' do
 
     expect(page).to have_content('Kids')
     expect(page).to have_content('Valor: R$ 330,00')
-
   end
   it 'e falha, pois não tem acesso' do
     user = FactoryBot.create(:user, role: 'default')

@@ -1,5 +1,5 @@
 class CurrentPlansController < ApplicationController
-  before_action :set_current_plan, only: %i[ show edit update destroy ]
+  before_action :set_current_plan, only: %i[show edit update destroy]
 
   # GET /current_plans or /current_plans.json
   def index
@@ -7,8 +7,7 @@ class CurrentPlansController < ApplicationController
   end
 
   # GET /current_plans/1 or /current_plans/1.json
-  def show
-  end
+  def show; end
 
   # GET /current_plans/new
   def new
@@ -22,7 +21,7 @@ class CurrentPlansController < ApplicationController
     @current_plan = CurrentPlan.new(current_plan_params)
     respond_to do |format|
       if @current_plan.save
-        format.html { redirect_to current_plan_url(@current_plan), notice: t('.success')}
+        format.html { redirect_to current_plan_url(@current_plan), notice: t('.success') }
         format.json { render :show, status: :created, location: @current_plan }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -54,11 +53,12 @@ class CurrentPlansController < ApplicationController
   end
 
   private
-    def set_current_plan
-      @current_plan = CurrentPlan.find(params[:id])
-    end
 
-    def current_plan_params
-      params.require(:current_plan).permit(:plan_id, :has_discount, :discount, :student_id)
-    end
+  def set_current_plan
+    @current_plan = CurrentPlan.find(params[:id])
+  end
+
+  def current_plan_params
+    params.require(:current_plan).permit(:plan_id, :has_discount, :discount, :student_id)
+  end
 end

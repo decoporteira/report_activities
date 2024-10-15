@@ -3,6 +3,6 @@ FactoryBot.define do
     student
     report { 'Teste de texto' }
     late { 0 }
-    date { Date.today }
+    date { Time.zone.today }
   end
 end

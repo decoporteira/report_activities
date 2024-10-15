@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'sidekiq/testing'
 
-RSpec.describe BillingJob, type: :job do
+RSpec.describe BillingStudentsEvenJob, type: :job do
   before do
     Sidekiq::Testing.fake! # Ensure no actual Sidekiq job is performed
     Sidekiq::Queues['default'].clear # Clear the Sidekiq queue before each test
@@ -13,7 +13,7 @@ RSpec.describe BillingJob, type: :job do
       it 'reschedules the job to the next Monday' do
         travel_to Time.zone.local(2024, 9, 7, 10, 0, 0) do # Saturday
           expected_date = Time.zone.local(2024, 9, 9).beginning_of_day
-          BillingJob.perform_at(expected_date)
+          BillingStudentsEvenJob.perform_at(expected_date)
 
           # Check that the job was enqueued and rescheduled to Monday
           expect(Sidekiq::Queues['default'].size).to eq(1)
@@ -29,7 +29,7 @@ RSpec.describe BillingJob, type: :job do
       it 'reschedules the job to the next Monday' do
         travel_to Time.zone.local(2024, 9, 8, 10, 0, 0) do # Sunday
           expected_date = Time.zone.local(2024, 9, 9).beginning_of_day
-          BillingJob.perform_at(expected_date)
+          BillingStudentsEvenJob.perform_at(expected_date)
 
           # Check that the job was enqueued and rescheduled to Monday
           expect(Sidekiq::Queues['default'].size).to eq(1)

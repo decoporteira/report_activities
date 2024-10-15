@@ -6,7 +6,7 @@ RSpec.describe 'Usuário cria Plano atual para aluno' do
     FactoryBot.create(:plan, name: 'Teste', price: 330)
     FactoryBot.create(:plan, name: 'Teens', price: 350)
     student = FactoryBot.create(:student, name: 'Brock')
-    FactoryBot.create(:current_plan, student_id: student.id )
+    FactoryBot.create(:current_plan, student_id: student.id)
 
     login_as(user)
     visit(root_path)
