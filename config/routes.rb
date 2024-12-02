@@ -45,7 +45,7 @@ Rails
       get 'report', on: :member
       resources :resumes, only: %i[new create index show edit update destroy]
       resources :addresses, only: %i[new create show edit update]
-      resources :monthly_fees, only: %i[index show new create edit update] do
+      resources :monthly_fees, only: %i[index show new create edit update destroy] do
         collection { post :create_anual_fees }
       end
       collection { post :import }

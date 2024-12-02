@@ -1,7 +1,7 @@
 class MonthlyFeesController < ApplicationController
   before_action :authorize_admin!, only: %i[new index show edit create all]
-  before_action :set_student, only: %i[new index create show edit update create_anual_fees]
-  before_action :set_monthly_fee, only: %i[show edit update create_all_monthly_fees]
+  before_action :set_student, only: %i[new index create show edit update destroy create_anual_fees]
+  before_action :set_monthly_fee, only: %i[show edit update destroy create_all_monthly_fees]
 
   def new
     @monthly_fee = MonthlyFee.new
@@ -20,7 +20,7 @@ class MonthlyFeesController < ApplicationController
     if @monthly_fee.save
       redirect_to student_path(@student), notice: t('.success')
     else
-      render :new
+      render :edit
     end
   end
 
@@ -50,6 +50,18 @@ class MonthlyFeesController < ApplicationController
     create_all_monthly_fees(@student)
     redirect_to request.referer, notice: t('.success')
   end
+
+  def destroy
+    if @monthly_fee.destroy
+      respond_to do |format|
+        format.html { redirect_to student_path(@student), notice: t('.success') }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to @classroom, alert: t('.fail')
+    end
+  
+  end 
 
   private
 

@@ -12,6 +12,7 @@ class StudentsController < ApplicationController
     return unless current_user.default?
 
     redirect_to root_path, alert: t('unauthorized_action')
+    
   end
 
   def new
