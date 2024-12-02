@@ -12,7 +12,6 @@ class StudentsController < ApplicationController
     return unless current_user.default?
 
     redirect_to root_path, alert: t('unauthorized_action')
-    
   end
 
   def new
@@ -37,15 +36,11 @@ class StudentsController < ApplicationController
   def update
     respond_to do |format|
       if @student.update(student_params)
-        format.html do
-          redirect_to student_path(@student), notice: t('.success')
-        end
+        format.html { redirect_to student_path(@student), notice: t('.success') }
         format.json { render :info, status: :ok, location: @student }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json do
-          render json: @student.errors, status: :unprocessable_entity
-        end
+        format.json { render json: @student.errors, status: :unprocessable_entity }
       end
     end
   end
