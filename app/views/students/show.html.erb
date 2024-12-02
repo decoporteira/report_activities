@@ -3,7 +3,7 @@
   <div class="row flex-lg-row g-5 py-5">
   <div class="col-lg-6">
       <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3"><%= @student.name%></h1>
-      <h3 class=""><%= @student.plan.present? ? @student.plan.plan_type : 'Nenhum plano cadastrado' %></h3>
+      <h3>Curso: <%= @student.current_plan ? @student.current_plan.plan.name : 'Nenhum curso cadastrado' %></h3>
       <p class="lead"></p>
         <dl>
           <dt>Professor(a): </dt>
@@ -22,17 +22,8 @@
           <dd><%= @student.email.present? ? @student.email : "Email não cadastrado."%></dd>
           <dt>CPF: </dt>
           <dd><%= @student.cpf.present? ? @student.cpf : "CPF não cadastrado."%></dd>
-          
         </dl>
-        <dt>Valor da Mensalidade: </dt>
-          <dd><% if @student.current_plan.present? %>
-            <%= @student.current_plan.has_discount ? number_to_currency(@student.current_plan.plan.price * (1 - @student.current_plan.discount / 100.0)): number_to_currency(@student.current_plan.plan.price)%>
-          <%else %>
-            Sem plano cadastrado
-          <% end %>
-          </dd>
-        
-      
+  
       <div class="d-grid gap-2 d-md-flex justify-content-md-start">
         <%= link_to "Edit this student", edit_student_path(@student), class:'btn btn-outline-primary', style:"width:150px" %>
       </div>
