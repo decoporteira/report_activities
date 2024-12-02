@@ -13,7 +13,6 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
         <% @monthly_fees.each do |monthly_fee|  %>
           <tr>
             <td><%= monthly_fee.student.name %></td>
@@ -28,7 +27,7 @@
                 )
               %>
             </td>
-            <td><%= monthly_fee.due_date.strftime('%d/%m/%Y') %></td>
+            <td><%= monthly_fee.due_date %></td>
 
             <%
               color_statuses = {
@@ -46,7 +45,7 @@
               <%= monthly_fee.due_date_month_name %> /
               <%= monthly_fee.due_date_year %>
             </td>
-            <td style="flex: auto;display: flex;">
+            <td style="flex: auto;display: flex;height:100%">
               <%
                 statuses = {
                   'Paga' => {
@@ -88,7 +87,6 @@
             </td>
           </tr>
         <% end %>
-      </tr>
     </tbody>
   </table>
 </div>
