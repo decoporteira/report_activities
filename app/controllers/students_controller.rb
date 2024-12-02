@@ -51,7 +51,7 @@ class StudentsController < ApplicationController
   end
 
   def not_registered
-    @students = Student.includes([:classroom]).where(status: :not_registered)
+    @students = Student.includes([:classroom]).where(status: :unregistered)
   end
 
   def activities_by_student
