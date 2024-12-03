@@ -34,6 +34,7 @@ Rails
     get 'addresses/', to: 'addresses#index'
 
     get 'monthly_fees/', to: 'monthly_fees#all'
+    get 'monthly_fees/not_paid', to: 'monthly_fees#not_paid'
     patch 'update_paid', to: 'monthly_fees#update_paid'
 
     resources :students do

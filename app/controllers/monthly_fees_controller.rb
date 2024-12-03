@@ -60,8 +60,14 @@ class MonthlyFeesController < ApplicationController
     else
       redirect_to @classroom, alert: t('.fail')
     end
-  
   end 
+
+  def not_paid
+    end_of_month = Date.current.end_of_month
+
+    @monthly_fees = MonthlyFee.where(status: 'Atrasada')
+                              .or(MonthlyFee.where(status: 'A pagar', due_date: ..end_of_month))
+  end
 
   private
 

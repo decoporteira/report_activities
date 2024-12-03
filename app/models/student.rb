@@ -51,9 +51,9 @@ class Student < ApplicationRecord
   def update_current_plan(plan_id, has_discount: false, discount: nil)
     current_plan = self.current_plan || build_current_plan
     current_plan.update(
-      plan_id: plan_id,
-      has_discount: has_discount,
-      discount: discount
+      plan_id:,
+      has_discount:,
+      discount:
     )
   end
 end

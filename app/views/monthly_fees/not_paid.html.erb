@@ -1,9 +1,9 @@
-<h1>Todos os alunos</h1>
+<h1>Mensalidades a vencer ou atrasadas</h1>
 <div class="">
   <table class="fs-9 mb-0 border-top border-translucent table">
     <thead>
       <tr>
-        <th style="width: 30%">Nome</th>
+        <th style="width: 20%">Nome</th>
         <th style="width: 7%">Valor</th>
         <th style="width: 7%">Vencimento</th>
         <th style="width: 7%">Status</th>
@@ -13,6 +13,7 @@
       </tr>
     </thead>
     <tbody>
+        <%= @current_month %>
         <% @monthly_fees.each do |monthly_fee|  %>
           <tr>
             <td><%= monthly_fee.student.name %></td>

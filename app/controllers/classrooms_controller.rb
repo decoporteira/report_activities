@@ -121,9 +121,14 @@ class ClassroomsController < ApplicationController
   def students_into_plan(classroom, plan_id)
     errors = []
     classroom.students.each do |student|
-      unless student.update_current_plan(plan_id)
+      if student.unregistered?
         errors <<
-          "#{student.name}: #{student.current_plan.errors.full_messages.join(', ')}"
+          "#{student.name}: não está matriculado #{student.errors.full_messages.join(', ')}"
+      else
+        unless student.update_current_plan(plan_id)
+          errors <<
+            "#{student.name}: #{student.current_plan.errors.full_messages.join(', ')}"
+        end
       end
     end
 
