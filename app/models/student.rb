@@ -47,4 +47,13 @@ class Student < ApplicationRecord
       number_of_absence: number_of_absences(start_date, end_date)
     }
   end
+
+  def update_current_plan(plan_id, has_discount: false, discount: nil)
+    current_plan = self.current_plan || build_current_plan
+    current_plan.update(
+      plan_id: plan_id,
+      has_discount: has_discount,
+      discount: discount
+    )
+  end
 end

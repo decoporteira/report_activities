@@ -4,7 +4,7 @@ Rails
   .routes
   .draw do
     mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
-    mount Sidekiq::Web => "/sidekiq"
+    mount Sidekiq::Web => '/sidekiq'
     root to: 'home#index'
     get 'users/index'
 
@@ -45,17 +45,20 @@ Rails
       get 'report', on: :member
       resources :resumes, only: %i[new create index show edit update destroy]
       resources :addresses, only: %i[new create show edit update]
-      resources :monthly_fees, only: %i[index show new create edit update destroy] do
+      resources :monthly_fees,
+                only: %i[index show new create edit update destroy] do
         collection { post :create_anual_fees }
       end
       collection { post :import }
     end
     resources :plans, only: %i[new create index show edit update destroy]
-    resources :current_plans, only: %i[new create index show edit update destroy]
+    resources :current_plans,
+              only: %i[new create index show edit update destroy]
     resources :financial_responsibles,
               only: %i[new create index show edit update]
     resources :classrooms do
       collection { post :create_activity }
+      post :update_current_plan, on: :member
     end
     resources :responsibles, only: %i[new create show destroy]
     get 'admin_home', to: 'admin_home#index'

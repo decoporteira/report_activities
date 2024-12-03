@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class ClassroomsController < ApplicationController
-  before_action :set_classroom, only: %i[show edit update destroy]
+  before_action :set_classroom,
+                only: %i[show edit update destroy update_current_plan]
   before_action :authorize_admin!, only: %i[index show edit update destroy]
   before_action :authorize_creation, only: %i[new]
   before_action :set_students, only: %i[show]
@@ -75,6 +76,10 @@ class ClassroomsController < ApplicationController
     end
   end
 
+  def update_current_plan
+    students_into_plan(@classroom, params[:plan_id])
+  end
+
   private
 
   def authorize_admin!
@@ -111,5 +116,32 @@ class ClassroomsController < ApplicationController
       attendance_date: params[:date],
       presence: true
     )
+  end
+
+  def students_into_plan(classroom, plan_id)
+    errors = []
+    classroom.students.each do |student|
+      unless student.update_current_plan(plan_id)
+        errors <<
+          "#{student.name}: #{student.current_plan.errors.full_messages.join(', ')}"
+      end
+    end
+
+    respond_to do |format|
+      if errors.empty?
+        format.html do
+          redirect_to classrooms_url,
+                      notice: 'Cursos dos alunos alterado com sucesso.'
+        end
+        format.json { head :no_content }
+      else
+        format.html do
+          redirect_to classrooms_url, alert: "Erros: #{errors.join('; ')}"
+        end
+        format.json do
+          render json: { errors: errors }, status: :unprocessable_entity
+        end
+      end
+    end
   end
 end

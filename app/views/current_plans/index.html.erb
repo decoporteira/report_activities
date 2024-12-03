@@ -6,7 +6,7 @@
   <% @current_plans.each do |current_plan| %>
     <%= render current_plan %>
     <p>
-      <%= link_to "Show this current plan", current_plan %>
+      <%= link_to "Show #{current_plan.student.name}'s current plan", current_plan %>
     </p>
   <% end %>
 </div>

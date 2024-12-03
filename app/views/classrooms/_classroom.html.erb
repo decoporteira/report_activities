@@ -14,6 +14,14 @@
                   class: 'btn btn-outline-primary',
                   style: 'width:200px'
         %>
+
+        <div class='d-flex p-2 justify-content-around'>
+          <%= button_to 'Linkar Kids', update_current_plan_classroom_path(classroom, plan_id: 1), 
+              method: :post, class: 'btn btn-outline-success mt-2', style: 'width:150px' %>
+
+              <%= button_to 'Linkar Adults', update_current_plan_classroom_path(classroom, plan_id: 3), 
+              method: :post, class: 'btn btn-outline-success mt-2', style: 'width:150px' %>
+        </div>        
       </div>
     </div>
   </div>
