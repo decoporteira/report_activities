@@ -42,23 +42,11 @@
       <h1 class="fw-light"><%= @student.name %></h1>
       <p class="lead text-body-secondary">
         Turma:
-        <strong><%=
-            if @student.classroom.nil?
-              'Não possui turma cadastrada'
-            else
-              @student.classroom.name
-            end
-          %></strong>
+        <strong><%= @student.classroom.nil? ? 'Não possui turma cadastrada' : @student.classroom.name %></strong>
       </p>
       <p class="lead text-body-secondary">
         Professor(a):
-        <strong><%=
-            if @student.classroom.nil?
-              'Não possui turma cadastrada'
-            else
-              @student.classroom.teacher.name
-            end
-          %></strong>
+        <strong><%= @student.classroom.nil? ? 'Não possui turma cadastrada' : @student.classroom.teacher.name %></strong>
       </p>
     </div>
   </div>

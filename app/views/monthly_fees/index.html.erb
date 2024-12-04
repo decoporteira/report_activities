@@ -1,5 +1,5 @@
 <h1>Mensalidades de <%= @student.name %></h1>
-<h2>Turma: <%= @student.classroom.name %></h2>
+<h2>Turma: <strong><%= @student.classroom.nil? ? 'Não possui turma cadastrada' : @student.classroom.name %></strong></h2>
 <h4>
   Responsáveis:
   <% @student.financial_responsibles.each do |responsible| %>

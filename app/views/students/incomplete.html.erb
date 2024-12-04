@@ -13,7 +13,7 @@
   <div class="d-flex">
           <div style="width: 30%;">Nome</div>
           <div style="width: 30%;">Status</div>
-          <div style="width: 30%;">Nome</div>
+          <div style="width: 30%;">Teacher</div>
           <div style="width: 30%;">Turma</div>
           <div style="width: 30%;">CPF</div>
           <div style="width: 30%;">Email</div>
@@ -23,8 +23,8 @@
       <div class="d-flex">
         <div style="width: 30%;"><%= link_to student.name, student %></div>
         <div style="width: 30%;"><%= I18n.t(student.status) %></div>
-        <div style="width: 30%;"><%= student.classroom.teacher.name %></div>
-        <div style="width: 30%;"><%= student.classroom.name %></div>
+        <div style="width: 30%;"><%= student.classroom.nil? ? 'Turma não cadastrada' : student.classroom.teacher.name  %></div>
+        <div style="width: 30%;"><%= student.classroom.nil? ? 'Turma não cadastrada' : student.classroom.name %></div>
         <div style="width: 30%;"><%= student.cpf %></div>
         <div style="width: 30%;"><%= student.email %></div>
       </div>
