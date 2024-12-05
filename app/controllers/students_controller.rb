@@ -36,17 +36,21 @@ class StudentsController < ApplicationController
   def update
     respond_to do |format|
       if @student.update(student_params)
-        format.html { redirect_to student_path(@student), notice: t('.success') }
+        format.html do
+          redirect_to student_path(@student), notice: t('.success')
+        end
         format.json { render :info, status: :ok, location: @student }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @student.errors, status: :unprocessable_entity }
+        format.json do
+          render json: @student.errors, status: :unprocessable_entity
+        end
       end
     end
   end
 
   def not_registered
-    @students = Student.includes([:classroom]).where(status: :unregistered)
+    @students = Student.inactive
   end
 
   def activities_by_student
@@ -56,14 +60,17 @@ class StudentsController < ApplicationController
   def incomplete
     @students =
       Student
-      .includes(classroom: :teacher)
-      .where(status: :registered)
-      .left_outer_joins(:financial_responsibles)
-      .where(financial_responsibles: { id: nil })
-      .where(cpf: '')
-      .or(
-        Student.where(status: :registered).where(financial_responsibles: { id: nil }).where(email: [nil, ''])
-      )
+        .includes(classroom: :teacher)
+        .where(status: :registered)
+        .left_outer_joins(:financial_responsibles)
+        .where(financial_responsibles: { id: nil })
+        .where(cpf: '')
+        .or(
+          Student
+            .where(status: :registered)
+            .where(financial_responsibles: { id: nil })
+            .where(email: [nil, ''])
+        )
   end
 
   def report
@@ -110,7 +117,9 @@ class StudentsController < ApplicationController
   end
 
   def admin?
-    return if current_user.admin? || current_user.accounting? || current_user.teacher?
+    if current_user.admin? || current_user.accounting? || current_user.teacher?
+      return
+    end
 
     redirect_to root_path, alert: t('unauthorized_action')
   end

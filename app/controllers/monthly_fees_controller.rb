@@ -37,7 +37,7 @@ class MonthlyFeesController < ApplicationController
   end
 
   def all
-    @monthly_fees = MonthlyFee.includes([:student])
+    @monthly_fees = MonthlyFee.includes([:student]).order('due_date')
   end
 
   def update_paid
@@ -60,13 +60,13 @@ class MonthlyFeesController < ApplicationController
     else
       redirect_to @classroom, alert: t('.fail')
     end
-  end 
+  end
 
   def not_paid
     end_of_month = Date.current.end_of_month
 
     @monthly_fees = MonthlyFee.where(status: 'Atrasada')
-                              .or(MonthlyFee.where(status: 'A pagar', due_date: ..end_of_month))
+                              .or(MonthlyFee.where(status: 'A pagar', due_date: ..end_of_month)).order('due_date')
   end
 
   private

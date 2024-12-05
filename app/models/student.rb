@@ -13,6 +13,9 @@ class Student < ApplicationRecord
   enum status: { registered: 1, unregistered: 2 }
   validates :name, uniqueness: { scope: :classroom }
   validates :name, :status, presence: true
+  scope :active, -> { where(status: :registered) }
+  scope :inactive, -> { where(status: :unregistered) }
+
 
   include DateRangeHelper
 

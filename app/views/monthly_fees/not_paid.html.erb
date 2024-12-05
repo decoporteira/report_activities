@@ -1,36 +1,37 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <h1>Mensalidades a vencer ou atrasadas</h1>
 <div class="">
-  <table class="fs-9 mb-0 border-top border-translucent table">
-    <thead>
-      <tr>
-        <th style="width: 20%">Nome</th>
-        <th style="width: 7%">Valor</th>
-        <th style="width: 7%">Vencimento</th>
-        <th style="width: 7%">Status</th>
-        <th style="width: 13%">Referente</th>
-        <th style="width: 20%"></th>
-        <th style="width: 5%"></th>
-      </tr>
-    </thead>
-    <tbody>
-        <%= @current_month %>
-        <% @monthly_fees.each do |monthly_fee|  %>
-          <tr>
-            <td><%= monthly_fee.student.name %></td>
-            <td>
-              <%=
-                number_to_currency(
-                  monthly_fee.value,
-                  unit: 'R$ ',
-                  separator: ',',
-                  delimiter: '.',
-                  precision: 2,
-                )
-              %>
-            </td>
-            <td><%= monthly_fee.due_date.strftime('%d/%m/%Y') %></td>
-
-            <%
+  <input
+  class="form-control"
+  id="myInput"
+  type="text"
+  placeholder="Digite o nome, email ou telefone do responsável para filtrar..." />
+</div>
+<div class="d-flex flex-row">
+  <div class="p-2 font-weight-bold" style="width: 30%;">Nome</div>
+  <div class="p-2 font-weight-bold" style="width: 7%;">Valor</div>
+  <div class="p-2 font-weight-bold" style="width: 10%;">Vencimento</div>
+  <div class="p-2 font-weight-bold" style="width: 7%;">Status</div>
+  <div class="p-2 font-weight-bold" style="width: 13%;">Referente</div>
+</div>
+<ul class="list-group" id="myList">
+  <% @monthly_fees.each do |monthly_fee|  %>
+    <li class="list-group-item ">
+      <div class="d-flex">
+        <div style="width: 30%;"><%= monthly_fee.student.name %></div>
+        <div style="width: 7%;"> 
+          <%=
+              number_to_currency(
+                monthly_fee.value,
+                unit: 'R$ ',
+                separator: ',',
+                delimiter: '.',
+                precision: 2,
+              )
+            %>
+            </div>
+        <div style="width: 10%;"><%= monthly_fee.due_date.strftime('%d/%m/%Y') %></div>
+          <%
               color_statuses = {
                 'Paga' => { text: 'Paga', style: 'color: #0d6efd' },
                 'A pagar' => { text: 'A pagar', style: 'color: #6c757d' },
@@ -39,57 +40,57 @@
             %>
             <% color_statuses.each do |color_status, config| %>
               <% if  monthly_fee.status == color_status %>
-                <td style="<%= config[:style] %>"><%= monthly_fee.status %></td>
+                <div style="<%= config[:style] %>; width: 7%;"><%= monthly_fee.status %></div>
               <% end %>
             <%end%>
-            <td>
-              <%= monthly_fee.due_date_month_name %> /
-              <%= monthly_fee.due_date_year %>
-            </td>
-            <td>
-              <div class='d-flex'>
-                <%
-                  statuses = {
-                    'Paga' => {
-                      text: 'Paga',
-                      css_class: 'btn btn-outline-primary btn-sm mx-1',
-                    },
-                    'A pagar' => {
-                      text: 'A pagar',
-                      css_class: 'btn btn-outline-secondary btn-sm mx-1',
-                    },
-                    'Atrasada' => {
-                      text: 'Atrasada',
-                      css_class: 'btn btn-outline-danger btn-sm mx-1',
-                    },
-                  }
-                %>
+        <div style="width: 13%;"> <%= monthly_fee.due_date_month_name %> / <%= monthly_fee.due_date_year %></div>
+        <div style="width: 20%;" class='d-flex'>  
+          <%
+            statuses = {
+              'Paga' => {
+                text: 'Paga',
+                css_class: 'btn btn-outline-primary btn-sm mx-1',
+              },
+              'A pagar' => {
+                text: 'A pagar',
+                css_class: 'btn btn-outline-secondary btn-sm mx-1',
+              },
+              'Atrasada' => {
+                text: 'Atrasada',
+                css_class: 'btn btn-outline-danger btn-sm mx-1',
+              },
+            }
+          %>
 
-                <% statuses.each do |status, config| %>
-                  <% if monthly_fee.status != status %>
-                    <%=
-                      button_to config[:text],
-                                update_paid_path(
-                                  items: { id: monthly_fee.id, status: status },
-                                ),
-                                method: :patch,
-                                class: config[:css_class]
-                    %>
-                  <% end %>
-                <% end %>
-              </div>
-            </td>
-            <td>
+          <% statuses.each do |status, config| %>
+            <% if monthly_fee.status != status %>
               <%=
-                link_to 'Detalhes',
-                        student_monthly_fee_path(
-                          monthly_fee.student,
-                          monthly_fee,
-                        )
+                button_to config[:text],
+                          update_paid_path(
+                            items: { id: monthly_fee.id, status: status },
+                          ),
+                          method: :patch,
+                          class: config[:css_class]
               %>
-            </td>
-          </tr>
-        <% end %>
-    </tbody>
-  </table>
-</div>
+            <% end %>
+          <% end %>
+        </div>
+        <div style="width: 5%;"> 
+          <%= link_to 'Detalhes', student_monthly_fee_path(monthly_fee.student, monthly_fee)%>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>
+
+
+<script>
+  $(document).ready(function () {
+    $("#myInput").on("keyup", function () {
+      var value = $(this).val().toLowerCase();
+      $("#myList li").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+      });
+    });
+  });
+</script>
