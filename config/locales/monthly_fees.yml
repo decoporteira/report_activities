@@ -23,3 +23,9 @@ pt-BR:
     create_anual_fees:
       success: Mensalidades criadas com sucesso.
       fail: Mensalidades não foram criadas.
+    create_all_anual_fees:
+      success: Mensalidades criadas com sucesso.
+      fail: Mensalidades não foram criadas.
+    update_paid:
+      success: Mensalidade alterada com sucesso.
+      fail: Mensalidades não alterada.
