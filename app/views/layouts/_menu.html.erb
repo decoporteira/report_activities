@@ -60,6 +60,32 @@
                         class: 'nav-link'
               %>
             </li>
+            
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Finanças
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <%= link_to 'Cursos', plans_path, class: 'nav-link' %>
+                </li>
+                <li>
+                  <%= link_to 'Curso por aluno', current_plans_path, class: 'nav-link' %>
+                </li>
+                 <li>
+                  <%= link_to 'Mensalidades', monthly_fees_path, class: 'nav-link' %>
+                </li>
+                <li>
+                  <%= link_to 'Vencimentos', monthly_fees_not_paid_path, class: 'nav-link' %>
+                </li>
+              </ul>
+            </li>
           <% elsif current_user.admin? %>
             <li class="nav-item">
               <%= link_to 'Turmas', classrooms_path, class: 'nav-link' %>
