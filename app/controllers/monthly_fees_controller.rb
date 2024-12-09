@@ -43,11 +43,21 @@ class MonthlyFeesController < ApplicationController
   def update_paid
     monthly_fee = MonthlyFee.find(params[:items][:id])
     monthly_fee.update(status: params[:items][:status])
-    redirect_to request.referer, notice: 'Mensalidade alterada com sucesso.'
+    redirect_to request.referer, notice: t('.success')
   end
 
   def create_anual_fees
     create_all_monthly_fees(@student)
+    redirect_to request.referer, notice: t('.success')
+  end
+
+  def create_all_anual_fees
+    students = Student.active
+    students.each do |student|
+      next if student.current_plan.nil?
+
+      create_all_monthly_fees(student)
+    end
     redirect_to request.referer, notice: t('.success')
   end
 
@@ -75,13 +85,9 @@ class MonthlyFeesController < ApplicationController
     current_month = Time.zone.today.month
     current_year = Time.zone.today.year
     start_month = current_month == 1 ? 2 : current_month
-    total = if student.current_plan.has_discount
-              student.current_plan.plan.price * (1 - student.current_plan.discount.to_f / 100)
-            else
-              student.current_plan.plan.price
-            end
     (start_month..12).each do |month|
-      MonthlyFee.create!(student:, value: total, due_date: Date.new(current_year, month, 10), status: 'A pagar')
+      MonthlyFee.create!(student:, value: student.current_plan.discounted_price,
+                         due_date: Date.new(current_year, month, 10), status: 'A pagar')
     end
   end
 

@@ -52,6 +52,7 @@ Rails
       end
       collection { post :import }
     end
+    post "/monthly_fees" => "monthly_fees#create_all_anual_fees", :as => :create_all_anual_fees
     resources :plans, only: %i[new create index show edit update destroy]
     resources :current_plans,
               only: %i[new create index show edit update destroy]
