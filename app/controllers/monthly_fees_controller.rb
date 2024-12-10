@@ -52,13 +52,16 @@ class MonthlyFeesController < ApplicationController
   end
 
   def create_all_anual_fees
-    students = Student.active
-    students.each do |student|
-      next if student.current_plan.nil?
+    CreateMonthlyFees.perform_async
 
-      create_all_monthly_fees(student)
-    end
-    redirect_to request.referer, notice: t('.success')
+    redirect_to monthly_fees_path, notice: 'O processo de criação das mensalidades foi iniciado.'
+    # students = Student.active
+    # students.each do |student|
+    #   next if student.current_plan.nil?
+
+    #   create_all_monthly_fees(student)
+    # end
+    # redirect_to request.referer, notice: t('.success')
   end
 
   def destroy
@@ -75,8 +78,8 @@ class MonthlyFeesController < ApplicationController
   def not_paid
     end_of_month = Date.current.end_of_month
 
-    @monthly_fees = MonthlyFee.where(status: 'Atrasada')
-                              .or(MonthlyFee.where(status: 'A pagar', due_date: ..end_of_month)).order('due_date')
+    @monthly_fees = MonthlyFee.includes(:student).where(status: 'Atrasada')
+                              .or(MonthlyFee.includes(:student).where(status: 'A pagar', due_date: ..end_of_month)).order('due_date')
   end
 
   private
