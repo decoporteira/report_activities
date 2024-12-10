@@ -1,18 +1,33 @@
-pt:
+pt-BR:
   date:
     month_names:
-      [
-        ~,
-        "Janeiro",
-        "Fevereiro",
-        "Março",
-        "Abril",
-        "Maio",
-        "Junho",
-        "Julho",
-        "Agosto",
-        "Setembro",
-        "Outubro",
-        "Novembro",
-        "Dezembro",
-      ]
+      - nil
+      - "Janeiro"
+      - "Fevereiro"
+      - "Março"
+      - "Abril"
+      - "Maio"
+      - "Junho"
+      - "Julho"
+      - "Agosto"
+      - "Setembro"
+      - "Outubro"
+      - "Novembro"
+      - "Dezembro"
+    abbreviations:
+      month_names:
+        - nil
+        - "Jan"
+        - "Fev"
+        - "Mar"
+        - "Abr"
+        - "Mai"
+        - "Jun"
+        - "Jul"
+        - "Ago"
+        - "Set"
+        - "Out"
+        - "Nov"
+        - "Dez"
+    formats:
+      short_month: "%b"

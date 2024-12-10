@@ -10,6 +10,9 @@ set :repo_url, 'git@github.com:decoporteira/report_activities.git'
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, "/home/deploy/#{fetch :application}"
 
+# Adicionando arquivos vinculados
+set :linked_files, fetch(:linked_files, []).push('config/credentials.yml.enc', 'config/master.key')
+
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
 
