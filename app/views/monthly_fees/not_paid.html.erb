@@ -21,10 +21,9 @@
     <li class="list-group-item ">
       <div class="row align-items-center">
         <div class="col-md-5 col-sm-12"><strong><%= monthly_fee.student.name %></strong> - <%= monthly_fee.student.cpf %> 
-          <p class="font-weight-light mb-0"><% monthly_fee.student.financial_responsibles.each do |responsible| %>
-            <i><%= responsible.name[0...6] %> - <%= responsible.cpf %></i>
+          <p class="font-weight-light mb-0 fs-6 fw-light"><% monthly_fee.student.financial_responsibles.each do |responsible| %>
+            <%= responsible.name.split(' ').first %> - <%= responsible.cpf %>
           <% end %></p>
-
         </div>
         <div class="col-md-1 col-sm-4 text-center"> 
           <%=
@@ -37,7 +36,7 @@
               )
             %>
             </div>
-        <div class="col-md-1 col-sm-4 text-center"><%= monthly_fee.due_date.strftime('%d/%m/%Y') %></div>
+        <div class="col-md-1 col-sm-4 text-center"><%= monthly_fee.due_date.strftime('%d/%m/%y') %></div>
           <%
               color_statuses = {
                 'Paga' => { text: 'Paga', style: 'color: #0d6efd' },
