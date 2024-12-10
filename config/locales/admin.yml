@@ -1,0 +1,5 @@
+pt-BR:
+  admin:
+    actions:
+      index:
+        no_records: "Nenhum registro encontrado"
