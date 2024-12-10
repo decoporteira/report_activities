@@ -7,19 +7,26 @@
   type="text"
   placeholder="Digite o nome, email ou telefone do responsável para filtrar..." />
 </div>
-<div class="d-flex flex-row">
-  <div class="p-2 font-weight-bold" style="width: 30%;">Nome</div>
-  <div class="p-2 font-weight-bold" style="width: 7%;">Valor</div>
-  <div class="p-2 font-weight-bold" style="width: 10%;">Vencimento</div>
-  <div class="p-2 font-weight-bold" style="width: 7%;">Status</div>
-  <div class="p-2 font-weight-bold" style="width: 13%;">Referente</div>
+<div class="d-flex flex-row  p-2">
+  <div class="col-md-5 col-sm-12 px-2">Nome</div>
+  <div class="col-md-1 col-sm-4 text-center">Valor</div>
+  <div class="col-md-1 col-sm-12 text-center">Vencimento</div>
+  <div class="col-md-1 col-sm-12 text-center">Status</div>
+  <div class="col-md-1 col-sm-12 text-center">Referente</div>
+  <div class="col-md-2 col-sm-12 text-center">Ação</div>
+  <div class="col-md-1 col-sm-12 text-center">Edit</div>
 </div>
 <ul class="list-group" id="myList">
   <% @monthly_fees.each do |monthly_fee|  %>
     <li class="list-group-item ">
-      <div class="d-flex">
-        <div style="width: 30%;"><%= monthly_fee.student.name %></div>
-        <div style="width: 7%;"> 
+      <div class="row align-items-center">
+        <div class="col-md-5 col-sm-12"><strong><%= monthly_fee.student.name %></strong> - <%= monthly_fee.student.cpf %> 
+          <p class="font-weight-light mb-0"><% monthly_fee.student.financial_responsibles.each do |responsible| %>
+            <i><%= responsible.name[0...6] %> - <%= responsible.cpf %></i>
+          <% end %></p>
+
+        </div>
+        <div class="col-md-1 col-sm-4 text-center"> 
           <%=
               number_to_currency(
                 monthly_fee.value,
@@ -30,7 +37,7 @@
               )
             %>
             </div>
-        <div style="width: 10%;"><%= monthly_fee.due_date.strftime('%d/%m/%Y') %></div>
+        <div class="col-md-1 col-sm-4 text-center"><%= monthly_fee.due_date.strftime('%d/%m/%Y') %></div>
           <%
               color_statuses = {
                 'Paga' => { text: 'Paga', style: 'color: #0d6efd' },
@@ -38,13 +45,14 @@
                 'Atrasada' => { text: 'Atrasada', style: 'color: #dc3545' },
               }
             %>
-            <% color_statuses.each do |color_status, config| %>
-              <% if  monthly_fee.status == color_status %>
-                <div style="<%= config[:style] %>; width: 7%;"><%= monthly_fee.status %></div>
+            <% color_statuses.each do |text, style| %>
+              <% if  monthly_fee.status == text %>
+                <div class="col-md-1 col-sm-4 text-center" style="<%= style[:style] %>;"><strong><%= monthly_fee.status %></strong></div>
               <% end %>
             <%end%>
-        <div style="width: 13%;"> <%= monthly_fee.due_date_month_name %> / <%= monthly_fee.due_date_year %></div>
-        <div style="width: 20%;" class='d-flex'>  
+        <div class="col-md-1 col-sm-4 text-center"><%= I18n.l(monthly_fee.due_date, format: :short_month) %>
+          / <%= monthly_fee.due_date_year %></div>
+        <div class="col-md-2 col-sm-12 text-center d-flex justify-content-center">  
           <%
             statuses = {
               'Paga' => {
@@ -75,14 +83,13 @@
             <% end %>
           <% end %>
         </div>
-        <div style="width: 5%;"> 
-          <%= link_to 'Detalhes', student_monthly_fee_path(monthly_fee.student, monthly_fee)%>
+        <div class="col-md-1 col-sm-12 text-center"> 
+          <%= link_to 'Info', student_monthly_fee_path(monthly_fee.student, monthly_fee)%>
         </div>
       </div>
     </li>
   <% end %>
 </ul>
-
 
 <script>
   $(document).ready(function () {
@@ -94,3 +101,4 @@
     });
   });
 </script>
+
