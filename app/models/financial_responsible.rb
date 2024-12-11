@@ -6,4 +6,8 @@ class FinancialResponsible < ApplicationRecord
   validates :phone, presence: true
   validates :cpf, presence: true, uniqueness: true
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+
+  def first_name
+    name.split(' ').first
+  end
 end

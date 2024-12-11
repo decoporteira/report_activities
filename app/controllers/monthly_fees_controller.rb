@@ -79,12 +79,11 @@ class MonthlyFeesController < ApplicationController
     end_of_month = Date.current.end_of_month
 
     @monthly_fees = MonthlyFee.includes(:student)
-                          .where(status: 'Atrasada')
-                          .or(
-                            MonthlyFee.where(status: 'A pagar', due_date: ..end_of_month)
-                          )
-                          .order('students.name', 'due_date')
-
+                              .where(status: 'Atrasada')
+                              .or(
+                                MonthlyFee.where(status: 'A pagar', due_date: ..end_of_month)
+                              )
+                              .order('students.name', 'due_date')
   end
 
   private

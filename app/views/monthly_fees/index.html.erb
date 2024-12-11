@@ -6,7 +6,6 @@
     <%= link_to responsible.name, financial_responsible_path(responsible) %> |
   <% end %>
 </h4>
-
 <div class="">
   <table class="fs-9 mb-0 border-top border-translucent table">
     <thead>
@@ -56,7 +55,6 @@
                   },
                 }
               %>
-
               <% statuses.each do |status, config| %>
                 <% if monthly_fee.status != status %>
                   <%=
@@ -80,7 +78,6 @@
               create_anual_fees_student_monthly_fees_path(@student),
               class: 'btn btn-primary mb-2'
   %>
- 
   <%=
     link_to 'Cadastrar Mensalidade',
             new_student_monthly_fee_path(@student),
