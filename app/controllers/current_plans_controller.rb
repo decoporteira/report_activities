@@ -1,4 +1,5 @@
 class CurrentPlansController < ApplicationController
+  before_action :authorize_admin!, only: %i[new index show edit]
   before_action :set_current_plan, only: %i[show edit update destroy]
 
   # GET /current_plans or /current_plans.json
@@ -60,5 +61,9 @@ class CurrentPlansController < ApplicationController
 
   def current_plan_params
     params.require(:current_plan).permit(:plan_id, :has_discount, :discount, :student_id)
+  end
+
+  def authorize_admin!
+    redirect_to root_path, alert: t('.denied') unless current_user.admin? || current_user.accounting?
   end
 end

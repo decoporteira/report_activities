@@ -1,5 +1,5 @@
 class MonthlyFeesController < ApplicationController
-  before_action :authorize_admin!, only: %i[new index show edit create all]
+  before_action :authorize_admin!, only: %i[new index show edit create all not_paid]
   before_action :set_student, only: %i[new index create show edit update destroy create_anual_fees]
   before_action :set_monthly_fee, only: %i[show edit update destroy create_all_monthly_fees]
 
