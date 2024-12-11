@@ -11,4 +11,12 @@ class MonthlyFee < ApplicationRecord
   def due_date_year
     due_date.present? ? due_date.year : 'Ano não definido'
   end
+
+  def status_color
+    {
+      'Paga' => 'color: #0d6efd',
+      'A pagar' => 'color: #6c757d',
+      'Atrasada' => 'color: #dc3545'
+    }[status]
+  end
 end
