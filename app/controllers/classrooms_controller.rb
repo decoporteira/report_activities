@@ -2,7 +2,7 @@
 
 class ClassroomsController < ApplicationController
   before_action :set_classroom,
-                only: %i[show edit update destroy update_current_plan]
+                only: %i[show edit update destroy update_current_plan show_details]
   before_action :authorize_admin!, only: %i[index show edit update destroy]
   before_action :authorize_creation, only: %i[new]
   before_action :set_students, only: %i[show]
@@ -80,6 +80,8 @@ class ClassroomsController < ApplicationController
     students_into_plan(@classroom, params[:plan_id])
   end
 
+  def show_details; end
+
   private
 
   def authorize_admin!
@@ -144,7 +146,7 @@ class ClassroomsController < ApplicationController
           redirect_to classrooms_url, alert: "Erros: #{errors.join('; ')}"
         end
         format.json do
-          render json: { errors: errors }, status: :unprocessable_entity
+          render json: { errors: }, status: :unprocessable_entity
         end
       end
     end

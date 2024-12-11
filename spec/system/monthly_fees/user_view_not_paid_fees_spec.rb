@@ -55,8 +55,8 @@ RSpec.describe 'User vê taxas vencidas e a pagar' do
     click_on('Vencimentos')
 
     expect(page).to have_content('Mensalidades a vencer ou atrasadas')
-    expect(page).to have_content('04/04/2024')
-    expect(page).not_to have_content('04/04/2025')
-    expect(page).not_to have_content('05/05/2024')
+    expect(page).to have_content('04/04/24')
+    expect(page).not_to have_content('04/04/25')
+    expect(page).not_to have_content('05/05/24')
   end
 end

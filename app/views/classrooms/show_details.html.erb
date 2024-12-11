@@ -1,0 +1,65 @@
+<div class="d-flex justify-content-between">
+  <h1 class="text-primary">Classroom <%= @classroom.name %></h1>
+  <%=
+        if current_user.admin?
+        (
+            link_to 'Editar',
+                    edit_classroom_path(@classroom),
+                    class: 'btn btn-primary',
+                    style: 'width:150px;height: 40px;'
+        )
+        else
+        nil
+        end
+    %>
+</div>
+<h3>Teacher: <%= @classroom.teacher.name %> | Horário: <%= @classroom.time %></h2>
+<h3></h2>
+<div class="album py-5 bg-body-tertiary">
+  <div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <% @classroom.students.each do |student| %>
+        <div id="<%= dom_id student %>">
+          <div class="col">
+            <div class="card shadow-sm">
+              <div class="card-header py-1">
+                <h4 class="my-1 fw-normal fs-5"><%= student.name %></h4>
+              </div>
+              <div class="card-body">
+                <p class="card-text"></p>
+                <p><strong>CPF: </strong><%= student.cpf.nil? ? 'Não possui CPF cadastrado' : student.cpf %></p>
+                <p><strong>Status: </strong><%= I18n.t(student.status) %></p>
+                <div class=''>
+                  <%=
+					link_to 'Atividades',
+									        report_student_path(student),
+									        class: 'btn btn-outline-primary',
+									        style: 'width:110px'
+								%>
+                  <%=
+					link_to 'Frequência',
+									        attendance_path(student.id),
+									        class: 'btn btn-outline-primary',
+									        style: 'width:110px'
+								%>
+                  <%=
+					link_to 'Detalhes',
+									        student,
+									        class: 'btn btn-outline-primary',
+									        style: 'width:110px'
+								%>
+                  <%=
+					link_to 'Financeiro',
+									        student_monthly_fees_path(student),
+									        class: 'btn btn-outline-primary',
+									        style: 'width:110px'
+				    %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
