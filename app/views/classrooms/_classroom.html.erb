@@ -8,12 +8,20 @@
         <p class="card-text"></p>
         <p><strong>Horário: </strong><%= classroom.time %></p>
         <p><strong>Teacher: </strong><%= classroom.teacher.name %></p>
-        <%=
-          link_to 'Show this classroom',
+        <div class='d-flex p-2 justify-content-around'>
+          <%=
+          link_to 'Criar Atividades',
                   classroom,
-                  class: 'btn btn-outline-primary',
-                  style: 'width:200px'
+                  class: 'btn btn-primary',
+                  style: 'width:150px'
         %>
+          <%=
+          link_to 'Ver Detalhes',
+                  show_details_classroom_path(classroom),
+                  class: 'btn btn-outline-primary',
+                  style: 'width:150px'
+        %>
+        </div>
         <% if current_user.admin? %>
           <div class='d-flex p-2 justify-content-around'>
             <%= button_to 'Linkar Kids', update_current_plan_classroom_path(classroom, plan_id: 1), 
