@@ -3,7 +3,7 @@
 class ClassroomsController < ApplicationController
   before_action :set_classroom,
                 only: %i[show edit update destroy update_current_plan show_details]
-  before_action :authorize_admin!, only: %i[index show edit update destroy]
+  before_action :authorize_admin!, only: %i[index show edit update destroy show_details]
   before_action :authorize_creation, only: %i[new]
   before_action :set_students, only: %i[show]
 
