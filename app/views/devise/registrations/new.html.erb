@@ -2,7 +2,7 @@
   <div class="mb-4 mt-5 ">
     <%=
       link_to image_tag(
-                'https://englishglobe.com.br/wp-content/themes/english/images/logo.png',
+                'logo.png',
                 width: 140,
                 border: 0,
               ),
@@ -39,9 +39,7 @@
           %>
         </div>
         <div class="field">
-          
           <%= f.label :password, class: 'form-label' %>
-
           <%=
             f.password_field :password,
                              autocomplete: 'new-password',
@@ -67,7 +65,6 @@
           %>
         </div>
       <% end %>
-
       <%= render 'devise/shared/links' %>
     </div>
   </main>

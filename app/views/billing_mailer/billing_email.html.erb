@@ -1,74 +1,71 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    .email-container {
-      max-width: 600px;
-      margin: auto;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
-    .header, .footer {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .footer {
-      font-size: 0.9em;
-      color: #666;
-    }
-    .footer img {
-      width: 130px;
-    }
-    .card {
-      padding: 15px;
-      background-color: #e9ecef47;
-    }
-    .card p {
-      margin: 0;
-    }
-    .sign p {
-      margin: 0;
-      margin-block-start: 1em;
-      margin-block-end: 1em;
-    }
-  </style>
-</head>
-<body>
-  <div class="container email-container">
-    <div class="header">
-      <h1 class="display-4">Olá, <%= @recipient.name %>,</h1>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      .email-container {
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      .header, .footer {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .footer {
+        font-size: 0.9em;
+        color: #666;
+      }
+      .footer img {
+        width: 130px;
+      }
+      .card {
+        padding: 15px;
+        background-color: #e9ecef47;
+      }
+      .card p {
+        margin: 0;
+      }
+      .sign p {
+        margin: 0;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container email-container">
+      <div class="header">
+        <h1 class="display-4">Olá, <%= @recipient.name %>,</h1>
+      </div>
+      <p>
+        Este é um e-mail automático para lembrá-lo(a) de que a sua mensalidade da English Globe referente ao mês de <%= t("date.month_names")[Time.zone.today.month] %>, está próxima do vencimento, no dia <%= "10/#{Date.today.strftime('%m/%Y')}" %>.
+      </p>
+      <p>
+        <strong>Caso o pagamento já tenha sido efetuado, por favor, desconsidere esta mensagem.</strong>
+      </p>
+      <p><strong>Aviso importante:</strong></p>
+      <p>Tivemos uma alteração no banco, a chave PIX continua a mesma, mas alteramos o banco.</p>
+      <div class="card mb-4 rounded-3 shadow-sm">
+        <p><strong>CHAVE PIX: 32991823172</strong></p>
+        <p>Banco Safra</p>
+        <p>Ag: 0189</p>
+        <p>C/C: 582287-1</p>
+        <p>JF ENGLISH IDIOMAS LTDA </p>
+        <p>CNPJ: 20.543.527/0001-70</p>
+      </div>
+      <p>Agradecemos pela sua atenção e desejamos um excelente dia!</p>
+      <div class='sign'>
+        <p>Atenciosamente,</p>
+        <p><strong>English Globe</strong></p>
+        <p><i>Inglês para falar, interagir e entender o mundo</i></p>
+      </div>
+      <div class="footer">
+        <img src="logo.png" alt="Logo English Globe">
+      </div>
     </div>
-
-    <p>
-      Este é um e-mail automático para lembrá-lo(a) de que a sua mensalidade da English Globe referente ao mês de <%= t("date.month_names")[Time.zone.today.month] %>, está próxima do vencimento, no dia <%= "10/#{Date.today.strftime('%m/%Y')}" %>.
-    </p>
-
-    <p>
-      <strong>Caso o pagamento já tenha sido efetuado, por favor, desconsidere esta mensagem.</strong>
-    </p>
-    <p><strong>Aviso importante:</strong></p>
-    <p>Tivemos uma alteração no banco, a chave PIX continua a mesma, mas alteramos o banco.</p> 
-    <div class="card mb-4 rounded-3 shadow-sm">
-      <p><strong>CHAVE PIX: 32991823172</strong></p>
-      <p>Banco Safra</p>
-      <p>Ag: 0189</p>
-      <p>C/C: 582287-1</p>
-      <p>JF ENGLISH IDIOMAS LTDA </p>
-      <p>CNPJ: 20.543.527/0001-70</p>
-    </div>
-    <p>Agradecemos pela sua atenção e desejamos um excelente dia!</p>
-    <div class='sign'>
-      <p>Atenciosamente,</p>
-      <p><strong>English Globe</strong></p>
-      <p><i>Inglês para falar, interagir e entender o mundo</i></p>
-    </div>
-
-    <div class="footer">
-      <img src="https://englishglobe.com.br/wp-content/themes/english/images/logo.png" alt="Logo English Globe">
-    </div>
-  </div>
-</body>
+  </body>
 </html>
