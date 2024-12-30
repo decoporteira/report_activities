@@ -36,7 +36,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
     visit(root_path)
     click_on 'Alunos'
     click_on 'Detalhes'
-    click_on 'Edit this student'
+    click_on 'Editar Aluno'
     fill_in 'Nome', with: 'Bulbassaur'
     click_on 'Atualizar Aluno'
 
@@ -83,7 +83,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
     visit(root_path)
     click_on 'Alunos'
     click_on 'Detalhes'
-    click_on 'Edit this student'
+    click_on 'Editar Aluno'
     fill_in 'Nome', with: 'Bulbassaur'
     click_on 'Atualizar Aluno'
 
