@@ -10,7 +10,7 @@ RSpec.describe 'Admin edita classroom' do
     login_as(user)
     visit(root_path)
     click_on 'Turmas'
-    click_on 'Show this classroom'
+    click_on 'Ver Detalhes'
     click_on 'Destroy this classroom'
 
     expect(Classroom.count).to eq(0)
@@ -27,7 +27,7 @@ RSpec.describe 'Admin edita classroom' do
     login_as(user)
     visit(root_path)
     click_on 'Turmas'
-    click_on 'Show this classroom'
+    click_on 'Ver Detalhes'
     click_on 'Destroy this classroom'
 
     expect(Classroom.count).to eq(1)
@@ -44,7 +44,7 @@ RSpec.describe 'Admin edita classroom' do
     login_as(user)
     visit(root_path)
     click_on 'Turmas'
-    click_on 'Show this classroom'
+    click_on 'Ver Detalhes'
     click_on 'Destroy this classroom'
 
     expect(Classroom.count).to eq(1)

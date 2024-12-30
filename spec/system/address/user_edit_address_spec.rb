@@ -42,7 +42,7 @@ RSpec.describe 'user edit address' do
     login_as(user)
     visit(root_path)
     find('#details').click
-    click_on('Editar')
+    click_on('Editar Endereço')
     fill_in 'Rua', with: 'Rua dos Alfaces'
     click_on('Atualizar Endereço')
 
