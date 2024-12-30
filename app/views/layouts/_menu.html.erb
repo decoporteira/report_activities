@@ -4,7 +4,8 @@
       <span class="navbar-brand">
         <%=
           link_to image_tag(
-                    'https://www.englishglobe.com.br/wp-content/themes/english/favicon.png',
+                    'logo.png',
+                    width: 60,
                     border: 0,
                   ),
                   { action: 'index', controller: '/home' },
@@ -60,7 +61,6 @@
                         class: 'nav-link'
               %>
             </li>
-            
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -78,7 +78,7 @@
                 <li>
                   <%= link_to 'Curso por aluno', current_plans_path, class: 'nav-link' %>
                 </li>
-                 <li>
+                <li>
                   <%= link_to 'Todas as Mensalidades', monthly_fees_path, class: 'nav-link' %>
                 </li>
                 <li>
@@ -113,7 +113,7 @@
                 <li>
                   <%= link_to 'Curso por aluno', current_plans_path, class: 'nav-link' %>
                 </li>
-                 <li>
+                <li>
                   <%= link_to 'Mensalidades', monthly_fees_path, class: 'nav-link' %>
                 </li>
                 <li>
@@ -121,7 +121,6 @@
                 </li>
               </ul>
             </li>
-
             <li class="nav-item">
               <%=
                 link_to 'Responsáveis',
