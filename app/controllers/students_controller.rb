@@ -5,7 +5,7 @@ class StudentsController < ApplicationController
                 only: %i[show edit update report activities_by_student cant_see]
 
   def index
-    @students = Student.includes([:classroom])
+    @students = Student.active.includes([:classroom]).order('students.name')
   end
 
   def show
@@ -60,17 +60,17 @@ class StudentsController < ApplicationController
   def incomplete
     @students =
       Student
-        .includes(classroom: :teacher)
-        .where(status: :registered)
-        .left_outer_joins(:financial_responsibles)
-        .where(financial_responsibles: { id: nil })
-        .where(cpf: '')
-        .or(
-          Student
-            .where(status: :registered)
-            .where(financial_responsibles: { id: nil })
-            .where(email: [nil, ''])
-        )
+      .includes(classroom: :teacher)
+      .where(status: :registered)
+      .left_outer_joins(:financial_responsibles)
+      .where(financial_responsibles: { id: nil })
+      .where(cpf: '')
+      .or(
+        Student
+          .where(status: :registered)
+          .where(financial_responsibles: { id: nil })
+          .where(email: [nil, ''])
+      )
   end
 
   def report
@@ -117,9 +117,7 @@ class StudentsController < ApplicationController
   end
 
   def admin?
-    if current_user.admin? || current_user.accounting? || current_user.teacher?
-      return
-    end
+    return if current_user.admin? || current_user.accounting? || current_user.teacher?
 
     redirect_to root_path, alert: t('unauthorized_action')
   end
