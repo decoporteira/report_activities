@@ -37,7 +37,7 @@ class MonthlyFeesController < ApplicationController
   end
 
   def all
-    @monthly_fees = MonthlyFee.includes([:student]).order('due_date')
+    @monthly_fees = MonthlyFee.includes([:student]).order('students.name')
   end
 
   def update_paid
