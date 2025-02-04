@@ -1,0 +1,130 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<% current_year = Time.zone.today.year %>
+<%
+    color_statuses = {
+    'Paga' => { text: 'Paga', style: 'background-color:rgb(138, 233, 138)' },
+    'A pagar' => { text: 'A pagar', style: 'color:rgb(37, 37, 37); background-color:rgb(255, 255, 255)' },
+    'Atrasada' => { text: 'Atrasada', style: 'background-color:rgb(236, 160, 167)' },
+    }
+%>
+<% if params[:year] == "2024" %>
+  <h1>Mensalidades de 2024</h1>
+  <%=
+     link_to 'Ver mensalidades de 2025',
+            monthly_fees_fee_list_path,
+            class: 'btn btn-outline-primary mb-2'
+    %>
+<% else %>
+  <h1>Mensalidades de 2025</h1>
+  <%=
+        link_to 'Ver mensalidades de 2024',
+             monthly_fees_fee_list_path(year: "2024"),
+            class: 'btn btn-outline-primary mb-2'
+    %>
+<% end %>
+<div class="">
+  <div class="mb-2">
+    <input class="form-control" id="myInput" type="text" placeholder="Digite o nome, email ou telefone do responsável para filtrar..." />
+  </div>
+  <table class="fs-9 mb-0 border-top border-translucent table list-group-item">
+    <thead>
+      <tr>
+        <th style="width: 27%">Nome</th>
+        <th style="width: 3%; text-align: center;">Turma</th>
+        <th style="width: 5%; text-align: center;">Jan</th>
+        <th style="width: 5%; text-align: center;">Fev</th>
+        <th style="width: 5%; text-align: center;">Mar</th>
+        <th style="width: 5%; text-align: center;">Abr</th>
+        <th style="width: 5%; text-align: center;">Mai</th>
+        <th style="width: 5%; text-align: center;">Jun</th>
+        <th style="width: 5%; text-align: center;">Jul</th>
+        <th style="width: 5%; text-align: center;">Ago</th>
+        <th style="width: 5%; text-align: center;">Set</th>
+        <th style="width: 5%; text-align: center;">Out</th>
+        <th style="width: 5%; text-align: center;">Nov</th>
+        <th style="width: 5%; text-align: center;">Dez</th>
+      </tr>
+    </thead>
+    <tbody id="myList">
+      <% @students.each do |student|  %>
+        <tr>
+          <td style="vertical-align: middle;"><strong><%= link_to student.name, student_path(student), class:'link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover', title:"Ver detalhes do aluno" %></strong> - <%= student.cpf %>
+            <p class="font-weight-light mb-0 fs-6 fw-light">
+              <% student.financial_responsibles.each do |responsible| %>
+                <%= responsible.first_name %> - <%= responsible.cpf %>
+              <% end %>
+            </p>
+          </td>
+          <td class="font-weight-light mb-0 fs-6 fw-light"  style="text-align: center;"><%= student.classroom.name %></td>
+          <% if params[:year] == "2024"  %>
+            <% all_monthly_fees = student.monthly_fees.where("EXTRACT(YEAR FROM due_date) = ?", 2024) %>
+          <% else %>
+            <% all_monthly_fees = student.monthly_fees.where("EXTRACT(YEAR FROM due_date) = ?", current_year) %>
+          <% end %>
+          <% meses = %w[janeiro fevereiro março abril maio junho julho agosto setembro outubro novembro dezembro] %>
+          <% meses.each do |mes| %>
+            <% if all_monthly_fees.any? { |mf| mf.due_date_month_name == mes } %>
+              <% mf = all_monthly_fees.find { |mf| mf.due_date_month_name == mes } %>
+              <% color_statuses.each do |color_status, config| %>
+                <% if  mf.status == color_status %>
+                  <td style="<%= config[:style] %>"><%=  
+                  number_to_currency(
+                  mf.value,
+                  unit: 'R$ ',
+                  separator: ',',
+                  delimiter: '.',
+                  precision: 2,
+                  )%>
+                    <div class='d-flex justify-content-around'>
+                      <%
+                  statuses = {
+                    'Paga' => {
+                      text: 'Paga',
+                      css_class: 'btn btn-outline-success btn-sm',
+                    },
+                    'A pagar' => {
+                      text: 'Aberto',
+                      css_class: 'btn btn-outline-secondary btn-sm',
+                    },
+                    'Atrasada' => {
+                      text: 'Atraso',
+                      css_class: 'btn btn-outline-danger btn-sm',
+                    },
+                  }
+                %>
+                      <% statuses.each do |status, config| %>
+                        <% if mf.status != status %>
+                          <%=
+                      button_to config[:text],
+                                update_paid_path(
+                                  items: { id: mf.id, status: status },
+                                ),
+                                method: :patch,
+                                class: config[:css_class],
+                                style: "--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: .70rem;"
+                    %>
+                        <% end %>
+                      <% end %>
+                    </div>
+                  </td>
+                <% end %>
+              <%end%>
+            <% else %>
+              <td style="text-align: center; font-size: .75rem; vertical-align: middle; color:rgb(122, 122, 122);">Não gerada</td>
+            <% end %>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<script>
+  $(document).ready(function () {
+    $("#myInput").on("keyup", function () {
+      var value = $(this).val().toLowerCase();
+      $("#myList tr").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+      });
+    });
+  });
+</script>

@@ -34,20 +34,23 @@
         <div class='mb-5'>
           <div>
             <% if @student.responsibles.any? %>
-              <h3>Responsável Financeiro:</h3>
+              <h3  class="mt-5">Responsável Financeiro:</h3>
               <ul>
                 <% @student.responsibles.each do |fr| %>
-                  <li><strong>Nome:</strong> <%= fr.financial_responsible.name %> | <strong>Telefone:</strong> <%= fr.financial_responsible.phone %></li>
+                  <h4><strong><%= fr.financial_responsible.name %></strong></h4>
+                  <li><strong>Telefone:</strong> <%= fr.financial_responsible.phone %></li>
+                  <li><strong>Email:</strong> <%= fr.financial_responsible.email %></li>
                   <%= link_to 'Detalhes', financial_responsible_path(fr.financial_responsible.id) %>
+                  <hr>
                 <% end %>
               </ul>
             <% else %>
               <h3> Não existe responsável financeiro cadastrado. </h3>
             <% end %>
           </div>
-          <%= link_to 'Criar Responsável', new_financial_responsible_path(student_id: @student.id), class: 'btn btn-primary' %>
+          <%= link_to 'Criar Responsável', new_financial_responsible_path(student_id: @student.id), class: 'btn btn-outline-primary' %>
           <br>
-          <%= link_to 'Vincular Responsável Existente', new_responsible_path(student_id: @student.id), class: 'btn btn-primary my-2' %>
+          <%= link_to 'Vincular Responsável Existente', new_responsible_path(student_id: @student.id), class: 'btn btn-outline-primary my-2' %>
         </div>
         <div class='mb-5'>
           <h3>Mensalidades</h3>

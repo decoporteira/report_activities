@@ -18,11 +18,11 @@ button_to 'Criar todas as Mensalidades',
       </tr>
     </thead>
     <tbody>
-        <% @monthly_fees.each do |monthly_fee|  %>
-          <tr>
-            <td><%= monthly_fee.student.name %></td>
-            <td>
-              <%=
+      <% @monthly_fees.each do |monthly_fee|  %>
+        <tr>
+          <td><%= monthly_fee.student.name %></td>
+          <td>
+            <%=
                 number_to_currency(
                   monthly_fee.value,
                   unit: 'R$ ',
@@ -31,28 +31,27 @@ button_to 'Criar todas as Mensalidades',
                   precision: 2,
                 )
               %>
-            </td>
-            <td><%= monthly_fee.due_date.strftime('%d/%m/%Y') %></td>
-
-            <%
+          </td>
+          <td><%= monthly_fee.due_date.strftime('%d/%m/%Y') %></td>
+          <%
               color_statuses = {
                 'Paga' => { text: 'Paga', style: 'color: #0d6efd' },
                 'A pagar' => { text: 'A pagar', style: 'color: #6c757d' },
                 'Atrasada' => { text: 'Atrasada', style: 'color: #dc3545' },
               }
             %>
-            <% color_statuses.each do |color_status, config| %>
-              <% if  monthly_fee.status == color_status %>
-                <td style="<%= config[:style] %>"><%= monthly_fee.status %></td>
-              <% end %>
-            <%end%>
-            <td>
-              <%= monthly_fee.due_date_month_name %> /
-              <%= monthly_fee.due_date_year %>
-            </td>
-            <td>
-              <div class='d-flex'>
-                <%
+          <% color_statuses.each do |color_status, config| %>
+            <% if  monthly_fee.status == color_status %>
+              <td style="<%= config[:style] %>"><%= monthly_fee.status %></td>
+            <% end %>
+          <%end%>
+          <td>
+            <%= monthly_fee.due_date_month_name %> /
+            <%= monthly_fee.due_date_year %>
+          </td>
+          <td>
+            <div class='d-flex'>
+              <%
                   statuses = {
                     'Paga' => {
                       text: 'Paga',
@@ -68,10 +67,9 @@ button_to 'Criar todas as Mensalidades',
                     },
                   }
                 %>
-
-                <% statuses.each do |status, config| %>
-                  <% if monthly_fee.status != status %>
-                    <%=
+              <% statuses.each do |status, config| %>
+                <% if monthly_fee.status != status %>
+                  <%=
                       button_to config[:text],
                                 update_paid_path(
                                   items: { id: monthly_fee.id, status: status },
@@ -79,21 +77,21 @@ button_to 'Criar todas as Mensalidades',
                                 method: :patch,
                                 class: config[:css_class]
                     %>
-                  <% end %>
                 <% end %>
-              </div>
-            </td>
-            <td>
-              <%=
+              <% end %>
+            </div>
+          </td>
+          <td>
+            <%=
                 link_to 'Detalhes',
                         student_monthly_fee_path(
                           monthly_fee.student,
                           monthly_fee,
                         )
               %>
-            </td>
-          </tr>
-        <% end %>
+          </td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
 </div>
