@@ -55,13 +55,6 @@ class MonthlyFeesController < ApplicationController
     CreateMonthlyFees.perform_async
 
     redirect_to monthly_fees_path, notice: 'O processo de criação das mensalidades foi iniciado.'
-    # students = Student.active
-    # students.each do |student|
-    #   next if student.current_plan.nil?
-
-    #   create_all_monthly_fees(student)
-    # end
-    # redirect_to request.referer, notice: t('.success')
   end
 
   def destroy
@@ -84,6 +77,10 @@ class MonthlyFeesController < ApplicationController
                                 MonthlyFee.where(status: 'A pagar', due_date: ..end_of_month)
                               )
                               .order('students.name', 'due_date')
+  end
+
+  def fee_list
+    @students = Student.active.order('name')
   end
 
   private
