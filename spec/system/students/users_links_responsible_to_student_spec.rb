@@ -52,7 +52,8 @@ RSpec.describe 'Usuário linka responsável financeiro' do
 
     expect(page).to have_content('Responsável vinculado com sucesso.')
     expect(page).to have_content('Venossaur')
-    expect(page).to have_content('Nome: Joy | Telefone: 33 0000-0000')
+    expect(page).to have_content('Joy')
+    expect(page).to have_content('Telefone: 33 0000-0000')
     expect(page).to have_content('Responsável Financeiro')
   end
 

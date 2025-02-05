@@ -43,14 +43,15 @@ RSpec.describe 'teacher creates activity' do
     visit(root_path)
     click_on('Enter Classroom')
     fill_in 'report', with: 'Cuspir fogo'
-    fill_in 'Date', with: '12/12/2024'
+    fill_in 'Date', with: "02/02/#{Date.current.year}"
     select 'Feito', from: 'Late'
     click_on 'Criar atividade'
 
     # assert
+    expect(page).to have_content('Atividades criadas com sucesso.')
     expect(page).to have_content('MW 17:00')
-    expect(page).to have_content('Charmander')
     expect(page).to have_content('Venossaur')
+    expect(page).to have_content('Charmander')
     expect(page).to have_content('fogo (feito)')
     expect(page).not_to have_content('Blastoise')
   end
@@ -104,7 +105,7 @@ RSpec.describe 'teacher creates activity' do
     login_as(user)
     visit(classroom_path(classroom))
     fill_in 'report', with: 'Cuspir fogo'
-    fill_in 'Date', with: '12/12/2024'
+    fill_in 'Date', with: "02/02/#{Date.current.year}"
     select 'Feito', from: 'Late'
     click_on 'Criar atividade'
 
