@@ -15,7 +15,11 @@ class Student < ApplicationRecord
   validates :name, :status, presence: true
   scope :active, -> { where(status: :registered) }
   scope :inactive, -> { where(status: :unregistered) }
-
+  scope :with_fees, -> { where(status: :registered).includes(:monthly_fees) }
+  scope :with_monthly_fees_for_year, lambda { |year|
+    includes(:monthly_fees, :financial_responsibles, :classroom)
+      .where(monthly_fees: { due_date: Date.new(year.to_i).beginning_of_year..Date.new(year.to_i).end_of_year })
+  }
 
   include DateRangeHelper
 

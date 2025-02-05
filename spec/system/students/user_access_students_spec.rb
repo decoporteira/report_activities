@@ -65,7 +65,7 @@ RSpec.describe 'User vê alunos' do
     visit(report_student_path(student))
 
     expect(page).to have_content('Venossaur')
-    expect(page).to have_content('Relatório do Segundo Semestre de 2024')
+    expect(page).to have_content('Relatório do Primeiro Semestre de 2025')
   end
   it 'Usando o cpf errado' do
     # arrange

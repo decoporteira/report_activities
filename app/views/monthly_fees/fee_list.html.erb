@@ -1,5 +1,22 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <% current_year = Time.zone.today.year %>
+<% months = %w[janeiro fevereiro março abril maio junho julho agosto setembro outubro novembro dezembro] %>
+<%
+  statuses = {
+    'Paga' => {
+      text: 'Paga',
+      css_class: 'btn btn-outline-success btn-sm',
+    },
+    'A pagar' => {
+      text: 'Aberto',
+      css_class: 'btn btn-outline-secondary btn-sm',
+    },
+    'Atrasada' => {
+      text: 'Atraso',
+      css_class: 'btn btn-outline-danger btn-sm',
+    },
+  }
+%>
 <%
     color_statuses = {
     'Paga' => { text: 'Paga', style: 'background-color:rgb(138, 233, 138)' },
@@ -7,18 +24,18 @@
     'Atrasada' => { text: 'Atrasada', style: 'background-color:rgb(236, 160, 167)' },
     }
 %>
-<% if params[:year] == "2024" %>
-  <h1>Mensalidades de 2024</h1>
+<% if params[:year] == (current_year- 1).to_s %>
+  <h1>Mensalidades de <%= current_year - 1 %></h1>
   <%=
-     link_to 'Ver mensalidades de 2025',
+     link_to "Ver mensalidades de 2025",
             monthly_fees_fee_list_path,
             class: 'btn btn-outline-primary mb-2'
     %>
 <% else %>
   <h1>Mensalidades de 2025</h1>
   <%=
-        link_to 'Ver mensalidades de 2024',
-             monthly_fees_fee_list_path(year: "2024"),
+        link_to "Ver mensalidades de #{current_year - 1}",
+             monthly_fees_fee_list_path(year: (current_year - 1)),
             class: 'btn btn-outline-primary mb-2'
     %>
 <% end %>
@@ -56,59 +73,34 @@
             </p>
           </td>
           <td class="font-weight-light mb-0 fs-6 fw-light"  style="text-align: center;"><%= student.classroom.name %></td>
-          <% if params[:year] == "2024"  %>
-            <% all_monthly_fees = student.monthly_fees.where("EXTRACT(YEAR FROM due_date) = ?", 2024) %>
-          <% else %>
-            <% all_monthly_fees = student.monthly_fees.where("EXTRACT(YEAR FROM due_date) = ?", current_year) %>
-          <% end %>
-          <% meses = %w[janeiro fevereiro março abril maio junho julho agosto setembro outubro novembro dezembro] %>
-          <% meses.each do |mes| %>
-            <% if all_monthly_fees.any? { |mf| mf.due_date_month_name == mes } %>
-              <% mf = all_monthly_fees.find { |mf| mf.due_date_month_name == mes } %>
-              <% color_statuses.each do |color_status, config| %>
-                <% if  mf.status == color_status %>
-                  <td style="<%= config[:style] %>"><%=  
+          <% months.each do |month| %>
+            <% monthly_fee = student.monthly_fees.find { |monthly_fee| monthly_fee.due_date_month_name == month } %>
+            <% if monthly_fee %>
+              <% color_status = color_statuses[monthly_fee.status]%>
+              <td style="<%= color_status[:style] %>"><%=  
                   number_to_currency(
-                  mf.value,
+                  monthly_fee.value,
                   unit: 'R$ ',
                   separator: ',',
                   delimiter: '.',
                   precision: 2,
                   )%>
-                    <div class='d-flex justify-content-around'>
-                      <%
-                  statuses = {
-                    'Paga' => {
-                      text: 'Paga',
-                      css_class: 'btn btn-outline-success btn-sm',
-                    },
-                    'A pagar' => {
-                      text: 'Aberto',
-                      css_class: 'btn btn-outline-secondary btn-sm',
-                    },
-                    'Atrasada' => {
-                      text: 'Atraso',
-                      css_class: 'btn btn-outline-danger btn-sm',
-                    },
-                  }
-                %>
-                      <% statuses.each do |status, config| %>
-                        <% if mf.status != status %>
-                          <%=
+                <div class='d-flex justify-content-around'>
+                  <% statuses.each do |status, config| %>
+                    <% if monthly_fee.status != status %>
+                      <%=
                       button_to config[:text],
                                 update_paid_path(
-                                  items: { id: mf.id, status: status },
+                                  items: { id: monthly_fee.id, status: status },
                                 ),
                                 method: :patch,
                                 class: config[:css_class],
                                 style: "--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: .70rem;"
                     %>
-                        <% end %>
-                      <% end %>
-                    </div>
-                  </td>
-                <% end %>
-              <%end%>
+                    <% end %>
+                  <% end %>
+                </div>
+              </td>
             <% else %>
               <td style="text-align: center; font-size: .75rem; vertical-align: middle; color:rgb(122, 122, 122);">Não gerada</td>
             <% end %>
