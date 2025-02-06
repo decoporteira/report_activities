@@ -81,7 +81,7 @@ class MonthlyFeesController < ApplicationController
 
   def fee_list
     params[:year] = Time.zone.today.year if params[:year].nil?
-    @students = Student.with_monthly_fees_for_year(params[:year]).order(:name)
+    @students = Student.with_monthly_fees_for_year(params[:year]).active.order(:name)
   end
 
   private
