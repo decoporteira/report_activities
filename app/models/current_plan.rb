@@ -3,10 +3,11 @@ class CurrentPlan < ApplicationRecord
   belongs_to :student
   before_save :set_total
   validate :single_current_plan_per_student
+  validate :positive_price
 
   def discounted_price
     if has_discount
-      plan.price * (1 - discount.to_f / 100)
+      (plan.price - discount.to_f)
     else
       plan.price
     end
@@ -20,7 +21,7 @@ class CurrentPlan < ApplicationRecord
 
   def define_total
     if has_discount
-      plan.price * (1 - (discount / 100.0))
+      (plan.price - discount.to_f)
     else
       plan.price
     end
@@ -32,4 +33,10 @@ class CurrentPlan < ApplicationRecord
     errors.add(:student_id, 'already has a current plan.')
   end
 
+  def positive_price
+    return unless discount.present? && plan&.price.present?
+    return unless discount > plan.price
+
+    errors.add(:student_id, 'Valor da mensalidade não pode ser negativa.')
+  end
 end

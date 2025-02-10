@@ -15,7 +15,7 @@ RSpec.describe 'Usuário edita Plano atual para aluno' do
     click_on("Show Brock's current plan")
     click_on('Edit this current plan')
     check('Tem desconto')
-    fill_in 'Desconto', with: 30
+    fill_in 'Desconto', with: 40
     select 'Teens', from: 'current_plan_plan_id'
     select 'Brock', from: 'current_plan_student_id'
     click_on 'Atualizar Plano Atual'
@@ -23,7 +23,8 @@ RSpec.describe 'Usuário edita Plano atual para aluno' do
     expect(page).to have_content('Plano atual editado com sucesso.')
     expect(page).to have_content('Curso: Teens')
     expect(page).to have_content('Desconto: Desconto cadastrado')
-    expect(page).to have_content('Valor do desconto: 30%')
+    expect(page).to have_content('Valor do desconto: R$ 40,00')
     expect(page).to have_content('Aluno: Brock')
+    expect(page).to have_content('Valor total: R$ 310,00')
   end
 end
