@@ -68,7 +68,7 @@
           <td style="vertical-align: middle;"><strong><%= link_to student.name, student_path(student), class:'link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover', title:"Ver detalhes do aluno" %></strong> - <%= student.cpf %>
             <p class="font-weight-light mb-0 fs-6 fw-light">
               <% student.financial_responsibles.each do |responsible| %>
-                <%= responsible.first_name %> - <%= responsible.cpf %>
+                <%= responsible.name %> - <%= responsible.cpf %>
               <% end %>
             </p>
           </td>
