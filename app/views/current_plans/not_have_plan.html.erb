@@ -1,0 +1,26 @@
+<p style="color: green"><%= notice %></p>
+<h1>Alunos sem plano </h1>
+<div id="students_without_student">
+  <% @students_without_current_plan.each do |student| %>
+    <div id="<%= dom_id student %>">
+      <p>
+        <strong>Aluno:</strong>
+        <%=  link_to student.name, student %>
+      </p>
+      <p>
+        <strong>Curso:</strong>
+        <%= student.current_plan != nil ? student.current_plan.plan.name : "não tem plano" %>
+      </p>
+    </div>
+    <div>
+      <% if current_user.admin? %>
+        <div class='d-flex p-2 justify-content-around'>
+          <%= button_to 'Linkar Kids', current_plans_path(current_plan: {student_id: student.id, plan_id: 1, has_discount: false, discount: nil}), 
+    method: :post, class: 'btn btn-outline-success mt-2', style: 'width:150px' %>
+          <%= button_to 'Linkar Adults', new_current_plan_path(plan_id: 3), 
+              method: :post, class: 'btn btn-outline-success mt-2', style: 'width:150px' %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <%= link_to "New current plan", new_student_path %>

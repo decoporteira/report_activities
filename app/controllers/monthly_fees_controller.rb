@@ -29,6 +29,11 @@ class MonthlyFeesController < ApplicationController
       if @monthly_fee.update(monthly_fee_params)
         format.html { redirect_to student_monthly_fee_path(@monthly_fee.student, @monthly_fee), notice: t('.success') }
         format.json { render :info, status: :ok, location: @monthly_fee }
+        # tem que dar upadate em current_plan, enviando: current_plan: {student_id: this.student.id, plan_id: this.plan.id, has_discount: true, discount: this.plan.price - monthly_fee.total}
+        console.log('Passamos por aqui ----------------------------------')
+        console.log('Passamos por aqui ----------------------------------')
+        console.log('Passamos por aqui ----------------------------------')
+        console.log('Passamos por aqui ----------------------------------')
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @monthly_fee.errors, status: :unprocessable_entity }

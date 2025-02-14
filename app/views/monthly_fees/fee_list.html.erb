@@ -72,7 +72,7 @@
               <% end %>
             </p>
           </td>
-          <td class="font-weight-light mb-0 fs-6 fw-light"  style="text-align: center;"><%= student.classroom.name %></td>
+          <td class="font-weight-light mb-0 fs-6 fw-light"  style="text-align: center;"><%= student.classroom&.name || "Turma não cadastrada" %></td>
           <% months.each do |month| %>
             <% monthly_fee = student.monthly_fees.find { |monthly_fee| monthly_fee.due_date_month_name == month } %>
             <% if monthly_fee %>

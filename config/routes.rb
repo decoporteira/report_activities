@@ -56,7 +56,11 @@ Rails
     post "/monthly_fees" => "monthly_fees#create_all_anual_fees", :as => :create_all_anual_fees
     resources :plans, only: %i[new create index show edit update destroy]
     resources :current_plans,
-              only: %i[new create index show edit update destroy]
+              only: %i[new create index show edit update destroy] do
+                collection do
+                  get 'not_have_plan'
+                end
+              end
     resources :financial_responsibles,
               only: %i[new create index show edit update]
     resources :classrooms do
@@ -65,9 +69,11 @@ Rails
       get :show_details, on: :member
       
     end
+
     resources :responsibles, only: %i[new create show destroy]
     get 'admin_home', to: 'admin_home#index'
     get 'teacher_home', to: 'teacher_home#index'
     get 'accounting_home', to: 'accounting_home#index'
-    
+    post 'students/:student_id/current_plans', to: 'current_plans#create', as: 'create_current_plan'
+
   end

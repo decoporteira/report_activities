@@ -53,6 +53,10 @@ class CurrentPlansController < ApplicationController
     end
   end
 
+  def not_have_plan
+    @students_without_current_plan = Student.includes(:current_plan).where(current_plans: { id: nil })
+  end
+
   private
 
   def set_current_plan
