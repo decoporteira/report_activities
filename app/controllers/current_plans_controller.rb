@@ -4,7 +4,7 @@ class CurrentPlansController < ApplicationController
 
   # GET /current_plans or /current_plans.json
   def index
-    @current_plans = CurrentPlan.all
+    @current_plans = CurrentPlan.joins(:student).order('students.name')
   end
 
   # GET /current_plans/1 or /current_plans/1.json

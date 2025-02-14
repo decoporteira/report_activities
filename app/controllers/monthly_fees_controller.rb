@@ -29,11 +29,7 @@ class MonthlyFeesController < ApplicationController
       if @monthly_fee.update(monthly_fee_params)
         format.html { redirect_to student_monthly_fee_path(@monthly_fee.student, @monthly_fee), notice: t('.success') }
         format.json { render :info, status: :ok, location: @monthly_fee }
-        # tem que dar upadate em current_plan, enviando: current_plan: {student_id: this.student.id, plan_id: this.plan.id, has_discount: true, discount: this.plan.price - monthly_fee.total}
-        console.log('Passamos por aqui ----------------------------------')
-        console.log('Passamos por aqui ----------------------------------')
-        console.log('Passamos por aqui ----------------------------------')
-        console.log('Passamos por aqui ----------------------------------')
+        update_current_plan
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @monthly_fee.errors, status: :unprocessable_entity }
@@ -73,23 +69,18 @@ class MonthlyFeesController < ApplicationController
     end
   end
 
-  def not_paid
-    end_of_month = Date.current.end_of_month
-
-    @monthly_fees = MonthlyFee.includes(:student)
-                              .where(status: 'Atrasada')
-                              .or(
-                                MonthlyFee.where(status: 'A pagar', due_date: ..end_of_month)
-                              )
-                              .order('students.name', 'due_date')
-  end
-
   def fee_list
     params[:year] = Time.zone.today.year if params[:year].nil?
     @students = Student.with_monthly_fees_for_year(params[:year]).active.order(:name)
   end
 
   private
+
+  def update_current_plan
+    current_plan = @monthly_fee.student.current_plan
+    has_discount = !(current_plan.plan.price - @monthly_fee.value).zero?
+    current_plan.update(has_discount:, discount: current_plan.plan.price - @monthly_fee.value)
+  end
 
   def create_all_monthly_fees(student)
     current_month = Time.zone.today.month

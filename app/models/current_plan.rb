@@ -35,8 +35,11 @@ class CurrentPlan < ApplicationRecord
 
   def positive_price
     return unless discount.present? && plan&.price.present?
-    return unless discount > plan.price
 
-    errors.add(:student_id, 'Valor da mensalidade não pode ser negativa.')
+    if discount > plan.price
+      errors.add(:discount, 'O desconto não pode ser maior que o valor do plano.')
+    elsif discount.negative?
+      errors.add(:discount, 'O desconto não pode ser negativo.')
+    end
   end
 end

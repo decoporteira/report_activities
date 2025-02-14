@@ -42,6 +42,6 @@ RSpec.describe 'Usuário cria Plano atual para aluno' do
     select 'Brock', from: 'current_plan_student_id'
     click_on 'Criar Plano Atual'
 
-    expect(page).to have_content('Valor da mensalidade não pode ser negativa.')
+    expect(page).to have_content('O desconto não pode ser maior que o valor do plano.')
   end
 end
