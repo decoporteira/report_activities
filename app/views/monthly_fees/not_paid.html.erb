@@ -24,7 +24,15 @@
             <% end %>
           </p>
         </div>
-        <div class="col-md-1 col-sm-4 text-center"><%= link_to monthly_fee.student.classroom.name, show_details_classroom_path(monthly_fee.student.classroom), class:'link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover', title:"Ver detalhes da turma"%></div>
+        <div class="col-md-1 col-sm-4 text-center"><% if monthly_fee.student&.classroom %>
+            <%= link_to monthly_fee.student.classroom.name, 
+              show_details_classroom_path(monthly_fee.student.classroom), 
+              class: 'link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover', 
+              title: "Ver detalhes da turma" %>
+          <% else %>
+            Turma não cadastrada
+          <% end %>
+        </div>
         <div class="col-md-1 col-sm-4 text-center"><%= link_to  number_to_currency(monthly_fee.value, unit: 'R$ ', separator: ',', delimiter: '.', precision: 2), student_monthly_fee_path(monthly_fee.student, monthly_fee), class:'link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover', title:"Ver detalhes da mensalidade" %>
         </div>
         <div class="col-md-1 col-sm-4 text-center"><%= monthly_fee.due_date.strftime('%d/%m/%y') %></div>
