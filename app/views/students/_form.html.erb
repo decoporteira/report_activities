@@ -48,7 +48,6 @@
     <%= form.label :cel_phone, class: 'form-label' %>
     <%= form.text_field :cel_phone, id: 'cel_phone', class: 'form-control' %>
   </div>
-
   <div class="mb-3">
     <%= form.label :classroom_id, class: 'form-label' %>
     <% form.text_field :classroom_id %>
@@ -61,37 +60,18 @@
                                class: 'form-select'
       %>
     <% else %>
-      <%
-        form.collection_select :classroom_id,
-                               Classroom.all,
-                               :id,
-                               :name_with_teacher_name,
-                               { prompt: 'Selecione uma turma' },
-                               class: 'form-select'
-      %>
-      <%=
-        form.collection_select :classroom_id,
-                               Classroom.all,
-                               :id,
-                               :name_with_teacher_name,
-                               {
-                                 prompt: 'Selecione uma turma',
-                                 include_blank: 'Nenhuma',
-                               },
-                               class: 'form-select'
-      %>
+      <%= form.select :classroom_id, 
+                Classroom.order(:name).map { |classroom| [classroom.name_with_teacher_name, classroom.id] }, 
+                { prompt: "Selecione uma turma", include_blank: 'Nenhuma', }, 
+                { class: "form-select select2" } %>
     <% end %>
     <br />
-  </div>
-  <div class="mb-3">
-    <% form.label :phone, class: 'form-label' %>
-    <% form.text_field :phone, id: 'phone', class: 'form-control' %>
   </div>
   <div>
     <%= form.submit class: 'btn btn-primary mt-4' %>
   </div>
 <% end %>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<%# <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 <script>
   document.getElementById("cpf").addEventListener("input", function (e) {
@@ -108,5 +88,14 @@
   });
   $(document).ready(function () {
     $("#phone").mask("(99) 9999-9999");
+  });
+</script>
+<script>
+  document.addEventListener("turbo:load", function() {
+    $( '.select2' ).select2( {
+      theme: "bootstrap-5",
+      width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+      placeholder: $( this ).data( 'placeholder' ),
+  } );
   });
 </script>
