@@ -2,7 +2,6 @@
   <% if current_plan.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(current_plan.errors.count, "error") %> prohibited this current_plan from being saved:</h2>
-
       <ul>
         <% current_plan.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -10,7 +9,6 @@
       </ul>
     </div>
   <% end %>
-
   <div>
     <%= form.label :plan_id, style: "display: block" %>
     <%=
@@ -24,17 +22,14 @@
       )
     %>
   </div>
-
   <div>
     <%= form.label :has_discount, style: "display: block" %>
     <%= form.check_box :has_discount %>
   </div>
-
   <div>
     <%= form.label :discount, style: "display: block" %>
     <%= form.number_field :discount %>
   </div>
-
   <div>
     <%= form.label :student_id, style: "display: block" %>
     <%=
@@ -48,8 +43,7 @@
       )
     %>
   </div>
-
   <div>
-    <%= form.submit %>
+    <%= form.submit class: 'btn btn-primary mt-3' %>
   </div>
 <% end %>

@@ -12,7 +12,7 @@ RSpec.describe 'Usuário edita Plano atual para aluno' do
     visit(root_path)
     click_on('Finanças')
     click_on('Curso por aluno')
-    click_on("Show Brock's current plan")
+    click_on('Mostrar plano atual de Brock')
     click_on('Edit this current plan')
     check('Tem desconto')
     fill_in 'Desconto', with: 40

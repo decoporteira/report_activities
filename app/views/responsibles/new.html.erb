@@ -1,4 +1,6 @@
-<div id="<%= dom_id @student %>"><h1>Vincular Responsável Financeiro</h1></div>
+<div id="<%= dom_id @student %>">
+  <h1>Vincular Responsável Financeiro</h1>
+</div>
 <div class="container col-xxl-8 px-4 py-2">
   <h2>Aluno: <%= @student.name %></h2>
   <div class='mb-5'>
@@ -6,36 +8,55 @@
       <div class='my-3'>
         <strong>Responsáveis Financeiros vinculados:</strong>
         <ul>
-        <% @student.responsibles.each do |fr| %>
-          <li><%= fr.financial_responsible.name %> | <%= fr.financial_responsible.phone %>  <%= link_to 'Detalhes', financial_responsible_path(fr.financial_responsible.id) %></li>
-        <% end %>
-        <ul>
-      <% else %>
-        <h3> Não existe responsável financeiro cadastrado. </h3>
-      </div>
-    <% end %>
-  </div>
-  <div class='my-3'>
-    <strong>Adicionar Responsável Financeiro:</strong>
-    <% if @responsible %>
-      <% if @responsible.errors.any? %>
-        <div class='alert alert-danger'>
+          <% @student.responsibles.each do |fr| %>
+            <li><%= fr.financial_responsible.name %> | <%= fr.financial_responsible.phone %>  <%= link_to 'Detalhes', financial_responsible_path(fr.financial_responsible.id) %></li>
+          <% end %>
           <ul>
-            <% @financial_responsible.errors.each do |error| %>
-              <li><%= error.full_message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-    <% end %>
-    <%= form_with url: responsibles_path do |form| %>
-      <%= form.hidden_field :student_id, value: @student.id %>
-     <div class="mb-3"> 
-        <%= form.label :financial_responsible_id %>
-        <%= form.collection_select :financial_responsible_id, FinancialResponsible.all, :id, :name, {:prompt => 'Selecione um responsável'}, class:"form-select" %><br/>
-       </div>
-      <%= form.submit 'Salvar', class:'btn btn-primary my-2' %>
-   
-    <% end %>
-  </div>
-</div>
+          <% else %>
+            <h3> Não existe responsável financeiro cadastrado. </h3>
+          </div>
+        <% end %>
+      </div>
+      <div class='my-3'>
+        <strong>Adicionar Responsável Financeiro:</strong>
+        <% if @responsible %>
+          <% if @responsible.errors.any? %>
+            <div class='alert alert-danger'>
+              <ul>
+                <% @financial_responsible.errors.each do |error| %>
+                  <li><%= error.full_message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+        <% end %>
+        <%= form_with url: responsibles_path, data: { turbo: false } do |form| %>
+          <%= form.hidden_field :student_id, value: @student.id %>
+          <div class="mb-3">
+            <%#= form.label :financial_responsible_id %>
+            <%#= form.collection_select :financial_responsible_id, 
+                FinancialResponsible.order(:name), 
+                :id, :name, 
+                { prompt: 'Selecione um responsável' }, 
+                { class: "form-select" } %><br/>
+          </div>
+          <div>
+            <%= form.label :financial_responsible_id, "Responsável Financeiro" %>
+            <%= form.select :financial_responsible_id, 
+                FinancialResponsible.order(:name).map { |fr| [fr.name, fr.id] }, 
+                { prompt: "Selecione um responsável" }, 
+                { class: "form-select select2" } %>
+          </div>
+          <%= form.submit 'Salvar', class:'btn btn-primary my-2' %>
+        <% end %>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("turbo:load", function() {
+        $( '.select2' ).select2( {
+          theme: "bootstrap-5",
+          width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+          placeholder: $( this ).data( 'placeholder' ),
+      } );
+      });
+    </script>

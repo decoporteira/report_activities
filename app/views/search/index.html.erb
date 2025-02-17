@@ -17,6 +17,9 @@
                 <li>
                   Prof: <strong> <%= student.classroom.present? ? student.classroom.teacher.name : 'Sem Professor' %></strong>
                 </li>
+                <li>
+                  Status: <strong> <%= I18n.t(student.status)  %></strong>
+                </li>
               </ul>
               <%=
                 link_to 'Show Activities',
