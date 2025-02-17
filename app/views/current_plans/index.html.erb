@@ -1,14 +1,34 @@
 <p style="color: green"><%= notice %></p>
-
 <h1>Current plans</h1>
-
 <div id="current_plans">
-  <% @current_plans.each do |current_plan| %>
-    <%= render current_plan %>
-    <p>
-      <%= link_to "Show #{current_plan.student.name}'s current plan", current_plan %>
-    </p>
-  <% end %>
 </div>
-
 <%= link_to "New current plan", new_current_plan_path %>
+<div class="d-flex justify-content-between">
+  <h1 class="text-primary">Students</h1>
+</div>
+<div class="album py-5 bg-body-tertiary">
+  <div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <% @current_plans.each do |current_plan| %>
+        <div class="col">
+          <div class="card shadow-sm">
+            <div class="card-header py-1">
+              <h4 class="my-1 fw-normal fs-5"><%= current_plan.student.name %></h4>
+            </div>
+            <div class="card-body">
+              <p class="card-text"></p>
+              <p><strong>Curso:</strong> <%= current_plan.plan.name%></p>
+              <p>
+                <strong>Desconto: </strong> <%= current_plan.discount ? number_to_currency(current_plan.discount) : 'Não tem desconto' %>
+              </p>
+              <p>
+                <strong>Valor: </strong> <%= number_to_currency(current_plan.total) %>
+              </p>
+              <%= link_to "Mostar plano atual de #{current_plan.student.name}", current_plan %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

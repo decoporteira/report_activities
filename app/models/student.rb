@@ -3,7 +3,6 @@ class Student < ApplicationRecord
   has_many :monthly_fees
   has_many :responsibles
   has_one :current_plan
-  belongs_to :plan, optional: true
   has_many :financial_responsibles, through: :responsibles
   has_many :activities, dependent: :destroy
   belongs_to :classroom, optional: true

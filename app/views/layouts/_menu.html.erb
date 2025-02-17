@@ -83,9 +83,6 @@
                 <li>
                   <%= link_to 'Todas as Mensalidades', monthly_fees_path, class: 'nav-link' %>
                 </li>
-                <li>
-                  <%= link_to 'Mensalidades a Vencer', monthly_fees_not_paid_path, class: 'nav-link' %>
-                </li>
               </ul>
             </li>
           <% elsif current_user.admin? %>
@@ -122,9 +119,6 @@
               %>
                 <li>
                   <%= link_to 'Mensalidades', monthly_fees_path, class: 'nav-link' %>
-                </li>
-                <li>
-                  <%= link_to 'Vencimentos', monthly_fees_not_paid_path, class: 'nav-link' %>
                 </li>
               </ul>
             </li>

@@ -4,7 +4,7 @@ class CurrentPlansController < ApplicationController
 
   # GET /current_plans or /current_plans.json
   def index
-    @current_plans = CurrentPlan.all
+    @current_plans = CurrentPlan.joins(:student).order('students.name')
   end
 
   # GET /current_plans/1 or /current_plans/1.json
@@ -51,6 +51,10 @@ class CurrentPlansController < ApplicationController
       format.html { redirect_to current_plans_url, notice: t('.success') }
       format.json { head :no_content }
     end
+  end
+
+  def not_have_plan
+    @students_without_current_plan = Student.includes(:current_plan).where(current_plans: { id: nil })
   end
 
   private
