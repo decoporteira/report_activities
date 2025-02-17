@@ -1,10 +1,7 @@
 <p style="color: green"><%= notice %></p>
-<h1>Current plans</h1>
-<div id="current_plans">
-</div>
-<%= link_to "New current plan", new_current_plan_path %>
+<div class="d-flex flex-row-reverse"><%= link_to "Criar um novo plano para um aluno", new_current_plan_path, class: 'btn btn-primary' %> </div>
 <div class="d-flex justify-content-between">
-  <h1 class="text-primary">Students</h1>
+  <h1 class="text-primary">Current plans</h1>
 </div>
 <div class="album py-5 bg-body-tertiary">
   <div class="container">
@@ -18,13 +15,14 @@
             <div class="card-body">
               <p class="card-text"></p>
               <p><strong>Curso:</strong> <%= current_plan.plan.name%></p>
+              <p><strong>Status:</strong> <%= I18n.t(current_plan.student.status) %></p>
               <p>
                 <strong>Desconto: </strong> <%= current_plan.discount ? number_to_currency(current_plan.discount) : 'Não tem desconto' %>
               </p>
               <p>
                 <strong>Valor: </strong> <%= number_to_currency(current_plan.total) %>
               </p>
-              <%= link_to "Mostar plano atual de #{current_plan.student.name}", current_plan %>
+              <%= link_to "Mostrar plano atual de #{current_plan.student.name}", current_plan, class: 'btn btn-outline-primary' %>
             </div>
           </div>
         </div>

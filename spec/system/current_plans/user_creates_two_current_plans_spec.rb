@@ -12,7 +12,7 @@ RSpec.describe 'Usuário cria Plano atual para aluno' do
     visit(root_path)
     click_on('Finanças')
     click_on('Curso por aluno')
-    click_on('New current plan')
+    click_on('Criar um novo plano para um aluno')
     fill_in 'Desconto', with: 10
     check('Tem desconto')
     select 'Kids', from: 'current_plan_plan_id'

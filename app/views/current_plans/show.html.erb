@@ -1,10 +1,10 @@
 <p style="color: green"><%= notice %></p>
-
+<h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Plano atual de <%= @current_plan.student.name%></h1>
 <%= render @current_plan %>
-
 <div>
-  <%= link_to "Edit this current plan", edit_current_plan_path(@current_plan) %> |
-  <%= link_to "Back to current plans", current_plans_path %>
-
-  <%= button_to "Destroy this current plan", @current_plan, method: :delete %>
+  <%= link_to "Edit this current plan", edit_current_plan_path(@current_plan), class: 'btn btn-outline-primary',
+            style: 'width:200px' %> |
+  <%= link_to "Back to current plans", current_plans_path, class: 'btn btn-outline-primary',
+            style: 'width:200px' %>
+  <%#= button_to "Destroy this current plan", @current_plan, method: :delete %>
 </div>
