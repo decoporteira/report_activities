@@ -53,6 +53,10 @@ class StudentsController < ApplicationController
     @students = Student.inactive
   end
 
+  def not_have_current_plan
+    @students = Student.inactive
+  end
+
   def activities_by_student
     @activities = @student.activities
   end

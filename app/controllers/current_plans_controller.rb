@@ -12,7 +12,7 @@ class CurrentPlansController < ApplicationController
 
   # GET /current_plans/new
   def new
-    @current_plan = CurrentPlan.new
+    @current_plan = CurrentPlan.new(student_id: params[:student_id])
   end
 
   # GET /current_plans/1/edit
@@ -54,7 +54,7 @@ class CurrentPlansController < ApplicationController
   end
 
   def not_have_plan
-    @students_without_current_plan = Student.includes(:current_plan).where(current_plans: { id: nil })
+    @students_without_current_plan = Student.includes(:current_plan).where(current_plans: { id: nil }).active
   end
 
   private

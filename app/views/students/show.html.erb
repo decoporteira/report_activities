@@ -3,7 +3,11 @@
   <div class="row flex-lg-row g-5 py-5">
     <div class="col-lg-6">
       <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3"><%= @student.name%></h1>
-      <h3>Curso: <%= @student.current_plan ? @student.current_plan.plan.name : 'Nenhum curso cadastrado' %></h3>
+      <h3>Curso:  <% if @student.current_plan %>
+          <%= @student.current_plan.plan.name %>
+        <% else %>
+          <%= link_to 'Cadastrar um plano', new_current_plan_path(student_id: @student.id) %>
+        <% end %></h3>
       <p class="lead"></p>
       <dl>
         <dt>Professor(a): </dt>
