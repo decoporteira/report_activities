@@ -76,6 +76,15 @@
 										end
 									%>
                 </p>
+                <p>
+                  <strong>Curso:</strong> <%=
+										if student.current_plan.nil?
+											'Não possui curso'
+										else
+											student.current_plan.plan.name
+										end
+									%>
+                </p>
                 <%=
 									link_to 'Atividades',
 									        report_student_path(student),
