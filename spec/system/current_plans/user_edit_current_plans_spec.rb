@@ -17,7 +17,6 @@ RSpec.describe 'Usuário edita Plano atual para aluno' do
     check('Tem desconto')
     fill_in 'Desconto', with: 40
     select 'Teens', from: 'current_plan_plan_id'
-    select 'Brock', from: 'current_plan_student_id'
     click_on 'Atualizar Plano Atual'
 
     expect(page).to have_content('Plano atual editado com sucesso.')
