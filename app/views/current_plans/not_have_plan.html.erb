@@ -2,25 +2,27 @@
 <h1>Alunos sem plano</h1>
 <div id="students_without_student">
   <% @students_without_current_plan.each do |student| %>
-    <div id="<%= dom_id student %>" class="d-flex align-items-center justify-content-between border p-2 mb-2">
-      <!-- Nome do aluno -->
-      <p class="mb-0">
-        <strong>Aluno:</strong>
-        <%= link_to student.name, student %>
-      </p>
-      <!-- Curso do aluno -->
-      <p class="mb-0">
-        <strong>Curso:</strong>
-        <%= student.current_plan ? student.current_plan.plan.name : "Não tem plano" %>
-      </p>
-      <!-- Botões -->
-      <div class="d-flex gap-2">
+    <div id="<%= dom_id student %>" class="d-flex align-items-center border p-2 mb-2 row">
+      <div class="col-md-4 d-flex flex-column">
+        <p class="mb-1">
+          <%= link_to student.name, student %>
+        </p>
+        <p class="mb-1 text-muted">
+          <% student.financial_responsibles.each do |responsible| %>
+            <%= responsible.name %> - <%= responsible.cpf %>
+          <% end %>
+        </p>
+        <p class="mb-0">
+          <strong>Turma:</strong> <%= student.classroom ? student.classroom.name : "Sem turma." %>
+        </p>
+      </div>
+      <div class="col-md-8 d-flex justify-content-end gap-2">
         <%= button_to 'Linkar Kids', current_plans_path(current_plan: { student_id: student.id, plan_id: 1, has_discount: false, discount: nil }), 
-                      method: :post, class: 'btn btn-outline-success btn-sm' %>
-        <%= button_to 'Linkar Adults', new_current_plan_path(plan_id: 3), 
-                      method: :post, class: 'btn btn-outline-success btn-sm' %>
-        <%= button_to 'Linkar Private', new_current_plan_path(plan_id: 4), 
-                      method: :post, class: 'btn btn-outline-success btn-sm' %>
+                        method: :post, class: 'btn btn-outline-success btn-sm' %>
+        <%= button_to 'Linkar Adults', current_plans_path(current_plan: { student_id: student.id, plan_id: 3, has_discount: false, discount: nil }), 
+                        method: :post, class: 'btn btn-outline-success btn-sm' %>
+        <%= button_to 'Linkar Private', current_plans_path(current_plan: { student_id: student.id, plan_id: 4, has_discount: false, discount: nil }), 
+                        method: :post, class: 'btn btn-outline-success btn-sm' %>
       </div>
     </div>
   <% end %>
