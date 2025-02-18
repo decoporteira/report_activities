@@ -68,22 +68,20 @@
                 <p class="card-text"></p>
                 <p><strong>Status:</strong> <%= I18n.t(student.status) %></p>
                 <p>
-                  <strong>Turma:</strong> <%=
-										if student.classroom.nil?
-											'Não possui turma cadastrada'
-										else
-											student.classroom.name
-										end
-									%>
+                  <strong>Turma:</strong>
+                  <% if student.classroom.nil? %>
+                    <span class="text-danger">'Não possui turma cadastrada'</span>
+                  <% else %>
+                    <%= student.classroom.name %>
+                  <% end %>
                 </p>
-                <p>
-                  <strong>Curso:</strong> <%=
-										if student.current_plan.nil?
-											'Não possui curso'
-										else
-											student.current_plan.plan.name
-										end
-									%>
+                <p><% if student.current_plan.nil? %>
+                    <strong>Curso:</strong>
+                    <%= link_to 'Cadastrar um Curso', new_current_plan_path(student_id: student.id), class:'text-danger' %>
+                  <% else %>
+                    <strong>Curso:</strong>
+                    <%= student.current_plan.plan.name %>
+                  <%end%>
                 </p>
                 <%=
 									link_to 'Atividades',
@@ -123,62 +121,68 @@
               <div class="card-body">
                 <p class="card-text"></p>
                 <p><strong>Status:</strong> <%= I18n.t(student.status) %></p>
-                <p>
-                  <strong>Classroom:</strong> <%=
-										if student.classroom.nil?
-											'Não possui turma cadastrada'
-										else
-											student.classroom.name
-										end
-									%>
-                </p>
-                <%=
+                <strong>Turma:</strong>
+                <% if student.classroom.nil? %>
+                  <span class="text-danger">'Não possui turma cadastrada'</span>
+                <% else %>
+                  <%= student.classroom.name %>
+                <% end %>
+              </p>
+              <p><% if student.current_plan.nil? %>
+                  <strong>Curso:</strong>
+                  <%= link_to 'Cadastrar um Curso', new_current_plan_path(student_id: student.id), class:'text-danger' %>
+                <% else %>
+                  <strong>Curso:</strong>
+                  <%= student.current_plan.plan.name %>
+                <%end%>
+              </p>
+              <%=
 									link_to 'Detalhes',
 									        student_path(student),
 									        class: 'btn btn-outline-primary',
 									        style: 'width:110px'
 								%>
-                <%=
+              <%=
 									link_to 'Financeiro',
 									        student_monthly_fees_path(student),
 									        class: 'btn btn-outline-primary',
 									        style: 'width:110px'
 								%>
-              </div>
             </div>
           </div>
-        <% end %>
-      <% else %>
-        <% @students.each do |student| %>
-          <div class="col">
-            <div class="card shadow-sm">
-              <div class="card-header py-1">
-                <h4 class="my-1 fw-normal fs-5"><%= student.name %></h4>
-              </div>
-              <div class="card-body">
-                <p class="card-text"></p>
-                <p><strong>Status:</strong> <%= I18n.t(student.status) %></p>
-                <p>
-                  <strong>Classroom:</strong> <%=
+        </div>
+      <% end %>
+    <% else %>
+      <% @students.each do |student| %>
+        <div class="col">
+          <div class="card shadow-sm">
+            <div class="card-header py-1">
+              <h4 class="my-1 fw-normal fs-5"><%= student.name %></h4>
+            </div>
+            <div class="card-body">
+              <p class="card-text"></p>
+              <p><strong>Status:</strong> <%= I18n.t(student.status) %></p>
+              <p>
+                <strong>Classroom:</strong> <%=
 										if student.classroom.nil?
 											'Não possui turma cadastrada'
 										else
 											student.classroom.name
 										end
 									%>
-                </p>
-                <%=
+              </p>
+              <%=
 									link_to 'Show this student',
 									        student,
 									        class: 'btn btn-outline-primary',
 									        style: 'width:200px'
 								%>
-              </div>
             </div>
           </div>
-        <% end %>
+        </div>
       <% end %>
-    </div>
+    <% end %>
   </div>
-  <% render 'import' %>
+</div>
+<% render 'import' %>
 </div>
