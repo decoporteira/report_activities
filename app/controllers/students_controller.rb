@@ -129,6 +129,12 @@ class StudentsController < ApplicationController
   def save_student
     respond_to do |format|
       if @student.save
+        CurrentPlan.create(
+          student_id: @student.id,
+          plan_id: params[:student][:plan_id],
+          has_discount: false,
+          discount: nil
+        )
         format.html do
           redirect_to student_path(@student), notice: t('.success')
         end

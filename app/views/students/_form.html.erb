@@ -21,15 +21,18 @@
     <%= form.text_field :email, id: 'email', class: 'form-control' %>
   </div>
   <div class="mb-3">
+    <%= form.label :plan_id, class: 'form-label' %>
+    <%= form.collection_select :plan_id, Plan.all, :id, :name, {}, { class: 'form-control' } %>
+  </div>
+  <div class="mb-3">
     <%= form.label :status, class: 'form-label' %>
     <%=
       form.select :status,
                   options_for_select(
                     Student.statuses.keys.map { |key| [I18n.t("#{key}"), key] },
                     @student.status,
-                  ),
-                  { prompt: 'Selecione um status' },
-                  class: 'form-select'
+                  ),{},
+                  { class: 'form-select' } 
     %>
   </div>
   <div class="mb-3">
