@@ -112,11 +112,19 @@
 </div>
 <script>
   $(document).ready(function () {
-    $("#myInput").on("keyup", function () {
-      var value = $(this).val().toLowerCase();
-      $("#myList tr").filter(function () {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-      });
-    });
+   function removeAccents(str) {
+     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // Remove acentos
+   }
+
+   $("#myInput").on("keyup", function () {
+     var value = removeAccents($(this).val().toLowerCase().trim());
+     var words = value.split(/\s+/); // Divide a busca em palavras separadas
+
+     $("#myList tr").filter(function () {
+       var text = removeAccents($(this).text().toLowerCase()); // Remove acentos do texto da lista
+       var matchesAll = words.every(word => text.includes(word)); // Verifica se todas as palavras estão presentes
+       $(this).toggle(matchesAll);
+     });
+   });
   });
 </script>
