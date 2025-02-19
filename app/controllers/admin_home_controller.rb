@@ -16,7 +16,7 @@ class AdminHomeController < ApplicationController
   private
 
   def fetch_students_by_plan_name(plan_name)
-    Student.joins(:current_plan)
+    Student.joins(:current_plan).active
            .where(current_plans: { plan_id: Plan.where(name: plan_name).pluck(:id) })
   end
 
