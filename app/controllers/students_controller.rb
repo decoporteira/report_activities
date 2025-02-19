@@ -19,6 +19,8 @@ class StudentsController < ApplicationController
   end
 
   def edit
+    @plan_id = @student.current_plan ? @student.current_plan.plan.id : 1
+
     return unless current_user.default?
 
     redirect_to root_path
@@ -36,6 +38,12 @@ class StudentsController < ApplicationController
   def update
     respond_to do |format|
       if @student.update(student_params)
+        CurrentPlan.update(
+          student_id: @student.id,
+          plan_id: params[:student][:plan_id],
+          has_discount: false,
+          discount: nil
+        )
         format.html do
           redirect_to student_path(@student), notice: t('.success')
         end
@@ -99,7 +107,7 @@ class StudentsController < ApplicationController
   def student_params
     params
       .require(:student)
-      .permit(:name, :status, :classroom_id, :cpf, :phone, :cel_phone, :email)
+      .permit(:name, :status, :classroom_id, :cpf, :phone, :cel_phone, :email, :student_plan_id)
   end
 
   def cant_see
