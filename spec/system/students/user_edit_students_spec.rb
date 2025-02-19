@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Tipo de usuário cria uma student' do
   it 'Admin a partir do menu' do
     # arrange
+    FactoryBot.create(:plan, id: 1)
     user_teacher =
       User.create!(
         email: 'teacher@admin.com.br',
@@ -22,7 +23,8 @@ RSpec.describe 'Tipo de usuário cria uma student' do
       name: 'Venossaur',
       status: :registered,
       classroom_id: classroom.id,
-      cpf: '065.654.654-01'
+      cpf: '065.654.654-01',
+      student_plan_id: 1
     )
     user =
       User.create!(

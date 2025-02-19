@@ -39,7 +39,6 @@ class StudentsController < ApplicationController
     respond_to do |format|
       if @student.update(student_params)
         @student.current_plan.update(
-          student_id: @student.id,
           plan_id: params[:student][:plan_id]
         )
         format.html do
@@ -135,11 +134,9 @@ class StudentsController < ApplicationController
   def save_student
     respond_to do |format|
       if @student.save
-        CurrentPlan.create(
-          student_id: @student.id,
-          plan_id: params[:student][:plan_id],
-          has_discount: false,
-          discount: nil
+        current_plan = CurrentPlan.find_or_initialize_by(student_id: @student.id)
+        current_plan.update(
+          plan_id: params[:student][:plan_id]
         )
         format.html do
           redirect_to student_path(@student), notice: t('.success')
