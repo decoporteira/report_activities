@@ -5,7 +5,6 @@ class CurrentPlansController < ApplicationController
   # GET /current_plans or /current_plans.json
   def index
     @current_plans = CurrentPlan.joins(:student).merge(Student.active).order('students.name')
-
     @current_plan_kids = fetch_students_by_plan_name('Kids')
     @current_plan_adults = fetch_students_by_plan_name('Adults')
     @current_plan_privates = fetch_students_by_plan_name('Particular')
@@ -65,6 +64,7 @@ class CurrentPlansController < ApplicationController
 
   def fetch_students_by_plan_name(plan_name)
     Student.joins(:current_plan)
+           .active
            .where(current_plans: { plan_id: Plan.where(name: plan_name).pluck(:id) })
   end
 
