@@ -36,7 +36,7 @@ RSpec.describe 'User vê total de alunos' do
     visit(root_path)
 
     # assert
-    expect(page).to have_content('Total de alunos matriculados: 1')
+    expect(page).to have_content('Total de alunos: 1')
   end
 
   it 'logado como teacher' do

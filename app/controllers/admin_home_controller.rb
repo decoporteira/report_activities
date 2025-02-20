@@ -2,23 +2,18 @@ class AdminHomeController < ApplicationController
   before_action :check_authorization!, only: %i[index]
 
   def index
-    @classrooms =
-      Classroom.includes(:students).where(students: { status: 'registered' })
+    @classrooms = Classroom.includes(:students).where(students: { status: 'registered' })
+    @students = Student.active.includes(:current_plan)
 
-    @students = Student.registered
-    @current_plans = CurrentPlan.joins(:student).merge(Student.active).order('students.name')
+    plan_counts = @students.joins(:current_plan).group('current_plans.plan_id').count
 
-    @current_plan_kids = fetch_students_by_plan_name('Kids')
-    @current_plan_adults = fetch_students_by_plan_name('Adults')
-    @current_plan_privates = fetch_students_by_plan_name('Particular')
+    @kids = plan_counts[1] || 0
+    @teens = plan_counts[2] || 0
+    @adults = plan_counts[3] || 0
+    @privates = plan_counts[4] || 0
   end
 
   private
-
-  def fetch_students_by_plan_name(plan_name)
-    Student.joins(:current_plan).active
-           .where(current_plans: { plan_id: Plan.where(name: plan_name).pluck(:id) })
-  end
 
   def check_authorization!
     return if current_user.admin?

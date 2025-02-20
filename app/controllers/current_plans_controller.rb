@@ -5,9 +5,15 @@ class CurrentPlansController < ApplicationController
   # GET /current_plans or /current_plans.json
   def index
     @current_plans = CurrentPlan.joins(:student).merge(Student.active).order('students.name')
-    @current_plan_kids = fetch_students_by_plan_name('Kids')
-    @current_plan_adults = fetch_students_by_plan_name('Adults')
-    @current_plan_privates = fetch_students_by_plan_name('Particular')
+
+    @students = Student.active.includes(:current_plan)
+
+    plan_counts = @students.joins(:current_plan).group('current_plans.plan_id').count
+
+    @kids = plan_counts[1] || 0
+    @teens = plan_counts[2] || 0
+    @adults = plan_counts[3] || 0
+    @privates = plan_counts[4] || 0
   end
 
   # GET /current_plans/1 or /current_plans/1.json

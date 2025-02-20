@@ -220,6 +220,7 @@ RSpec.describe 'Students', type: :request do
           classroom_id: classroom.id,
           cpf: '000.097.098-01'
         )
+      FactoryBot.create(:current_plan, student_id: student.id)
       login_as(user)
       patch(student_path(student), params: { student: { name: 'Venossaur' } })
 
