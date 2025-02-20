@@ -19,13 +19,13 @@ RSpec.describe 'Tipo de usuário cria uma student' do
       )
     classroom =
       Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '17:00')
-    Student.create!(
+    student = Student.create!(
       name: 'Venossaur',
       status: :registered,
       classroom_id: classroom.id,
-      cpf: '065.654.654-01',
-      student_plan_id: 1
+      cpf: '065.654.654-01'
     )
+    CurrentPlan.create(student_id: student.id, plan_id: 1, has_discount: false, discount: 0)
     user =
       User.create!(
         email: 'admin@admin.com.br',
@@ -52,6 +52,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
 
   it 'accounting a partir do menu e falha pois não tem permissão' do
     # arrange
+    FactoryBot.create(:plan, id: 1)
     user_teacher =
       User.create!(
         email: 'teacher@admin.com.br',
@@ -67,12 +68,14 @@ RSpec.describe 'Tipo de usuário cria uma student' do
       )
     classroom =
       Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-    Student.create!(
+    student = Student.create!(
       name: 'Venossaur',
       status: :registered,
       classroom_id: classroom.id,
       cpf: '065.654.654-01'
     )
+
+    CurrentPlan.create!(student_id: student.id, plan_id: 1, has_discount: false, discount: 0)
     user =
       User.create!(
         email: 'admin@admin.com.br',
