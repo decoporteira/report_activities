@@ -1,0 +1,27 @@
+require 'rails_helper'
+
+RSpec.describe "material_billings/new", type: :view do
+  before(:each) do
+    assign(:material_billing, MaterialBilling.new(
+      name: "MyString",
+      status: 1,
+      student: nil,
+      value: "9.99"
+    ))
+  end
+
+  it "renders new material_billing form" do
+    render
+
+    assert_select "form[action=?][method=?]", material_billings_path, "post" do
+
+      assert_select "input[name=?]", "material_billing[name]"
+
+      assert_select "input[name=?]", "material_billing[status]"
+
+      assert_select "input[name=?]", "material_billing[student_id]"
+
+      assert_select "input[name=?]", "material_billing[value]"
+    end
+  end
+end
