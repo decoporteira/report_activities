@@ -2,7 +2,6 @@
   <% if material_billing.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(material_billing.errors.count, "error") %> prohibited this material_billing from being saved:</h2>
-
       <ul>
         <% material_billing.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -10,33 +9,46 @@
       </ul>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class="mb-3">
+    <%= form.label :name, class: 'form-label'  %>
+    <%= form.text_field :name, class: 'form-control'  %>
   </div>
-
-  <div>
-    <%= form.label :status, style: "display: block" %>
-    <%= form.number_field :status %>
+  <div class="mb-3">
+    <%= form.label :status, sclass: 'form-label' %>
+    <%=
+      form.select :status,
+                  options_for_select(
+                    MaterialBilling.statuses.keys.map { |key| [I18n.t("#{key}"), key] },
+                    material_billing.status,
+                  ),{},
+                  { class: 'form-select bg-dark text-white' } 
+    %>
   </div>
-
-  <div>
-    <%= form.label :student_id, style: "display: block" %>
-    <%= form.text_field :student_id %>
+  <div class="mb-3">
+    <%= form.label :student_id, class: 'form-label' %>
+    <%= form.select :student_id, 
+                Student.order(:name).map { |fr| [fr.name, fr.id] }, 
+                { prompt: "Selecione um aluno" }, 
+                { class: "form-select select2 " } %>
   </div>
-
-  <div>
-    <%= form.label :date, style: "display: block" %>
-    <%= form.date_field :date %>
+  <div class="mb-3">
+    <%= form.label :date, class: 'form-label' %>
+    <%= form.date_field :date, class: 'form-control' %>
   </div>
-
-  <div>
-    <%= form.label :value, style: "display: block" %>
-    <%= form.text_field :value %>
+  <div class="mb-3">
+    <%= form.label :value, class: 'form-label'  %>
+    <%= form.text_field :value, class: 'form-control' %>
   </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="mb-3">
+    <%= form.submit class: 'btn btn-primary' %>
   </div>
 <% end %>
+<script>
+  document.addEventListener("turbo:load", function() {
+    $( '.select2' ).select2( {
+      theme: "bootstrap-5",
+      width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+      placeholder: $( this ).data( 'placeholder' ),
+  } );
+  });
+</script>

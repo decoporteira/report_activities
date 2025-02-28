@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_02_25_181507) do
+ActiveRecord::Schema[7.0].define(version: 2025_02_28_193418) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -85,7 +85,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_25_181507) do
     t.integer "status"
     t.bigint "student_id", null: false
     t.date "date"
-    t.decimal "value"
+    t.decimal "value", precision: 10, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["student_id"], name: "index_material_billings_on_student_id"

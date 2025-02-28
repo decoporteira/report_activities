@@ -1,10 +1,7 @@
 <h1>Editing material billing</h1>
-
 <%= render "form", material_billing: @material_billing %>
-
 <br>
-
 <div>
-  <%= link_to "Show this material billing", @material_billing %> |
-  <%= link_to "Back to material billings", material_billings_path %>
+  <%= link_to "Show this material billing", @material_billing, class: 'btn btn-outline-primary' %> |
+  <%= link_to "Back to material billings", material_billings_path, class: 'btn btn-outline-primary' %>
 </div>

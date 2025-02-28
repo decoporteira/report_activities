@@ -12,6 +12,14 @@ pt-BR:
             statuses:
               registered: "Matriculado"
               unregistered: "Não Matriculado"
+          material_billing:
+            statuses:
+              paid: "Pago"
+              pending: "Pendente"
+              canceled: "Cancelado"
 
   registered: "Matriculado"
   unregistered: "Não Matriculado"
+  paid: "Pago"
+  pending: "Pendente"
+  canceled: "Cancelado"

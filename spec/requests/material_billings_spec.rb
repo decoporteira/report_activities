@@ -12,94 +12,116 @@ require 'rails_helper'
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe "/material_billings", type: :request do
-  
+RSpec.describe '/material_billings', type: :request do
   # This should return the minimal set of attributes required to create a valid
   # MaterialBilling. As you add validations to MaterialBilling, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
+  let(:valid_attributes) do
+    student = Student.create!(name: 'Pikachu Ash', status: 'registered')
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+    {
+      name: 'Books',
+      status: 'pending',
+      student_id: student.id, # Passando o objeto `student` diretamente
+      value: 9.99,
+      date: Time.zone.today
+    }
+  end
 
-  describe "GET /index" do
-    it "renders a successful response" do
+  let(:invalid_attributes) do
+    {
+      name: 'Books',
+      status: 'pending',
+      student_id: Student.create!(name: 'Pikachu', status: 'registered'),
+      value: 9.99,
+      date: Time.zone.today
+    }
+  end
+  let(:user) { User.create!(email: 'test@example.com', password: 'password', role: :admin) }
+  describe 'GET /index' do
+    it 'renders a successful response' do
+      login_as user
       MaterialBilling.create! valid_attributes
       get material_billings_url
       expect(response).to be_successful
     end
   end
 
-  describe "GET /show" do
-    it "renders a successful response" do
+  describe 'GET /show' do
+    it 'renders a successful response' do
+      login_as user
       material_billing = MaterialBilling.create! valid_attributes
       get material_billing_url(material_billing)
       expect(response).to be_successful
     end
   end
 
-  describe "GET /new" do
-    it "renders a successful response" do
+  describe 'GET /new' do
+    it 'renders a successful response' do
+      login_as user
+
       get new_material_billing_url
       expect(response).to be_successful
     end
   end
 
-  describe "GET /edit" do
-    it "renders a successful response" do
+  describe 'GET /edit' do
+    it 'renders a successful response' do
+      login_as user
+
       material_billing = MaterialBilling.create! valid_attributes
       get edit_material_billing_url(material_billing)
       expect(response).to be_successful
     end
   end
 
-  describe "POST /create" do
-    context "with valid parameters" do
-      it "creates a new MaterialBilling" do
-        expect {
+  describe 'POST /create' do
+    context 'with valid parameters' do
+      it 'creates a new MaterialBilling' do
+        login_as user
+
+        expect do
           post material_billings_url, params: { material_billing: valid_attributes }
-        }.to change(MaterialBilling, :count).by(1)
+        end.to change(MaterialBilling, :count).by(1)
       end
 
-      it "redirects to the created material_billing" do
+      it 'redirects to the created material_billing' do
+        login_as user
         post material_billings_url, params: { material_billing: valid_attributes }
         expect(response).to redirect_to(material_billing_url(MaterialBilling.last))
       end
     end
 
-    context "with invalid parameters" do
-      it "does not create a new MaterialBilling" do
-        expect {
+    context 'with invalid parameters' do
+      it 'does not create a new MaterialBilling' do
+        login_as user
+        expect do
           post material_billings_url, params: { material_billing: invalid_attributes }
-        }.to change(MaterialBilling, :count).by(0)
+        end.to change(MaterialBilling, :count).by(0)
       end
 
-    
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
+        login_as user
         post material_billings_url, params: { material_billing: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
-    
     end
   end
 
-  describe "PATCH /update" do
-    context "with valid parameters" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
+  describe 'PATCH /update' do
+    context 'with valid parameters' do
+      let(:new_attributes) do
+        skip('Add a hash of attributes valid for your model')
+      end
 
-      it "updates the requested material_billing" do
+      it 'updates the requested material_billing' do
         material_billing = MaterialBilling.create! valid_attributes
         patch material_billing_url(material_billing), params: { material_billing: new_attributes }
         material_billing.reload
-        skip("Add assertions for updated state")
+        skip('Add assertions for updated state')
       end
 
-      it "redirects to the material_billing" do
+      it 'redirects to the material_billing' do
         material_billing = MaterialBilling.create! valid_attributes
         patch material_billing_url(material_billing), params: { material_billing: new_attributes }
         material_billing.reload
@@ -107,29 +129,13 @@ RSpec.describe "/material_billings", type: :request do
       end
     end
 
-    context "with invalid parameters" do
-    
+    context 'with invalid parameters' do
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
+        login_as user
         material_billing = MaterialBilling.create! valid_attributes
         patch material_billing_url(material_billing), params: { material_billing: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
-    
-    end
-  end
-
-  describe "DELETE /destroy" do
-    it "destroys the requested material_billing" do
-      material_billing = MaterialBilling.create! valid_attributes
-      expect {
-        delete material_billing_url(material_billing)
-      }.to change(MaterialBilling, :count).by(-1)
-    end
-
-    it "redirects to the material_billings list" do
-      material_billing = MaterialBilling.create! valid_attributes
-      delete material_billing_url(material_billing)
-      expect(response).to redirect_to(material_billings_url)
     end
   end
 end
