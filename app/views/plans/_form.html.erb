@@ -5,7 +5,6 @@
         <%= pluralize(plan.errors.count, 'error') %> prohibited this plan from
         being saved:
       </h2>
-
       <ul>
         <% plan.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -13,18 +12,15 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+  <div class="mb-3">
+    <%= form.label :name, class: 'form-label' %>
+    <%= form.text_field :name, class: 'form-control' %>
   </div>
-
-  <div class="field">
-    <%= form.label :price %>
-    <%= form.number_field :price, step: 0.01 %>
+  <div class="mb-3">
+    <%= form.label :price, class: 'form-label' %>
+    <%= form.number_field :price, class: 'form-control' %>
   </div>
-
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: 'btn btn-primary' %>
   </div>
 <% end %>

@@ -1,0 +1,7 @@
+<p style="color: green"><%= notice %></p>
+<%= render @material_billing %>
+<div>
+  <%= link_to "Editar cobrança", edit_material_billing_path(@material_billing), class: 'btn btn-outline-primary' %> |
+  <%= link_to "Voltar para lista de cobranças", material_billings_path, class: 'btn btn-outline-primary' %>
+  <% button_to "Destroy this material billing", @material_billing, method: :delete %>
+</div>

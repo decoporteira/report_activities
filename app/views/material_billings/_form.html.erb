@@ -1,0 +1,55 @@
+<%= form_with(model: material_billing) do |form| %>
+  <% if material_billing.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(material_billing.errors.count, "error") %> prohibited this material_billing from being saved:</h2>
+      <ul>
+        <% material_billing.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="mb-3">
+    <%= form.label :name, class: 'form-label'  %>
+    <%= form.text_field :name, class: 'form-control'  %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :status, sclass: 'form-label' %>
+    <%=
+      form.select :status,
+                  options_for_select(
+                    MaterialBilling.statuses.keys.map { |key| [I18n.t("#{key}"), key] },
+                    material_billing.status,
+                  ),{},
+                  { class: 'form-select bg-dark text-white' } 
+    %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :student_id, class: 'form-label' %>
+    <%= form.select :student_id, 
+                Student.order(:name).map { |fr| [fr.name, fr.id] }, 
+                { prompt: "Selecione um aluno" }, 
+                { class: "form-select select2 " } %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :date, class: 'form-label' %>
+    <%= form.date_field :date, class: 'form-control' %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :value, class: 'form-label'  %>
+    <% form.number_field :value, step: '0.01', class: 'form-control' %>
+    <%= form.number_field :value, value: (@material_billing.value.present? ? '%.2f' % @material_billing.value : ''), step: '0.01', class: 'form-control' %>
+  </div>
+  <div class="mb-3">
+    <%= form.submit 'Criar cobrança', class: 'btn btn-primary' %>
+  </div>
+<% end %>
+<script>
+  document.addEventListener("turbo:load", function() {
+    $( '.select2' ).select2( {
+      theme: "bootstrap-5",
+      width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+      placeholder: $( this ).data( 'placeholder' ),
+  } );
+  });
+</script>

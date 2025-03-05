@@ -75,4 +75,5 @@ Rails
     get 'accounting_home', to: 'accounting_home#index'
     post 'students/:student_id/current_plans', to: 'current_plans#create', as: 'create_current_plan'
 
+    resources :material_billings, only: %i[new create index show edit update]
   end

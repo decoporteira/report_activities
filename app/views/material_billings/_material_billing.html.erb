@@ -1,0 +1,27 @@
+<div id="<%= dom_id material_billing %>"></div>
+<div class="container col-xxl-8 px-4 py-5">
+  <div class="row flex-lg-row g-5 py-5">
+    <div class="col-lg-6">
+      <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3"><%=  material_billing.student.name%></h1>
+      <p class="lead">
+        <dl>
+          <dt>Detalhe: </dt>
+          <dd><%= material_billing.name%></dd>
+          <dt>Status: </dt>
+          <dd><%= I18n.t(material_billing.status)%></dd>
+          <dt>Data: </dt>
+          <dd><%= material_billing.date.strftime('%d/%m/%y') unless material_billing.date.nil? %></dd>
+          <dt>Valor: </dt>
+          <dd><%=
+            number_to_currency(
+            material_billing.value,
+            unit: 'R$ ',
+            separator: ',',
+            delimiter: '.',
+            precision: 2,
+            )
+            %></dd>
+        </dl>
+      </p>
+    </div>
+  </div>

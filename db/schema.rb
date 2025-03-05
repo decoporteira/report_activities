@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_06_120216) do
+ActiveRecord::Schema[7.0].define(version: 2025_02_28_193418) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "unaccent"
 
   create_table "activities", force: :cascade do |t|
     t.string "report"
@@ -77,6 +78,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_06_120216) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "material_billings", force: :cascade do |t|
+    t.string "name"
+    t.integer "status"
+    t.bigint "student_id", null: false
+    t.date "date"
+    t.decimal "value", precision: 10, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_material_billings_on_student_id"
   end
 
   create_table "monthly_fees", force: :cascade do |t|
@@ -161,6 +173,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_06_120216) do
   add_foreign_key "classrooms", "teachers"
   add_foreign_key "current_plans", "plans"
   add_foreign_key "current_plans", "students"
+  add_foreign_key "material_billings", "students"
   add_foreign_key "monthly_fees", "students"
   add_foreign_key "responsibles", "financial_responsibles"
   add_foreign_key "responsibles", "students"
