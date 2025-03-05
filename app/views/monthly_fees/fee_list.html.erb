@@ -77,14 +77,16 @@
             <% monthly_fee = student.monthly_fees.find { |monthly_fee| monthly_fee.due_date_month_name == month } %>
             <% if monthly_fee %>
               <% color_status = color_statuses[monthly_fee.status]%>
-              <td style="<%= color_status[:style] %>"><%=  
-                  number_to_currency(
+              <td style="<%= color_status[:style] %>">
+                <%= link_to (number_to_currency(
                   monthly_fee.value,
                   unit: 'R$ ',
                   separator: ',',
                   delimiter: '.',
                   precision: 2,
-                  )%>
+                  )), student_monthly_fee_path(
+                          monthly_fee.student,
+                          monthly_fee)%>
                 <div class='d-flex justify-content-around'>
                   <% statuses.each do |status, config| %>
                     <% if monthly_fee.status != status %>

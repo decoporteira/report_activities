@@ -2,31 +2,24 @@ require 'rails_helper'
 
 RSpec.describe 'material_billings/index', type: :view do
   before(:each) do
-    student = Student.create!(name: 'Pikachu', status: 'registered')
+    student = create(:student, name: 'Pikachu', status: 'registered')
+    student_two = create(:student, name: 'Raichu do Ash', status: 'registered')
+
     assign(:material_billings, [
-             MaterialBilling.create!(
-               name: 'Books',
-               status: 2,
-               student:,
-               value: '9.99',
-               date: '2025-03-03'
-             ),
-             MaterialBilling.create!(
-               name: 'Books',
-               status: 2,
-               student:,
-               value: '9.99',
-               date: '2025-03-03'
-             )
+             create(:material_billing, name: 'Books', status: 2, student:, value: '999', date: '2025-03-03'),
+             create(:material_billing, name: 'Books', status: 2, student: student_two, value: '999',
+                                       date: '2025-03-03')
            ])
   end
 
   it 'renders a list of material_billings' do
     render
-    cell_selector = Rails::VERSION::STRING >= '7' ? 'div>p' : 'tr>td'
-    assert_select cell_selector, text: Regexp.new('Name'.to_s), count: 2
-    assert_select cell_selector, text: Regexp.new(2.to_s), count: 2
-    assert_select cell_selector, text: Regexp.new('Pikachu'.to_s), count: 2
-    assert_select cell_selector, text: Regexp.new('9.99'.to_s), count: 2
+
+    puts rendered # Debugging: Print the rendered HTML
+
+    assert_select 'h4', text: 'Pikachu', count: 1
+    assert_select 'h4', text: 'Raichu do Ash', count: 1
+    assert_select 'p', text: /Detalhe: Books/, count: 2
+    assert_select 'p', text: /Valor:\s*R\$ 999,00/, count: 2
   end
 end

@@ -8,7 +8,7 @@
           <dt>Detalhe: </dt>
           <dd><%= material_billing.name%></dd>
           <dt>Status: </dt>
-          <dd><%=material_billing.status%></dd>
+          <dd><%= I18n.t(material_billing.status)%></dd>
           <dt>Data: </dt>
           <dd><%= material_billing.date.strftime('%d/%m/%y') unless material_billing.date.nil? %></dd>
           <dt>Valor: </dt>

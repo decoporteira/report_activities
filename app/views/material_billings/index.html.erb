@@ -18,13 +18,13 @@
               <p class="card-text"></p>
               <p><strong>Detalhe:</strong> <%= material_billing.name %></p>
               <p><strong>Data:</strong> <%= material_billing.date.strftime('%d/%m/%y') unless material_billing.date.nil? %></p>
-              <p><strong>Status:</strong> <%= material_billing.status %></p>
-              <p><strong>Valor: </strong><%=
+              <p><strong>Status:</strong> <%= I18n.t(material_billing.status) %></p>
+              <p><strong>Valor:</strong> <%=
                 number_to_currency(
                   material_billing.value,
-                  unit: 'R$ ',
-                  separator: ',',
-                  delimiter: '.',
+                  unit:'R$',
+                  separator:',',
+                  delimiter:'.',
                   precision: 2,
                 )
               %></p>

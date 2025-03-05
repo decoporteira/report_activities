@@ -37,10 +37,11 @@
   </div>
   <div class="mb-3">
     <%= form.label :value, class: 'form-label'  %>
-    <%= form.text_field :value, class: 'form-control' %>
+    <% form.number_field :value, step: '0.01', class: 'form-control' %>
+    <%= form.number_field :value, value: (@material_billing.value.present? ? '%.2f' % @material_billing.value : ''), step: '0.01', class: 'form-control' %>
   </div>
   <div class="mb-3">
-    <%= form.submit class: 'btn btn-primary' %>
+    <%= form.submit 'Criar cobrança', class: 'btn btn-primary' %>
   </div>
 <% end %>
 <script>
