@@ -1,4 +1,4 @@
-<%= form_with(model: material_billing) do |form| %>
+<%= form_with(model: material_billing, data: { turbo: false }) do |form| %>
   <% if material_billing.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(material_billing.errors.count, "error") %> prohibited this material_billing from being saved:</h2>
@@ -51,10 +51,10 @@
 <% end %>
 <script>
   document.addEventListener("turbo:load", function() {
-    $( '.select2' ).select2( {
-      theme: "bootstrap-5",
-      width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
-      placeholder: $( this ).data( 'placeholder' ),
-  } );
-  });
+       $( '.select2' ).select2( {
+       theme: "bootstrap-5",
+       width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+       placeholder: $( this ).data( 'placeholder' ),
+   } );
+   });
 </script>
