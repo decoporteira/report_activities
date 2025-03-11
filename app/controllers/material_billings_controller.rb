@@ -13,6 +13,8 @@ class MaterialBillingsController < ApplicationController
   # GET /material_billings/new
   def new
     @material_billing = MaterialBilling.new
+    # @student = Student.find(params[:student_id]) if params[:student_id].present?
+    @material_billing.student = Student.find(params[:student_id]) if params[:student_id].present?
   end
 
   # GET /material_billings/1/edit

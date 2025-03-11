@@ -25,11 +25,16 @@
     %>
   </div>
   <div class="mb-3">
-    <%= form.label :student_id, class: 'form-label' %>
-    <%= form.select :student_id, 
+    <% if @material_billing.student.present? %>
+      <p><strong>Aluno:</strong> <%=  @material_billing.student.name %></p>
+      <%= form.hidden_field :student_id, value:  @material_billing.student.id %>
+    <% else %>
+      <%= form.label :student_id, class: 'form-label' %>
+      <%= form.select :student_id, 
                 Student.order(:name).map { |fr| [fr.name, fr.id] }, 
                 { prompt: "Selecione um aluno" }, 
                 { class: "form-select select2 " } %>
+    <% end %>
   </div>
   <div class="mb-3">
     <%= form.label :date, class: 'form-label' %>

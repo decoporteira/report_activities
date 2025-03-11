@@ -27,6 +27,6 @@ RSpec.describe 'User sees fees list' do
     expect(page).to have_content('Charmander')
     expect(page).to have_content('Bulbassaur')
     expect(page).not_to have_content('Squirtle')
-    expect(page).to have_content('R$ 300')
+    expect(page).to have_content('300,00')
   end
 end

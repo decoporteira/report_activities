@@ -9,11 +9,11 @@ RSpec.describe 'User creates new material billing' do
 
     click_on 'Cobranças Extras'
     click_on 'Nova cobrança'
-    fill_in 'Name', with: 'Livro Advanced'
+    fill_in 'Descrição', with: 'Livro Advanced'
     select 'Pago', from: 'Status'
-    select 'Pikachu', from: 'Student'
-    fill_in 'Date', with: Time.zone.today
-    fill_in 'Value', with: 240
+    select 'Pikachu', from: 'Aluno'
+    fill_in 'Data', with: Time.zone.today
+    fill_in 'Valor', with: 240
     click_on 'Criar cobrança'
 
     expect(page).to have_content 'Detalhe: Livro Advanced'
