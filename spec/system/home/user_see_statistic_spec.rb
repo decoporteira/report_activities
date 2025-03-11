@@ -2,19 +2,14 @@ require 'rails_helper'
 
 RSpec.describe 'User vê o numero de alunos' do
   it 'com sucesso' do
-    # arrange
-    # Arrange - Criando os planos com nomes específicos
-    # kids_plan = Plan.create!(name: 'Kids', price: 350)
     kids_plan = FactoryBot.create(:plan, name: 'Kids', price: 350)
     adults_plan = FactoryBot.create(:plan, name: 'Adults', price: 350)
-    privates_plan = FactoryBot.create(:plan, name: 'Privates', price: 350)
+    privates_plan = FactoryBot.create(:plan, name: 'Particular', price: 350)
 
-    # Criando usuários, professor e turma
     user_teacher = FactoryBot.create(:user, email: 'teacher@admin.com.br', role: 'teacher')
     teacher = FactoryBot.create(:teacher, name: 'Bianca', user: user_teacher, cpf: '087.097.098-01')
     classroom = FactoryBot.create(:classroom, name: 'MW 17:00', teacher:)
 
-    # Criando estudantes com planos associados
     student_one = FactoryBot.create(:student, name: 'Venossaur', status: :registered, classroom:)
     student_two = FactoryBot.create(:student, name: 'Charmander', status: :registered, classroom:)
     student_three = FactoryBot.create(:student, name: 'Blastoise', status: :registered, classroom:)
@@ -22,8 +17,6 @@ RSpec.describe 'User vê o numero de alunos' do
     student_five = FactoryBot.create(:student, name: 'Pidgey', status: :unregistered, classroom:)
     student_six = FactoryBot.create(:student, name: 'Ratata', status: :unregistered)
 
-    # CurrentPlan.create!(has_discount: false, discount: 0, student_id: student_one.id, plan: kids_plan)
-    # puts pluck
     FactoryBot.create(:current_plan, student: student_one, plan: kids_plan)
     FactoryBot.create(:current_plan, student: student_two, plan: adults_plan)
     FactoryBot.create(:current_plan, student: student_three, plan: privates_plan)
