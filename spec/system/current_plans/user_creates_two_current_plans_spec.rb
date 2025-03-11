@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'Usuário cria Plano atual para aluno' do
   it 'com sucesso' do
-    puts Plan.pluck(:name)
     user = FactoryBot.create(:user)
     FactoryBot.create(:plan)
     cp = FactoryBot.create(:plan, name: 'Teens', price: 350)

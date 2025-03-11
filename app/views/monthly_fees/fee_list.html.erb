@@ -83,68 +83,69 @@
               <% end %>
             </p>
           </td>
-          <td class="font-weight-light mb-0 fs-6 fw-light"  style="text-align: center;"><%= student.classroom&.name || "Turma não cadastrada" %></td>
-          <td class="font-weight-light mb-0 fs-6 fw-light"  style="text-align: center;">
+          <td class="font-weight-light mb-0 fs-6 fw-light  text-center"><%= student.classroom&.name || "Turma não cadastrada" %></td>
+          <td class="font-weight-light mb-0 fs-6 fw-light text-center">
             <% if student.material_billings.present? %>
               <%= link_to student.material_billings.last.name, edit_material_billing_path(student.material_billings.last) %>
-              <p><%=
+              <span class="text-center" style="text-align: center;"> <%=
                 number_to_currency(
-                  student.material_billings.last.value)
-              %></p>
+                  student.material_billings.last.value, unit: "")
+              %></span>
             <%else%>
-              <%= link_to "Nova cobrança", new_material_billing_path %>
+              <%= link_to "Nova cobrança", new_material_billing_path(student_id: student.id) %>
             <% end %>
           </td>
           <% months.each do |month| %>
             <% monthly_fee = student.monthly_fees.find { |monthly_fee| monthly_fee.due_date_month_name == month } %>
             <% if monthly_fee %>
               <% color_status = color_statuses[monthly_fee.status]%>
-              <td style="<%= color_status[:style] %>">
+              <td style="<%= color_status[:style] %>"  class="text-center">
                 <%= link_to (number_to_currency(
-                  monthly_fee.value
+                  monthly_fee.value, unit: ""
                   )), student_monthly_fee_path(
                           monthly_fee.student,
                           monthly_fee)%>
+                <p style="white-space: nowrap;" class="mb-1"><%= monthly_fee.status%></p>
                 <div class='d-flex justify-content-around'>
-                  <% statuses.each do |status, config| %>
-                    <% if monthly_fee.status != status %>
-                      <%=
-                      button_to config[:text],
-                                update_paid_path(
-                                  items: { id: monthly_fee.id, status: status },
-                                ),
-                                method: :patch,
-                                class: config[:css_class],
-                                style: "--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: .70rem;"
-                    %>
-                    <% end %>
+                  <%= button_to update_paid_path(items: { id: monthly_fee.id, status: 'Paga' }),
+              method: :patch,
+              class: 'btn btn-outline-success btn-sm',
+              style: "--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: .70rem;" do %>
+                    <i class="fa-solid fa-circle-check"></i>
                   <% end %>
-                </div>
-              </td>
-            <% else %>
-              <td style="text-align: center; font-size: .75rem; vertical-align: middle; color:rgb(122, 122, 122);">Não gerada</td>
+                  <div class='d-flex justify-content-around'>
+                    <%= button_to update_paid_path(items: { id: monthly_fee.id, status: 'Atrasada' }),
+              method: :patch,
+              class: 'btn btn-outline-danger btn-sm',
+              style: "--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: .70rem;" do %>
+                      <i class="fa-solid fa-ban"></i>
+                    <% end %>
+                  </div>
+                </td>
+              <% else %>
+                <td style="text-align: center; font-size: .75rem; vertical-align: middle; color:rgb(122, 122, 122);">Não gerada</td>
+              <% end %>
             <% end %>
-          <% end %>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-<script>
-  $(document).ready(function () {
-   function removeAccents(str) {
-     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // Remove acentos
-   }
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <script>
+    $(document).ready(function () {
+     function removeAccents(str) {
+       return str.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // Remove acentos
+     }
 
-   $("#myInput").on("keyup", function () {
-     var value = removeAccents($(this).val().toLowerCase().trim());
-     var words = value.split(/\s+/); // Divide a busca em palavras separadas
+     $("#myInput").on("keyup", function () {
+       var value = removeAccents($(this).val().toLowerCase().trim());
+       var words = value.split(/\s+/); // Divide a busca em palavras separadas
 
-     $("#myList tr").filter(function () {
-       var text = removeAccents($(this).text().toLowerCase()); // Remove acentos do texto da lista
-       var matchesAll = words.every(word => text.includes(word)); // Verifica se todas as palavras estão presentes
-       $(this).toggle(matchesAll);
+       $("#myList tr").filter(function () {
+         var text = removeAccents($(this).text().toLowerCase()); // Remove acentos do texto da lista
+         var matchesAll = words.every(word => text.includes(word)); // Verifica se todas as palavras estão presentes
+         $(this).toggle(matchesAll);
+       });
      });
-   });
-  });
-</script>
+    });
+  </script>
