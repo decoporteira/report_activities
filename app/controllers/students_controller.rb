@@ -38,9 +38,8 @@ class StudentsController < ApplicationController
   def update
     respond_to do |format|
       if @student.update(student_params)
-        @student.current_plan.update(
-          plan_id: params[:student][:plan_id]
-        )
+        current_plan = @student.current_plan || @student.build_current_plan
+        current_plan.update(plan_id: params[:student][:plan_id])
         format.html do
           redirect_to student_path(@student), notice: t('.success')
         end

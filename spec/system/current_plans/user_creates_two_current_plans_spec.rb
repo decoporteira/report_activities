@@ -2,11 +2,12 @@ require 'rails_helper'
 
 RSpec.describe 'Usuário cria Plano atual para aluno' do
   it 'com sucesso' do
+    puts Plan.pluck(:name)
     user = FactoryBot.create(:user)
-    FactoryBot.create(:plan, name: 'Teste', price: 330)
-    FactoryBot.create(:plan, name: 'Teens', price: 350)
+    FactoryBot.create(:plan)
+    cp = FactoryBot.create(:plan, name: 'Teens', price: 350)
     student = FactoryBot.create(:student, name: 'Brock')
-    FactoryBot.create(:current_plan, student_id: student.id)
+    FactoryBot.create(:current_plan, student_id: student.id, plan: cp)
 
     login_as(user)
     visit(root_path)
@@ -19,6 +20,6 @@ RSpec.describe 'Usuário cria Plano atual para aluno' do
     select 'Brock', from: 'current_plan_student_id'
     click_on 'Criar Plano Atual'
 
-    expect(page).to have_content('Aluno already has a current plan.')
+    expect(page).to have_content('Aluno já possui um plano ativo')
   end
 end

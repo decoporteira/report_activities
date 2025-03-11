@@ -70,8 +70,13 @@ class MonthlyFeesController < ApplicationController
   end
 
   def fee_list
-    params[:year] = Time.zone.today.year if params[:year].nil?
-    @students = Student.with_monthly_fees_for_year(params[:year]).active.order(:name)
+    if params[:status] == 'Atrasada'
+      student_ids = MonthlyFee.where(status: 'Atrasada').pluck(:student_id)
+      @students = Student.where(id: student_ids).active.order(:name)
+    else
+      params[:year] = Time.zone.today.year if params[:year].nil?
+      @students = Student.with_monthly_fees_for_year(params[:year]).active.order(:name)
+    end
   end
 
   private

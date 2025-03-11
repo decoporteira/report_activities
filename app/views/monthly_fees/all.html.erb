@@ -23,13 +23,7 @@ button_to 'Criar todas as Mensalidades',
           <td><%= monthly_fee.student.name %></td>
           <td>
             <%=
-                number_to_currency(
-                  monthly_fee.value,
-                  unit: 'R$ ',
-                  separator: ',',
-                  delimiter: '.',
-                  precision: 2,
-                )
+                number_to_currency(monthly_fee.value)
               %>
           </td>
           <td><%= monthly_fee.due_date.strftime('%d/%m/%Y') %></td>
