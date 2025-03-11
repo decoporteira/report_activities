@@ -21,16 +21,22 @@
                   Status: <strong> <%= I18n.t(student.status)  %></strong>
                 </li>
               </ul>
-              <%=
+              <%
                 link_to 'Show Activities',
                         report_student_path(student),
                         class: 'btn btn-outline-primary',
                         style: 'width:150px'
               %>
               <%=
-                link_to 'Show Student',
+                link_to 'Detalhes',
                         student,
                         class: 'btn btn-outline-primary',
+                        style: 'width:150px'
+              %>
+              <%=
+               link_to 'Mensalidades', 
+               student_monthly_fees_path(student),
+               class: 'btn btn-outline-primary',
                         style: 'width:150px'
               %>
             </div>
@@ -90,8 +96,13 @@
             </h1>
             <ul class="list-unstyled mt-3 mb-4">
               <li>Responsável por: <strong></strong></li>
-              <%  financial_responsible.students.each do |student| %>
-                <li><%= student.name %></li>
+              <%  financial_responsible.students.active.each do |student| %>
+                <li>
+                  <%= link_to student.name, student_path(student)%>
+                  <% if current_user.admin? || current_user.admin? %>
+                    | <%= link_to 'Ver Mensalidades', student_monthly_fees_path(student) %>
+                  <% end %>
+                </li>
               <% end %>
             </ul>
             <%=
