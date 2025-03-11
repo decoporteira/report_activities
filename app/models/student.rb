@@ -5,6 +5,7 @@ class Student < ApplicationRecord
   has_one :current_plan
   has_many :financial_responsibles, through: :responsibles
   has_many :activities, dependent: :destroy
+  has_many :material_billings
   belongs_to :classroom, optional: true
   has_many :resumes, dependent: :destroy
   has_many :attendances, dependent: :destroy

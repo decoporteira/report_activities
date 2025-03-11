@@ -2,8 +2,10 @@ class CurrentPlan < ApplicationRecord
   belongs_to :plan
   belongs_to :student
   before_save :set_total
-  validate :single_current_plan_per_student
+  # validate :single_current_plan_per_student
   validate :positive_price
+
+  validates :student_id, uniqueness: { message: 'já possui um plano ativo' }
 
   def discounted_price
     if has_discount
@@ -25,12 +27,6 @@ class CurrentPlan < ApplicationRecord
     else
       plan.price
     end
-  end
-
-  def single_current_plan_per_student
-    return unless new_record? && CurrentPlan.exists?(student_id:)
-
-    errors.add(:student_id, 'already has a current plan.')
   end
 
   def positive_price

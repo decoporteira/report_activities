@@ -39,6 +39,16 @@
             class: 'btn btn-outline-primary mb-2'
     %>
 <% end %>
+<%=
+        link_to "Mensalidades Atrasadas",
+             monthly_fees_fee_list_path(status: 'Atrasada'),
+            class: 'btn btn-outline-primary mb-2'
+    %>
+<%=
+        link_to "Ver todas as Mensalidades",
+             monthly_fees_fee_list_path,
+            class: 'btn btn-outline-primary mb-2'
+    %>
 <div class="">
   <div class="mb-2">
     <input class="form-control" id="myInput" type="text" placeholder="Digite o nome, email ou telefone do responsável para filtrar..." />
@@ -48,6 +58,7 @@
       <tr>
         <th style="width: 27%">Nome</th>
         <th style="width: 3%; text-align: center;">Turma</th>
+        <th style="width: 5%; text-align: center;">Extra</th>
         <th style="width: 5%; text-align: center;">Jan</th>
         <th style="width: 5%; text-align: center;">Fev</th>
         <th style="width: 5%; text-align: center;">Mar</th>
@@ -73,17 +84,24 @@
             </p>
           </td>
           <td class="font-weight-light mb-0 fs-6 fw-light"  style="text-align: center;"><%= student.classroom&.name || "Turma não cadastrada" %></td>
+          <td class="font-weight-light mb-0 fs-6 fw-light"  style="text-align: center;">
+            <% if student.material_billings.present? %>
+              <%= link_to student.material_billings.last.name, edit_material_billing_path(student.material_billings.last) %>
+              <p><%=
+                number_to_currency(
+                  student.material_billings.last.value)
+              %></p>
+            <%else%>
+              <%= link_to "Nova cobrança", new_material_billing_path %>
+            <% end %>
+          </td>
           <% months.each do |month| %>
             <% monthly_fee = student.monthly_fees.find { |monthly_fee| monthly_fee.due_date_month_name == month } %>
             <% if monthly_fee %>
               <% color_status = color_statuses[monthly_fee.status]%>
               <td style="<%= color_status[:style] %>">
                 <%= link_to (number_to_currency(
-                  monthly_fee.value,
-                  unit: 'R$ ',
-                  separator: ',',
-                  delimiter: '.',
-                  precision: 2,
+                  monthly_fee.value
                   )), student_monthly_fee_path(
                           monthly_fee.student,
                           monthly_fee)%>

@@ -14,9 +14,6 @@ RSpec.describe 'material_billings/index', type: :view do
 
   it 'renders a list of material_billings' do
     render
-
-    puts rendered # Debugging: Print the rendered HTML
-
     assert_select 'h4', text: 'Pikachu', count: 1
     assert_select 'h4', text: 'Raichu do Ash', count: 1
     assert_select 'p', text: /Detalhe: Books/, count: 2

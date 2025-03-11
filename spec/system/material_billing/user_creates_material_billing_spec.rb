@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'User creates new material billing' do
   it 'com sucesso' do
     admin = User.create!(email: 'admin@email.com', password: '123456', role: :admin)
-    student = Student.create(name: 'Pikachu', status: :registered)
+    Student.create(name: 'Pikachu', status: :registered)
     login_as admin
     visit(root_path)
 

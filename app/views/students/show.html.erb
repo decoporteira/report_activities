@@ -56,6 +56,29 @@
           <br>
           <%= link_to 'Vincular Responsável Existente', new_responsible_path(student_id: @student.id), class: 'btn btn-outline-primary my-2' %>
         </div>
+        <div class='mb-3'>
+          <h3>Cobranças extras</h3>
+          <table class="fs-9 mb-0 border-top border-translucent table">
+            <thead>
+              <tr>
+                <th style="width: 5%">Detalhe</th>
+                <th style="width: 10%">Valor</th>
+                <th style="width: 10%">Data</th>
+                <th style="width: 10%">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @student.material_billings.each do |mb| %>
+                <tr>
+                  <td><%= link_to mb.name, edit_material_billing_path(mb) %></td>
+                  <td><%= number_to_currency(mb.value) %></td>
+                  <td><%= mb.date.strftime("%d/%m/%y") %></td>
+                  <td><%= mb.status %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
         <div class='mb-5'>
           <h3>Mensalidades</h3>
           <table class="fs-9 mb-0 border-top border-translucent table">
@@ -70,7 +93,7 @@
             <tbody>
               <% @student.monthly_fees.each do |monthly_fee| %>
                 <tr>
-                  <td><%= number_to_currency(monthly_fee.value, unit: "R$ ", separator: ",", delimiter: ".", precision: 2) %></td>
+                  <td><%= number_to_currency(monthly_fee.value) %></td>
                   <td><%= monthly_fee.due_date.strftime("%d/%m/%Y") %></td>
                   <% if monthly_fee.status == 'Pago'   %>
                     <td style="color: #0d6efd"><%= monthly_fee.status %></td>

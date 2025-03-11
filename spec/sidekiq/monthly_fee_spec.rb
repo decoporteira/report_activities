@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe CreateMonthlyFees, type: :worker do
   it 'creates monthly fees for students' do
-    admin = FactoryBot.create(:user, role: 'admin')
+    FactoryBot.create(:user, role: 'admin')
     user_teacher = FactoryBot.create(:user, role: 'teacher')
     teacher = FactoryBot.create(:teacher, user_id: user_teacher.id)
     classroom = FactoryBot.create(:classroom, teacher_id: teacher.id)
