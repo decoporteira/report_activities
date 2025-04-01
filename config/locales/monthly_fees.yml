@@ -9,6 +9,7 @@ pt-BR:
         due_date: Vencimento
         status: Status
         value: Valor
+        payment_date: Data do Pagamento
   monthly_fees:
     create:
       success: Mensalidade criada com sucesso.

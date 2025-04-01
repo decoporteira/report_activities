@@ -1,4 +1,4 @@
-<%= form_with(model: current_plan) do |form| %>
+<%= form_with(model: current_plan, data: { turbo: false }) do |form| %>
   <% if current_plan.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(current_plan.errors.count, "error") %> prohibited this current_plan from being saved:</h2>
@@ -32,7 +32,7 @@
   </div>
   <div>
     <%= form.label :student_id, style: "display: block" %>
-    <%=
+    <%
       form.collection_select(
         :student_id,
         Student.all,
@@ -43,8 +43,21 @@
         disabled: !@current_plan.new_record?
       )
     %>
+    <%= form.select :student_id, 
+                Student.order(:name).map { |student| [student.name, student.id] }, 
+                { prompt: "Selecione um aluno" }, 
+                { class: "form-select select2 " } %>
   </div>
   <div>
     <%= form.submit class: 'btn btn-primary mt-3' %>
   </div>
 <% end %>
+<script>
+  document.addEventListener("turbo:load", function() {
+       $( '.select2' ).select2( {
+       theme: "bootstrap-5",
+       width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+       placeholder: $( this ).data( 'placeholder' ),
+   } );
+   });
+</script>

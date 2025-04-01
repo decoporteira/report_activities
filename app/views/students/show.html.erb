@@ -54,7 +54,7 @@
           </div>
           <%= link_to 'Criar Responsável', new_financial_responsible_path(student_id: @student.id), class: 'btn btn-outline-primary' %>
           <br>
-          <%= link_to 'Vincular Responsável Existente', new_responsible_path(student_id: @student.id), class: 'btn btn-outline-primary my-2' %>
+          <%= link_to 'Vincular Responsável Existente', new_responsible_path(student_id: @student.id), class: 'btn btn-outline-primary my-2',  data: { turbo: false } %>
         </div>
         <div class='mb-3'>
           <h3>Cobranças extras</h3>

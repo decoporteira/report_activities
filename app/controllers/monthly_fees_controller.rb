@@ -1,5 +1,5 @@
 class MonthlyFeesController < ApplicationController
-  before_action :authorize_admin!, only: %i[new index show edit create all not_paid fee_list]
+  before_action :authorize_admin!, only: %i[new index show edit create all fee_list]
   before_action :set_student, only: %i[new index create show edit update destroy create_anual_fees]
   before_action :set_monthly_fee, only: %i[show edit update destroy create_all_monthly_fees]
 
@@ -43,7 +43,11 @@ class MonthlyFeesController < ApplicationController
 
   def update_paid
     monthly_fee = MonthlyFee.find(params[:items][:id])
-    monthly_fee.update(status: params[:items][:status])
+    if params[:items][:status] == 'Paga'
+      monthly_fee.update(status: params[:items][:status], payment_date: Time.zone.today)
+    else
+      monthly_fee.update(status: params[:items][:status])
+    end
     redirect_to request.referer, notice: t('.success')
   end
 
@@ -92,6 +96,8 @@ class MonthlyFeesController < ApplicationController
     current_year = Time.zone.today.year
     start_month = current_month == 1 ? 2 : current_month
     (start_month..12).each do |month|
+      next if student.monthly_fees.exists?(due_date: Date.new(current_year, month, 10))
+
       MonthlyFee.create!(student:, value: student.current_plan.discounted_price,
                          due_date: Date.new(current_year, month, 10), status: 'A pagar')
     end
@@ -106,7 +112,7 @@ class MonthlyFeesController < ApplicationController
   end
 
   def monthly_fee_params
-    params.require(:monthly_fee).permit(:due_date, :value, :status)
+    params.require(:monthly_fee).permit(:due_date, :value, :status, :payment_date)
   end
 
   def authorize_admin!

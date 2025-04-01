@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_02_28_193418) do
+ActiveRecord::Schema[7.0].define(version: 2025_04_01_112818) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -100,6 +100,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_28_193418) do
     t.datetime "updated_at", null: false
     t.boolean "has_discount", default: false, null: false
     t.decimal "discount_rate", precision: 5, scale: 2
+    t.date "payment_date"
     t.index ["student_id"], name: "index_monthly_fees_on_student_id"
   end
 
