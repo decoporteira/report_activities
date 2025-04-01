@@ -3,7 +3,7 @@
 </div>
 <div class="container col-xxl-8 px-4 py-2">
   <h2>Aluno: <%= @student.name %></h2>
-  <div class='mb-5'>
+  <div class='mb-5' data-turbo="false">
     <% if @student.responsibles.any? %>
       <div class='my-3'>
         <strong>Responsáveis Financeiros vinculados:</strong>

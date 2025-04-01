@@ -1,4 +1,4 @@
-<%= form_with(model: material_billing, data: { turbo: false }) do |form| %>
+<%= form_with(model: material_billing) do |form| %>
   <% if material_billing.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(material_billing.errors.count, "error") %> prohibited this material_billing from being saved:</h2>
@@ -21,7 +21,7 @@
                     MaterialBilling.statuses.keys.map { |key| [I18n.t("#{key}"), key] },
                     material_billing.status,
                   ),{},
-                  { class: 'form-select bg-dark text-white' } 
+                  { class: 'form-select' } 
     %>
   </div>
   <div class="mb-3">
@@ -30,10 +30,15 @@
       <%= form.hidden_field :student_id, value:  @material_billing.student.id %>
     <% else %>
       <%= form.label :student_id, class: 'form-label' %>
-      <%= form.select :student_id, 
-                Student.order(:name).map { |fr| [fr.name, fr.id] }, 
+      <% form.select :student_id, 
+                Student.order(:name).map { |st| [st.name, st.id] }, 
                 { prompt: "Selecione um aluno" }, 
                 { class: "form-select select2 " } %>
+      <%= form.select :student_id, 
+      Student.order(:name).map { |st| [st.name, st.id] }, 
+      { prompt: "Selecione um aluno" }, 
+      { class: "form-select select2", data: { controller: "select2", width: "100%", placeholder: "Escolha um aluno" } } 
+%>
     <% end %>
   </div>
   <div class="mb-3">
@@ -50,11 +55,11 @@
   </div>
 <% end %>
 <script>
-  document.addEventListener("turbo:load", function() {
-       $( '.select2' ).select2( {
-       theme: "bootstrap-5",
-       width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
-       placeholder: $( this ).data( 'placeholder' ),
-   } );
-   });
+  // document.addEventListener("turbo:load", function() {
+  //      $( '.select2' ).select2( {
+  //      theme: "bootstrap-5",
+  //      width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+  //      placeholder: $( this ).data( 'placeholder' ),
+  //  } );
+  //  });
 </script>

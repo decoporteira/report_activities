@@ -5,6 +5,7 @@
       <tr>
         <th style="width: 40%">Nome</th>
         <th style="width: 10%">Valor</th>
+        <th style="width: 10%">Pago em</th>
         <th style="width: 10%">Vencimento</th>
         <th style="width: 20%">Status</th>
         <th style="width: 20%">Referente</th>
@@ -16,6 +17,7 @@
         <tr>
           <td><%= @monthly_fee.student.name %></td>
           <td><%= number_to_currency(@monthly_fee.value) %></td>
+          <td><%= @monthly_fee.payment_date.try(:strftime, "%d/%m") || 'Em aberto' %></td>
           <td><%= @monthly_fee.due_date.strftime("%d/%m/%Y") %></td>
           <% if @monthly_fee.status == 'Pago'   %>
             <td style="color: #0d6efd"><%= @monthly_fee.status %></td>

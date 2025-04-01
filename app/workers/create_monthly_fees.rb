@@ -7,7 +7,7 @@ class CreateMonthlyFees
 
       current_month = Time.zone.today.month
       current_year = Time.zone.today.year
-      start_month = current_month == 1 ? 2 : current_month
+      current_month == 1 ? 2 : current_month
 
       Student.transaction do
         next if student.monthly_fees.exists?(due_date: Date.new(current_year, current_month, 10))

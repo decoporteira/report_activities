@@ -11,10 +11,12 @@
     <thead>
       <tr>
         <th style="width: 20%;">Vencimento</th>
-        <th style="width: 20%;">Valor</th>
+        <th style="width: 10%;">Valor</th>
+        <th style="width: 10%;">Pago em</th>
         <th style="width: 20%;">Referente</th>
         <th style="width: 20%;">Status</th>
-        <th style="width: 20%;"></th>
+        <th style="width: 10%;"></th>
+        <th style="width: 10%;"></th>
       </tr>
     </thead>
     <tbody>
@@ -29,6 +31,7 @@
                 )
               %>
             </td>
+            <td><%= monthly_fee.payment_date.try(:strftime, "%d/%m") || 'Em aberto' %></td>
             <td>
               <%= monthly_fee.due_date_month_name %> /
               <%= monthly_fee.due_date_year %>
@@ -64,12 +67,13 @@
                 <% end %>
               <% end %>
             </td>
+            <td><%= link_to 'Editar', edit_student_monthly_fee_path(monthly_fee.student, monthly_fee) %></td>
           </tr>
         <% end %>
       </tr>
     </tbody>
   </table>
-  <%=
+  <%
     button_to 'Criar Mensalidades',
               create_anual_fees_student_monthly_fees_path(@student),
               class: 'btn btn-primary mb-2'
