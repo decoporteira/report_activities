@@ -5,3 +5,17 @@
   <%= link_to "Show this material billing", @material_billing, class: 'btn btn-outline-primary' %> |
   <%= link_to "Back to material billings", material_billings_path, class: 'btn btn-outline-primary' %>
 </div>
+<% student = Student.find(@material_billing.student_id)  %>
+<div class="list-group my-3">
+  <% student.material_billings.each do |mb| %>
+    <div class="list-group-item list-group-item-action">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1"><%= mb.name %></h5>
+        <small><%= mb.date.strftime('%d/%m/%Y') if mb.date.present? %></small>
+      </div>
+      <p class="mb-1"><strong>Status:</strong> <%= mb.status %></p>
+      <p class="mb-1"><strong>Valor:</strong> <%= number_to_currency(mb.value, unit: 'R$', separator: ',', delimiter: '.') %></p>
+      <%= link_to 'Ver Detalhes', mb, class: 'btn btn-outline-primary btn-sm' %>
+    </div>
+  <% end %>
+</div>

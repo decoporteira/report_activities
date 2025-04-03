@@ -78,6 +78,8 @@
               <% end %>
             </tbody>
           </table>
+          <%= link_to "Nova cobrança", new_material_billing_path(student_id: @student.id), class: 'btn btn-outline-primary' %>
+          <%= link_to 'Ver todas as cobranças', user_material_billing_path(student_id: @student.id), class: 'btn btn-outline-primary' %>
         </div>
         <div class='mb-5'>
           <h3>Mensalidades</h3>

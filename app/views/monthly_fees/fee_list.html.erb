@@ -91,6 +91,7 @@
                 number_to_currency(
                   student.material_billings.last.value, unit: "")
               %></span>
+              <p><%= link_to 'detalhes', user_material_billing_path(student_id: student.id) %></p>
             <%else%>
               <%= link_to "Nova cobrança", new_material_billing_path(student_id: student.id) %>
             <% end %>
@@ -105,7 +106,7 @@
                   )), student_monthly_fee_path(
                           monthly_fee.student,
                           monthly_fee)%>
-                <p style="white-space: nowrap;" class="mb-1"><%= monthly_fee.status%></p>
+                <p style="white-space: nowrap;" class="mb-1"><%= monthly_fee.status == 'Paga' && monthly_fee.payment_date.present? ? monthly_fee.payment_date.strftime('%d/%m') : monthly_fee.status %></p>
                 <div class='d-flex justify-content-around'>
                   <%= button_to update_paid_path(items: { id: monthly_fee.id, status: 'Paga' }),
               method: :patch,

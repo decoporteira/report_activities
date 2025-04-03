@@ -41,6 +41,7 @@ Rails
       collection do
         get 'incomplete'
         get 'not_registered'
+        
       end
       get 'activities_by_student', on: :member
       get 'report', on: :member
@@ -76,4 +77,6 @@ Rails
     post 'students/:student_id/current_plans', to: 'current_plans#create', as: 'create_current_plan'
 
     resources :material_billings, only: %i[new create index show edit update]
+    get 'students/:student_id/material_billings', to: 'material_billings#user_material_billing', as: :user_material_billing
+
   end

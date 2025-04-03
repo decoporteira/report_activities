@@ -10,23 +10,10 @@
     </div>
   <% end %>
   <div class="mb-3">
-    <%= form.label :name, class: 'form-label'  %>
-    <%= form.text_field :name, class: 'form-control'  %>
-  </div>
-  <div class="mb-3">
-    <%= form.label :status, sclass: 'form-label' %>
-    <%=
-      form.select :status,
-                  options_for_select(
-                    MaterialBilling.statuses.keys.map { |key| [I18n.t("#{key}"), key] },
-                    material_billing.status,
-                  ),{},
-                  { class: 'form-select' } 
-    %>
-  </div>
-  <div class="mb-3">
     <% if @material_billing.student.present? %>
-      <p><strong>Aluno:</strong> <%=  @material_billing.student.name %></p>
+      <p>
+        <h2>Aluno: <%=  @material_billing.student.name %></h2>
+      </p>
       <%= form.hidden_field :student_id, value:  @material_billing.student.id %>
     <% else %>
       <%= form.label :student_id, class: 'form-label' %>
@@ -40,6 +27,21 @@
       { class: "form-select select2", data: { controller: "select2", width: "100%", placeholder: "Escolha um aluno" } } 
 %>
     <% end %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :name, class: 'form-label'  %>
+    <%= form.text_field :name, class: 'form-control'  %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :status, sclass: 'form-label' %>
+    <%=
+      form.select :status,
+                  options_for_select(
+                    MaterialBilling.statuses.keys.map { |key| [I18n.t("#{key}"), key] },
+                    material_billing.status,
+                  ),{},
+                  { class: 'form-select' } 
+    %>
   </div>
   <div class="mb-3">
     <%= form.label :date, class: 'form-label' %>

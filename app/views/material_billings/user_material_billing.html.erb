@@ -1,0 +1,29 @@
+<div class="d-flex justify-content-between">
+  <h1 class="text-primary">Cobranças Extras</h1>
+  <%= link_to "Nova cobrança", new_material_billing_path,
+            class: 'btn btn-primary',
+            style: 'width:150px;height: 40px;'
+  %>
+</div>
+<div class="album py-5 bg-body-tertiary">
+  <div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <% @material_billings.each do |material_billing| %>
+        <div class="col">
+          <div class="card shadow-sm">
+            <div class="card-header py-1">
+              <h4 class="my-1 fw-normal fs-5"><%= material_billing.student.name %></h4>
+            </div>
+            <div class="card-body">
+              <p><strong>Detalhe:</strong> <%= material_billing.name %></p>
+              <p><strong>Data:</strong> <%= material_billing.date.strftime('%d/%m/%y') if material_billing.date.present? %></p>
+              <p><strong>Status:</strong> <%= I18n.t(material_billing.status) %></p>
+              <p><strong>Valor:</strong> <%= number_to_currency(material_billing.value, unit:'R$', separator:',', delimiter:'.', precision: 2) %></p>
+              <%= link_to 'Detalhes', material_billing, class: 'btn btn-outline-primary' %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

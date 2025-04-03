@@ -44,7 +44,7 @@ class MonthlyFeesController < ApplicationController
   def update_paid
     monthly_fee = MonthlyFee.find(params[:items][:id])
     if params[:items][:status] == 'Paga'
-      monthly_fee.update(status: params[:items][:status], payment_date: Time.zone.today)
+      monthly_fee.update(status: params[:items][:status], payment_date: Time.zone.today - 1.day)
     else
       monthly_fee.update(status: params[:items][:status])
     end
