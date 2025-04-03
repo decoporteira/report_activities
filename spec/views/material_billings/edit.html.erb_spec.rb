@@ -27,7 +27,7 @@ RSpec.describe 'material_billings/edit', type: :view do
       assert_select 'input[name=?]', 'material_billing[value]'
       if material_billing.student.present?
         assert_select 'input[name=?][type=hidden]', 'material_billing[student_id]'
-        assert_select 'p', /Aluno:/
+        assert_select 'h2', /Aluno:/
       else
         assert_select 'select[name=?]', 'material_billing[student_id]'
       end

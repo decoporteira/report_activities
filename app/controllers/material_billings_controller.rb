@@ -62,6 +62,10 @@ class MaterialBillingsController < ApplicationController
     end
   end
 
+  def user_material_billing
+    @material_billings = MaterialBilling.where(student_id: params[:student_id])
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
