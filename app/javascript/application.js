@@ -1,5 +1,5 @@
-// import { Application } from "stimulus";
-// import { definitionsFromContext } from "stimulus/webpack-helpers";
+import { Application } from "stimulus";
+import { definitionsFromContext } from "stimulus/webpack-helpers";
 import "controllers";
 
 // import "jquery";

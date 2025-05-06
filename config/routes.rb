@@ -41,6 +41,7 @@ Rails
       collection do
         get 'incomplete'
         get 'not_registered'
+        get 'email_list'
         
       end
       get 'activities_by_student', on: :member

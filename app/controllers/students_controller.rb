@@ -85,6 +85,10 @@ class StudentsController < ApplicationController
     @report_data = @student.generate_report(params[:last_semester])
   end
 
+  def email_list
+    @active_students = Student.active.where(status: :registered)
+  end
+
   private
 
   def set_student
