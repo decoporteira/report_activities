@@ -50,7 +50,7 @@ Rails
       resources :addresses, only: %i[new create show edit update]
       resources :monthly_fees,
                 only: %i[index show new create edit update destroy] do
-        collection { post :create_anual_fees }
+        collection { post :create_anual_fees_for_student }
       end
       collection { post :import }
     end

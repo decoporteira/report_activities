@@ -86,7 +86,7 @@ class StudentsController < ApplicationController
   end
 
   def email_list
-    @active_students = Student.active.where(status: :registered)
+    @active_students = Student.where(status: :registered)
   end
 
   private
