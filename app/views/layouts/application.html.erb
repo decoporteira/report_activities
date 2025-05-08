@@ -79,40 +79,5 @@
       
       <%= yield %>
     </div>
-
-
-     <script>
-      
-      document.addEventListener("turbo:load", function () {
-        const toggleButton = document.getElementById("theme-toggle");
-        const htmlElement = document.documentElement;
-        const storedTheme = localStorage.getItem("theme") || "light";
-
-        // Função para aplicar o tema
-        function applyTheme(theme) {
-          htmlElement.setAttribute("data-bs-theme", theme);
-          localStorage.setItem("theme", theme);
-          updateButtonLabel(theme);
-        }
-
-        // Atualiza o texto do botão com base no tema
-        function updateButtonLabel(theme) {
-          toggleButton.textContent = theme === "dark" ? "☀️" : "🌙";
-        }
-
-        // Aplica o tema salvo ao carregar a página
-        applyTheme(storedTheme);
-
-        // Remove qualquer event listener duplicado antes de adicionar
-        toggleButton.replaceWith(toggleButton.cloneNode(true));
-        document.getElementById("theme-toggle").addEventListener("click", function () {
-          const currentTheme = htmlElement.getAttribute("data-bs-theme");
-          const newTheme = currentTheme === "light" ? "dark" : "light";
-          applyTheme(newTheme);
-        });
-      });
-
-
-    </script>
   </body>
 </html>
