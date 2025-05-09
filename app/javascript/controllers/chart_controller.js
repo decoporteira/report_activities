@@ -18,7 +18,7 @@ export default class extends Controller {
     new Chart(ctx, {
       type: "doughnut",
       data: {
-        labels: ["Feitas", "Entregues com atraso", "Não feitas"],
+        labels: ["Feitas", "Com atraso", "Não feitas"],
         datasets: [
           {
             data: JSON.parse(this.activityTarget.dataset.values),
