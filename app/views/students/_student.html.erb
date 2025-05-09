@@ -25,21 +25,36 @@
   </div>
 </section>
 <section
-  class="chart d-flex justify-content-around align-items-center flex-wrap"
+  class="d-flex justify-content-around align-items-center flex-wrap"
   data-turbo="false"
+  data-controller="chart"
 >
-  <div class="d-flex flex-column align-items-center mb-4">
-    <div>
-      <h2>Atividades do Semestre</h2>
-    </div>
-    <canvas id="donut-chart-activity" width="350" height="350"></canvas>
+  <div>
+    <h2>Atividades do Semestre</h2>
+    <canvas
+      width="250px"
+      data-chart-target="activity"
+      id="donut-chart-activity"
+      data-values="<%= [
+        @report_data[:activities].set_done_activities.count,
+        @report_data[:activities].set_late_activities.count,
+        @report_data[:activities].set_not_done_activities.count
+      ].to_json %>">
+    </canvas>
   </div>
-  <div class="d-flex flex-column  align-items-center mb-4">
-    <div>
-      <h2>Presenças no Semestre</h2>
-    </div>
-    <canvas id="donut-chart-presence" width="350" height="350"></canvas>
+  <div>
+    <h2>Presenças do Semestre</h2>
+    <canvas
+         width="250px"
+          data-chart-target="presence"
+          id="donut-chart-presence"
+          data-values="<%= [
+            @report_data[:activities].pluck(:date).uniq.count - @report_data[:number_of_absence],
+            @report_data[:number_of_absence]
+            ].to_json %>">
+    </canvas>
   </div>
+</div>
 </section>
 <section>
 </section>
@@ -136,67 +151,3 @@
 </div>
 <div>
 </div>
-<script>
-  document.addEventListener("turbo:load", function () {
-    const donutActivityCtx = document.getElementById("donut-chart-activity")?.getContext("2d");
-    const donutPresenceCtx = document.getElementById("donut-chart-presence")?.getContext("2d");
-
-    if (!donutActivityCtx || !donutPresenceCtx) return;
-
-    new Chart(donutActivityCtx, {
-      type: 'doughnut',
-      data: {
-        labels: ['Feitas', 'Atrasadas', 'Não feitas'],
-        datasets: [{
-          data: [
-            <%= @report_data[:activities].set_done_activities.count %>,
-            <%= @report_data[:activities].set_late_activities.count %>,
-            <%= @report_data[:activities].set_not_done_activities.count %>
-          ],
-          backgroundColor: ['rgb(13 110 253)', 'rgb(255 193 7)', 'rgb(220 53 69)'],
-        }]
-      },
-      options: {
-        plugins: {
-          title: {
-            display: true,
-
-            color: getComputedStyle(document.body).getPropertyValue('--bs-body-color'),
-          },
-          legend: {
-            labels: {
-              color: getComputedStyle(document.body).getPropertyValue('--bs-body-color'),
-            }
-          }
-        }
-      }
-    });
-
-    new Chart(donutPresenceCtx, {
-      type: 'doughnut',
-      data: {
-        labels: ['Presente', 'Ausente'],
-        datasets: [{
-          data: [
-            <%= @report_data[:activities].pluck(:date).uniq.count - @report_data[:number_of_absence] %>,
-            <%= @report_data[:number_of_absence] %>
-          ],
-          backgroundColor: ['rgb(13 110 253)', 'rgb(220 53 69)'],
-        }]
-      },
-      options: {
-        plugins: {
-          title: {
-            display: true,
-            color: getComputedStyle(document.body).getPropertyValue('--bs-body-color'),
-          },
-          legend: {
-            labels: {
-              color: getComputedStyle(document.body).getPropertyValue('--bs-body-color'),
-            }
-          }
-        }
-      }
-    });
-  });
-</script>
