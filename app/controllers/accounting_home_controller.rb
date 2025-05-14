@@ -4,14 +4,12 @@ class AccountingHomeController < ApplicationController
   def index
     @classrooms =
       Classroom.includes(:students).where(students: { status: 'registered' })
-     
     @students = Student.registered
     @registered_students = @students.count
     start_of_month = Time.zone.today.beginning_of_month
     end_of_month = Time.zone.today.end_of_month
     start_of_year = Time.zone.today.beginning_of_year
     end_of_year = Time.zone.today.end_of_year
-
 
     @total_month = MonthlyFee.where(due_date: start_of_month..end_of_month, status: 'Paga').sum(:value)
     @total_anual = MonthlyFee.where(status: 'Paga', due_date: start_of_year..end_of_year).sum(:value)
@@ -23,43 +21,35 @@ class AccountingHomeController < ApplicationController
       [label.capitalize, total]
     end.to_h
 
-    @total_kids = MonthlyFee
-    .where(status: 'Paga', due_date: start_of_year..end_of_year)
-    .joins(student: :current_plan)
-    .where(current_plans: { plan_id: 1 })
-    .count
+    @total_kids = Student.joins(:current_plan)
+      .where(current_plans: { plan_id: 1 })
+      .where(status: 'registered').count
 
-    @total_teens = MonthlyFee
-    .where(status: 'Paga', due_date: start_of_year..end_of_year)
-    .joins(student: :current_plan)
-    .where(current_plans: { plan_id: 2 })
-    .count
+    @total_teens = Student.joins(:current_plan)
+      .where(current_plans: { plan_id: 2 })
+      .where(status: 'registered').count
 
-    @total_adults = MonthlyFee
-    .where(status: 'Paga', due_date: start_of_year..end_of_year)
-    .joins(student: :current_plan)
-    .where(current_plans: { plan_id: 3 })
-    .count
+    @total_adults = Student.joins(:current_plan)
+      .where(current_plans: { plan_id: 3 })
+      .where(status: 'registered').count
 
-    @total_particulares = MonthlyFee
-    .where(status: 'Paga', due_date: start_of_year..end_of_year)
-    .joins(student: :current_plan)
-    .where(current_plans: { plan_id: 4 })
-    .count
-    
+    @total_particulares = Student.joins(:current_plan)
+      .where(current_plans: { plan_id: 4 })
+      .where(status: 'registered').count
+
     @incomplete_profile =  @students =
-    Student
-    .includes(classroom: :teacher)
-    .where(status: :registered)
-    .left_outer_joins(:financial_responsibles)
-    .where(financial_responsibles: { id: nil })
-    .where(cpf: '')
-    .or(
       Student
-        .where(status: :registered)
-        .where(financial_responsibles: { id: nil })
-        .where(email: [nil, ''])
-    ).count
+      .includes(classroom: :teacher)
+      .where(status: :registered)
+      .left_outer_joins(:financial_responsibles)
+      .where(financial_responsibles: { id: nil })
+      .where(cpf: '')
+      .or(
+        Student
+          .where(status: :registered)
+          .where(financial_responsibles: { id: nil })
+          .where(email: [nil, ''])
+      ).count
 
     @not_paid_percent = MonthlyFee.where(due_date: start_of_month..end_of_month, status: 'A pagar').count * 100 / (MonthlyFee.where(due_date: start_of_month..end_of_month).count.nonzero? || 1)
 
