@@ -133,20 +133,7 @@
                         ].to_json %>>
                   </canvas>
                 </section>
-                <div class="mt-4 text-center small">
-                  <span class="mr-2">
-                    <i class="fas fa-circle text-primary"></i> Kids
-                  </span>
-                  <span class="mr-2">
-                    <i class="fas fa-circle text-success"></i> Teens
-                  </span>
-                  <span class="mr-2">
-                    <i class="fas fa-circle text-info"></i> Adults
-                  </span>
-                  <span class="mr-2">
-                    <i class="fas fa-circle text-warning"></i> Particulares
-                  </span>
-                </div>
+               
               </div>
             </div>
           </div>
@@ -170,7 +157,7 @@
                         Vencimento em: <%= mf.due_date.strftime('%d/%m') %>
                       </div>
                     </div>
-                    <span class="badge bg-success fs-6 px-3 py-2 rounded-pill">
+                    <span class="badge bg-danger fs-6 px-3 py-2 rounded-pill">
                       <%= number_to_currency(mf.value, unit: 'R$', separator: ',', delimiter: '.') %>
                     </span>
                   </li>

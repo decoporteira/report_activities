@@ -6,13 +6,8 @@ export default class extends Controller {
   static targets = ["course"];
 
   connect() {
-    console.log("Controller conectado");
-
     if (this.hasCourseTarget) {
-      console.log("Canvas encontrado");
       this.renderChart();
-    } else {
-      console.warn("Canvas NÃO encontrado");
     }
   }
 
@@ -22,7 +17,7 @@ export default class extends Controller {
     new Chart(ctx, {
       type: "doughnut",
       data: {
-        labels: false,
+        labels: ["Kids", "Teens", "Adults", "Privates"],
         datasets: [
           {
             label: "Total por Categoria",
