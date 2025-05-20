@@ -67,11 +67,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_05_20_180403) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "total", precision: 10, scale: 2
-    t.decimal "value_per_hour"
-    t.bigint "teacher_id"
     t.index ["plan_id"], name: "index_current_plans_on_plan_id"
     t.index ["student_id"], name: "index_current_plans_on_student_id"
-    t.index ["teacher_id"], name: "index_current_plans_on_teacher_id"
   end
 
   create_table "financial_responsibles", force: :cascade do |t|
@@ -112,18 +109,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_05_20_180403) do
     t.decimal "price", precision: 10, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "plan_type"
     t.integer "billing_type"
-  end
-
-  create_table "private_lessons", force: :cascade do |t|
-    t.bigint "current_plan_id", null: false
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.text "notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["current_plan_id"], name: "index_private_lessons_on_current_plan_id"
   end
 
   create_table "responsibles", force: :cascade do |t|
@@ -189,10 +175,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_05_20_180403) do
   add_foreign_key "classrooms", "teachers"
   add_foreign_key "current_plans", "plans"
   add_foreign_key "current_plans", "students"
-  add_foreign_key "current_plans", "teachers"
   add_foreign_key "material_billings", "students"
   add_foreign_key "monthly_fees", "students"
-  add_foreign_key "private_lessons", "current_plans"
   add_foreign_key "responsibles", "financial_responsibles"
   add_foreign_key "responsibles", "students"
   add_foreign_key "resumes", "students"
