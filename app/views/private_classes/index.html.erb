@@ -5,7 +5,12 @@
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       <%= month_calendar do |date| %>
-        <%= date %>
+        <div class="border p-1 rounded bg-light" style="min-height: 100px;">
+          <div class="fw-bold"><%= date.day %></div>
+          <% @events.select { |e| e.start_time.to_date == date }.each do |event| %>
+            <div class="badge bg-primary mt-1 d-block"><%= event.name %></div>
+          <% end %>
+        </div>
       <% end %>
     </div>
   </div>
