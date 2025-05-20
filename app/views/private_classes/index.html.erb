@@ -3,15 +3,22 @@
 </div>
 <div class="album py-5 bg-body-tertiary">
   <div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-      <%= month_calendar do |date| %>
-        <div class="border p-1 rounded bg-light" style="min-height: 100px;">
+    <% colors = ["primary", "success", "warning", "info", "secondary", "dark" , "ffffff", "cccccc", "6c6c6c", "f5f5f5"] %>
+    <%= month_calendar(class: "w-100 calendar-table") do |date| %>
+      <div class="border p-1 rounded bg-light" style="min-height: 100px;">
+        <div class="d-flex justify-content-between align-items-center">
           <div class="fw-bold"><%= date.day %></div>
-          <% @events.select { |e| e.start_time.to_date == date }.each do |event| %>
-            <div class="badge bg-primary mt-1 d-block"><%= event.name %></div>
-          <% end %>
+          <small>
+            <%= link_to 'Criar aula', new_private_lesson_path, class: 'link-secondary' %>
+          </small>
         </div>
-      <% end %>
-    </div>
+        <% @private_lessons.select { |e| e.start_time.to_date == date }.each do |lesson| %>
+          <% color_index = lesson.current_plan.student.id % colors.size %>
+          <div class="badge bg-<%= colors[color_index] %> mt-1 d-block">
+            <%= lesson.start_time.strftime('%H:%M')%> - <%= lesson.current_plan.student.name %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>

@@ -1,0 +1,37 @@
+<%= form_with(model: private_lesson, local: true) do |form| %>
+  <% if private_lesson.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(private_lesson.errors.count, "erro") %> impediram o salvamento:</h4>
+      <ul>
+        <% private_lesson.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="mb-3">
+    <%= form.label :current_plan_id, "Plano do Aluno" %>
+    <%= form.collection_select :current_plan_id,
+  CurrentPlan.joins(:plan, :student).where(plans: { billing_type: :per_class }),
+  :id,
+  ->(cp) { cp.student.name },
+  { prompt: "Selecione o plano" },
+  class: "form-select" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :start_time, "Início" %>
+    <%= form.datetime_select :start_time, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :end_time, "Término" %>
+    <%= form.datetime_select :end_time, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :notes, "Observações" %>
+    <%= form.text_area :notes, class: "form-control", rows: 3 %>
+  </div>
+  <div class="mt-4">
+    <%= form.submit class: "btn btn-primary" %>
+    <%= link_to 'Voltar', private_lessons_path, class: "btn btn-secondary" %>
+  </div>
+<% end %>

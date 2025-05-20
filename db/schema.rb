@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_05_20_183634) do
+ActiveRecord::Schema[7.0].define(version: 2025_05_20_184440) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -114,6 +114,16 @@ ActiveRecord::Schema[7.0].define(version: 2025_05_20_183634) do
     t.integer "billing_type"
   end
 
+  create_table "private_lessons", force: :cascade do |t|
+    t.bigint "current_plan_id", null: false
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["current_plan_id"], name: "index_private_lessons_on_current_plan_id"
+  end
+
   create_table "responsibles", force: :cascade do |t|
     t.bigint "student_id", null: false
     t.bigint "financial_responsible_id", null: false
@@ -180,6 +190,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_05_20_183634) do
   add_foreign_key "current_plans", "teachers"
   add_foreign_key "material_billings", "students"
   add_foreign_key "monthly_fees", "students"
+  add_foreign_key "private_lessons", "current_plans"
   add_foreign_key "responsibles", "financial_responsibles"
   add_foreign_key "responsibles", "students"
   add_foreign_key "resumes", "students"
