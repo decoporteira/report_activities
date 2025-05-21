@@ -100,3 +100,5 @@ gem 'rbnacl-libsodium', require: false
 
 gem 'sentry-rails'
 gem 'sentry-ruby'
+
+gem "sassc", "~> 2.4"

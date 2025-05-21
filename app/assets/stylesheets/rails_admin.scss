@@ -1,2 +1,10 @@
 $fa-font-path: ".";
 @import "rails_admin/src/rails_admin/styles/base";
+
+.calendar-title {
+    font-size: 24px !important;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: red;
+}

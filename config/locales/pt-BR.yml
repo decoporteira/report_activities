@@ -1,4 +1,8 @@
 pt-BR:
+  simple_calendar:
+    previous: "<< Anterior"
+    next: "Próximo>>"
+    today: "Hoje"
   activerecord:
     errors:
       messages:

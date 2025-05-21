@@ -4,12 +4,12 @@
 <div class="album py-5 bg-body-tertiary">
   <div class="container">
     <% colors = ["primary", "success", "warning", "info", "secondary", "dark" , "ffffff", "cccccc", "6c6c6c", "f5f5f5"] %>
-    <%= month_calendar(class: "w-100 calendar-table") do |date| %>
+    <%= month_calendar do |date| %>
       <div class="border p-1 rounded bg-light" style="min-height: 100px;">
         <div class="d-flex justify-content-between align-items-center">
           <div class="fw-bold"><%= date.day %></div>
           <small>
-            <%= link_to 'Criar aula', new_private_lesson_path, class: 'link-secondary' %>
+            <%= link_to 'Criar aula', new_private_lesson_path(start_date: date), class: 'link-secondary' %>
           </small>
         </div>
         <% @private_lessons.select { |e| e.start_time.to_date == date }.each do |lesson| %>
