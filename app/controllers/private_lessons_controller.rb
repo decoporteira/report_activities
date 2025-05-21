@@ -1,11 +1,27 @@
 class PrivateLessonsController < ApplicationController
   before_action :admin?
-  def index; end
+  def index
+    @private_lessons = PrivateLesson.joins(:current_plan).where(current_plans: {teacher_id: current_user.teacher.id})
 
-  def show; end
+  end
+
+  def show
+    @private_lesson = PrivateLesson.find(params[:id])
+    @current_plan = @private_lesson.current_plan
+    @student = @current_plan.student
+    @teacher = @current_plan.teacher
+  end
 
   def new
     @private_lesson = PrivateLesson.new
+    @current_plans = if current_user.teacher?
+      CurrentPlan.joins(:plan, :student).where(
+      plans: { billing_type: :per_class },
+      current_plans: { teacher_id: current_user.teacher.id }
+    )
+    else
+      CurrentPlan.joins(:plan).where(plans: { billing_type: :per_class })
+    end
 
     if params[:start_date].present?
       date = Date.parse(params[:start_date]) rescue nil
@@ -24,12 +40,15 @@ class PrivateLessonsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    puts 'entrou'
+  end
 
   private
 
   def admin?
-    return if current_user.admin? || current_user.accounting?
+    return unless current_user.default?
+
     redirect_to root_path, alert: t('unauthorized_action')
   end
 
