@@ -10,21 +10,17 @@
     </div>
   <% end %>
   <div class="mb-3">
-    <%= form.label :current_plan_id, "Plano do Aluno" %>
+    <%= form.label :current_plan_id, "Aluno" %>
     <%= form.collection_select :current_plan_id,
   CurrentPlan.joins(:plan, :student).where(plans: { billing_type: :per_class }),
   :id,
-  ->(cp) { cp.student.name },
-  { prompt: "Selecione o plano" },
+  ->(cp) { cp.student.name + " - " + cp.plan.name },
+  { prompt: "Selecione o aluno" },
   class: "form-select" %>
   </div>
   <div class="mb-3">
     <%= form.label :start_time, "Início" %>
     <%= form.datetime_select :start_time, class: "form-control" %>
-  </div>
-  <div class="mb-3">
-    <%= form.label :end_time, "Término" %>
-    <%= form.datetime_select :end_time, class: "form-control" %>
   </div>
   <div class="mb-3">
     <%= form.label :notes, "Observações" %>
