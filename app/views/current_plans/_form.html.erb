@@ -30,6 +30,17 @@
     <%= form.label :discount, style: "display: block" %>
     <%= form.number_field :discount %>
   </div>
+  <div class="mb-3">
+    <%= form.label :teacher_id, class: 'form-label' %>
+    <%=
+      form.collection_select :teacher_id,
+                             Teacher.all,
+                             :id,
+                             :name,
+                             { prompt: 'Selecione um professor(a)' },
+                             class: 'form-select'
+    %><br />
+  </div>
   <div>
     <%= form.label :student_id, style: "display: block" %>
     <%

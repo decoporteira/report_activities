@@ -42,6 +42,7 @@ Rails
         get 'incomplete'
         get 'not_registered'
         get 'email_list'
+        get 'private_classes_students'
         
       end
       get 'activities_by_student', on: :member
