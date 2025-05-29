@@ -78,7 +78,7 @@ class CurrentPlansController < ApplicationController
   end
 
   def current_plan_params
-    params.require(:current_plan).permit(:plan_id, :has_discount, :discount, :student_id)
+    params.require(:current_plan).permit(:plan_id, :has_discount, :discount, :student_id, :teacher_id)
   end
 
   def authorize_admin!

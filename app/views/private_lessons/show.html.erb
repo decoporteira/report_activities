@@ -13,14 +13,18 @@
           <dt>Horário: </dt>
           <dd><%= @private_lesson.start_time.strftime('%H:%M') %></dd>
           <dt>Professor(a): </dt>
-          <dd><%= @teacher.name %> </dd>
+          <dd><%= @teacher.nil? ? 'Sem provessor cadastrado(a)' :  @teacher.name %> </dd>
           <dt>Anotação: </dt>
           <dd><%= @private_lesson.notes? ? @private_lesson.notes : "Sem detalhes."%></dd>
         </dl>
       </p>
       <div class="d-grid gap-2 d-md-flex justify-content-md-start">
         <%= link_to "Editar essa aula", edit_private_lesson_path(@private_lesson), class:'btn btn-outline-primary', style:"width:150px" %>
-        <%= link_to 'Voltar', private_lessons_path, class: "btn btn-outline-secondary" %>
+        <% if current_user.admin? %>
+          <%= link_to 'Voltar', private_classes_path, class: "btn btn-outline-secondary" %>
+        <% else %>
+          <%= link_to 'Voltar', private_lessons_path, class: "btn btn-outline-secondary" %>
+        <% end %>
       </div>
       <% button_to 'Apagar Aula',
               @private_lesson,

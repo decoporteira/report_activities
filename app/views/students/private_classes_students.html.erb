@@ -1,0 +1,23 @@
+<h1>Alunos Particulares</h1>
+<div class="album py-5 bg-body-tertiary">
+  <div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <% @students.each do |student| %>
+        <div class="col">
+          <div class="card shadow-sm">
+            <div class="card-header py-1">
+              <h4 class="my-1 fw-normal fs-5">
+                <strong><%= student.name%></strong>
+              </h4>
+            </div>
+            <div class="card-body">
+              <p class="card-text">
+                <strong>Professor(a):</strong> <%= student.current_plan.teacher.nil? ? 'Não possui Professor(a) cadastrado(a)' : student.current_plan.teacher.name %></p>
+              <h5 class="text-secondary fs-5">
+              </h5>
+            </p>
+            <%= link_to "Cadastar Professor(a)", edit_current_plan_path(student.current_plan), class:'btn btn-outline-primary', style:"width:150px"  %>
+          </div>
+        </div>
+      </div>
+    <% end %>
