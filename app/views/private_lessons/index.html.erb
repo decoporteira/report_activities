@@ -15,7 +15,7 @@
         <% @private_lessons.select { |e| e.start_time.to_date == date }.each do |lesson| %>
           <% color_index = lesson.current_plan.student.id % colors.size %>
           <div class="badge bg-<%= colors[color_index] %> mt-1 d-block">
-            <%= lesson.start_time.strftime('%H:%M')%> - <%= link_to lesson.current_plan.student.name, lesson, class: 'text-white' %>  <%= '<i class="fa-solid fa-circle-exclamation"></i>'.html_safe if lesson.notes.present? %>
+            <%= lesson.start_time.strftime('%H:%M')%> - <%= link_to lesson.current_plan.student.first_and_last_name, lesson, class: 'text-white' %>  <%= '<i class="fa-solid fa-circle-exclamation"></i>'.html_safe if lesson.notes.present? %>
           </div>
         <% end %>
       </div>
