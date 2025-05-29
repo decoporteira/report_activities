@@ -13,7 +13,7 @@
           <dt>Horário: </dt>
           <dd><%= @private_lesson.start_time.strftime('%H:%M') %></dd>
           <dt>Professor(a): </dt>
-          <dd><%= @teacher.nil? ? 'Sem provessor cadastrado(a)' :  @teacher.name %> </dd>
+          <dd><%= @teacher.nil? ? 'Sem professor cadastrado(a)' :  @teacher.name %> </dd>
           <dt>Anotação: </dt>
           <dd><%= @private_lesson.notes? ? @private_lesson.notes : "Sem detalhes."%></dd>
         </dl>
