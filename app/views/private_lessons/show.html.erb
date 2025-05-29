@@ -1,2 +1,25 @@
 <h1>PrivateLessons#show</h1>
-<p>Find me in app/views/private_lessons/show.html.erb</p>
+<div id="<%= dom_id @student %>"></div>
+<div class="container col-xxl-8 px-4 py-5">
+  <div class="row flex-lg-row g-5 py-5">
+    <div class="col-lg-6">
+      <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3"><%= @student.name%></h1>
+      <p class="lead">
+        <dl>
+          <dt>Aluno(a): </dt>
+          <dd><%= @student.name %></dd>
+          <dt>Aula: </dt>
+          <dd><%= @private_lesson.start_time.strftime('%d/%m') %> </dd>
+          <dt>Horário: </dt>
+          <dd><%= @private_lesson.start_time.strftime('%H:%M') %></dd>
+          <dt>Professor(a): </dt>
+          <dd><%= @teacher.name %> </dd>
+          <dt>Anotação: </dt>
+          <dd><%= @private_lesson.notes? ? @private_lesson.notes : "Sem detalhes."%></dd>
+        </dl>
+      </p>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <%= link_to "Editar essa aula", edit_private_lesson_path(@private_lesson), class:'btn btn-outline-primary', style:"width:150px" %>
+      </div>
+    </div>
+  </div>

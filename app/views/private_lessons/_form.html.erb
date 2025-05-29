@@ -12,11 +12,11 @@
   <div class="mb-3">
     <%= form.label :current_plan_id, "Aluno" %>
     <%= form.collection_select :current_plan_id,
-  CurrentPlan.joins(:plan, :student).where(plans: { billing_type: :per_class }),
-  :id,
-  ->(cp) { cp.student.name + " - " + cp.plan.name },
-  { prompt: "Selecione o aluno" },
-  class: "form-select" %>
+      @current_plans,
+      :id,
+      ->(cp) { "#{cp.student.name} - #{cp.plan.name}" },
+      { prompt: "Selecione o aluno" },
+      class: "form-select" %>
   </div>
   <div class="mb-3">
     <%= form.label :start_time, "Horário da aula" %>

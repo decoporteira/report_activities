@@ -20,9 +20,33 @@
     <%= form.label :email, class: 'form-label' %>
     <%= form.text_field :email, id: 'email', class: 'form-control' %>
   </div>
-  <div class="mb-3">
-    <%= form.label :plan_id, class: 'form-label' %>
-    <%= form.select :plan_id, Plan.all.collect { |plan| [plan.name, plan.id] }, { selected: @plan_id }, class: 'form-control' %>
+  <div data-controller="plan-toggle">
+    <div class="mb-3">
+      <%= form.label :plan_id, class: 'form-label' %>
+      <%= form.select :plan_id,
+          Plan.all.collect { |plan| [plan.name, plan.id] },
+          { selected: @plan_id },
+          class: 'form-control',
+          data: {
+             action: "plan-toggle#toggleFields",
+            plan_toggle_target: "select"
+          } %>
+    </div>
+    <div data-plan-toggle-target="field" data-plan-id="4" style="display:none;">
+      <!-- Campos para plano com id=1 -->
+      <%= form.label :value_per_hour, "Valor da aula:", class: "form-label" %>
+      <%= form.text_field :value_per_hour, class: "form-control" %>
+    </div>
+    <div data-plan-toggle-target="field" data-plan-id="4" style="display:none;">
+      <!-- Campos para plano com id=2 -->
+      <%= form.label :teacher_id, "Qual professor(a):", class: "form-label" %>
+      <%= form.text_field :teacher_id, class: "form-control" %>
+    </div>
+    <div data-plan-toggle-target="field" data-plan-id="2" style="display:none;">
+      <!-- Campos para plano com id=2 -->
+      <%= form.label :field2, "Campo para plano 2", class: "form-label" %>
+      <%= form.text_field :field2, class: "form-control" %>
+    </div>
   </div>
   <div class="mb-3">
     <%= form.label :status, class: 'form-label' %>
