@@ -24,7 +24,15 @@ class Student < ApplicationRecord
     joins(current_plan: :plan).where(plans: { billing_type: :per_class }).active
   }
 
+  
+
   include DateRangeHelper
+
+  def first_and_last_name
+    parts = name.to_s.strip.split
+    return name if parts.size <= 1
+    "#{parts.first} #{parts.last}"
+  end
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[classroom_id created_at id name status updated_at activities classroom]
