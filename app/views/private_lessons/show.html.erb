@@ -1,6 +1,6 @@
-<h1>PrivateLessons#show</h1>
+<h1>Aula particular do aluno <%= @student.name %> </h1>
 <div id="<%= dom_id @student %>"></div>
-<div class="container col-xxl-8 px-4 py-5">
+<div class="container px-4 py-2">
   <div class="row flex-lg-row g-5 py-5">
     <div class="col-lg-6">
       <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3"><%= @student.name%></h1>
@@ -20,6 +20,15 @@
       </p>
       <div class="d-grid gap-2 d-md-flex justify-content-md-start">
         <%= link_to "Editar essa aula", edit_private_lesson_path(@private_lesson), class:'btn btn-outline-primary', style:"width:150px" %>
+        <%= link_to 'Voltar', private_lessons_path, class: "btn btn-outline-secondary" %>
       </div>
+      <% button_to 'Apagar Aula',
+              @private_lesson,
+              method: :delete,
+              data: {
+                turbo: false, # impede o Turbo de interceptar
+                confirm: 'Tem certeza que deseja apagar essa aula?'
+              },
+              class: 'btn btn-outline-danger my-5' %>
     </div>
   </div>

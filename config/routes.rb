@@ -80,5 +80,5 @@ Rails
     resources :material_billings, only: %i[new create index show edit update]
     get 'students/:student_id/material_billings', to: 'material_billings#user_material_billing', as: :user_material_billing
     resources :private_classes, only: %i[index]
-    resources :private_lessons, only: %i[index new show edit create update] 
+    resources :private_lessons, only: %i[index new show edit create update ] 
   end

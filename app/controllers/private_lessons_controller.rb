@@ -2,7 +2,6 @@ class PrivateLessonsController < ApplicationController
   before_action :admin?
   def index
     @private_lessons = PrivateLesson.joins(:current_plan).where(current_plans: {teacher_id: current_user.teacher.id})
-
   end
 
   def show
@@ -14,14 +13,14 @@ class PrivateLessonsController < ApplicationController
 
   def new
     @private_lesson = PrivateLesson.new
-    @current_plans = if current_user.teacher?
-      CurrentPlan.joins(:plan, :student).where(
-      plans: { billing_type: :per_class },
-      current_plans: { teacher_id: current_user.teacher.id }
-    )
-    else
-      CurrentPlan.joins(:plan).where(plans: { billing_type: :per_class })
-    end
+      @current_plans = if current_user.teacher?
+                          CurrentPlan.joins(:plan, :student).where(
+                          plans: { billing_type: :per_class },
+                          current_plans: { teacher_id: current_user.teacher.id }
+                        )
+                      else
+                          CurrentPlan.joins(:plan).where(plans: { billing_type: :per_class })
+                      end
 
     if params[:start_date].present?
       date = Date.parse(params[:start_date]) rescue nil
@@ -41,7 +40,32 @@ class PrivateLessonsController < ApplicationController
   end
 
   def edit
-    puts 'entrou'
+    @private_lesson = PrivateLesson.find(params[:id])
+    @current_plans = if current_user.teacher?
+      CurrentPlan.joins(:plan, :student).where(
+      plans: { billing_type: :per_class },
+      current_plans: { teacher_id: current_user.teacher.id }
+    )
+    else
+      CurrentPlan.joins(:plan).where(plans: { billing_type: :per_class })
+    end
+
+  end
+
+  def update
+    @private_lesson = PrivateLesson.find(params[:id])
+    @private_lesson.end_time = @private_lesson.start_time + 1.hour
+    
+    if @private_lesson.update(private_lesson_params)
+      redirect_to @private_lesson, notice: 'Aula particular atualizada com sucesso.'
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+def destroy
+    @private_lesson = PrivateLesson.find(params[:id])
+    @private_lesson.destroy
+    redirect_to private_lessons_path, notice: 'Aula particular excluída com sucesso.'
   end
 
   private

@@ -21,8 +21,4 @@
       </div>
     <% end %>
   </div>
-  <%= students =  Student.with_plan_per_class%>
-  <% students.each do |s|%>
-    <%= s.name %> <%= s.current_plan.plan.name %>
-  <% end %>
 </div>
