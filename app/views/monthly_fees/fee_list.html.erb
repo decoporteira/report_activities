@@ -88,7 +88,7 @@
             <% end %>
           </td>
           <% months.each do |month| %>
-            <% monthly_fee = student.monthly_fees.find { |monthly_fee| monthly_fee.due_date_month_name == month } %>
+            <% monthly_fee = student.monthly_fees_by_month[month] %>
             <% if monthly_fee %>
               <% color_status = color_statuses[monthly_fee.status]%>
               <td style="<%= color_status[:style] %>"  class="text-center">
