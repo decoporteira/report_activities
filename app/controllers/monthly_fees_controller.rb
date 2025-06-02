@@ -73,15 +73,24 @@ class MonthlyFeesController < ApplicationController
   end
 
   def fee_list
+    params[:year] ||= Time.zone.today.year
+
     if params[:status] == 'Atrasada'
       student_ids = MonthlyFee.where(status: 'Atrasada').pluck(:student_id)
       @students = Student.where(id: student_ids).active.order(:name)
     elsif params[:year] == '2025'
-      params[:year] = Time.zone.today.year if params[:year].nil?
-      @students = Student.with_monthly_fees_for_year(params[:year]).active.order(:name)
+      @students = Student
+                    .with_monthly_fees_for_year(params[:year]).active.order(:name)
+                    .includes(:monthly_fees, :financial_responsibles, :classroom)
     else
-      params[:year] = Time.zone.today.year if params[:year].nil?
-      @students = Student.with_monthly_fees_for_semester(params[:year]).active.order(:name)
+      @students = Student
+                    .with_monthly_fees_for_semester(params[:year]).active.order(:name)
+                    .includes(:monthly_fees, :financial_responsibles, :classroom)
+    end
+    @students.each do |student|
+      student.define_singleton_method(:monthly_fees_by_month) do
+        @monthly_fees_by_month ||= monthly_fees.index_by(&:due_date_month_name)
+      end
     end
   end
 

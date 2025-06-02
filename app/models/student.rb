@@ -21,9 +21,10 @@ class Student < ApplicationRecord
       .where(monthly_fees: { due_date: Date.new(year.to_i).beginning_of_year..Date.new(year.to_i).end_of_year })
   }
   scope :with_monthly_fees_for_semester, lambda { |year|
-    includes(:monthly_fees, :financial_responsibles, :classroom)
-      .where(monthly_fees: { due_date: Date.new(year.to_i).beginning_of_year..Date.new(year.to_i, 7, 31) })
-  }
+  joins(:monthly_fees)
+    .where(monthly_fees: { due_date: Date.new(year).beginning_of_year..Date.new(year.to_i, 7, 31) })
+    .distinct
+}
    scope :with_plan_per_class, -> {
     joins(current_plan: :plan).where(plans: { billing_type: :per_class }).active
   }
