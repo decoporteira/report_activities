@@ -4,8 +4,6 @@ class CurrentPlan < ApplicationRecord
   before_save :set_total
   belongs_to :teacher, optional: true
 
-  validate :positive_price
-
   validates :student_id, uniqueness: { message: 'já possui um plano ativo' }
 
   def discounted_price

@@ -24,21 +24,12 @@
     'Atrasada' => { text: 'Atrasada', style: 'background-color:rgb(236, 160, 167)' },
     }
 %>
-<% if params[:year] == (current_year- 1).to_s %>
-  <h1>Mensalidades de <%= current_year - 1 %></h1>
-  <%=
-     link_to "Ver mensalidades de 2025",
-            monthly_fees_fee_list_path,
+<h1>Mensalidades de 2025</h1>
+<%=
+        link_to "Ver mensalidades do semestre",
+             monthly_fees_fee_list_path,
             class: 'btn btn-outline-primary mb-2'
     %>
-<% else %>
-  <h1>Mensalidades de 2025</h1>
-  <%=
-        link_to "Ver mensalidades de #{current_year - 1}",
-             monthly_fees_fee_list_path(year: (current_year - 1)),
-            class: 'btn btn-outline-primary mb-2'
-    %>
-<% end %>
 <%=
         link_to "Mensalidades Atrasadas",
              monthly_fees_fee_list_path(status: 'Atrasada'),
@@ -46,7 +37,7 @@
     %>
 <%=
         link_to "Ver todas as Mensalidades",
-             monthly_fees_fee_list_path,
+            monthly_fees_fee_list_path(year: (current_year)),
             class: 'btn btn-outline-primary mb-2'
     %>
 <div class="">

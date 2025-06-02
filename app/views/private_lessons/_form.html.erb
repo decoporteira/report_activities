@@ -1,3 +1,4 @@
+<% @current_plans ||= [] %>
 <%= form_with(model: private_lesson, local: true) do |form| %>
   <% if private_lesson.errors.any? %>
     <div class="alert alert-danger">
