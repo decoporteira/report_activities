@@ -38,14 +38,15 @@
       <%= form.text_field :value_per_hour, class: "form-control" %>
     </div>
     <div data-plan-toggle-target="field" data-plan-id="4" style="display:none;">
-      <!-- Campos para plano com id=2 -->
-      <%= form.label :teacher_id, "Qual professor(a):", class: "form-label" %>
-      <%= form.text_field :teacher_id, class: "form-control" %>
-    </div>
-    <div data-plan-toggle-target="field" data-plan-id="2" style="display:none;">
-      <!-- Campos para plano com id=2 -->
-      <%= form.label :field2, "Campo para plano 2", class: "form-label" %>
-      <%= form.text_field :field2, class: "form-control" %>
+      <%= form.label :teacher_id, class: 'form-label' %>
+      <%=
+      form.collection_select :teacher_id,
+                             Teacher.all,
+                             :id,
+                             :name,
+                             { prompt: 'Selecione um professor(a)' },
+                             class: 'form-select'
+    %><br />
     </div>
   </div>
   <div class="mb-3">
@@ -75,30 +76,34 @@
     <%= form.label :cel_phone, class: 'form-label' %>
     <%= form.text_field :cel_phone, id: 'cel_phone', class: 'form-control' %>
   </div>
-  <div class="mb-3">
-    <%= form.label :classroom_id, class: 'form-label' %>
-    <% form.text_field :classroom_id %>
-    <%if current_user.teacher? %>
-      <%=
-        form.collection_select :classroom_id,
-                               current_user.teacher.classrooms,
-                               :id,
-                               :name,
-                               class: 'form-select'
-      %>
-    <% else %>
-      <%= form.select :classroom_id, 
-                Classroom.order(:name).map { |classroom| [classroom.name_with_teacher_name, classroom.id] }, 
-                { prompt: "Selecione uma turma", include_blank: 'Nenhuma', }, 
-                { class: "form-select select2" } %>
-    <% end %>
-    <br />
+  <div data-plan-toggle-target="field" data-plan-id="2" style="display:none;">
+    <%= form.label :field2, "Campo para plano 2", class: "form-label" %>
+    <%= form.text_field :field2, class: "form-control" %>
+  </div>
+  <div class="mb-3 ">
+    <div class="d-flex align-items-start gap-3">
+      <%= form.label :classroom_id, class: 'form-label' %> <br>
+      <p class="mb-0 text-danger">Não é necessário para Aluno Particular</p>
+    </div>
+    <div>
+      <% if current_user.teacher? %>
+        <%= form.collection_select :classroom_id,
+                                 current_user.teacher.classrooms,
+                                 :id,
+                                 :name,
+                                 class: 'form-select' %>
+      <% else %>
+        <%= form.select :classroom_id, 
+                      Classroom.order(:name).map { |classroom| [classroom.name_with_teacher_name, classroom.id] }, 
+                      { prompt: "Selecione uma turma", include_blank: 'Nenhuma' }, 
+                      { class: "form-select select2" } %>
+      <% end %>
+    </div>
   </div>
   <div>
     <%= form.submit class: 'btn btn-primary mt-4' %>
   </div>
 <% end %>
-<%# <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 <script>
   document.getElementById("cpf").addEventListener("input", function (e) {

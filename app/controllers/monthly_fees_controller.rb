@@ -76,9 +76,12 @@ class MonthlyFeesController < ApplicationController
     if params[:status] == 'Atrasada'
       student_ids = MonthlyFee.where(status: 'Atrasada').pluck(:student_id)
       @students = Student.where(id: student_ids).active.order(:name)
-    else
+    elsif params[:year] == '2025'
       params[:year] = Time.zone.today.year if params[:year].nil?
       @students = Student.with_monthly_fees_for_year(params[:year]).active.order(:name)
+    else
+      params[:year] = Time.zone.today.year if params[:year].nil?
+      @students = Student.with_monthly_fees_for_semester(params[:year]).active.order(:name)
     end
   end
 

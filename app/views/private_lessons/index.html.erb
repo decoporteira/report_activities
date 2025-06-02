@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-between">
-  <h1 class="text-primary">Aulas Particulares de Professor <%= current_user.teacher.name %></h1>
+  <h1 class="text-primary">Aulas Particulares de Professor <%= current_user.admin? ? 'Clara' : current_user.teacher.name %></h1>
 </div>
 <div class="album py-5 bg-body-tertiary">
   <div class="container">

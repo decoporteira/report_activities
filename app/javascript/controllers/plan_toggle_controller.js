@@ -4,7 +4,6 @@ export default class extends Controller {
   static targets = ["select", "field"];
 
   connect() {
-    console.log("PlanToggleController conectado!");
     this.toggleFields(); // chama ao iniciar para ajustar a visibilidade
   }
 
