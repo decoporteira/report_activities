@@ -1,11 +1,5 @@
 <ol>
-  <% @active_students.each do |student|%>
-    <% if  student.responsibles.any? %>
-      <% student.responsibles.each do |fr| %>
-        <li><%= fr.financial_responsible.name %> - <strong><%= fr.financial_responsible.email %></strong> - <%= student.name %></li>
-      <% end %>
-    <% else %>
-      <li><%= student.name %> - <%= student.email %></li>
-    <% end %>
+  <% @emails.uniq.each do |email| %>
+    <li><%= email%></li>
   <% end %>
 </ol>

@@ -94,8 +94,18 @@ class StudentsController < ApplicationController
 
   def email_list
     @active_students = Student.where(status: :registered)
+    @emails = []
+    @active_students.each do |student|
+      if student.responsibles.any?
+        student.responsibles.each do |fr|
+          @emails << fr.financial_responsible.email
+        end
+      else
+        @emails << student.email
+      end
+    end
   end
-
+  
   private
 
   def set_student
