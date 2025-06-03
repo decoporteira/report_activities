@@ -4,6 +4,39 @@
 <div class="album py-5 bg-body-tertiary">
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <div class="col">
+        <div class="card shadow-sm">
+          <div class="card-header py-1">
+            <h4 class="my-1 fw-normal fs-5">
+              Alunos Particulares
+              <span class="fs-6"
+                  >- Alunos: <strong><%= @private_students.length %></strong
+                ></span>
+            </h4>
+          </div>
+          <div class="card-body">
+            <% @private_students.each do |student| %>
+              <div class="d-flex justify-content-between">
+                <div class="ps-1 ">
+                  <%= student.name %>
+                </div>
+                <div>
+                  <%= link_to  report_student_path(student), class:'text-decoration-none', alt: "Atividade" do %>
+                    <i
+                        class="fa-solid fa-list-check pe-2"
+                        style="color: #0d6efd;"
+                      ></i>
+                  <% end %>
+                  <%= link_to student, id:'details', alt: "Detalhes" do %>
+                    <i class="fa-solid fa-user" style="color: #0d6efd;"></i>
+                  <% end %>
+                </div>
+              </div>
+              <hr class="border-1 my-2 opacity-25 text-secondary" />
+            <% end%>
+          </div>
+        </div>
+      </div>
       <% @classrooms.each do |entry| %>
         <div class="col">
           <div class="card shadow-sm">
@@ -21,6 +54,7 @@
                 Teacher: <%= entry.teacher.name %>
               </h5>
               <% entry.students.registered.each do |student| %>
+                <% next if student.current_plan&.plan&.per_class?%>
                 <div class="d-flex justify-content-between">
                   <div class="ps-1">
                     <%= student.name %>
@@ -40,7 +74,6 @@
                 </div>
                 <hr class="border-1 my-2 opacity-25 text-secondary" />
               <% end %>
-
               <%=
                 link_to 'Enter Classroom',
                         classroom_path(entry.id),

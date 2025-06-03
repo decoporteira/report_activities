@@ -39,8 +39,11 @@ class StudentsController < ApplicationController
     respond_to do |format|
       if @student.update(student_params)
         current_plan = @student.current_plan || @student.build_current_plan
-        current_plan.update(plan_id: params[:student][:plan_id])
-        format.html do
+        current_plan.update(plan_id: params[:student][:plan_id]) if params[:student][:plan_id].present?
+        current_plan.update(value_per_hour: params[:student][:value_per_hour]) if params[:student][:value_per_hour].present?
+        current_plan.update(teacher_id: params[:student][:teacher_id]) if params[:student][:teacher_id].present?
+        
+       format.html do
           redirect_to student_path(@student), notice: t('.success')
         end
         format.json { render :info, status: :ok, location: @student }
@@ -111,7 +114,7 @@ class StudentsController < ApplicationController
   def student_params
     params
       .require(:student)
-      .permit(:name, :status, :classroom_id, :cpf, :phone, :cel_phone, :email, :student_plan_id)
+      .permit(:name, :status, :classroom_id, :cpf, :phone, :cel_phone, :email)
   end
 
   def cant_see

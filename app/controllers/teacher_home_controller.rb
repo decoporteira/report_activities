@@ -3,6 +3,11 @@ class TeacherHomeController < ApplicationController
   def index
     @classrooms =
       Classroom.includes(:teacher).where(teacher_id: current_user.teacher.id)
+    @private_students = Student
+                              .active
+                              .joins(current_plan: :plan)
+                              .includes(current_plan: :plan)
+                              .where(plans: { billing_type: Plan.billing_types[:per_class] })
   end
 
   private
