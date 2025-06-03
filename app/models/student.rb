@@ -79,4 +79,12 @@ class Student < ApplicationRecord
       discount:
     )
   end
+
+  def monthly_fees_by_month
+    @monthly_fees_by_month ||= monthly_fees.index_by(&:due_date_month_name)
+  end
+
+  def has_per_class_plan?
+    current_plan&.plan&.per_class?
+  end
 end

@@ -12,6 +12,7 @@
               <h5 class="card-title text-primary">
                 <i class="fa-solid fa-chalkboard-teacher me-2"></i>
                 <%= teacher&.name || "Desconhecido" %>
+                <%= link_to 'Ver aulas do professor', show_teacher_private_class_path(teacher_id) %>
               </h5>
               <p class="card-text mb-1">
                 <strong>Aulas de <%= I18n.l(@date, format: "%B") %>:</strong> <%= count %>

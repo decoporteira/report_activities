@@ -22,9 +22,16 @@ class ClassroomsController < ApplicationController
   def edit; end
 
   def create_activity
-    students =
-      Student.where(classroom_id: params[:classroom_id], status: :registered)
-    students.each { |student| create_activity_and_attendance(student) }
+    students = Student
+    .where(classroom_id: params[:classroom_id], status: :registered)
+    .includes(current_plan: :plan)
+
+    students.each do |student|
+      next if student.current_plan&.plan&.per_class?
+
+      create_activity_and_attendance(student)
+    end
+
     redirect_to request.referer, notice: t('.success')
   end
 
@@ -103,7 +110,11 @@ class ClassroomsController < ApplicationController
   end
 
   def set_students
-    @students = Student.where(classroom_id: params[:id], status: :registered)
+    @students = Student
+            .joins(current_plan: :plan)
+            .includes(current_plan: :plan)
+            .where(classroom_id: params[:id], status: :registered)
+            .where.not(plans: { billing_type: Plan.billing_types[:per_class] })
   end
 
   def create_activity_and_attendance(student)

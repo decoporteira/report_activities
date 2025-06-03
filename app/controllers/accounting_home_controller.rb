@@ -37,7 +37,7 @@ class AccountingHomeController < ApplicationController
       .where(current_plans: { plan_id: 4 })
       .where(status: 'registered').count
 
-    @incomplete_profile =  @students =
+    @incomplete_profile = @students =
       Student
       .includes(classroom: :teacher)
       .where(status: :registered)

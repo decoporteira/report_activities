@@ -32,21 +32,36 @@
             plan_toggle_target: "select"
           } %>
     </div>
-    <div data-plan-toggle-target="field" data-plan-id="4" style="display:none;">
-      <!-- Campos para plano com id=1 -->
+    <div data-plan-toggle-target="field" data-show-if-plan-id="4" style="display:none;"  class="mb-3">
       <%= form.label :value_per_hour, "Valor da aula:", class: "form-label" %>
-      <%= form.text_field :value_per_hour, class: "form-control" %>
+      <%= form.text_field :value_per_hour, class: "form-control", value: @student.current_plan&.value_per_hour %>
     </div>
-    <div data-plan-toggle-target="field" data-plan-id="4" style="display:none;">
+    <div data-plan-toggle-target="field" data-show-if-plan-id="4" style="display:none;"  class="mb-3">
       <%= form.label :teacher_id, class: 'form-label' %>
-      <%=
-      form.collection_select :teacher_id,
-                             Teacher.all,
-                             :id,
-                             :name,
-                             { prompt: 'Selecione um professor(a)' },
-                             class: 'form-select'
-    %><br />
+      <%= select_tag 'student[teacher_id]',
+      options_from_collection_for_select(
+        Teacher.all,
+        :id,
+        :name,
+        @student.current_plan&.teacher_id
+      ),
+      prompt: 'Selecione um professor(a)',
+      class: 'form-select' %>
+    </div>
+    <div data-plan-toggle-target="field" data-hide-if-plan-id="4" style="display:none;"  class="mb-3">
+      <%= form.label :classroom, class: 'form-label' %>
+      <% if current_user.teacher? %>
+        <%= form.collection_select :classroom_id,
+                                 current_user.teacher.classrooms,
+                                 :id,
+                                 :name,
+                                 class: 'form-select' %>
+      <% else %>
+        <%= form.select :classroom_id, 
+                      Classroom.order(:name).map { |classroom| [classroom.name_with_teacher_name, classroom.id] }, 
+                      { prompt: "Selecione uma turma", include_blank: 'Nenhuma' }, 
+                      { class: "form-select select2" } %>
+      <% end %>
     </div>
   </div>
   <div class="mb-3">
@@ -76,35 +91,10 @@
     <%= form.label :cel_phone, class: 'form-label' %>
     <%= form.text_field :cel_phone, id: 'cel_phone', class: 'form-control' %>
   </div>
-  <div data-plan-toggle-target="field" data-plan-id="2" style="display:none;">
-    <%= form.label :field2, "Campo para plano 2", class: "form-label" %>
-    <%= form.text_field :field2, class: "form-control" %>
-  </div>
-  <div class="mb-3 ">
-    <div class="d-flex align-items-start gap-3">
-      <%= form.label :classroom_id, class: 'form-label' %> <br>
-      <p class="mb-0 text-danger">Não é necessário para Aluno Particular</p>
-    </div>
-    <div>
-      <% if current_user.teacher? %>
-        <%= form.collection_select :classroom_id,
-                                 current_user.teacher.classrooms,
-                                 :id,
-                                 :name,
-                                 class: 'form-select' %>
-      <% else %>
-        <%= form.select :classroom_id, 
-                      Classroom.order(:name).map { |classroom| [classroom.name_with_teacher_name, classroom.id] }, 
-                      { prompt: "Selecione uma turma", include_blank: 'Nenhuma' }, 
-                      { class: "form-select select2" } %>
-      <% end %>
-    </div>
-  </div>
   <div>
     <%= form.submit class: 'btn btn-primary mt-4' %>
   </div>
 <% end %>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 <script>
   document.getElementById("cpf").addEventListener("input", function (e) {
     x = e.target.value
@@ -120,14 +110,5 @@
   });
   $(document).ready(function () {
     $("#phone").mask("(99) 9999-9999");
-  });
-</script>
-<script>
-  document.addEventListener("turbo:load", function() {
-    $( '.select2' ).select2( {
-      theme: "bootstrap-5",
-      width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
-      placeholder: $( this ).data( 'placeholder' ),
-  } );
   });
 </script>

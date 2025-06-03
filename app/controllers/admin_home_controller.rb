@@ -4,7 +4,12 @@ class AdminHomeController < ApplicationController
   def index
     @classrooms = Classroom.includes(:students).where(students: { status: 'registered' })
     @students = Student.active.includes(:current_plan)
-
+    @private_students = Student
+                              .active
+                              .joins(current_plan: :plan)
+                              .includes(current_plan: :plan)
+                              .where(plans: { billing_type: Plan.billing_types[:per_class] })
+    
     plan_counts = @students.joins(current_plan: :plan).group('plans.name').count
 
     @kids = plan_counts['Kids'] || 0
@@ -12,7 +17,7 @@ class AdminHomeController < ApplicationController
     @adults = plan_counts['Adults'] || 0
     @privates = plan_counts['Particular'] || 0
   end
-
+ 
   private
 
   def check_authorization!

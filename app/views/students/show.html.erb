@@ -3,30 +3,11 @@
   <div class="row flex-lg-row g-5 py-5">
     <div class="col-lg-6">
       <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3"><%= @student.name%></h1>
-      <h3>Curso:  <% if @student.current_plan %>
-          <%= @student.current_plan.plan.name %>
-        <% else %>
-          <%= link_to 'Cadastrar um plano', new_current_plan_path(student_id: @student.id) %>
-        <% end %></h3>
-      <p class="lead"></p>
-      <dl>
-        <dt>Professor(a): </dt>
-        <dd>
-          <%= @student.classroom.nil? ? 'Não possui turma cadastrada' : @student.classroom.teacher.name %>
-        </dd>
-        <dt>Turma: </dt>
-        <dd> <%= @student.classroom.nil? ? 'Não possui turma cadastrada' : @student.classroom.name %></dd>
-        <dt>Horário: </dt>
-        <dd> <%= @student.classroom.nil? ? 'Não possui turma cadastrada' : @student.classroom.time %></dd>
-        <dt>Status: </dt>
-        <dd><%= I18n.t(@student.status) %></dd>
-        <dt>Telefone celular: </dt>
-        <dd><%= @student.cel_phone.present? ? @student.cel_phone : "Telefone celular não cadastrado."%></dd>
-        <dt>Email: </dt>
-        <dd><%= @student.email.present? ? @student.email : "Email não cadastrado."%></dd>
-        <dt>CPF: </dt>
-        <dd><%= @student.cpf.present? ? @student.cpf : "CPF não cadastrado."%></dd>
-      </dl>
+      <% if @student.current_plan&.plan&.per_class?%>
+        <%= render 'details_private' %>
+      <% else %>
+        <%= render 'details' %>
+      <% end %>
       <div class="d-grid gap-2 d-md-flex justify-content-md-start">
         <%= link_to "Editar Aluno", edit_student_path(@student), class:'btn btn-outline-primary', style:"width:150px" %>
       </div>

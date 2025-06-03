@@ -13,6 +13,7 @@
         </div>
         <div class="card-body">
           <% @classroom_data[:students].each do |student| %>
+            <% next if student.current_plan&.plan&.per_class?%>
             <strong><%= student.name %></strong> |
             <%
               attendance = student.attendances.find_by(attendance_date: date)
