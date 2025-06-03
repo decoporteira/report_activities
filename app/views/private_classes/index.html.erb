@@ -1,8 +1,30 @@
 <div class="d-flex justify-content-between">
   <h1 class="text-primary">Private Classes</h1>
 </div>
-<div class="album py-5 bg-body-tertiary">
+<div class="album pt-3 bg-body-tertiary">
   <div class="container">
+    <div class="row row-cols-1 row-cols-md-2 g-3 mb-4">
+      <% @lesson_counts.each do |teacher_id, count| %>
+        <% teacher = @teachers[teacher_id] %>
+        <div class="col">
+          <div class="card shadow-sm border-primary h-100">
+            <div class="card-body px-2">
+              <h5 class="card-title text-primary">
+                <i class="fa-solid fa-chalkboard-teacher me-2"></i>
+                <%= teacher&.name || "Desconhecido" %>
+              </h5>
+              <p class="card-text mb-1">
+                <strong>Aulas de <%= I18n.l(@date, format: "%B") %>:</strong> <%= count %>
+              </p>
+              <p class="card-text">
+                <strong>Valor total:</strong>
+                R$ <%= number_to_currency(@lesson_values[teacher_id] || 0, unit: "", separator: ",", delimiter: ".") %>
+              </p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
     <%= month_calendar do |date| %>
       <div class="border p-1 rounded bg-light" style="min-height: 100px;">
         <div class="d-flex justify-content-between align-items-center">
