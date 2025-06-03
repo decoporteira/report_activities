@@ -8,6 +8,7 @@ class TeacherHomeController < ApplicationController
                               .joins(current_plan: :plan)
                               .includes(current_plan: :plan)
                               .where(plans: { billing_type: Plan.billing_types[:per_class] })
+                              .where(current_plans: { teacher_id: current_user.teacher.id })
   end
 
   private
