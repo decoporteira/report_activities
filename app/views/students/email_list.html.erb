@@ -1,5 +1,5 @@
 <ol>
-  <% @emails.uniq.each do |email| %>
-    <li><%= email%></li>
+  <% @email_map.each do |email, name| %>
+    <li><%= name %> | <strong><%= email %></strong></li>
   <% end %>
 </ol>

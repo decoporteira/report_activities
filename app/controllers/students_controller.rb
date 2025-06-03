@@ -93,19 +93,24 @@ class StudentsController < ApplicationController
   end
 
   def email_list
-    @active_students = Student.where(status: :registered)
-    @emails = []
+    @active_students = Student.active
+    @email_map = {}
+
     @active_students.each do |student|
       if student.responsibles.any?
         student.responsibles.each do |fr|
-          @emails << fr.financial_responsible.email
+          email = fr.financial_responsible.email
+          name  = fr.financial_responsible.name
+          @email_map[email] ||= name
         end
       else
-        @emails << student.email
+        email = student.email
+        name  = student.name
+        @email_map[email] ||= name
       end
     end
   end
-  
+
   private
 
   def set_student
