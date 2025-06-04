@@ -31,12 +31,13 @@
         <div class="d-flex justify-content-between align-items-center">
           <div class="fw-bold"><%= date.day %></div>
           <small>
-            <%= link_to 'Criar aula', new_private_lesson_path(start_date: date), class: 'link-secondary' %>
+            <%= link_to 'Criar aula', new_lesson_admin_private_lessons_path(start_date: date, role: 'admin'), class: 'link-secondary' %>
           </small>
         </div>
         <% @private_lessons.select { |e| e.start_time.to_date == date }.each do |lesson| %>
-          <% student = lesson.current_plan.student %>
-          <% color = color_for_student(student) %>
+          <% student = lesson.current_plan.student%>
+          <% teacher = lesson.current_plan.teacher %>
+          <% color = color_for_teacher(teacher) %>
           <div class="badge mt-1 d-block text-white" style="background-color: #<%= color %>;">
             <%= lesson.start_time.strftime('%H:%M') %> -
             <%= link_to student.first_and_last_name, lesson, class: 'text-white' %><br>

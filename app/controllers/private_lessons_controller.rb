@@ -59,6 +59,16 @@ class PrivateLessonsController < ApplicationController
     redirect_to private_lessons_path, notice: 'Aula particular excluída com sucesso.'
   end
 
+  def new_lesson_admin
+    @private_lesson = PrivateLesson.new
+    @current_plans = CurrentPlan.joins(:plan).where(plans: { billing_type: :per_class })
+
+    if params[:start_date].present?
+      date = Date.parse(params[:start_date]) rescue nil
+      @private_lesson.start_time = date&.to_time&.change(hour: 8)
+    end
+    
+  end
   private
 
   def admin?
