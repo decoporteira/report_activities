@@ -38,7 +38,7 @@
           <% student = lesson.current_plan.student%>
           <% teacher = lesson.current_plan.teacher %>
           <% color = color_for_teacher(teacher) %>
-          <div class="badge mt-1 d-block text-white" style="background-color: #<%= color %>;">
+          <div class="badge mt-1 d-block text-white" style="background-color: <%= color %>;">
             <%= lesson.start_time.strftime('%H:%M') %> -
             <%= link_to student.first_and_last_name, lesson, class: 'text-white' %><br>
             <%= lesson.current_plan.teacher&.name || 'Sem professor cadastrado(a)' %>
