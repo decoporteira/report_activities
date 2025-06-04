@@ -11,13 +11,13 @@ module ColorHelper
 
   def color_for_teacher(teacher)
     {
-      1 => "#463663",
-      2 => "#690480",
-      3 => "#804B4B",
-      4 => "#D91D00",
-      5 => "#010A80",
+      1 => "#196ea5",
+      2 => "#cf3545",
+      3 => "#f2b954",
+      4 => "#5a0000",
+      5 => "#0000b3",
       6 => "#047E00",
-      7 => "#2E6B6B"
-    }[teacher.id] || "#263300" # cor default para ids fora da lista
+      7 => "#b37400"
+    }[teacher.id] || "#787878" # cor default para ids fora da lista
   end
 end
