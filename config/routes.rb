@@ -83,5 +83,7 @@ Rails
     resources :private_classes, only: %i[index] do
       get :show_teacher, on: :member
     end
-    resources :private_lessons, only: %i[index new show edit create update ] 
+    resources :private_lessons, only: %i[index new show edit create update ] do
+      get :new_lesson_admin, on: :collection
+    end
   end
