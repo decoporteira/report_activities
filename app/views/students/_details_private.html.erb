@@ -7,7 +7,7 @@
 <dl>
   <dt>Professor(a): </dt>
   <dd>
-    <%= @student.current_plan.nil? ? 'Não possui turma cadastrada' : @student.current_plan.teacher.name %>
+    <%=  @student.current_plan&.teacher.nil? ? 'Professor(a) não cadastrado' : @student.current_plan.teacher.name %>
   </dd>
   <dt>Turma: </dt>
   <dd> <%= @student.current_plan.nil? ? 'Não possui turma cadastrada' : 'Aluno Particular' %></dd>
