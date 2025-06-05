@@ -35,7 +35,7 @@
                 <p><strong>Status:</strong> <%= I18n.t(student.status) %></p>
                 <p>
                   <% if student.current_plan&.plan&.per_class? %>
-                    <strong>Aluno Particular:</strong> <%=student.current_plan.teacher.name%>
+                    <strong>Aluno Particular:</strong> <%=student.current_plan&.teacher&.name%>
                   <% else%>
                     <%if student.classroom.nil?%>
                       'Não possui turma cadastrada'
