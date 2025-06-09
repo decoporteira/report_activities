@@ -42,6 +42,11 @@ class PrivateClassesController < ApplicationController
                      .joins(:current_plan)
                      .group('current_plans.student_id')
                      .sum('current_plans.value_per_hour')
+
+   @lesson_values_per_teacher = @private_lessons
+                     .joins(:current_plan)
+                     .group('current_plans.teacher_id')
+                     .sum('current_plans.value_per_hour')
   end
 
   private
