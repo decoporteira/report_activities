@@ -61,7 +61,7 @@ class PrivateLessonsController < ApplicationController
 
   def new_lesson_admin
     @private_lesson = PrivateLesson.new
-    @current_plans = CurrentPlan.joins(:plan).where(plans: { billing_type: :per_class })
+    @current_plans = CurrentPlan.joins(:plan).where(plans: { billing_type: [Plan.billing_types[:per_class], Plan.billing_types[:both]] })
 
     if params[:start_date].present?
       date = Date.parse(params[:start_date]) rescue nil
@@ -83,17 +83,16 @@ class PrivateLessonsController < ApplicationController
 
   def define_current_plans
     if current_user.teacher?
-      CurrentPlan.joins(:plan, :student).where(
-        plans: { billing_type: :per_class },
+      CurrentPlan.joins(:plan, :student).where(plans: { billing_type: [Plan.billing_types[:per_class], Plan.billing_types[:both]]},
         current_plans: { teacher_id: current_user.teacher.id }
       )
     elsif current_user.admin?
       CurrentPlan.joins(:plan, :student).where(
-        plans: { billing_type: :per_class },
+        plans: { billing_type: [Plan.billing_types[:per_class], Plan.billing_types[:both]]},
         current_plans: { teacher_id: 1 }
       )
     else
-      CurrentPlan.joins(:plan).where(plans: { billing_type: :per_class })
+      CurrentPlan.joins(:plan).where(plans: { billing_type: [Plan.billing_types[:per_class], Plan.billing_types[:both]] })
     end
   end
 end
