@@ -3,7 +3,7 @@
   <div class="row flex-lg-row g-5 py-5">
     <div class="col-lg-6">
       <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3"><%= @student.name%></h1>
-      <% if @student.current_plan&.plan&.per_class?%>
+      <% if @student.current_plan&.plan&.per_class? || @student.current_plan&.plan&.both?%>
         <%= render 'details_private' %>
       <% else %>
         <%= render 'details' %>

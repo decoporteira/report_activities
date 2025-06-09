@@ -5,12 +5,12 @@
   <% end %></h3>
 <p class="lead"></p>
 <dl>
-  <dt>Professor(a): </dt>
+  <dt>Professor(a) Particular: </dt>
   <dd>
     <%=  @student.current_plan&.teacher.nil? ? 'Professor(a) não cadastrado' : @student.current_plan.teacher.name %>
   </dd>
   <dt>Turma: </dt>
-  <dd> <%= @student.current_plan.nil? ? 'Não possui turma cadastrada' : 'Aluno Particular' %></dd>
+  <dd> <%= @student.current_plan.nil? ? 'Não possui turma cadastrada' : @student.classroom&.name %> - <%= @student.classroom&.teacher.name %></dd>
   <dt>Status: </dt>
   <dd class="<%= @student.status == 'registered' ? 'text-success' : 'text-danger' %>">
     <strong><%= I18n.t(@student.status) %></strong>

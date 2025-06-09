@@ -5,19 +5,24 @@ export default class extends Controller {
 
   connect() {
     this.toggleFields();
+    this.selectTarget.addEventListener("change", () => this.toggleFields());
   }
 
   toggleFields() {
     const selectedPlanId = this.selectTarget.value;
 
     this.fieldTargets.forEach((element) => {
-      const showId = element.dataset.showIfPlanId;
-      const hideId = element.dataset.hideIfPlanId;
+      const showIds = element.dataset.showIfPlanId?.split(",") || [];
+      const hideIds = element.dataset.hideIfPlanId?.split(",") || [];
 
-      if (showId !== undefined) {
-        element.style.display = selectedPlanId === showId ? "block" : "none";
-      } else if (hideId !== undefined) {
-        element.style.display = selectedPlanId !== hideId ? "block" : "none";
+      if (showIds.length > 0) {
+        element.style.display = showIds.includes(selectedPlanId)
+          ? "block"
+          : "none";
+      } else if (hideIds.length > 0) {
+        element.style.display = !hideIds.includes(selectedPlanId)
+          ? "block"
+          : "none";
       }
     });
   }

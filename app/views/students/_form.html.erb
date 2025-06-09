@@ -32,12 +32,12 @@
             plan_toggle_target: "select"
           } %>
     </div>
-    <div data-plan-toggle-target="field" data-show-if-plan-id="4" style="display:none;"  class="mb-3">
-      <%= form.label :value_per_hour, "Valor da aula:", class: "form-label" %>
+    <div data-plan-toggle-target="field" data-show-if-plan-id="4,5" style="display:none;"  class="mb-3">
+      <%= form.label :value_per_hour, "Valor da aula particular:", class: "form-label" %>
       <%= form.text_field :value_per_hour, class: "form-control", value: @student.current_plan&.value_per_hour %>
     </div>
-    <div data-plan-toggle-target="field" data-show-if-plan-id="4" style="display:none;"  class="mb-3">
-      <%= form.label :teacher_id, class: 'form-label' %>
+    <div data-plan-toggle-target="field" data-show-if-plan-id="4,5" data-show-if-plan-id="5" style="display:none;"  class="mb-3">
+      <%= form.label 'Professor Particular', class: 'form-label' %>
       <%= select_tag 'student[teacher_id]',
       options_from_collection_for_select(
         Teacher.all,
@@ -48,7 +48,7 @@
       prompt: 'Selecione um professor(a)',
       class: 'form-select' %>
     </div>
-    <div data-plan-toggle-target="field" data-hide-if-plan-id="4" style="display:none;"  class="mb-3">
+    <div data-plan-toggle-target="field" data-hide-if-plan-id="4"  style="display:none;"  class="mb-3">
       <%= form.label :classroom, class: 'form-label' %>
       <% if current_user.teacher? %>
         <%= form.collection_select :classroom_id,
