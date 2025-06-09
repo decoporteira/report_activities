@@ -2,26 +2,9 @@
 <div class="album pt-3 bg-body-tertiary">
   <div class="container">
     <p class="card-text">
-      <strong>Valor:</strong>
-      R$ <%= number_to_currency(@lesson_values[@teacher.id] || 0, unit: "", separator: ",", delimiter: ".") %>
+      <strong>Valor total das aulas:</strong>
+      R$ <%= number_to_currency(@lesson_values_per_teacher[@teacher.id] || 0, unit: "", separator: ",", delimiter: ".") %>
     </p>
-    <div class="row row-cols-1 row-cols-md-2 g-3 mb-4">
-      <% @private_lessons.each do |lesson| %>
-        <div class="col">
-          <div class="card shadow-sm border-primary h-100">
-            <div class="card-body px-2">
-              <h5 class="card-title text-primary">
-                <%= lesson.current_plan.student.name %>
-              </h5>
-              <p class="card-text mb-1">
-                <%= lesson.start_time.strftime('%d/%m %H:%M') %> - <%= lesson.current_plan.teacher.name %> - 
-                <%= lesson.current_plan.value_per_hour %>
-              </p>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </div>
     <div class="row row-cols-1 row-cols-md-2 g-3 mb-4">
       <% @lesson_counts.each do |student_id, count| %>
         <div class="col">

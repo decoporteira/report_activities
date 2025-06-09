@@ -29,8 +29,6 @@ class Student < ApplicationRecord
     joins(current_plan: :plan).where(plans: { billing_type: :per_class }).active
   }
 
-  
-
   include DateRangeHelper
 
   def first_and_last_name
