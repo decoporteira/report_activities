@@ -8,7 +8,7 @@ class AdminHomeController < ApplicationController
                               .active
                               .joins(current_plan: :plan)
                               .includes(current_plan: :plan)
-                              .where(plans: { billing_type: Plan.billing_types[:per_class] })
+                              .where(plans: { billing_type: [Plan.billing_types[:per_class], Plan.billing_types[:both]] })
     
     plan_counts = @students.joins(current_plan: :plan).group('plans.name').count
 
