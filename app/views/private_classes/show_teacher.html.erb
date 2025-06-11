@@ -27,3 +27,21 @@
       <% end %>
     </div>
   </div>
+  <div class="album py-5 bg-body-tertiary">
+    <div class="container">
+      <%= month_calendar do |date| %>
+        <div class="border p-1 rounded bg-light" style="min-height: 50px;">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="fw-bold"><%= date.day %></div>
+          </div>
+          <% @private_lessons.select { |e| e.start_time.to_date == date }.each do |lesson| %>
+            <% student = lesson.current_plan.student %>
+            <% color = color_for_student(student) %>
+            <div class="badge mt-1 d-block text-white" style="background-color: #<%= color %>;">
+              <%= lesson.start_time.strftime('%H:%M')%> - <%= link_to lesson.current_plan.student.first_and_last_name, lesson, class: 'text-white' %>  <%= '<i class="fa-solid fa-circle-exclamation"></i>'.html_safe if lesson.notes.present? %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>

@@ -3,6 +3,7 @@ class Student < ApplicationRecord
   has_many :monthly_fees
   has_many :responsibles
   has_one :current_plan
+  has_one :plan, through: :current_plan
   has_many :financial_responsibles, through: :responsibles
   has_many :activities, dependent: :destroy
   has_many :material_billings
