@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_one :teacher, dependent: :destroy
+  has_one :teacher, dependent: :nullify
   devise :database_authenticatable,
          :registerable,
          :recoverable,
