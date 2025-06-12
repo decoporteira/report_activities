@@ -1,6 +1,6 @@
 class Classroom < ApplicationRecord
   belongs_to :teacher
-  has_many :students, dependent: :destroy
+  has_many :students, dependent: :nullify
   validates :name, :time, :teacher_id, presence: true
   include DateRangeHelper
 
