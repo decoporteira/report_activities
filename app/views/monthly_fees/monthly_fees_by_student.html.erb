@@ -1,0 +1,86 @@
+<h1>Mensalidades de <%= @student.name %></h1>
+<h2>Turma: <strong><%= @student.classroom.nil? ? 'Não possui turma cadastrada' : @student.classroom.name %></strong></h2>
+<h4>
+  Responsáveis:
+  <% @student.financial_responsibles.each do |responsible| %>
+    <%= link_to responsible.name, financial_responsible_path(responsible) %> |
+  <% end %>
+</h4>
+<div class="">
+  <table class="fs-9 mb-0 border-top border-translucent table">
+    <thead>
+      <tr>
+        <th style="width: 20%;">Vencimento</th>
+        <th style="width: 10%;">Valor</th>
+        <th style="width: 10%;">Pago em</th>
+        <th style="width: 20%;">Referente</th>
+        <th style="width: 20%;">Status</th>
+        <th style="width: 10%;"></th>
+        <th style="width: 10%;"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% @monthly_fees.each do |monthly_fee| %>
+          <tr>
+            <td><%= monthly_fee.due_date.strftime('%d/%m/%Y') %></td>
+            <td>
+              <%=
+                number_to_currency(
+                  monthly_fee.value
+                )
+              %>
+            </td>
+            <td><%= monthly_fee.payment_date.try(:strftime, "%d/%m") || 'Em aberto' %></td>
+            <td>
+              <%= monthly_fee.due_date_month_name %> /
+              <%= monthly_fee.due_date_year %>
+            </td>
+            <td><%= monthly_fee.status %></td>
+            <td style="flex: auto;display: flex;">
+              <%
+                statuses = {
+                  'Paga' => {
+                    text: 'Paga',
+                    css_class: 'btn btn-outline-primary btn-sm mx-1',
+                  },
+                  'A pagar' => {
+                    text: 'A pagar',
+                    css_class: 'btn btn-outline-secondary btn-sm mx-1',
+                  },
+                  'Atrasada' => {
+                    text: 'Atrasada',
+                    css_class: 'btn btn-outline-danger btn-sm mx-1',
+                  },
+                }
+              %>
+              <% statuses.each do |status, config| %>
+                <% if monthly_fee.status != status %>
+                  <%=
+                    button_to config[:text],
+                              update_paid_path(
+                                items: { id: monthly_fee.id, status: status },
+                              ),
+                              method: :patch,
+                              class: config[:css_class]
+                  %>
+                <% end %>
+              <% end %>
+            </td>
+            <td><%= link_to 'Editar', edit_student_monthly_fee_path(monthly_fee.student, monthly_fee) %></td>
+          </tr>
+        <% end %>
+      </tr>
+    </tbody>
+  </table>
+  <%
+    button_to 'Criar Mensalidades',
+              create_anual_fees_for_student_student_monthly_fees_path(@student),
+              class: 'btn btn-primary mb-2'
+  %>
+  <%=
+    link_to 'Cadastrar Mensalidade',
+            new_student_monthly_fee_path(@student),
+            class: 'btn btn-primary mb-2'
+  %>
+</div>

@@ -3,8 +3,10 @@
   <div class="row flex-lg-row g-5 py-5">
     <div class="col-lg-6">
       <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3"><%= @student.name%></h1>
-      <% if @student.current_plan&.plan&.per_class? || @student.current_plan&.plan&.both?%>
+      <% if @student.current_plan&.plan&.per_class? %>
         <%= render 'details_private' %>
+      <% elsif @student.current_plan&.plan&.both?%>
+        <%= render 'details_both' %>
       <% else %>
         <%= render 'details' %>
       <% end %>
@@ -93,7 +95,7 @@
           <% if current_user.admin? || current_user.accounting? %>
             <%= link_to "Cadastrar Mensalidade", new_student_monthly_fee_path(@student), class:'btn btn-outline-primary', style:"width:150px" %>
           <% end %>
-          <%= link_to 'Ver todas as mensalidades', student_monthly_fees_path(@student), class:'btn btn-outline-primary', style:"width:150px" %>
+          <%= link_to 'Ver todas as mensalidades', monthly_fees_by_student_student_path(@student), class:'btn btn-outline-primary', style:"width:150px" %>
         </div>
         <div>
           <h3>Endereços</h3>

@@ -1,20 +1,25 @@
 <h3>Curso:  <% if @student.current_plan %>
-    <%= @student.current_plan.plan.name %>
+    <span class='text-primary'><%= @student.current_plan.plan.name %></span>
   <% else %>
     <%= link_to 'Cadastrar um plano', new_current_plan_path(student_id: @student.id) %>
   <% end %></h3>
 <p class="lead"></p>
 <dl>
-  <dt>Professor(a): </dt>
-  <dd>
-    <%= @student.classroom.nil? ? 'Não possui turma cadastrada' : @student.classroom.teacher.name %>
-  </dd>
-  <dt>Turma: </dt>
-  <dd> <%= @student.classroom.nil? ? 'Não possui turma cadastrada' : @student.classroom.name %></dd>
-  <dt>Horário: </dt>
-  <dd> <%= @student.classroom.nil? ? 'Não possui turma cadastrada' : @student.classroom.time %></dd>
+  <div class='card mb-4 rounded-3 shadow-sm p-3 border-primary bg-body-tertiary'>
+    <h5 class='text-primary'>Detalhes da Aula em Turma</h5>
+    <dt>Professor(a): </dt>
+    <dd>
+      <%= @student.classroom.nil? ? 'Não possui turma cadastrada' : @student.classroom.teacher.name %>
+    </dd>
+    <dt>Turma: </dt>
+    <dd> <%= @student.classroom.nil? ? 'Não possui turma cadastrada' : @student.classroom.name %></dd>
+    <dt>Horário: </dt>
+    <dd> <%= @student.classroom.nil? ? 'Não possui turma cadastrada' : @student.classroom.time %></dd>
+  </div>
   <dt>Status: </dt>
-  <dd><%= I18n.t(@student.status) %></dd>
+  <dd class="<%= @student.status == 'registered' ? 'text-warning' : 'text-danger' %>">
+    <strong><%= I18n.t(@student.status) %></strong>
+  </dd>
   <dt>Telefone celular: </dt>
   <dd><%= @student.cel_phone.present? ? @student.cel_phone : "Telefone celular não cadastrado."%></dd>
   <dt>Email: </dt>

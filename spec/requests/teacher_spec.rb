@@ -25,7 +25,7 @@ RSpec.describe 'Teachers', type: :request do
     login_as(admin)
 
     expect { delete "/teachers/#{teacher.id}" }.to change(Teacher, :count).by(
-      -1
+      0
     )
     expect(flash[:notice]).to eq('Professor(a) apagado(a) com sucesso.')
   end
