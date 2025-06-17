@@ -1,5 +1,5 @@
 <h3>Cursos:  <% if @student.current_plan %>
-    <%= @student.current_plan.plan.name %>
+    <span class='text-success'><%= @student.current_plan.plan.name %></span>
   <% else %>
     <%= link_to 'Cadastrar um plano', new_current_plan_path(student_id: @student.id) %>
   <% end %></h3>
@@ -9,10 +9,8 @@
   <dd>
     <%=  @student.current_plan&.teacher.nil? ? 'Professor(a) não cadastrado' : @student.current_plan.teacher.name %>
   </dd>
-  <dt>Turma: </dt>
-  <dd> <%= @student.current_plan.nil? ? 'Não possui turma cadastrada' : @student.classroom&.name %> - <%= @student.classroom&.teacher.name %></dd>
   <dt>Status: </dt>
-  <dd class="<%= @student.status == 'registered' ? 'text-success' : 'text-danger' %>">
+  <dd class="<%= @student.status == 'registered' ? 'text-warning' : 'text-danger' %>">
     <strong><%= I18n.t(@student.status) %></strong>
   </dd>
   <dt>Telefone celular: </dt>

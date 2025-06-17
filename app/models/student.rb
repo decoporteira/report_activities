@@ -30,6 +30,7 @@ class Student < ApplicationRecord
     joins(current_plan: :plan).where(plans: { billing_type: :per_class }).active
   }
 
+
   include DateRangeHelper
 
   def first_and_last_name
@@ -40,6 +41,12 @@ class Student < ApplicationRecord
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[classroom_id created_at id name status updated_at activities classroom]
+  end
+
+  def get_private_classes(date)
+    start_of_month = date.beginning_of_month
+    end_of_month = date.end_of_month
+      (current_plan.private_lessons.where(start_time: start_of_month..end_of_month).count) * (current_plan.value_per_hour)
   end
 
   def find_activities(start_date, end_date)

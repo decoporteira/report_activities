@@ -72,12 +72,12 @@
                 <div class="card-body">
                   <p class="card-text"></p>
                   <p><strong>Status:</strong> <%= I18n.t(student.status) %></p>
-                  <p><strong>Curso:</strong> <%= student.current_plan&.plan.nil? ? 'Nada' : student.current_plan&.plan.name  %>
+                  <p><strong>Curso:</strong> <%= student.current_plan&.plan.nil? ? 'Sem Curso Cadastrado' : student.current_plan&.plan.name  %>
                     <% if student.current_plan&.plan&.both? %>
-                      <p><strong>Aluno Particular do Professor:</strong> <%=student.current_plan&.teacher&.name%></p>
-                      <p><strong>Aluno da Turma:</strong> <%=student.classroom.name%> - <%=student.classroom.teacher.name%></p>
+                      <p><strong>Aluno Particular de:</strong> <%=student.current_plan&.teacher&.name%></p>
+                      <p><strong>Aluno da Turma:</strong> <%=student.classroom&.name%> - <%=student.classroom&.teacher&.name%></p>
                     <% elsif student.current_plan&.plan&.per_class?%>
-                      <p><strong>Aluno Particular:</strong> <%=student.current_plan&.teacher&.name%></p>
+                      <p><strong>Aluno Particular de:</strong> <%=student.current_plan&.teacher&.name%></p>
                     <% else%>
                       <%if student.classroom.nil?%>
                         <p> 'Não possui turma cadastrada'</p>
@@ -105,7 +105,7 @@
                   %>
                     <%=
                     link_to 'Financeiro',
-                            student_monthly_fees_path(student),
+                            monthly_fees_by_student_student_path(student),
                             class: 'btn btn-outline-primary',
                             style: 'width:110px'
                   %>

@@ -33,8 +33,8 @@ Rails
 
     get 'addresses/', to: 'addresses#index'
 
-    get 'monthly_fees/', to: 'monthly_fees#all'
-    get 'monthly_fees/fee_list', to: 'monthly_fees#fee_list'
+    #get 'monthly_fees/', to: 'monthly_fees#all'
+    #get 'monthly_fees/fee_list', to: 'monthly_fees#fee_list'
     patch 'update_paid', to: 'monthly_fees#update_paid'
 
     resources :students do
@@ -45,12 +45,16 @@ Rails
         get 'private_classes_students'
         
       end
+      
       get 'activities_by_student', on: :member
+      get 'monthly_fees_by_student', on: :member,  to: 'monthly_fees#monthly_fees_by_student'
       get 'report', on: :member
       resources :resumes, only: %i[new create index show edit update destroy]
       resources :addresses, only: %i[new create show edit update]
       resources :monthly_fees,
                 only: %i[index show new create edit update destroy] do
+        
+        
         collection { post :create_anual_fees_for_student }
       end
       collection { post :import }
@@ -86,4 +90,5 @@ Rails
     resources :private_lessons, only: %i[index new show edit create update ] do
       get :new_lesson_admin, on: :collection
     end
+    resources :monthly_fees, only: %i[index show new create edit update destroy]
   end

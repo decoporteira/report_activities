@@ -1,6 +1,6 @@
 class MonthlyFeesController < ApplicationController
   before_action :authorize_admin!, only: %i[new index show edit create all fee_list]
-  before_action :set_student, only: %i[new index create show edit update destroy create_anual_fees_for_student]
+  before_action :set_student, only: %i[new create show edit update destroy create_anual_fees_for_student]
   before_action :set_monthly_fee, only: %i[show edit update destroy create_all_monthly_fees]
 
   def new
@@ -8,7 +8,42 @@ class MonthlyFeesController < ApplicationController
   end
 
   def index
-    @monthly_fees = MonthlyFee.includes([:student]).where(student_id: @student.id).order(:due_date)
+    params[:year] ||= Time.zone.today.year
+
+    @students =
+      if params[:status] == 'Atrasada'
+        Student
+          .joins(:monthly_fees, :plan)
+          .merge(MonthlyFee.where(status: 'Atrasada'))
+          .distinct
+          .active
+          .order(:name)
+          #.where(plans: { billing_type: [Plan.billing_types[:monthly], Plan.billing_types[:both]] })
+      else
+        scope = params[:year] == '2025'?
+                  Student.with_monthly_fees_for_year(params[:year]) :
+                  Student.with_monthly_fees_for_semester(params[:year])
+
+        scope
+          .active
+          .joins(:plan)
+          .includes(:monthly_fees, :financial_responsibles, :classroom)
+          .order(:name)
+          #.where(plans: { billing_type: [Plan.billing_types[:monthly], Plan.billing_types[:both]] })
+      end
+
+    @date = Time.zone.today
+    start_of_month = @date.beginning_of_month
+    end_of_month = @date.end_of_month
+
+    @private_lessons = PrivateLesson
+                      .includes(current_plan: %i[student])
+                      .where(start_time: start_of_month..end_of_month)
+
+    @lesson_values = @private_lessons
+                    .joins(:current_plan)
+                    .group('current_plans.student_id')
+                    .sum('current_plans.value_per_hour')
   end
 
   def show; end
@@ -58,7 +93,8 @@ class MonthlyFeesController < ApplicationController
 
   def create_all_anual_fees
     CreateAnualFees.perform_async
-    redirect_to monthly_fees_path, notice: 'O processo de criação das mensalidades foi iniciado com sucesso.'
+    redirect_to monthly_fees_path, notice: 'O processo de criação das
+                                      mensalidades foi iniciado com sucesso.'
   end
 
   def destroy
@@ -72,27 +108,11 @@ class MonthlyFeesController < ApplicationController
     end
   end
 
-  def fee_list
-    params[:year] ||= Time.zone.today.year
-
-  @students =
-    if params[:status] == 'Atrasada'
-      Student
-        .joins(:monthly_fees)
-        .merge(MonthlyFee.where(status: 'Atrasada'))
-        .distinct
-        .active
-        .order(:name)
-    else
-      scope = params[:year] == '2025'?
-                Student.with_monthly_fees_for_year(params[:year]) :
-                Student.with_monthly_fees_for_semester(params[:year])
-
-      scope
-        .active
-        .includes(:monthly_fees, :financial_responsibles, :classroom)
-        .order(:name)
-    end
+  def monthly_fees_by_student
+    @student = Student.find(params[:id])
+    @monthly_fees = @student.monthly_fees.order(:due_date)
+    @current_plan = @student.current_plan
+    @financial_responsibles = @student.financial_responsibles
   end
 
   private

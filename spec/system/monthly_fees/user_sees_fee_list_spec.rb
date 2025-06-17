@@ -6,6 +6,9 @@ RSpec.describe 'User sees fees list' do
     student_one = FactoryBot.create(:student, name: 'Charmander')
     student_two = FactoryBot.create(:student, name: 'Bulbassaur')
     FactoryBot.create(:student, name: 'Squirtle')
+    Plan.create!(name: 'Kids', price: 300, billing_type: 'monthly')
+    CurrentPlan.create(student_id: student_one.id, plan_id: 1, has_discount: false, discount: 0)
+    CurrentPlan.create(student_id: student_two.id, plan_id: 1)
 
     MonthlyFee.create!(
       student_id: student_one.id,
