@@ -35,6 +35,8 @@ Rails
 
     #get 'monthly_fees/', to: 'monthly_fees#all'
     #get 'monthly_fees/fee_list', to: 'monthly_fees#fee_list'
+    get 'monthly_fees/fee_list', to: redirect('/monthly_fees')
+
     patch 'update_paid', to: 'monthly_fees#update_paid'
 
     resources :students do
