@@ -16,9 +16,9 @@ class MonthlyFeesController < ApplicationController
           .joins(:monthly_fees, :plan)
           .merge(MonthlyFee.where(status: 'Atrasada'))
           .distinct
+          .includes(:monthly_fees, :financial_responsibles, :classroom)
           .active
           .order(:name)
-          #.where(plans: { billing_type: [Plan.billing_types[:monthly], Plan.billing_types[:both]] })
       else
         scope = params[:year] == '2025'?
                   Student.with_monthly_fees_for_year(params[:year]) :
@@ -26,10 +26,8 @@ class MonthlyFeesController < ApplicationController
 
         scope
           .active
-          .joins(:plan)
           .includes(:monthly_fees, :financial_responsibles, :classroom)
           .order(:name)
-          #.where(plans: { billing_type: [Plan.billing_types[:monthly], Plan.billing_types[:both]] })
       end
 
     @date = Time.zone.today
@@ -44,6 +42,17 @@ class MonthlyFeesController < ApplicationController
                     .joins(:current_plan)
                     .group('current_plans.student_id')
                     .sum('current_plans.value_per_hour')
+
+    @private_class_totals = PrivateLesson
+      .joins(:current_plan)
+      .where(start_time: Date.new(params[:year].to_i, 1, 1)..Date.new(params[:year].to_i, 12, 31))
+      .group("current_plans.student_id", "DATE_TRUNC('month', start_time)")
+      .sum("current_plans.value_per_hour")
+
+      @material_billings = MaterialBilling
+        .where(student_id: @students.map(&:id))
+        .order(:created_at) # ou por data de referência
+        .group_by(&:student_id)
   end
 
   def show; end

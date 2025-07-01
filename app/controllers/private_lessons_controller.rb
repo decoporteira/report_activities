@@ -27,9 +27,12 @@ class PrivateLessonsController < ApplicationController
 
   def create
     @private_lesson = PrivateLesson.new(private_lesson_params)
-
+    #student = @private_lesson.current_plan.student
+    #monthly_fee = student.monthly_fees.find_by(due_date: @private_lesson.start_time.beginning_of_month..@private_lesson.start_time.end_of_month)
+    #monthly_fee.update(status: 'Paga') if monthly_fee.present?
     @private_lesson.end_time = @private_lesson.start_time + 1.hour
     if @private_lesson.save
+
       redirect_to @private_lesson, notice: 'Aula particular criada com sucesso.'
     else
       @current_plans = define_current_plans
