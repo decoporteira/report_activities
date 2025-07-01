@@ -7,7 +7,7 @@ class PrivateClassesController < ApplicationController
 
     @private_lessons = PrivateLesson
                        .includes(current_plan: %i[student teacher])
-                       .where(start_time: start_of_month..end_of_month)
+                       .where(start_time: start_of_month..end_of_month.end_of_day)
 
     @lesson_counts = @private_lessons
                      .joins(:current_plan)

@@ -82,35 +82,35 @@
                     <% end %>
                 </p>
                 </td>
-                <td class="font-weight-light mb-0 fs-6 fw-light  text-center">
-                <%= student.classroom&.name || "Turma não cadastrada" %>
+                <td class="font-weight-light mb-0 fs-6 fw-light text-center">
+                  <% if student.plan.per_class?  %>
+                    <span class="badge bg-secondary">Aluno Particular</span>
+                    <% else %>
+                     <span class="badge bg-secondary"><%= student.classroom&.name || "Turma não cadastrada" %></span>
+                  <% end %>
+               
                 </td>
                 <td class="font-weight-light mb-0 fs-6 fw-light text-center">
-                <% if student.material_billings.present? %>
-                    <%= link_to student.material_billings.last.name, edit_material_billing_path(student.material_billings.last) %>
-                    <span class="text-center" style="text-align: center;">
-                    <%= number_to_currency(student.material_billings.last.value, unit: "") %>
-                    </span>
-                    <p><%= link_to 'detalhes', user_material_billing_path(student_id: student.id) %></p>
-                <% else %>
-                    <%= link_to "Nova cobrança", new_material_billing_path(student_id: student.id) %>
-                <% end %>
+                  <% billing = @material_billings[student.id]&.last %>
+                    <% if billing %>
+                      <%= link_to billing.name, edit_material_billing_path(billing) %>
+                    <% else %>
+                      <%= link_to "Nova cobrança", new_material_billing_path(student_id: student.id) %>
+                    <% end %>
                 </td>
                 <% months.each_with_index do |month, index| %>
-                <% date = Date.new(Date.today.year, index + 1, 1) %>
+                <% date = Date.new(Date.today.year, index + 1, 1) << 1%>
                     <% monthly_fee = student.monthly_fees_by_month[month] %>
-                   
                     <% if monthly_fee %>
                         <% color_status = color_statuses[monthly_fee.status] %>
                         <td style="<%= color_status[:style] %>" class="text-center">
                             <% if student.plan.monthly? %>
                                 <%= link_to number_to_currency(monthly_fee.value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %>
                             <% elsif student.plan.per_class?%>
-                                <%= link_to number_to_currency(monthly_fee.value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %>
-                                 <% link_to number_to_currency(student.get_private_classes(date), unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %> 
+                                 <%= link_to number_to_currency(student.get_private_classes(date), unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %> 
                             <% elsif student.plan.both?%>
-                                <%= link_to number_to_currency(monthly_fee.value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %>
-                                <% link_to number_to_currency(monthly_fee.value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %>  <% link_to number_to_currency(student.get_private_classes(date), unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %>
+                            <% private_class_value = @private_class_totals[[student.id, date.beginning_of_month]] || 0 %>
+                                <%= link_to number_to_currency(monthly_fee.value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %> + <%= link_to number_to_currency(private_class_value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %>
                             <%end %>
                             <p style="white-space: nowrap;" class="mb-1">
                                 <%= monthly_fee.status == 'Paga' && monthly_fee.payment_date.present? ? monthly_fee.payment_date.strftime('%d/%m') : monthly_fee.status %>
