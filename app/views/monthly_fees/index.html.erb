@@ -110,7 +110,8 @@
                                  <%= link_to number_to_currency(student.get_private_classes(date), unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %> 
                             <% elsif student.plan.both?%>
                             <% private_class_value = @private_class_totals[[student.id, date.beginning_of_month]] || 0 %>
-                                <%= link_to number_to_currency(monthly_fee.value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %> + <%= link_to number_to_currency(private_class_value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %>
+                                <%= link_to number_to_currency(monthly_fee.value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %> + 
+                                <%= link_to number_to_currency(private_class_value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %>
                             <%end %>
                             <p style="white-space: nowrap;" class="mb-1">
                                 <%= monthly_fee.status == 'Paga' && monthly_fee.payment_date.present? ? monthly_fee.payment_date.strftime('%d/%m') : monthly_fee.status %>
