@@ -91,7 +91,7 @@ class MonthlyFeesController < ApplicationController
 
     if status == 'Paga'
       value = mf.calculate_payment_value
-      attrs = { status:, payment_date: Time.zone.today }
+      attrs = { status:, payment_date: Time.zone.today - 1.day }
       attrs[:value] = value if value.present?
       mf.update(attrs)
     else
