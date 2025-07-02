@@ -45,7 +45,7 @@ class Student < ApplicationRecord
 
   def get_private_classes(date)
     start_of_month = date.beginning_of_month
-    end_of_month = date.end_of_month
+    end_of_month = date.end_of_month.end_of_day
     current_plan.private_lessons.where(start_time: start_of_month..end_of_month).count * (current_plan.value_per_hour || 0)
   end
 
