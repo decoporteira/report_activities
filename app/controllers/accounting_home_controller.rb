@@ -51,7 +51,7 @@ class AccountingHomeController < ApplicationController
           .where(email: [nil, ''])
       ).count
 
-    @not_paid_percent = MonthlyFee.where(due_date: start_of_month..end_of_month, status: 'A pagar').count * 100 / (MonthlyFee.where(due_date: start_of_month..end_of_month).count.nonzero? || 1)
+    @not_paid_percent = MonthlyFee.where(due_date: Time.zone.today.beginning_of_month..end_of_month, status: 'A pagar').count * 100 / (MonthlyFee.where(due_date: start_of_month..end_of_month).count.nonzero? || 1)
 
     @last_montlhy_paids = MonthlyFee.where(status: 'Paga').order(due_date: :desc).limit(6)
     @monthly_fees_late = MonthlyFee.where(status: 'Atrasada').order(due_date: :asc).limit(6)
