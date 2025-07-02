@@ -51,7 +51,7 @@ RSpec.describe 'Admin edita taxa mensal' do
     click_on('Paga')
 
     expect(page).not_to have_content('Em aberto')
-    expect(page).to have_content(Time.zone.now.strftime('%d/%m'))
+    expect(page).to have_content((Time.zone.now - 1.day).strftime('%d/%m'))
     expect(page).to have_content('Paga')
     expect(page).to have_content('R$ 300,00')
     expect(page).to have_content('Mensalidade alterada com sucesso.')

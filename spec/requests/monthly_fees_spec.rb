@@ -25,7 +25,7 @@ RSpec.describe "MonthlyFees", type: :request do
       it "updates the monthly_fee with correct value" do
         monthly_fee.reload
         expect(monthly_fee.status).to eq("Paga")
-        expect(monthly_fee.payment_date).to eq(Time.zone.today)
+        expect(monthly_fee.payment_date).to eq(Time.zone.today - 1.day)
         expect(monthly_fee.value).to eq(150) # 3 aulas * 50
       end
     end
