@@ -21,5 +21,19 @@ class MonthlyFee < ApplicationRecord
     }[status]
   end
 
-  
+  def calculate_payment_value
+    plan = student.current_plan.plan
+    return nil unless plan.per_class? || plan.both?
+
+    due_date = self.due_date
+
+    start_date = (due_date - 1.month).beginning_of_month
+    end_date = start_date.end_of_month.end_of_day
+
+    class_value = student.current_plan.value_per_hour
+    classes_count = student.current_plan.private_lessons.where(start_time: start_date..end_date).count
+    total = class_value * classes_count
+
+    plan.both? ? total + plan.price : total
+  end
 end

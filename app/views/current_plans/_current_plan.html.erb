@@ -21,6 +21,6 @@
   </p>
   <p>
     <strong>Valor total:</strong>
-    <%= current_plan.discount ? number_to_currency(current_plan.total - current_plan.discount) : number_to_currency(current_plan.total) %>
+    <%= current_plan.has_discount ? number_to_currency(current_plan.plan.price - current_plan.discount.to_f) : number_to_currency(current_plan.total) %>
   </p>
 </div>
