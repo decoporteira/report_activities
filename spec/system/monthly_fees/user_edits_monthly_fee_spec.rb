@@ -29,7 +29,14 @@ RSpec.describe 'Admin edita taxa mensal' do
       classroom_id: classroom.id,
       cpf: '065.654.654-01'
     )
+    plan = Plan.create!(name: 'Kids', price: 300, billing_type: 'monthly')
 
+    CurrentPlan.create!(
+      student_id: student.id,
+      plan_id: plan.id,
+      has_discount: false,
+      discount: 0
+    )
     MonthlyFee.create!(
       student_id: student.id,
       due_date: '2024-04-04',
@@ -43,7 +50,8 @@ RSpec.describe 'Admin edita taxa mensal' do
     click_on('Financeiro')
     click_on('Paga')
 
-    expect(page).to have_content((Time.zone.now - 1.day).strftime('%d/%m'))
+    expect(page).not_to have_content('Em aberto')
+    expect(page).to have_content(Time.zone.now.strftime('%d/%m'))
     expect(page).to have_content('Paga')
     expect(page).to have_content('R$ 300,00')
     expect(page).to have_content('Mensalidade alterada com sucesso.')

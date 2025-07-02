@@ -87,27 +87,15 @@ class MonthlyFeesController < ApplicationController
 
   def update_paid
     mf = MonthlyFee.find(params[:items][:id])
-    if params[:items][:status] == 'Paga'
-      if mf.student.current_plan.plan.per_class?
-        due_date = mf.due_date
-        previous_month = (due_date - 1.month).beginning_of_month
-        end_previous_month = previous_month.end_of_month.end_of_day
-        class_value = mf.student.current_plan.value_per_hour
-        classes_count = mf.student.current_plan.private_lessons.where(start_time: previous_month..end_previous_month).count
-        total_of_classes = (class_value * classes_count)
-        mf.update(status: params[:items][:status], payment_date: Time.zone.today, value: total_of_classes)
-      elsif mf.student.current_plan.plan.both?
-        due_date = mf.due_date
-        previous_month = (due_date - 1.month).beginning_of_month
-        end_previous_month = previous_month.end_of_month.end_of_day
-        class_value = mf.student.current_plan.value_per_hour
-        classes_count = mf.student.current_plan.private_lessons.where(start_time: previous_month..end_previous_month).count
-        total_of_classes = (class_value * classes_count) + mf.student.current_plan.plan.price
-        mf.update(status: params[:items][:status], payment_date: Time.zone.today, value: total_of_classes)
-      end
+    status = params[:items][:status]
 
+    if status == 'Paga'
+      value = mf.calculate_payment_value
+      attrs = { status:, payment_date: Time.zone.today }
+      attrs[:value] = value if value.present?
+      mf.update(attrs)
     else
-      mf.update(status: params[:items][:status])
+      mf.update(status:)
     end
     redirect_to request.referer, notice: t('.success')
   end
