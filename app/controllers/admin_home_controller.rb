@@ -15,6 +15,7 @@ class AdminHomeController < ApplicationController
     @kids = plan_counts['Kids'] || 0
     @teens = plan_counts['Teens'] || 0
     @adults = plan_counts['Adults'] || 0
+    @both = plan_counts['Particular e Turma'] || 0
     @privates = plan_counts['Particular'] || 0
   end
  

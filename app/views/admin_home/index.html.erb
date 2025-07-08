@@ -9,7 +9,7 @@
 />
 <div class="album py-2 bg-body-tertiary">
   <div class="container">
-    <p class="py-1 text-end">Kids: <%=  @kids %> | Adults: <%=  @adults %> | Privates: <%=  @privates %> | Total de alunos: <%= @students.count %> </p>
+    <p class="py-1 text-end">Kids: <%=  @kids %> | Adults: <%=  @adults %> | Privates: <%=  @privates %> | Priv. and Kids: <%= @both %> | Total de alunos: <%= @students.active.count %> </p>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="item">   
         <div class="col">
           <div class="card shadow-sm">
