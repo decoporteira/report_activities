@@ -2,10 +2,39 @@ class PrivateLessonsController < ApplicationController
   before_action :admin?
   def index
     @private_lessons = if current_user.admin?
+                        @teacher = Teacher.first
                          PrivateLesson.joins(:current_plan).where(current_plans: {teacher_id: 1})
                        else
+                        @teacher = Teacher.find(current_user.teacher.id)
                          PrivateLesson.joins(:current_plan).where(current_plans: {teacher_id: current_user.teacher.id})
                        end
+    @date = params[:start_date].present? ? Date.parse(params[:start_date]) : Time.zone.today
+    start_of_month = @date.beginning_of_month
+    end_of_month = @date.end_of_month
+    @month_classes = @private_lessons.where(start_time: start_of_month..end_of_month.end_of_day)
+    @month_total = @month_classes.sum('current_plans.value_per_hour') / 2
+
+    @private_lessons = PrivateLesson
+                       .includes(current_plan: %i[student teacher])
+                       .joins(current_plan: :teacher)
+                       .where(start_time: start_of_month..end_of_month.end_of_day)
+                       .where(current_plans: { teacher_id: @teacher.id })
+
+    @lesson_counts = @private_lessons
+                     .joins(:current_plan)
+                     .group('current_plans.student_id')
+                     .count
+
+    @lesson_values = @private_lessons
+                     .joins(:current_plan)
+                     .group('current_plans.student_id')
+                     .sum('current_plans.value_per_hour')
+
+   @lesson_values_per_teacher = @private_lessons
+                     .joins(:current_plan)
+                     .group('current_plans.teacher_id')
+                     .sum('current_plans.value_per_hour')
+
   end
 
   def show
