@@ -2,10 +2,12 @@ require 'rails_helper'
 
 RSpec.describe "PrivateLessons", type: :request do
   include Devise::Test::IntegrationHelpers
-
-  let(:user) { FactoryBot.create(:user) }
+  let(:user) { FactoryBot.create(:user, role: 'teacher') }
+  let(:teacher) { FactoryBot.create(:teacher, user:) }
   let(:private_lesson) { FactoryBot.create(:private_lesson) }
   before do
+    teacher
+    user.reload
     sign_in user
   end
 

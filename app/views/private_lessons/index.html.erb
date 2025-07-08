@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-between">
   <h1 class="text-primary">Aulas Particulares de Professor <%= current_user.admin? ? 'Clara' : current_user.teacher.name %></h1>
 </div>
-<div class="album py-5 bg-body-tertiary">
+<div class="album py-3 bg-body-tertiary">
   <div class="container">
     <%= month_calendar do |date| %>
       <div class="border p-1 rounded bg-light" style="min-height: 100px;">
@@ -18,6 +18,45 @@
             <%= lesson.start_time.strftime('%H:%M')%> - <%= link_to lesson.current_plan.student.first_and_last_name, lesson, class: 'text-white' %>  <%= '<i class="fa-solid fa-circle-exclamation"></i>'.html_safe if lesson.notes.present? %>
           </div>
         <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class="container mb-4">
+    <div class="card bg-body shadow-sm border-0 p-3">
+      <div class="row text-center">
+        <div class="col-md-6 mb-3 mb-md-0">
+          <span class="badge text-bg-primary mb-2 fs-6">
+            <i class="fa-solid fa-calendar-day me-1"></i>
+            Aulas em <%= I18n.l(@date, format: "%B") %>
+          </span>
+          <div class="display-6 fw-semibold text-body-emphasis"><%= @month_classes.count %></div>
+        </div>
+        <div class="col-md-6">
+          <span class="badge text-bg-success mb-2 fs-6">
+            <i class="fa-solid fa-money-bill-wave me-1"></i>
+            Valor a receber
+          </span>
+          <div class="display-6 fw-semibold text-success text-body-emphasis">
+            <%= number_to_currency(@month_total, unit: 'R$', separator: ',', delimiter: '.') %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row row-cols-1 row-cols-md-4  g-3 px-3 mb-4">
+    <% @lesson_counts.each do |student_id, count| %>
+      <div class="col">
+        <div class="card border-primary h-100">
+          <div class="card-body px-2">
+            <h5 class="card-title text-primary">
+              <i class="fa-solid fa-chalkboard-teacher me-2"></i>
+              <%= Student.find(student_id)&.name || "Desconhecido" %>
+            </h5>
+            <p class="card-text mb-1">
+              <strong>Aulas de <%= I18n.l(@date, format: "%B") %>:</strong> <%= count %>
+            </p>
+          </div>
+        </div>
       </div>
     <% end %>
   </div>
