@@ -6,12 +6,16 @@ Rails.application.initialize!
 
 ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.perform_deliveries = true
+ActionMailer::Base.default_url_options = {
+  host: 'reports.englishglobe.com.br',
+  protocol: 'https'
+}
 ActionMailer::Base.smtp_settings = {
-  address: 'smtp.gmail.com',
-  port: 587,
+  address: 'mail.smtp2go.com',
+  port: 2525,
   domain: 'englishglobe.com.br', 
-    user_name: Rails.application.credentials.dig(:smtp, :user_name), 
-    password: Rails.application.credentials.dig(:smtp, :password),
+    user_name: Rails.application.credentials.dig(:new_smtp, :user_name), 
+    password: Rails.application.credentials.dig(:new_smtp, :password),
   authentication: 'plain',
   enable_starttls_auto: true,
   open_timeout: 10,
