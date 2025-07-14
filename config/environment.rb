@@ -16,4 +16,5 @@ ActionMailer::Base.smtp_settings = {
   enable_starttls_auto: true,
   open_timeout: 10,
   read_timeout: 10,
+  family: :inet,
 }
