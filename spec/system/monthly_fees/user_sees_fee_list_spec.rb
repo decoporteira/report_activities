@@ -12,13 +12,13 @@ RSpec.describe 'User sees fees list' do
 
     MonthlyFee.create!(
       student_id: student_one.id,
-      due_date: '2025-04-04',
+      due_date: '2025-08-08',
       value: 300,
       status: 'Paga'
     )
     MonthlyFee.create!(
       student_id: student_two.id,
-      due_date: '2025-04-04',
+      due_date: '2025-08-08',
       value: 300,
       status: 'Paga'
     )

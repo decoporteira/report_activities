@@ -30,25 +30,6 @@ class MonthlyFeesController < ApplicationController
           .order(:name)
       end
 
-    @date = Time.zone.today
-    start_of_month = @date.beginning_of_month
-    end_of_month = @date.end_of_month
-
-    @private_lessons = PrivateLesson
-                      .includes(current_plan: %i[student])
-                      .where(start_time: start_of_month..end_of_month)
-
-    @lesson_values = @private_lessons
-                    .joins(:current_plan)
-                    .group('current_plans.student_id')
-                    .sum('current_plans.value_per_hour')
-
-    @private_class_totals = PrivateLesson
-            .joins(:current_plan)
-            .where(start_time: Date.new(params[:year].to_i, 1, 1)..Date.new(params[:year].to_i, 12, 31))
-            .group("current_plans.student_id", "DATE_TRUNC('month', start_time)::date")
-            .sum("current_plans.value_per_hour")
-
       @material_billings = MaterialBilling
         .where(student_id: @students.map(&:id))
         .order(:created_at)
@@ -88,9 +69,8 @@ class MonthlyFeesController < ApplicationController
   def update_paid
     mf = MonthlyFee.find(params[:items][:id])
     status = params[:items][:status]
-
     if status == 'Paga'
-      value = mf.calculate_payment_value
+      value = params[:valor_pagamento].presence || mf.calculate_payment_value
       attrs = { status:, payment_date: Time.zone.today - 1.day }
       attrs[:value] = value if value.present?
       mf.update(attrs)
