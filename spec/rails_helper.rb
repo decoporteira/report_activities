@@ -1,7 +1,25 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
+
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
+require 'capybara/rspec'
+
+Capybara.register_driver :selenium_headless do |app|
+  options = ::Selenium::WebDriver::Firefox::Options.new
+  options.args << '--headless'
+
+  Capybara::Selenium::Driver.new(app, browser: :firefox, options: options)
+end
+
+Capybara.default_driver = :selenium_headless
+Capybara.javascript_driver = :selenium_headless
+
+RSpec.configure do |config|
+  config.before(:each, type: :system) do
+    driven_by :selenium_headless
+  end
+end
 
 # Prevent database truncation if the environment is production
 if Rails.env.production?
@@ -38,7 +56,13 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 RSpec.configure do |config|
   config.include ActiveSupport::Testing::TimeHelpers
-  config.before(type: :system) { driven_by(:rack_test) }
+   config.before(type: :system) do |example|
+    if example.metadata[:js]
+      driven_by :selenium_headless
+    else
+      driven_by :rack_test
+    end
+  end
   
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)

@@ -48,6 +48,7 @@
       placeholder="Digite o nome, email ou telefone do responsável para filtrar..."
       data-filter-target="input"
     />
+    
     <table class="fs-9 mb-0 border-top border-translucent table list-group-item">
       <thead>
         <tr>
@@ -85,8 +86,10 @@
                 <td class="font-weight-light mb-0 fs-6 fw-light text-center">
                   <% if student.plan.per_class?  %>
                     <span class="badge bg-secondary">Aluno Particular</span>
-                    <% else %>
-                     <span class="badge bg-secondary"><%= student.classroom&.name || "Turma não cadastrada" %></span>
+                    <% elsif student.plan.both? %>
+                     <span class="badge bg-secondary"><%= student.classroom&.name || "Turma não cadastrada" %> <br>Aluno Particular</span>
+                     <% else %>
+                     <span class="badge bg-secondary"><%= student.classroom&.name  %></span>
                   <% end %>
                
                 </td>
@@ -103,35 +106,30 @@
                     <% monthly_fee = student.monthly_fees_by_month[month] %>
                     <% if monthly_fee %>
                         <% color_status = color_statuses[monthly_fee.status] %>
-                        <td style="<%= color_status[:style] %>" class="text-center">
-                            <% if student.plan.monthly? %>
-                                <%= link_to number_to_currency(monthly_fee.value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %>
-                            <% elsif student.plan.per_class?%>
-                                <% if index <= 5 %>
-                                <%= link_to number_to_currency(monthly_fee.value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %>
-                                 <% else %>
-                                 <%= link_to number_to_currency(student.get_private_classes(date), unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %> 
-                                 <% end %>
-                            <% elsif student.plan.both?%>
-                             <% if index <= 5 %>
-                                <%= link_to number_to_currency(monthly_fee.value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %>
-                                <% else %>
-                            <% private_class_value = @private_class_totals[[student.id, date.beginning_of_month]] || 0 %>
-                                <% total_price = monthly_fee.student.current_plan.discount ? (monthly_fee.student.current_plan.plan.price - monthly_fee.student.current_plan.discount ) : monthly_fee.student.current_plan.plan.price%>
-                                <%= link_to number_to_currency(total_price, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %> + 
-                                <%= link_to number_to_currency(private_class_value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %>
+                        <td style="<%= color_status[:style] %>" class="text-center">                            
+                            <strong><%= link_to number_to_currency(monthly_fee.calculate_payment_value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %></strong>
+                            <%if monthly_fee.student.current_plan.plan.both? %>
+                              <p style="color:gray"><%= number_to_currency(monthly_fee.calculate_private_classes_payment_value, unit: "")%></p>
                             <% end %>
-                            <%end %>
                             <p style="white-space: nowrap;" class="mb-1">
                                 <%= monthly_fee.status == 'Paga' && monthly_fee.payment_date.present? ? monthly_fee.payment_date.strftime('%d/%m') : monthly_fee.status %>
                             </p>
                             <div class='d-flex justify-content-around'>
-                                <%= button_to update_paid_path(items: { id: monthly_fee.id, status: 'Paga' }),
-                                    method: :patch,
-                                    class: 'btn btn-outline-success btn-sm',
-                                    style: "--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: .70rem;" do %>
-                                    <i class="fa-solid fa-circle-check"></i>
-                                <% end %>
+                              <%= button_to update_paid_path(items: { id: monthly_fee.id, status: 'Paga' }),
+                                            method: :patch,
+                                            class: 'btn btn-outline-success btn-sm d-none',
+                                            style: "--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: .70rem;" do %>
+
+                                <button type="submit"
+                                        data-controller="payment"
+                                        data-action="click->payment#mostrarPromptEEnviar"
+                                        data-payment-fee-value="<%= number_to_currency(student.get_private_classes(date), unit: "") %>"
+                                        data-payment-billing-type-value="<%= monthly_fee.student.current_plan.plan.billing_type %>"
+                                        data-payment-monthly-value="<%= monthly_fee.value %>"
+                                  <i class="fa-solid fa-circle-check"></i>
+                                </button>
+
+                              <% end %>
                                 <%= button_to update_paid_path(items: { id: monthly_fee.id, status: 'Atrasada' }),
                                     method: :patch,
                                     class: 'btn btn-outline-danger btn-sm',
