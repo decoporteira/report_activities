@@ -30,12 +30,7 @@
             class: 'btn btn-outline-primary mb-2'
     %>
 <%=
-        link_to "Mensalidades Atrasadas",
-             monthly_fees_path(status: 'Atrasada'),
-            class: 'btn btn-outline-primary mb-2'
-    %>
-<%=
-        link_to "Ver todas as Mensalidades",
+        link_to "Ver mensalidades do ano",
             monthly_fees_path(year: (current_year)),
             class: 'btn btn-outline-primary mb-2'
     %>
@@ -53,8 +48,6 @@
       <thead>
         <tr>
           <th style="width: 27%">Nome</th>
-          <th style="width: 3%; text-align: center;">Turma</th>
-          <th style="width: 5%; text-align: center;">Extra</th>
           <th style="width: 5%; text-align: center;">Jan</th>
           <th style="width: 5%; text-align: center;">Fev</th>
           <th style="width: 5%; text-align: center;">Mar</th>

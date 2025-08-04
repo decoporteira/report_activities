@@ -19,39 +19,14 @@ class MonthlyFeesController < ApplicationController
             .active
             .order(:name)
         else
-          scope = params[:year] == '2025'?
-                    Student.with_monthly_fees_for_year(params[:year]) :
-                    Student.with_monthly_fees_for_semester(params[:year])
+          params[:year] == '2025'?
+                    Student.with_monthly_fees_for_year(params[:year]).order(:name) :
+                    Student.with_monthly_fees_for_semester(params[:year]).order(:name)
 
-          scope
-            .active
-            .includes(:monthly_fees, :financial_responsibles, :classroom)
-            .order(:name)
+            
         end
 
-      @date = Time.zone.today
-      start_of_month = @date.beginning_of_month
-      end_of_month = @date.end_of_month
-
-      @private_lessons = PrivateLesson
-                        .includes(current_plan: %i[student])
-                        .where(start_time: start_of_month..end_of_month)
-
-      @lesson_values = @private_lessons
-                      .joins(:current_plan)
-                      .group('current_plans.student_id')
-                      .sum('current_plans.value_per_hour')
-
-      @private_class_totals = PrivateLesson
-              .joins(:current_plan)
-              .where(start_time: Date.new(params[:year].to_i, 1, 1)..Date.new(params[:year].to_i, 12, 31))
-              .group("current_plans.student_id", "DATE_TRUNC('month', start_time)::date")
-              .sum("current_plans.value_per_hour")
-
-        @material_billings = MaterialBilling
-          .where(student_id: @students.map(&:id))
-          .order(:created_at)
-          .group_by(&:student_id)
+      
   end
 
   def show; end
