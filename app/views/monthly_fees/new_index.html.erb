@@ -1,0 +1,110 @@
+<% current_year = Time.zone.today.year %>
+<% months = %w[janeiro fevereiro março abril maio junho julho agosto setembro outubro novembro dezembro] %>
+<%
+  statuses = {
+    'Paga' => {
+      text: 'Paga',
+      css_class: 'btn btn-outline-success btn-sm',
+    },
+    'A pagar' => {
+      text: 'Aberto',
+      css_class: 'btn btn-outline-secondary btn-sm',
+    },
+    'Atrasada' => {
+      text: 'Atraso',
+      css_class: 'btn btn-outline-danger btn-sm',
+    },
+  }
+%>
+<%
+    color_statuses = {
+    'Paga' => { text: 'Paga', style: 'background-color:rgb(138, 233, 138)' },
+    'A pagar' => { text: 'A pagar', style: 'color:rgb(37, 37, 37); background-color:rgb(255, 255, 255)' },
+    'Atrasada' => { text: 'Atrasada', style: 'background-color:rgb(236, 160, 167)' },
+    }
+%>
+<h1>Mensalidades de 2025</h1>
+<%=
+        link_to "Ver mensalidades do semestre",
+             monthly_fees_path,
+            class: 'btn btn-outline-primary mb-2'
+    %>
+<%=
+        link_to "Mensalidades Atrasadas",
+             monthly_fees_path(status: 'Atrasada'),
+            class: 'btn btn-outline-primary mb-2'
+    %>
+<%=
+        link_to "Ver todas as Mensalidades",
+            monthly_fees_path(year: (current_year)),
+            class: 'btn btn-outline-primary mb-2'
+    %>
+<div>
+  <div class="mb-2" data-controller="filter">
+    <input
+      class="form-control"
+      id="myInput"
+      type="text"
+      placeholder="Digite o nome, email ou telefone do responsável para filtrar..."
+      data-filter-target="input"
+    />
+    
+    <table class="fs-9 mb-0 border-top border-translucent table list-group-item">
+      <thead>
+        <tr>
+          <th style="width: 27%">Nome</th>
+          <th style="width: 3%; text-align: center;">Turma</th>
+          <th style="width: 5%; text-align: center;">Extra</th>
+          <th style="width: 5%; text-align: center;">Jan</th>
+          <th style="width: 5%; text-align: center;">Fev</th>
+          <th style="width: 5%; text-align: center;">Mar</th>
+          <th style="width: 5%; text-align: center;">Abr</th>
+          <th style="width: 5%; text-align: center;">Mai</th>
+          <th style="width: 5%; text-align: center;">Jun</th>
+          <th style="width: 5%; text-align: center;">Jul</th>
+          <th style="width: 5%; text-align: center;">Ago</th>
+          <th style="width: 5%; text-align: center;">Set</th>
+          <th style="width: 5%; text-align: center;">Out</th>
+          <th style="width: 5%; text-align: center;">Nov</th>
+          <th style="width: 5%; text-align: center;">Dez</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <% @students.each do |student| %>
+           <h3><%= student.name %></h3>
+            <h3><% student.classroom %></h3>
+            <h3><%= student.plan&.name %></h3>
+            <% if student.plan&.per_class?  %>
+                    <span class="badge bg-secondary">Aluno Particular</span>
+                    <% elsif student.plan&.both? %>
+                     <span class="badge bg-secondary"><%= student.classroom&.name || "Turma não cadastrada" %> <br>Aluno Particular</span>
+                     <% else %>
+                     <span class="badge bg-secondary"><%= student.classroom&.name  %></span>
+            <% end %>
+            <p class="font-weight-light mb-0 fs-6 fw-light">
+                <% student.financial_responsibles&.each do |responsible| %>
+                <h4><%= responsible.name %> - <%= responsible.cpf %><br></h4>
+                <% end %>
+            </p>
+
+          <ul>
+            <% student.monthly_fees_for_year(2025).each do |fee| %>
+              <li>
+                <%= l(fee.due_date) %> - <%= number_to_currency(fee.value) %>
+              </li>
+            <% end %>
+          </ul> 
+                  
+               
+               
+              
+           
+        <% end %>
+
+        
+      </tbody>
+    </table>
+  </div>
+</div>
+
