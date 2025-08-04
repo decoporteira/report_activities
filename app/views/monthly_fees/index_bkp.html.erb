@@ -84,9 +84,9 @@
                 </p>
                 </td>
                 <td class="font-weight-light mb-0 fs-6 fw-light text-center">
-                  <% if student.plan&.per_class?  %>
+                  <% if student.plan.per_class?  %>
                     <span class="badge bg-secondary">Aluno Particular</span>
-                    <% elsif student.plan&.both? %>
+                    <% elsif student.plan.both? %>
                      <span class="badge bg-secondary"><%= student.classroom&.name || "Turma não cadastrada" %> <br>Aluno Particular</span>
                      <% else %>
                      <span class="badge bg-secondary"><%= student.classroom&.name  %></span>
@@ -125,7 +125,7 @@
                                         data-action="click->payment#mostrarPromptEEnviar"
                                         data-payment-fee-value="<%= number_to_currency(student.get_private_classes(date), unit: "") %>"
                                         data-payment-billing-type-value="<%= monthly_fee.student.current_plan.plan.billing_type %>"
-                                        data-payment-monthly-value="<%= monthly_fee.value %>">
+                                        data-payment-monthly-value="<%= monthly_fee.value %>"
                                   <i class="fa-solid fa-circle-check"></i>
                                 </button>
 
