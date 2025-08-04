@@ -107,6 +107,8 @@
                     <% if monthly_fee %>
                         <% color_status = color_statuses[monthly_fee.status] %>
                         <td style="<%= color_status[:style] %>" class="text-center">                            
+                           
+                            
                             <strong><%= link_to number_to_currency(monthly_fee.calculate_payment_value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %></strong>
                             <%if monthly_fee.student.current_plan.plan.both? %>
                               <p style="color:gray"><%= number_to_currency(monthly_fee.calculate_private_classes_payment_value, unit: "")%></p>
