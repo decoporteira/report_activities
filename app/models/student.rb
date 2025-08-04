@@ -20,6 +20,7 @@ class Student < ApplicationRecord
   scope :with_monthly_fees_for_year, lambda { |year|
     includes(:monthly_fees, :financial_responsibles, :classroom)
       .where(monthly_fees: { due_date: Date.new(year.to_i).beginning_of_year..Date.new(year.to_i).end_of_year })
+      .active
   }
   scope :with_monthly_fees_for_semester, lambda { |year|
   joins(:monthly_fees)
@@ -93,4 +94,11 @@ class Student < ApplicationRecord
   def has_per_class_plan?
     current_plan&.plan&.per_class?
   end
+
+  def monthly_fees_for_year(year)
+    monthly_fees
+      .select { |fee| fee.due_date.year == year.to_i }
+      .sort_by(&:due_date)
+  end
+
 end

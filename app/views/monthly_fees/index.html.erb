@@ -84,9 +84,9 @@
                 </p>
                 </td>
                 <td class="font-weight-light mb-0 fs-6 fw-light text-center">
-                  <% if student.plan.per_class?  %>
+                  <% if student.plan&.per_class?  %>
                     <span class="badge bg-secondary">Aluno Particular</span>
-                    <% elsif student.plan.both? %>
+                    <% elsif student.plan&.both? %>
                      <span class="badge bg-secondary"><%= student.classroom&.name || "Turma não cadastrada" %> <br>Aluno Particular</span>
                      <% else %>
                      <span class="badge bg-secondary"><%= student.classroom&.name  %></span>
@@ -144,6 +144,8 @@
                 <% end %>
             </tr>
         <% end %>
+
+        
       </tbody>
     </table>
   </div>
