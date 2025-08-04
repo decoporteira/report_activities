@@ -83,24 +83,6 @@
                     <% end %>
                 </p>
                 </td>
-                <td class="font-weight-light mb-0 fs-6 fw-light text-center">
-                  <% if student.plan&.per_class?  %>
-                    <span class="badge bg-secondary">Aluno Particular</span>
-                    <% elsif student.plan&.both? %>
-                     <span class="badge bg-secondary"><%= student.classroom&.name || "Turma não cadastrada" %> <br>Aluno Particular</span>
-                     <% else %>
-                     <span class="badge bg-secondary"><%= student.classroom&.name  %></span>
-                  <% end %>
-               
-                </td>
-                <td class="font-weight-light mb-0 fs-6 fw-light text-center">
-                  <% billing = @material_billings[student.id]&.last %>
-                    <% if billing %>
-                      <%= link_to billing.name, edit_material_billing_path(billing) %>
-                    <% else %>
-                      <%= link_to "Nova cobrança", new_material_billing_path(student_id: student.id) %>
-                    <% end %>
-                </td>
                 <% months.each_with_index do |month, index| %>
                 <% date = Date.new(Date.today.year, index + 1, 1) << 1%>
                     <% monthly_fee = student.monthly_fees_by_month[month] %>
@@ -108,11 +90,8 @@
                         <% color_status = color_statuses[monthly_fee.status] %>
                         <td style="<%= color_status[:style] %>" class="text-center">                            
                             <strong><%= link_to number_to_currency(monthly_fee.calculate_payment_value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %></strong>
-                            <%if monthly_fee.student.current_plan.plan.both? %>
-                              <p style="color:gray"><%= number_to_currency(monthly_fee.calculate_private_classes_payment_value, unit: "")%></p>
-                            <% end %>
                             <p style="white-space: nowrap;" class="mb-1">
-                                <%= monthly_fee.status == 'Paga' && monthly_fee.payment_date.present? ? monthly_fee.payment_date.strftime('%d/%m') : monthly_fee.status %>
+                               
                             </p>
                             <div class='d-flex justify-content-around'>
                               <%= button_to update_paid_path(items: { id: monthly_fee.id, status: 'Paga' }),
@@ -130,12 +109,7 @@
                                 </button>
 
                               <% end %>
-                                <%= button_to update_paid_path(items: { id: monthly_fee.id, status: 'Atrasada' }),
-                                    method: :patch,
-                                    class: 'btn btn-outline-danger btn-sm',
-                                    style: "--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: .70rem;" do %>
-                                    <i class="fa-solid fa-ban"></i>
-                                <% end %>
+                                
                             </div>
                         </td>
                     <% else %>
