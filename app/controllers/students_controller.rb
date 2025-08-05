@@ -111,6 +111,14 @@ class StudentsController < ApplicationController
     end
   end
 
+  def private_classes_value
+    student = Student.find(params[:id])
+    date = Date.parse(params[:date])
+    value = student.get_private_classes(date)
+
+    render json: { value: view_context.number_to_currency(value, unit: "") }
+  end
+
   private
 
   def set_student
@@ -180,4 +188,5 @@ class StudentsController < ApplicationController
     end
     format.json { render json: @student.errors, status: :unprocessable_entity }
   end
+  
 end

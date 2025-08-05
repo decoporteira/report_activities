@@ -31,54 +31,105 @@
 #   )
 # end
 
-pokemon_names_batch = [
-  ['Bulbasaur', 'Ivysaur', 'Venusaur', 'Charmander', 'Charmeleon', 'Charizard',
-   'Squirtle', 'Wartortle', 'Blastoise', 'Caterpie', 'Metapod', 'Butterfree',
-   'Weedle', 'Kakuna', 'Beedrill'],
-  ['Pidgey', 'Pidgeotto', 'Pidgeot', 'Rattata', 'Raticate', 'Spearow', 'Fearow',
-   'Ekans', 'Arbok', 'Pikachu', 'Raichu', 'Sandshrew', 'Sandslash', 'Nidoran♀',
-   'Nidorina'],
-  ['Nidoqueen', 'Nidoran♂', 'Nidorino', 'Nidoking', 'Clefairy', 'Clefable',
-   'Vulpix', 'Ninetales', 'Jigglypuff', 'Wigglytuff', 'Zubat', 'Golbat', 'Oddish',
-   'Gloom', 'Vileplume'],
-  ['Paras', 'Parasect', 'Venonat', 'Venomoth', 'Diglett', 'Dugtrio', 'Meowth',
-   'Persian', 'Psyduck', 'Golduck', 'Mankey', 'Primeape', 'Growlithe', 'Arcanine',
-   'Poliwag'],
-  ['Poliwhirl', 'Poliwrath', 'Abra', 'Kadabra', 'Alakazam', 'Machop', 'Machoke',
-   'Machamp', 'Bellsprout', 'Weepinbell', 'Victreebel', 'Tentacool', 'Tentacruel',
-   'Geodude', 'Graveler'],
-  ['Golem', 'Ponyta', 'Rapidash', 'Slowpoke', 'Slowbro', 'Magnemite', 'Magneton',
-   'Farfetch’d', 'Doduo', 'Dodrio', 'Seel', 'Dewgong', 'Grimer', 'Muk',
-   'Shellder'],
-  ['Cloyster', 'Gastly', 'Haunter', 'Gengar', 'Onix', 'Drowzee', 'Hypno',
-   'Krabby', 'Kingler', 'Voltorb', 'Electrode', 'Exeggcute', 'Exeggutor', 'Cubone',
-   'Marowak'],
-  ['Hitmonlee', 'Hitmonchan', 'Lickitung', 'Koffing', 'Weezing', 'Rhyhorn',
-   'Rhydon', 'Chansey', 'Tangela', 'Kangaskhan', 'Horsea', 'Seadra', 'Goldeen',
-   'Seaking', 'Staryu'],
-  ['Starmie', 'Mr. Mime', 'Scyther', 'Jynx', 'Electabuzz', 'Magmar', 'Pinsir',
-   'Tauros', 'Magikarp', 'Gyarados', 'Lapras', 'Ditto', 'Eevee', 'Vaporeon',
-   'Jolteon'],
-  ['Flareon', 'Porygon', 'Omanyte', 'Omastar', 'Kabuto', 'Kabutops', 'Aerodactyl',
-   'Snorlax', 'Articuno', 'Zapdos', 'Moltres', 'Dratini', 'Dragonair', 'Dragonite',
-   'Mewtwo', 'Mew']
+pokemon_names = [
+  "Turtwig", "Grotle", "Torterra",
+  "Chimchar", "Monferno", "Infernape",
+  "Piplup", "Prinplup", "Empoleon",
+  "Starly", "Staravia", "Staraptor",
+  "Bidoof", "Bibarel",
+  "Kricketot", "Kricketune",
+  "Shinx", "Luxio", "Luxray",
+  "Budew", "Roserade",
+  "Cranidos", "Rampardos",
+  "Shieldon", "Bastiodon",
+  "Burmy", "Wormadam", "Mothim",
+  "Combee", "Vespiquen",
+  "Pachirisu",
+  "Buizel", "Floatzel",
+  "Cherubi", "Cherrim",
+  "Shellos", "Gastrodon",
+  "Ambipom",
+  "Drifloon", "Drifblim",
+  "Buneary", "Lopunny",
+  "Mismagius",
+  "Honchkrow",
+  "Glameow", "Purugly",
+  "Chingling",
+  "Stunky", "Skuntank",
+  "Bronzor", "Bronzong",
+  "Bonsly",
+  "Mime Jr.",
+  "Happiny",
+  "Chatot",
+  "Spiritomb",
+  "Gible", "Gabite", "Garchomp",
+  "Munchlax",
+  "Riolu", "Lucario",
+  "Hippopotas", "Hippowdon",
+  "Skorupi", "Drapion",
+  "Croagunk", "Toxicroak",
+  "Carnivine",
+  "Finneon", "Lumineon",
+  "Mantyke",
+  "Snover", "Abomasnow",
+  "Weavile",
+  "Magnezone",
+  "Lickilicky",
+  "Rhyperior",
+  "Tangrowth",
+  "Electivire",
+  "Magmortar",
+  "Togekiss",
+  "Yanmega",
+  "Leafeon",
+  "Glaceon",
+  "Gliscor",
+  "Mamoswine",
+  "Porygon-Z",
+  "Gallade",
+  "Probopass",
+  "Dusknoir",
+  "Froslass",
+  "Rotom",
+  "Uxie", "Mesprit", "Azelf",
+  "Dialga", "Palkia", "Heatran",
+  "Regigigas",
+  "Giratina",
+  "Cresselia",
+  "Phione",
+  "Manaphy",
+  "Darkrai",
+  "Shaymin",
+  "Arceus"
 ]
 
-classrooms = Classroom.all.to_a # Obtém todas as salas existentes no banco
+pokemon_names_batch = pokemon_names.each_slice(15).to_a
+
+classrooms = Classroom.all.to_a
+plans = Plan.all.to_a
 
 pokemon_names_batch.each_with_index do |pokemon_batch, index|
-  # Obtém a sala correspondente ao índice
-  classroom = classrooms[index % classrooms.size] # Garante que os Pokémon sejam distribuídos circularmente
+  classroom = classrooms[index % classrooms.size]
 
-  # Criar estudantes para cada Pokémon no subarray
   pokemon_batch.each_with_index do |pokemon_name, sub_index|
-    Student.create!(
-      name: pokemon_name, 
-      status: :registered, 
-      cpf: format('000.000.000.%03d', index * 15 + sub_index + 1), 
-      classroom_id: classroom.id, 
-      cel_phone: format('3299922-%05d', index * 15 + sub_index + 1), 
+    student = Student.create!(
+      name: pokemon_name,
+      status: :registered,
+      cpf: format('000.000.000.%03d', index * 15 + sub_index + 1),
+      classroom_id: classroom.id,
+      cel_phone: format('3299922-%05d', index * 15 + sub_index + 1),
       email: "#{pokemon_name.downcase}@email.com"
+    )
+
+    plan = plans.sample
+    has_discount = [true, false].sample
+    discount = has_discount ? rand(5..30) : 0
+
+    CurrentPlan.create!(
+      student: student,
+      plan: plan,
+      has_discount: has_discount,
+      discount: discount
     )
   end
 end

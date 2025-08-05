@@ -21,7 +21,7 @@ class Student < ApplicationRecord
      includes(:monthly_fees)
     .active
     .where(monthly_fees: {
-      due_date: Date.new(year.to_i).beginning_of_year..Date.new(2025, 10, 10)
+      due_date: Date.new(year.to_i).beginning_of_year..Date.new(2025, 12, 10)
     })
     .distinct
   }

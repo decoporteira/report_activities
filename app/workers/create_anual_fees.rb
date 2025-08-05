@@ -7,7 +7,7 @@ class CreateAnualFees
 
       current_year = Time.zone.today.year
       Student.transaction do
-        (6..12).each do |month|
+        (2..12).each do |month|
           next if student.monthly_fees.exists?(due_date: Date.new(current_year, month, 10))
 
           create_monthly_fee(student, month, current_year)

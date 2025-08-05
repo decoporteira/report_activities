@@ -7,31 +7,41 @@ export default class extends Controller {
     monthly: String,
   };
 
-  mostrarPromptEEnviar(event) {
+  async mostrarPromptEEnviar(event) {
     if (this.billingTypeValue === "monthly") {
       return;
     }
     event.preventDefault();
+    const button = event.currentTarget;
+    const studentId = button.dataset.paymentStudentId;
+    const date = button.dataset.paymentDate;
+
+    const response = await fetch(
+      `/students/${studentId}/private_classes_value?date=${date}`
+    );
+    const data = await response.json();
     let msg;
     if (this.billingTypeValue === "both") {
       msg =
         "Valor de aulas particulares: " +
-        this.feeValue +
+        data.value +
         " Mensalidade: " +
         this.monthlyValue;
     } else {
-      msg = "Valor de aulas particulares: " + this.feeValue;
+      msg = "Valor de aulas particulares: " + data.value;
     }
     const insertedValue = prompt(msg);
 
     if (insertedValue === null) {
       return;
     }
+    const sanitizedValue = insertedValue.replace(",", ".");
+
     const form = this.element.closest("form");
     const input = document.createElement("input");
     input.type = "hidden";
     input.name = "valor_pagamento";
-    input.value = insertedValue;
+    input.value = sanitizedValue;
     form.appendChild(input);
     form.submit();
   }
