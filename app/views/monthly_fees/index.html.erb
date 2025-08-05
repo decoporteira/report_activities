@@ -1,5 +1,5 @@
 <% current_year = Time.zone.today.year %>
-<% params[:year].present? ? months = %w[março abril maio junho julho agosto] :  months = %w[junho julho agosto]   %>
+<% params[:year].present? ? months = %w[janeiro fevereiro março abril maio junho julho agosto setembro outubro novembro dezembro] :  months = %w[junho julho agosto]   %>
 <%
   statuses = {
     'Paga' => {
@@ -50,16 +50,18 @@
       </thead>
       <tbody>
         
-        <% @students.each do |student| %>
+        <% @students.each_with_index do |student, index| %>
             <tr data-filter-target="row">
                 <td style="vertical-align: middle;">
                 <strong>
-                    <%= link_to student.name, student_path(student), class:'link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover', title:"Ver detalhes do aluno" %>
+                    <%= index %> - <%= link_to student.name, student_path(student), class:'link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover', title:"Ver detalhes do aluno" %>
                 </strong> - <%= student.cpf %>
                 <p class="font-weight-light mb-0 fs-6 fw-light">
+                 
                     <% student.financial_responsibles.each do |responsible| %>
                     <%= responsible.name %> - <%= responsible.cpf %><br>
                     <% end %>
+                 
                 </p>
                 </td>
                 <% months.each_with_index do |month, index| %>
@@ -70,7 +72,7 @@
                         <td style="<%= color_status[:style] %>" class="text-center">                            
                             <strong><%= link_to number_to_currency(monthly_fee.calculate_payment_value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %></strong>
                             <p style="white-space: nowrap;" class="mb-1">
-                              <%= monthly_fee.due_date.strftime('%d/%m') %>
+                              <%= monthly_fee.status == 'Paga' ? monthly_fee.payment_date.strftime('%d/%m') : monthly_fee.status %>
                             </p>
                             <div class='d-flex justify-content-around'>
                               <%= button_to update_paid_path(items: { id: monthly_fee.id, status: 'Paga' }),
@@ -81,7 +83,8 @@
                                 <button type="submit"
                                         data-controller="payment"
                                         data-action="click->payment#mostrarPromptEEnviar"
-                                        data-payment-fee-value="<%= number_to_currency(student.get_private_classes(date), unit: "") %>"
+                                        data-payment-student-id="<%= student.id %>"
+                                        data-payment-date="<%= date %>"
                                         data-payment-billing-type-value="<%= monthly_fee.student.current_plan.plan.billing_type %>"
                                         data-payment-monthly-value="<%= monthly_fee.value %>">
                                   <i class="fa-solid fa-circle-check"></i>

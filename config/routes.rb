@@ -40,12 +40,12 @@ Rails
     patch 'update_paid', to: 'monthly_fees#update_paid'
 
     resources :students do
+      get 'private_classes_value', on: :member
       collection do
         get 'incomplete'
         get 'not_registered'
         get 'email_list'
         get 'private_classes_students'
-        
       end
       
       get 'activities_by_student', on: :member
