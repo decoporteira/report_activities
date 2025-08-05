@@ -1,5 +1,5 @@
 <% current_year = Time.zone.today.year %>
-<% months = %w[janeiro fevereiro março abril maio junho julho agosto setembro outubro novembro dezembro] %>
+<% params[:year].present? ? months = %w[março abril maio junho julho agosto] :  months = %w[junho julho agosto]   %>
 <%
   statuses = {
     'Paga' => {
@@ -24,6 +24,7 @@
     }
 %>
 <h1>Mensalidades de 2025</h1>
+
 <%=
         link_to "Ver mensalidades do semestre",
              monthly_fees_path,
@@ -46,21 +47,6 @@
     
     <table class="fs-9 mb-0 border-top border-translucent table list-group-item">
       <thead>
-        <tr>
-          <th style="width: 27%">Nome</th>
-          <th style="width: 5%; text-align: center;">Jan</th>
-          <th style="width: 5%; text-align: center;">Fev</th>
-          <th style="width: 5%; text-align: center;">Mar</th>
-          <th style="width: 5%; text-align: center;">Abr</th>
-          <th style="width: 5%; text-align: center;">Mai</th>
-          <th style="width: 5%; text-align: center;">Jun</th>
-          <th style="width: 5%; text-align: center;">Jul</th>
-          <th style="width: 5%; text-align: center;">Ago</th>
-          <th style="width: 5%; text-align: center;">Set</th>
-          <th style="width: 5%; text-align: center;">Out</th>
-          <th style="width: 5%; text-align: center;">Nov</th>
-          <th style="width: 5%; text-align: center;">Dez</th>
-        </tr>
       </thead>
       <tbody>
         
@@ -84,7 +70,7 @@
                         <td style="<%= color_status[:style] %>" class="text-center">                            
                             <strong><%= link_to number_to_currency(monthly_fee.calculate_payment_value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %></strong>
                             <p style="white-space: nowrap;" class="mb-1">
-                               
+                              <%= monthly_fee.due_date.strftime('%d/%m') %>
                             </p>
                             <div class='d-flex justify-content-around'>
                               <%= button_to update_paid_path(items: { id: monthly_fee.id, status: 'Paga' }),
