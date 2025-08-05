@@ -7,13 +7,11 @@ class MonthlyFeesController < ApplicationController
     @monthly_fee = MonthlyFee.new
   end
   def index
-    params[:year] ||= Time.zone.today.year
-
     @students =
       if params[:year] == '2025'
         Student.with_monthly_fees_for_year(params[:year]).order(:name)
       else
-        Student.with_monthly_fees_for_semester(params[:year]).order(:name)
+        Student.with_monthly_fees_for_semester('2025').order(:name)
       end
   end
 
