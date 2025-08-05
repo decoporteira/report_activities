@@ -9,24 +9,12 @@ class MonthlyFeesController < ApplicationController
   def index
     params[:year] ||= Time.zone.today.year
 
-      @students =
-        if params[:status] == 'Atrasada'
-          Student
-            .joins(:monthly_fees, :plan)
-            .merge(MonthlyFee.where(status: 'Atrasada'))
-            .distinct
-            .includes(:monthly_fees, :financial_responsibles, :classroom)
-            .active
-            .order(:name)
-        else
-          params[:year] == '2025'?
-                    Student.with_monthly_fees_for_year(params[:year]).order(:name) :
-                    Student.with_monthly_fees_for_semester(params[:year]).order(:name)
-
-            
-        end
-
-      
+    @students =
+      if params[:year] == '2025'
+        Student.with_monthly_fees_for_year(params[:year]).order(:name)
+      else
+        Student.with_monthly_fees_for_semester(params[:year]).order(:name)
+      end
   end
 
   def show; end
