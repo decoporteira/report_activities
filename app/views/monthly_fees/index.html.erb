@@ -1,5 +1,5 @@
 <% current_year = Time.zone.today.year %>
-<% params[:year].present? ? months = %w[janeiro fevereiro março abril maio junho julho agosto setembro outubro novembro dezembro] :  months = %w[junho julho agosto]   %>
+<% params[:year].present? ? months = %w[fevereiro março abril maio junho julho agosto ] :  months = %w[junho julho agosto]   %>
 <%
   statuses = {
     'Paga' => {
@@ -47,14 +47,22 @@
     
     <table class="fs-9 mb-0 border-top border-translucent table list-group-item">
       <thead>
+           
+        <tr>
+          <th style="width: 27%">Nome</th>
+          <% months.each do |month| %>
+            <th style="width: 5%; text-align: center;"><%= month %></th>
+          <% end %>
+        </tr>
+     
       </thead>
       <tbody>
         
-        <% @students.each_with_index do |student, index| %>
+        <% @students.each do |student| %>
             <tr data-filter-target="row">
                 <td style="vertical-align: middle;">
                 <strong>
-                    <%= index %> - <%= link_to student.name, student_path(student), class:'link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover', title:"Ver detalhes do aluno" %>
+                  <%= link_to student.name, student_path(student), class:'link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover', title:"Ver detalhes do aluno" %>
                 </strong> - <%= student.cpf %>
                 <p class="font-weight-light mb-0 fs-6 fw-light">
                  
