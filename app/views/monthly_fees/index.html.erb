@@ -72,7 +72,7 @@
                         <td style="<%= color_status[:style] %>" class="text-center">                            
                             <strong><%= link_to number_to_currency(monthly_fee.calculate_payment_value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %></strong>
                             <p style="white-space: nowrap;" class="mb-1">
-                              <%= monthly_fee.status == 'Paga' ? monthly_fee.payment_date.strftime('%d/%m') : monthly_fee.status %>
+                              <%= monthly_fee.status == 'Paga' && monthly_fee.payment_date.present? ? monthly_fee.payment_date.strftime('%d/%m') : monthly_fee.status %>
                             </p>
                             <div class='d-flex justify-content-around'>
                               <%= button_to update_paid_path(items: { id: monthly_fee.id, status: 'Paga' }),
