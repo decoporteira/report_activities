@@ -55,7 +55,6 @@
       </thead>
       <tbody>
         <% @students.each do |student| %>
-        <% cache student do %>
             <tr data-filter-target="row">
                 <td style="vertical-align: middle;">
                 <strong>
@@ -99,7 +98,6 @@
                 <% end %>
                 </td>
             </tr>
-            <% end %>
         <% end %>
 
         
