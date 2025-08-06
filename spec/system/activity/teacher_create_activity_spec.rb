@@ -43,7 +43,7 @@ RSpec.describe 'teacher creates activity' do
     visit(root_path)
     click_on('Enter Classroom')
     fill_in 'report', with: 'Cuspir fogo'
-    fill_in 'Date', with: "02/02/#{Date.current.year}"
+    fill_in 'Date', with: "02/#{Date.current.month}/#{Date.current.year}"
     select 'Feito', from: 'Late'
     click_on 'Criar atividade'
 
