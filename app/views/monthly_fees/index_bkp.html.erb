@@ -153,3 +153,18 @@
   </div>
 </div>
 
+ <%= button_to update_paid_path(items: { id: monthly_fee.id, status: 'Paga' }),
+                                            method: :patch,
+                                            class: 'btn btn-outline-success btn-sm d-none',
+                                            style: "--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: .70rem;" do %>
+
+                                <button type="submit"
+                                        data-controller="payment"
+                                        data-action="click->payment#mostrarPromptEEnviar"
+                                        data-payment-student-id="<%= student.id %>"
+                                        data-payment-date="<%= date %>"
+                                        data-payment-billing-type-value="<%= monthly_fee.student.current_plan.plan.billing_type %>"
+                                        data-payment-monthly-value="<%= monthly_fee.value %>">
+                                  <i class="fa-solid fa-circle-check"></i>
+                                </button>
+                              <% end %>
