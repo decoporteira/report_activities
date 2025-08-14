@@ -57,11 +57,7 @@ end
 RSpec.configure do |config|
   config.include ActiveSupport::Testing::TimeHelpers
    config.before(type: :system) do |example|
-    if example.metadata[:js]
-      driven_by :selenium_headless
-    else
       driven_by :rack_test
-    end
   end
   
   config.before(:suite) do

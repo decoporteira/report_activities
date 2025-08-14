@@ -39,4 +39,20 @@ class MonthlyFee < ApplicationRecord
     total = calculate_private_classes_payment_value
     plan.both? ? total + self.value : total
   end
+
+  def self.calculate_private_classes_payment(private_lesson)
+    class_value = private_lesson.current_plan.value_per_hour
+    return 0 unless class_value
+
+    date = private_lesson.start_time
+    start_date = date.beginning_of_month
+    end_date = start_date.end_of_month.end_of_day
+    classes_count = private_lesson.current_plan.private_lessons.where(start_time: start_date..end_date).count
+    total = class_value * classes_count
+    #puts "- - - - -- - - - - -- - data de inicio: #{start_date} - -- - - - - -- - - - -- - - - -- --- - - - - - --"
+    #puts "- - - - -- - - - - -- - data final:  #{end_date} - -- - - - - -- - - - -- - - - -- --- - - - - - --"
+    #puts "- - - - -- - - - - -- -total de aulas: #{classes_count} - -- - - - - -- - - - -- - - - -- --- - - - - - --"
+    #puts "- - - - -- - - - - -- -valor total: #{total} - -- - - - - -- - - - -- - - - -- --- - - - - - --"
+    total
+  end
 end

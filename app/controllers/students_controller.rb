@@ -175,6 +175,7 @@ class StudentsController < ApplicationController
           redirect_to student_path(@student), notice: t('.success')
         end
         format.json { render :show, status: :created, location: @student }
+        create_monthly_fee(@student)
       else
         handle_save_failure(format)
       end
@@ -189,4 +190,17 @@ class StudentsController < ApplicationController
     format.json { render json: @student.errors, status: :unprocessable_entity }
   end
   
+  def create_monthly_fee(student)
+    current_month = Time.zone.today.month
+    current_year = Time.zone.today.year
+    current_month = current_month == 1 ? 2 : current_month
+    unless student.monthly_fees.exists?(due_date: Date.new(current_year, current_month, 10))
+      MonthlyFee.create!(
+        student: student,
+        value: student.current_plan.discounted_price,
+        due_date: Date.new(current_year, current_month, 10),
+        status: 'A pagar'
+      )
+    end
+  end
 end

@@ -7,7 +7,9 @@ RSpec.describe "MonthlyFees", type: :request do
     let(:student) { create(:student) }
     let(:plan) { create(:plan, :per_class) }
     let(:current_plan) { create(:current_plan, student: student, plan: plan, value_per_hour: 50) }
-    let(:monthly_fee) { create(:monthly_fee, student: student, due_date: Date.current) }
+    let(:monthly_fee) { create(:monthly_fee, student: student, due_date: Date.current.change(day: 10)) }
+    let(:monthly_fee) { create(:monthly_fee, student: student, due_date: Date.current.next_month.change(day: 10)) }
+
 
     before do
       sign_in user
@@ -17,7 +19,8 @@ RSpec.describe "MonthlyFees", type: :request do
     context "when status is 'Paga' and plan is per_class" do
       before do
         headers = { "HTTP_REFERER" => "/" }
-        create_list(:private_lesson, 3, current_plan: current_plan, start_time: 1.month.ago.beginning_of_month + 2.days)
+        start_time = monthly_fee.due_date.prev_month.beginning_of_month + 2.days
+        create_list(:private_lesson, 3, current_plan: current_plan, start_time: start_time)
         patch '/update_paid', params: { items: { id: monthly_fee.id, status: 'Paga', value: 10 } }, headers: headers
 
       end
