@@ -46,7 +46,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
     expect(page).to have_content('CPF: 000.000.000-01')
   end
 
-  it 'accounting a partir do menu e falha pois não tem permissão' do
+  it 'accounting a partir do menu com sucesso' do
     # arrange
     user =
       User.create!(
@@ -62,7 +62,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
         cpf: '087.097.098-01'
       )
     Classroom.create!(name: 'MW 17:00', teacher_id: teacher.id, time: '23:00')
-
+    FactoryBot.create(:plan, name: 'Kids', price: 330)
     # act
     login_as(user)
     visit(root_path)
@@ -72,6 +72,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
     fill_in 'cpf', with: '000.000.000-01'
     select 'Matriculado', from: 'student_status'
     select 'MW 17:00', from: 'student_classroom_id'
+    select 'Kids', from: 'student_plan_id'
     click_on 'Criar Aluno'
 
     # assert

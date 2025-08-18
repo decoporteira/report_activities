@@ -3,26 +3,29 @@ require 'rails_helper'
 RSpec.describe 'Usuário cria aula particular' do
   it 'com sucesso' do
     user = FactoryBot.create(:user, role: 'teacher')
-    FactoryBot.create(:plan, name: 'Kids', price: 330)
-    FactoryBot.create(:plan, name: 'Teens', price: 350)
-    FactoryBot.create(:student, name: 'Brock')
+    teacher = FactoryBot.create(:teacher, user_id: user.id, name: 'Ash')
+    plan = FactoryBot.create(:plan, name: 'Particular', price: 330, billing_type: :per_class)
+    student = FactoryBot.create(:student, name: 'Pikachu')
+    FactoryBot.create(:current_plan, plan_id: plan.id, student_id: student.id, teacher_id: teacher.id )
 
     login_as(user)
     visit(root_path)
     click_on('Aulas Particulares')
-    click_on('Curso por aluno')
-    click_on('Criar um novo plano para um aluno')
-    fill_in 'Desconto', with: 10
-    check('Tem desconto')
-    select 'Kids', from: 'current_plan_plan_id'
-    select 'Brock', from: 'current_plan_student_id'
-    click_on 'Criar Plano Atual'
+    within(all('td.wday-5').first) do
+      click_link 'Criar aula'
+    end
+    select 'Pikachu', from: 'private_lesson_current_plan_id'
+    select '2', from: 'private_lesson_start_time_3i'
+    select 'agosto', from: 'private_lesson_start_time_2i'
+    select '11 AM', from: 'private_lesson_start_time_4i'
+    fill_in 'private_lesson_notes', with: 'Aula de reposição'
+    click_on 'Criar Private lesson'
 
-    expect(page).to have_content('Plano atual criado com sucesso')
-    expect(page).to have_content('Curso: Kids')
-    expect(page).to have_content('Desconto: Desconto cadastrado')
-    expect(page).to have_content('Valor do desconto: R$ 10,00')
-    expect(page).to have_content('Aluno: Brock')
-    expect(page).to have_content('Valor total: R$ 320,00')
+    expect(page).to have_content('Aula particular criada com sucesso.')
+    expect(page).to have_content('Aluno(a): Pikachu')
+    expect(page).to have_content('Aula: 02/08')
+    expect(page).to have_content('Horário: 11:00')
+    expect(page).to have_content('Professor(a): Ash')
+    expect(page).to have_content('Anotação: Aula de reposição')
   end
 end
