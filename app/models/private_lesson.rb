@@ -7,12 +7,17 @@ class PrivateLesson < ApplicationRecord
 
   def calculate_private_classes
     total = MonthlyFee.calculate_private_classes_payment(self)
-    mf = current_plan.student.monthly_fees.find_by(due_date: start_time.to_date.beginning_of_month.next_month.change(day: 10))
-    mf.update(value: total)
-    #puts "------------------------------------ Total: #{total}-----------------------------------------------------------"
-    #puts "------------------------------------ Vencimento: #{mf.due_date}-----------------------------------------------------------"
-    #puts "------------------------------------ Name: #{mf.student.name}-----------------------------------------------------------"
-    #puts "------------------------------------ Id: #{mf.id}-----------------------------------------------------------"
-    #puts "------------------------------------ Value: #{mf.value}-----------------------------------------------------------"
+
+    base_date = start_time || Date.today
+    due_date = base_date.to_date.next_month.change(day: 10)
+
+    student = current_plan.student
+    mf = student.monthly_fees.find_or_initialize_by(due_date: due_date)
+    mf.student = student
+    mf.value = total
+    mf.status = 'A pagar'
+    mf.has_discount = false if mf.has_discount
+
+    mf.save!
   end
 end
