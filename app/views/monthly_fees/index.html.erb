@@ -87,9 +87,10 @@
                                         data-controller="payment"
                                         data-action="click->payment#mostrarPromptEEnviar"
                                         data-payment-student-id="<%= student.id %>"
-                                        data-payment-date="<%= date %>"
+                                        data-payment-date="<%= monthly_fee.due_date.prev_month %>"
                                         data-payment-billing-type-value="<%= monthly_fee.student.current_plan.plan.billing_type %>"
-                                        data-payment-monthly-value="<%= monthly_fee.value %>">
+                                        data-payment-monthly-value="<%= monthly_fee.value %>"
+                                        data-payment-plan-total-value="<%= monthly_fee.student.current_plan.total %>">
                                   <i class="fa-solid fa-circle-check"></i>
                                 </button>
                               <% end %>

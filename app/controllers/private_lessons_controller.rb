@@ -70,7 +70,12 @@ class PrivateLessonsController < ApplicationController
 
   def new_lesson_admin
     @private_lesson = PrivateLesson.new
-    @current_plans = CurrentPlan.joins(:plan, :student).where(plans: { billing_type: [Plan.billing_types[:per_class], Plan.billing_types[:both]] }).order('student.name')
+    #@current_plans = CurrentPlan.joins(:plan, :student).where(plans: { billing_type: [Plan.billing_types[:per_class], Plan.billing_types[:both]] }).order('student.name')
+    @current_plans = CurrentPlan
+      .includes(:student, :plan) # evita N+1
+      .joins(:plan, :student)    # mantém join para where/order
+      .where(plans: { billing_type: [Plan.billing_types[:per_class], Plan.billing_types[:both]] })
+      .order('students.name')    # plural: nome da tabela
 
     if params[:start_date].present?
       date = Date.parse(params[:start_date]) rescue nil

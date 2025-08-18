@@ -5,6 +5,7 @@ export default class extends Controller {
     fee: String,
     billingType: String,
     monthly: String,
+    planTotal: String,
   };
 
   async mostrarPromptEEnviar(event) {
@@ -26,7 +27,7 @@ export default class extends Controller {
         "Valor de aulas particulares: " +
         data.value +
         " Mensalidade: " +
-        this.monthlyValue;
+        this.planTotalValue;
     } else {
       msg = "Valor de aulas particulares: " + data.value;
     }
