@@ -31,7 +31,7 @@ RSpec.describe 'Teacher edita presença' do
     visit(root_path)
     click_on 'Enter Classroom'
     fill_in 'report', with: 'Megaevolução'
-    fill_in 'date', with: '02/02/2025'
+    fill_in 'date', with: "02/#{Date.current.month}/#{Date.current.year}"
     click_on 'Criar atividade'
 
     expect(page).to have_content('Megaevolução (feito)')
@@ -69,11 +69,11 @@ RSpec.describe 'Teacher edita presença' do
       )
     Activity.create!(
       report: 'Megaevolução',
-      date: '02/02/2025',
+      date: "02/#{Date.current.month}/#{Date.current.year}",
       student_id: student.id,
       late: 'feito'
     )
-    Attendance.create!(student_id: student.id, attendance_date: '02/02/2025')
+    Attendance.create!(student_id: student.id, attendance_date: "02/#{Date.current.month}/#{Date.current.year}")
 
     login_as(user_teacher)
     visit(classroom_path(classroom))
@@ -113,13 +113,13 @@ RSpec.describe 'Teacher edita presença' do
       )
     Activity.create!(
       report: 'Megaevolução',
-      date: '02/02/2025',
+      date: "02/#{Date.current.month}/#{Date.current.year}",
       student_id: student.id,
       late: 'feito'
     )
     Attendance.create!(
       student_id: student.id,
-      attendance_date: '10/10/2024',
+      attendance_date: "02/#{Date.current.month}/#{Date.current.year}",
       presence: false
     )
 

@@ -114,6 +114,33 @@ class MonthlyFeesController < ApplicationController
         .order(:created_at)
         .group_by(&:student_id)
   end
+
+  def show_late_fees
+    @students = Student.joins(:monthly_fees, current_plan: :plan)
+                   .merge(MonthlyFee.where(status: 'A pagar', due_date: Date.new(Time.zone.today.year, Time.zone.today.month, 10)))
+                   .where(plans: { billing_type: :monthly })
+                   .active
+                   @email_map = {}
+     @email_map = {}
+
+    @students.each do |student|
+      if student.responsibles.any?
+        responsible = student.responsibles.first
+        email = responsible.email
+        name  = responsible.name
+      else
+        email = student.email
+        name  = student.name
+      end
+
+      # usa o nome, e se não tiver, coloca o id como fallback
+       @email_map[email] ||= {
+          name: name.presence || "Sem nome",
+          student_id: student.id
+    }
+    end
+  end
+
   private
 
   def update_current_plan

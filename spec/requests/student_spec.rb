@@ -100,7 +100,8 @@ RSpec.describe 'Students', type: :request do
         name: 'Venossaur',
         status: :registered,
         classroom_id: classroom.id,
-        cpf: '000.097.098-01'
+        cpf: '000.097.098-01',
+        current_plan: '222'
       }
 
       login_as(user)

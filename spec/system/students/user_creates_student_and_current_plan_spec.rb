@@ -115,7 +115,7 @@ RSpec.describe 'Tipo de usuário cria uma student' do
     #expect(page).to have_content('Professor(a): Bianca')
     #expect(page).to have_content('Turma: MW 17:00')
     expect(page).to have_content('CPF: 000.000.000-01')
-    expect(page).to have_content('Curso: Particular')
+    expect(page).to have_content('Cursos: Particular')
 
     # Garantir que mensalidade é do aluno certo
     expect(mf.student.name).to eq('Onix')
