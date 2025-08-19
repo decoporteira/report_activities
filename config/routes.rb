@@ -37,6 +37,7 @@ Rails
     #get 'monthly_fees/fee_list', to: 'monthly_fees#fee_list'
     get 'monthly_fees/fee_list', to: redirect('/monthly_fees')
     get 'monthly_fees/new_index', to: 'monthly_fees#new_index'
+    get 'monthly_fees/late', to: 'monthly_fees#show_late_fees'
     patch 'update_paid', to: 'monthly_fees#update_paid'
 
     resources :students do

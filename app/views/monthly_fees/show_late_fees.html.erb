@@ -1,0 +1,8 @@
+<h1>Mensalidades atrasadas</h1>
+<ol>
+  <% @email_map.sort_by { |_email, data| data[:student_id] }.each do |email, data| %>
+    <li>
+      <%= data[:student_id] %> - <%= data[:name] %> | <strong><%= email %></strong>
+    </li>
+  <% end %>
+</ol>
