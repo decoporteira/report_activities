@@ -124,10 +124,10 @@ class MonthlyFeesController < ApplicationController
      @email_map = {}
 
     @students.each do |student|
-      if student.responsibles.any?
-        responsible = student.responsibles.first
+      if student.financial_responsibles.any?
+        responsible = student.financial_responsibles.first
         email = responsible.email
-        name  = responsible.name
+        name  = student.name
       else
         email = student.email
         name  = student.name
