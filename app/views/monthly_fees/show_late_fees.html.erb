@@ -1,8 +1,15 @@
-<h1>Mensalidades atrasadas</h1>
+<h1>Mensalidades atrasadas Agosto de 2025</h1>
 <ol>
-  <% @email_map.sort_by { |_email, data| data[:student_id] }.each do |email, data| %>
+  <% @email_map.each do |email, data| %>
     <li>
-      <%= data[:student_id] %> - <%= data[:name] %> | <strong><%= email %></strong>
+      Email: <%= email %>
+      <% data[:students].each do |student| %>
+        <p>
+          ID: <%=  student[:id] %> - 
+          Nome: <%= link_to student[:name], student_path(student[:id])  %> - 
+          Responsável: <%= student[:responsible] %>
+        </p>
+      <% end %>
     </li>
   <% end %>
 </ol>

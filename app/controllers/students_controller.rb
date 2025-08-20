@@ -42,8 +42,7 @@ class StudentsController < ApplicationController
         current_plan.update(plan_id: params[:student][:plan_id]) if params[:student][:plan_id].present?
         current_plan.update(value_per_hour: params[:student][:value_per_hour]) if params[:student][:value_per_hour].present?
         current_plan.update(teacher_id: params[:student][:teacher_id]) if params[:student][:teacher_id].present?
-        
-       format.html do
+        format.html do
           redirect_to student_path(@student), notice: t('.success')
         end
         format.json { render :info, status: :ok, location: @student }
