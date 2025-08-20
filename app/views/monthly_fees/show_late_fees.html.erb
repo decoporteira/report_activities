@@ -1,4 +1,5 @@
 <h1 class="mb-4">Mensalidades atrasadas - Agosto de 2025</h1>
+<h2>Total de alunos em débito: <%= @email_map.count %></h2>
 <div class="container">
   <% @email_map.each do |email, data| %>
     <div class="card mb-3 shadow-sm">
@@ -12,7 +13,7 @@
             <li class="list-group-item d-flex justify-content-between align-items-center">
               <span><strong><%= link_to student[:name], student_path(student[:id]) %></strong></span>
               <% if student[:responsible] != 'Sem responsável' %>
-                <span class="badge bg-warning">Responsável: <%= link_to student[:responsible], financial_responsible_path(student[:responsible_id]) %></span>
+                <h5><span class="badge bg-warning">Responsável: <%= link_to student[:responsible], financial_responsible_path(student[:responsible_id]) %></span></h5>
               <% end %>
             </li>
           <% end %>
