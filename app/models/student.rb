@@ -30,9 +30,73 @@ class Student < ApplicationRecord
     .active
       .where(monthly_fees: { due_date: Date.new(year.to_i, 6, 1)..Date.new(2025, 8, 11) })
       .distinct
-}
+  }
    scope :with_plan_per_class, -> {
     joins(current_plan: :plan).where(plans: { billing_type: :per_class }).active
+  }
+
+  scope :classroom_with_monthly_fees_for_year, lambda { |year|
+    active
+      .joins(current_plan: :plan) # pega o plan primeiro
+      .where(plans: { billing_type: :monthly }) # filtra os planos
+      .joins(:monthly_fees) # só depois traz mensalidades
+      .where(
+        monthly_fees: {
+          due_date: Date.new(year.to_i, 2, 10)..Date.new(2025, 8, 10)
+        }
+      )
+      .distinct
+  }
+  scope :private_with_monthly_fees_for_semester, lambda { |year|
+    active
+      .joins(current_plan: :plan) # pega o plan primeiro
+      .where(plans: { billing_type: :monthly }) # filtra os planos
+      .joins(:monthly_fees) # só depois traz mensalidades
+      .where(
+        monthly_fees: {
+          due_date: Date.new(year.to_i, 6, 1)..Date.new(2025, 8, 11) 
+    }
+      )
+      .distinct
+  }
+
+  scope :classroom_with_monthly_fees_for_year, lambda { |year|
+      start_date = Date.new(year.to_i, 2, 1)   # 10 de fevereiro
+      end_date   = Date.new(year.to_i, 12, 31)
+    active
+      .joins(current_plan: :plan) # pega o plan primeiro
+      .where(plans: { billing_type: :monthly }) # filtra os planos
+      .joins(:monthly_fees) # só depois traz mensalidades
+      .where(
+        monthly_fees: {
+          due_date: start_date..end_date
+        }
+      )
+      .distinct
+  }
+  scope :private_with_monthly_fees_for_year, lambda { |year|
+    active
+      .joins(current_plan: :plan) 
+      .where(plans: { billing_type: :per_class }) 
+      .joins(:monthly_fees) 
+      .where(
+        monthly_fees: {
+          due_date: Date.new(year.to_i, 2, 10)..Date.new(2025, 12, 10)
+    }
+      )
+      .distinct
+  }
+  scope :both_with_monthly_fees_for_year, lambda { |year|
+    active
+      .joins(current_plan: :plan) 
+      .where(plans: { billing_type: :both }) 
+      .joins(:monthly_fees) 
+      .where(
+        monthly_fees: {
+          due_date: Date.new(year.to_i, 2, 10)..Date.new(2025, 12, 10)
+    }
+      )
+      .distinct
   }
 
   include DateRangeHelper

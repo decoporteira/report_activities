@@ -1,52 +1,117 @@
-<table class="fs-9 mb-0 border-top border-translucent table list-group-item">
-  <tbody>
-    <% @students.each do |student| %>
-      <tr>
-        <td><%= student.name %></td>
-        <td><%= student.classroom&.name || "Sem turma" %></td>
-        <td><%= student.plan&.name %></td>
-        <td>
-          <% student.financial_responsibles.each do |responsible| %>
-            <div><%= responsible.name %> - <%= responsible.cpf %></div>
-          <% end %>
-        </td>
-        <td>
-          <ul>
-            <% student.monthly_fees_for_year(2025).each do |fee| %>
-              <li>
-                <% if student.plan&.monthly? %>
-                  <%= l(fee.due_date) %> - 
-                  <strong><%= link_to number_to_currency(fee.value), student_monthly_fee_path(fee.student, fee) %></strong> - <%= fee.status %>
-                <% else %>
-                  <%= l(fee.due_date) %> - 
-                  <strong><%= link_to number_to_currency(fee.calculate_payment_value), student_monthly_fee_path(fee.student, fee) %></strong> - <%= fee.status %>
-                <% end %>
-                <div class='d-flex justify-content-around'>
-                  <%= button_to update_paid_path(items: { id: fee.id, status: 'Paga' }),
-                                            method: :patch,
-                                            class: 'btn btn-outline-success btn-sm d-none',
-                                            style: "--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: .70rem;" do %>
-                    <button type="submit"
+<% current_year = Time.zone.today.year %>
+<% months = %w[fevereiro março abril maio junho julho agosto setembro outubro novembro dezembro ]%>
+<%
+  statuses = {
+    'Paga' => {
+      text: 'Paga',
+      css_class: 'btn btn-outline-success btn-sm',
+    },
+    'A pagar' => {
+      text: 'Aberto',
+      css_class: 'btn btn-outline-secondary btn-sm',
+    },
+    'Atrasada' => {
+      text: 'Atraso',
+      css_class: 'btn btn-outline-danger btn-sm',
+    }
+  }
+%>
+<%
+    color_statuses = {
+    'Paga' => { text: 'Paga', style: 'background-color:rgb(138, 233, 138)' },
+    'A pagar' => { text: 'A pagar', style: 'color:rgb(37, 37, 37); background-color:rgb(255, 255, 255)' },
+    'Atrasada' => { text: 'Atrasada', style: 'background-color:rgb(236, 160, 167)' },
+    }
+%>
+<% type_of_classes = {
+  'classroom' => {text: 'Turmas'},
+  'private' => {text: 'Aulas Particulares'},
+  'both' => {text: 'Turmas e Particulares'}
+  }
+  %>
+<% type_of_class = type_of_classes[params[:type]] %>
+<h1>Mensalidades de 2025 - <%= type_of_class[:text] %></h1>
+<%=
+        link_to "Mensalidades alunos turma",
+             monthly_fees_new_index_path(type: 'classroom'),
+            class: 'btn btn-outline-primary mb-2'
+    %>
+<%=
+        link_to "Mensalidades alunos particulares",
+            monthly_fees_new_index_path(type: 'private'),
+            class: 'btn btn-outline-primary mb-2'
+    %>
+<%=
+        link_to "Mensalidades alunos particulares e de turma",
+            monthly_fees_new_index_path(type: 'both'),
+            class: 'btn btn-outline-primary mb-2'
+    %>
+<div>
+  <div class="mb-2" data-controller="filter">
+    <input
+      class="form-control"
+      id="myInput"
+      type="text"
+      placeholder="Digite o nome, email ou telefone do responsável para filtrar..."
+      data-filter-target="input"
+    >
+      <table class="fs-9 mb-0 border-top border-translucent table list-group-item">
+        <thead>
+          <tr>
+            <th style="width: 27%">Nome</th>
+            <% months.each do |month| %>
+              <th style="width: 5%; text-align: center;"><%= month %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% @students.each do |student| %>
+            <tr data-filter-target="row">
+              <td style="vertical-align: middle;">
+                <strong>
+                  <%= link_to student.name, student_path(student), class:'link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover', title:"Ver detalhes do aluno" %>
+                </strong> - <%= student.cpf %>
+                <p class="font-weight-light mb-0 fs-6 fw-light">
+                  <% student.financial_responsibles.each do |responsible| %>
+                    <%= responsible.name %> - <%= responsible.cpf %><br>
+                  <% end %>
+                </p>
+              </td>
+              <% months.each_with_index do |month, index| %>
+                <td class="p-0">
+                  <% date = Date.new(Date.today.year, index + 1, 1) << 1%>
+                  <% monthly_fee = student.monthly_fees_by_month[month] %>
+                  <% next unless monthly_fee %>
+                  <% color_status = color_statuses[monthly_fee.status] %>
+                  <div style="<%= color_status[:style] %>" class="text-center py-1">
+                    <strong><%= link_to number_to_currency(monthly_fee.calculate_payment_value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %></strong>
+                    <p class="mb-1">
+                      <%= monthly_fee.payment_date&.strftime('%d/%m') %>
+                    </p>
+                    <div class='d-flex justify-content-around'>
+                      <%= form_with url: update_paid_path, method: :patch, class: 'd-inline' do %>
+                        <%= hidden_field_tag 'items[id]', monthly_fee.id %>
+                        <%= hidden_field_tag 'items[status]', 'Paga' %>
+                        <button type="submit"
+                                        class="btn btn-outline-success btn-sm"
+                                        style="--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: .70rem;"
                                         data-controller="payment"
                                         data-action="click->payment#mostrarPromptEEnviar"
-                      data-payment-fee-value="<%= number_to_currency(student.get_private_classes(fee.due_date), unit: "") %>"
-                      data-payment-billing-type-value="<%= fee.student.current_plan.plan.billing_type %>"
-                      data-payment-monthly-value="<%= fee.value %>">
-                      <i class="fa-solid fa-circle-check"></i>
-                    </button>
-                  <% end %>
-                  <%= button_to update_paid_path(items: { id: fee.id, status: 'Atrasada' }),
-                                method: :patch,
-                                class: 'btn btn-outline-danger btn-sm',
-                                style: "--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: .70rem;" do %>
-                    <i class="fa-solid fa-ban"></i>
-                  <% end %>
-                </div>
-              </li>
-            <% end %>
-          </ul>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+                          data-payment-student-id="<%= student.id %>"
+                          data-payment-date="<%= monthly_fee.due_date.prev_month %>"
+                          data-payment-billing-type-value="<%= monthly_fee.student.current_plan.plan.billing_type %>"
+                          data-payment-monthly-value="<%= monthly_fee.value %>"
+                          data-payment-plan-total-value="<%= monthly_fee.student.current_plan.total %>">
+                          <i class="fa-solid fa-circle-check"></i>
+                        </button>
+                      <% end %>
+                    </div>
+                  </div>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
