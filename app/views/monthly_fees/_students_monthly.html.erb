@@ -27,11 +27,13 @@
                 <%= monthly_fee.payment_date&.strftime('%d/%m') %>
               </p>
               <div class='d-flex justify-content-around'>
-                <%= form_with url: update_paid_path, method: :patch, class: "d-inline" do %>
-                  <%= hidden_field_tag "items[id]", monthly_fee.id %>
-                  <%= hidden_field_tag "items[status]", "Paga" %>
-                  <button type="submit" class="btn btn-outline-success btn-sm"
-                    style="--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: .70rem;">
+                <%= form_with url: update_paid_path, method: :patch, class: 'd-inline' do %>
+                  <%= hidden_field_tag 'items[id]', monthly_fee.id %>
+                  <%= hidden_field_tag 'items[status]', 'Paga' %>
+                  <button type="submit"
+                                        class="btn btn-outline-success btn-sm"
+                                        style="--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: .70rem;"
+                                        >
                     <i class="fa-solid fa-circle-check"></i>
                   </button>
                 <% end %>
