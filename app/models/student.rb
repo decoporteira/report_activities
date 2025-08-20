@@ -18,20 +18,20 @@ class Student < ApplicationRecord
   scope :inactive, -> { where(status: :unregistered) }
   scope :with_fees, -> { where(status: :registered).includes(:monthly_fees) }
   scope :with_monthly_fees_for_year, lambda { |year|
-     includes(:monthly_fees)
-    .active
-    .where(monthly_fees: {
-      due_date: Date.new(year.to_i, 2, 10)..Date.new(2025, 8, 10)
-    })
-    .distinct
+    includes(:monthly_fees)
+      .active
+      .where(monthly_fees: {
+               due_date: Date.new(year.to_i, 2, 10)..Date.new(2025, 8, 10)
+             })
+      .distinct
   }
   scope :with_monthly_fees_for_semester, lambda { |year|
     includes(:monthly_fees)
-    .active
+      .active
       .where(monthly_fees: { due_date: Date.new(year.to_i, 6, 1)..Date.new(2025, 8, 11) })
       .distinct
   }
-   scope :with_plan_per_class, -> {
+  scope :with_plan_per_class, -> {
     joins(current_plan: :plan).where(plans: { billing_type: :per_class }).active
   }
 
@@ -61,41 +61,45 @@ class Student < ApplicationRecord
   }
 
   scope :classroom_with_monthly_fees_for_year, lambda { |year|
-      start_date = Date.new(year.to_i, 2, 1)   # 10 de fevereiro
-      end_date   = Date.new(year.to_i, 12, 31)
+    start_date = Date.new(year.to_i, 2, 1)
+    end_date   = Date.new(year.to_i, 12, 31)
     active
-      .joins(current_plan: :plan) # pega o plan primeiro
-      .where(plans: { billing_type: :monthly }) # filtra os planos
-      .joins(:monthly_fees) # só depois traz mensalidades
+      .joins(current_plan: :plan)
+      .where(plans: { billing_type: :monthly })
+      .joins(:monthly_fees)
       .where(
         monthly_fees: {
           due_date: start_date..end_date
         }
       )
+      .includes(:financial_responsibles, :monthly_fees)
       .distinct
   }
   scope :private_with_monthly_fees_for_year, lambda { |year|
     active
-      .joins(current_plan: :plan) 
-      .where(plans: { billing_type: :per_class }) 
-      .joins(:monthly_fees) 
+      .joins(current_plan: :plan)
+      .where(plans: { billing_type: :per_class })
+      .joins(:monthly_fees)
       .where(
         monthly_fees: {
           due_date: Date.new(year.to_i, 2, 10)..Date.new(2025, 12, 10)
     }
       )
+      .includes(:monthly_fees, :financial_responsibles, current_plan: %i[private_lessons plan])
       .distinct
   }
+
   scope :both_with_monthly_fees_for_year, lambda { |year|
     active
-      .joins(current_plan: :plan) 
-      .where(plans: { billing_type: :both }) 
-      .joins(:monthly_fees) 
+      .joins(current_plan: :plan)
+      .where(plans: { billing_type: :both })
+      .joins(:monthly_fees)
       .where(
         monthly_fees: {
           due_date: Date.new(year.to_i, 2, 10)..Date.new(2025, 12, 10)
-    }
+        }
       )
+      .includes(:monthly_fees, :financial_responsibles, current_plan: :plan)
       .distinct
   }
 
@@ -104,6 +108,7 @@ class Student < ApplicationRecord
   def first_and_last_name
     parts = name.to_s.strip.split
     return name if parts.size <= 1
+
     "#{parts.first} #{parts.last}"
   end
 
@@ -167,5 +172,4 @@ class Student < ApplicationRecord
       .select { |fee| fee.due_date.year == year.to_i }
       .sort_by(&:due_date)
   end
-
 end

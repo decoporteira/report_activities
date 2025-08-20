@@ -1,0 +1,43 @@
+<tbody>
+  <% @students.each do |student| %>
+    <% latest_monthly_fee = student.monthly_fees_by_month.values.map(&:updated_at).max %>
+    <% cache ["student_row", student.id, latest_monthly_fee] do %>
+      <tr data-filter-target="row">
+        <td style="vertical-align: middle;">
+          <strong>
+            <%= link_to student.name, student_path(student), class:'link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover', title:"Ver detalhes do aluno" %>
+          </strong> - <%= student.cpf %>
+          <p class="font-weight-light mb-0 fs-6 fw-light">
+            <% cache ["student_responsibles", student.id] do %>
+              <% student.financial_responsibles.each do |responsible| %>
+                <%= responsible.name %> - <%= responsible.cpf %><br>
+              <% end %>
+            <% end %>
+          </p>
+        </td>
+        <% months.each_with_index do |month, index| %>
+          <td class="p-0">
+            <% date = Date.new(Date.today.year, index + 1, 1) << 1%>
+            <% monthly_fee = student.monthly_fees_by_month[month] %>
+            <% next unless monthly_fee %>
+            <% color_status = color_statuses[monthly_fee.status] %>
+            <div style="<%= color_status[:style] %>" class="text-center py-1">
+              <strong><%= link_to number_to_currency(monthly_fee.value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %></strong>
+              <p class="mb-1">
+                <%= monthly_fee.payment_date&.strftime('%d/%m') %>
+              </p>
+              <div class='d-flex justify-content-around'>
+                <%= button_to update_paid_path(items: { id: monthly_fee.id, status: 'Paga' }),
+                                            method: :patch,
+                                            class: 'btn btn-outline-success btn-sm',
+                                            style: "--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: .70rem;" do %>
+                  <i class="fa-solid fa-circle-check"></i>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+</tbody>
