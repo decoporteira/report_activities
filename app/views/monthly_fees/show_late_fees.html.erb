@@ -1,15 +1,23 @@
-<h1>Mensalidades atrasadas Agosto de 2025</h1>
-<ol>
+<h1 class="mb-4">Mensalidades atrasadas - Agosto de 2025</h1>
+<div class="container">
   <% @email_map.each do |email, data| %>
-    <li>
-      Email: <%= email %>
-      <% data[:students].each do |student| %>
-        <p>
-          ID: <%=  student[:id] %> - 
-          Nome: <%= link_to student[:name], student_path(student[:id])  %> - 
-          Responsável: <%= student[:responsible] %>
-        </p>
-      <% end %>
-    </li>
+    <div class="card mb-3 shadow-sm">
+      <div class="card-header bg-danger text-white">
+        <strong>Email de contato: <%= data[:email] %></strong>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Alunos</h5>
+        <ul class="list-group list-group-flush">
+          <% data[:students].each do |student| %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <span><strong><%= link_to student[:name], student_path(student[:id]) %></strong></span>
+              <% if student[:responsible] != 'Sem responsável' %>
+                <span class="badge bg-warning">Responsável: <%= link_to student[:responsible], financial_responsible_path(student[:responsible_id]) %></span>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
   <% end %>
-</ol>
+</div>

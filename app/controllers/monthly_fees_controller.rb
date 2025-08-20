@@ -114,6 +114,7 @@ class MonthlyFeesController < ApplicationController
         responsible = student.financial_responsibles.first
         responsible_name = responsible.name
         email = responsible.email
+        responsible_id = responsible.id
       else
         email = student.email
       end
@@ -121,23 +122,25 @@ class MonthlyFeesController < ApplicationController
       name = student.name
 
       if @email_map[email]
-    @email_map[email][:students] << {
-      id: student.id,
-      name: name,
-      responsible: responsible_name.presence || 'Sem responsável'
-    }
-  else
-    @email_map[email] = {
-      email: email,
-      students: [
-        {
+        @email_map[email][:students] << {
           id: student.id,
           name: name,
-          responsible: responsible_name.presence || 'Sem responsável'
+          responsible: responsible_name.presence || 'Sem responsável',
+          responsible_id: responsible_id.presence || 'Sem responsável'
         }
-      ]
-    }
-  end
+      else
+        @email_map[email] = {
+          email: email,
+          students: [
+            {
+              id: student.id,
+              name: name,
+              responsible: responsible_name.presence || 'Sem responsável',
+              responsible_id: responsible_id.presence || 'Sem responsável'
+            }
+          ]
+        }
+      end
     end
   end
 
