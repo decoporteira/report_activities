@@ -6,6 +6,7 @@ class MonthlyFeesController < ApplicationController
   def new
     @monthly_fee = MonthlyFee.new
   end
+
   def index
     @students =
       if params[:year] == '2025'
@@ -88,56 +89,39 @@ class MonthlyFeesController < ApplicationController
     @financial_responsibles = @student.financial_responsibles
   end
 
-
   def new_index
-    params[:year] ||= Time.zone.today.year
-
     @students =
-      if params[:status] == 'Atrasada'
-        Student
-          .joins(:monthly_fees, :plan)
-          .merge(MonthlyFee.where(status: 'Atrasada'))
-          .distinct
-          .includes(:monthly_fees, :financial_responsibles, :classroom)
-          .active
-          .order(:name)
+      if params[:type] == 'classroom'
+        Student.classroom_with_monthly_fees_for_year('2025').order(:name)
+      elsif params[:type] == 'private'
+        Student.private_with_monthly_fees_for_year('2025').order(:name)
       else
-        #Student.with_monthly_fees_for_year(params[:year]).order(:name)
-        #@year = params[:year].to_i
-      Student
-      .includes(:monthly_fees, :plan, :financial_responsibles, :classroom)
-      .active
+        Student.both_with_monthly_fees_for_year('2025').order(:name)
       end
-
-      @material_billings = MaterialBilling
-        .where(student_id: @students.map(&:id))
-        .order(:created_at)
-        .group_by(&:student_id)
   end
 
   def show_late_fees
     @students = Student.joins(:monthly_fees, current_plan: :plan)
-                   .merge(MonthlyFee.where(status: 'A pagar', due_date: Date.new(Time.zone.today.year, Time.zone.today.month, 10)))
-                   .where(plans: { billing_type: :monthly })
-                   .active
-                   @email_map = {}
-     @email_map = {}
+                       .where(monthly_fees: {status: 'A pagar',
+                                             due_date: Date.new(Time.zone.today.year, Time.zone.today.month, 10)})
+                       .where(plans: { billing_type: :monthly })
+                       .active
+
+    @email_map = {}
 
     @students.each do |student|
       if student.financial_responsibles.any?
         responsible = student.financial_responsibles.first
         email = responsible.email
-        name  = student.name
       else
         email = student.email
-        name  = student.name
       end
+      name = student.name
 
-      # usa o nome, e se não tiver, coloca o id como fallback
-       @email_map[email] ||= {
-          name: name.presence || "Sem nome",
-          student_id: student.id
-    }
+      @email_map[email] ||= {
+        name: name.presence || "Sem nome",
+        student_id: student.id
+      }
     end
   end
 
