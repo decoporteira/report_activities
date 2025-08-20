@@ -10,30 +10,29 @@
   id="myInput"
   type="text"
   placeholder="Digite o nome, email ou telefone do responsável para filtrar..."
-/>
-<br />
-<ul class="list-group" id="myList">
-  <% @financial_responsibles.each do |responsable| %>
-    <li class="list-group-item ">
-      <div class="d-flex">
-        <div style="width: 30%;">
-          <%= link_to responsable.name, responsable %>
+>
+  <br />
+  <ul class="list-group" id="myList">
+    <% @financial_responsibles.each do |responsable| %>
+      <li class="list-group-item ">
+        <div class="d-flex">
+          <div style="width: 30%;">
+            <%= link_to responsable.name, responsable %>
+          </div>
+          <div style="width: 30%;"><%= responsable.cpf %></div>
+          <div style="width: 30%;"><%= responsable.phone %></div>
+          <div style="width: 30%;"><%= responsable.email %></div>
         </div>
-        <div style="width: 30%;"><%= responsable.cpf %></div>
-        <div style="width: 30%;"><%= responsable.phone %></div>
-        <div style="width: 30%;"><%= responsable.email %></div>
-      </div>
-    </li>
-  <% end %>
-</ul>
-
-<script>
-  $(document).ready(function () {
-    $("#myInput").on("keyup", function () {
-      var value = $(this).val().toLowerCase();
-      $("#myList li").filter(function () {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+      </li>
+    <% end %>
+  </ul>
+  <script>
+    $(document).ready(function () {
+      $("#myInput").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $("#myList li").filter(function () {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+        });
       });
     });
-  });
-</script>
+  </script>

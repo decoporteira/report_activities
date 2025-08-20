@@ -47,124 +47,114 @@
       type="text"
       placeholder="Digite o nome, email ou telefone do responsável para filtrar..."
       data-filter-target="input"
-    />
-    
-    <table class="fs-9 mb-0 border-top border-translucent table list-group-item">
-      <thead>
-        <tr>
-          <th style="width: 27%">Nome</th>
-          <th style="width: 3%; text-align: center;">Turma</th>
-          <th style="width: 5%; text-align: center;">Extra</th>
-          <th style="width: 5%; text-align: center;">Jan</th>
-          <th style="width: 5%; text-align: center;">Fev</th>
-          <th style="width: 5%; text-align: center;">Mar</th>
-          <th style="width: 5%; text-align: center;">Abr</th>
-          <th style="width: 5%; text-align: center;">Mai</th>
-          <th style="width: 5%; text-align: center;">Jun</th>
-          <th style="width: 5%; text-align: center;">Jul</th>
-          <th style="width: 5%; text-align: center;">Ago</th>
-          <th style="width: 5%; text-align: center;">Set</th>
-          <th style="width: 5%; text-align: center;">Out</th>
-          <th style="width: 5%; text-align: center;">Nov</th>
-          <th style="width: 5%; text-align: center;">Dez</th>
-        </tr>
-      </thead>
-      <tbody>
-        
-        <% @students.each do |student| %>
+    >
+      <table class="fs-9 mb-0 border-top border-translucent table list-group-item">
+        <thead>
+          <tr>
+            <th style="width: 27%">Nome</th>
+            <th style="width: 3%; text-align: center;">Turma</th>
+            <th style="width: 5%; text-align: center;">Extra</th>
+            <th style="width: 5%; text-align: center;">Jan</th>
+            <th style="width: 5%; text-align: center;">Fev</th>
+            <th style="width: 5%; text-align: center;">Mar</th>
+            <th style="width: 5%; text-align: center;">Abr</th>
+            <th style="width: 5%; text-align: center;">Mai</th>
+            <th style="width: 5%; text-align: center;">Jun</th>
+            <th style="width: 5%; text-align: center;">Jul</th>
+            <th style="width: 5%; text-align: center;">Ago</th>
+            <th style="width: 5%; text-align: center;">Set</th>
+            <th style="width: 5%; text-align: center;">Out</th>
+            <th style="width: 5%; text-align: center;">Nov</th>
+            <th style="width: 5%; text-align: center;">Dez</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @students.each do |student| %>
             <tr data-filter-target="row">
-                <td style="vertical-align: middle;">
+              <td style="vertical-align: middle;">
                 <strong>
-                    <%= link_to student.name, student_path(student), class:'link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover', title:"Ver detalhes do aluno" %>
+                  <%= link_to student.name, student_path(student), class:'link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover', title:"Ver detalhes do aluno" %>
                 </strong> - <%= student.cpf %>
                 <p class="font-weight-light mb-0 fs-6 fw-light">
-                    <% student.financial_responsibles.each do |responsible| %>
+                  <% student.financial_responsibles.each do |responsible| %>
                     <%= responsible.name %> - <%= responsible.cpf %><br>
-                    <% end %>
-                </p>
-                </td>
-                <td class="font-weight-light mb-0 fs-6 fw-light text-center">
-                  <% if student.plan.per_class?  %>
-                    <span class="badge bg-secondary">Aluno Particular</span>
-                    <% elsif student.plan.both? %>
-                     <span class="badge bg-secondary"><%= student.classroom&.name || "Turma não cadastrada" %> <br>Aluno Particular</span>
-                     <% else %>
-                     <span class="badge bg-secondary"><%= student.classroom&.name  %></span>
                   <% end %>
-               
-                </td>
-                <td class="font-weight-light mb-0 fs-6 fw-light text-center">
-                  <% billing = @material_billings[student.id]&.last %>
-                    <% if billing %>
-                      <%= link_to billing.name, edit_material_billing_path(billing) %>
-                    <% else %>
-                      <%= link_to "Nova cobrança", new_material_billing_path(student_id: student.id) %>
-                    <% end %>
-                </td>
-                <% months.each_with_index do |month, index| %>
+                </p>
+              </td>
+              <td class="font-weight-light mb-0 fs-6 fw-light text-center">
+                <% if student.plan.per_class?  %>
+                  <span class="badge bg-secondary">Aluno Particular</span>
+                <% elsif student.plan.both? %>
+                  <span class="badge bg-secondary"><%= student.classroom&.name || "Turma não cadastrada" %> <br>
+                    Aluno Particular</span>
+                <% else %>
+                  <span class="badge bg-secondary"><%= student.classroom&.name  %></span>
+                <% end %>
+              </td>
+              <td class="font-weight-light mb-0 fs-6 fw-light text-center">
+                <% billing = @material_billings[student.id]&.last %>
+                <% if billing %>
+                  <%= link_to billing.name, edit_material_billing_path(billing) %>
+                <% else %>
+                  <%= link_to "Nova cobrança", new_material_billing_path(student_id: student.id) %>
+                <% end %>
+              </td>
+              <% months.each_with_index do |month, index| %>
                 <% date = Date.new(Date.today.year, index + 1, 1) << 1%>
-                    <% monthly_fee = student.monthly_fees_by_month[month] %>
-                    <% if monthly_fee %>
-                        <% color_status = color_statuses[monthly_fee.status] %>
-                        <td style="<%= color_status[:style] %>" class="text-center">                            
-                           
-                            
-                            <strong><%= link_to number_to_currency(monthly_fee.calculate_payment_value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %></strong>
-                            <%if monthly_fee.student.current_plan.plan.both? %>
-                              <p style="color:gray"><%= number_to_currency(monthly_fee.calculate_private_classes_payment_value, unit: "")%></p>
-                            <% end %>
-                            <p style="white-space: nowrap;" class="mb-1">
-                                <%= monthly_fee.status == 'Paga' && monthly_fee.payment_date.present? ? monthly_fee.payment_date.strftime('%d/%m') : monthly_fee.status %>
-                            </p>
-                            <div class='d-flex justify-content-around'>
-                              <%= button_to update_paid_path(items: { id: monthly_fee.id, status: 'Paga' }),
+                <% monthly_fee = student.monthly_fees_by_month[month] %>
+                <% if monthly_fee %>
+                  <% color_status = color_statuses[monthly_fee.status] %>
+                  <td style="<%= color_status[:style] %>" class="text-center">
+                    <strong><%= link_to number_to_currency(monthly_fee.calculate_payment_value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %></strong>
+                    <%if monthly_fee.student.current_plan.plan.both? %>
+                      <p style="color:gray"><%= number_to_currency(monthly_fee.calculate_private_classes_payment_value, unit: "")%></p>
+                    <% end %>
+                    <p style="white-space: nowrap;" class="mb-1">
+                      <%= monthly_fee.status == 'Paga' && monthly_fee.payment_date.present? ? monthly_fee.payment_date.strftime('%d/%m') : monthly_fee.status %>
+                    </p>
+                    <div class='d-flex justify-content-around'>
+                      <%= button_to update_paid_path(items: { id: monthly_fee.id, status: 'Paga' }),
                                             method: :patch,
                                             class: 'btn btn-outline-success btn-sm d-none',
                                             style: "--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: .70rem;" do %>
-
-                                <button type="submit"
+                        <button type="submit"
                                         data-controller="payment"
                                         data-action="click->payment#mostrarPromptEEnviar"
-                                        data-payment-fee-value="<%= number_to_currency(student.get_private_classes(date), unit: "") %>"
-                                        data-payment-billing-type-value="<%= monthly_fee.student.current_plan.plan.billing_type %>"
-                                        data-payment-monthly-value="<%= monthly_fee.value %>"
-                                  <i class="fa-solid fa-circle-check"></i>
-                                </button>
-
-                              <% end %>
-                                <%= button_to update_paid_path(items: { id: monthly_fee.id, status: 'Atrasada' }),
+                          data-payment-fee-value="<%= number_to_currency(student.get_private_classes(date), unit: "") %>"
+                          data-payment-billing-type-value="<%= monthly_fee.student.current_plan.plan.billing_type %>"
+                          data-payment-monthly-value="<%= monthly_fee.value %>"
+                          <i class="fa-solid fa-circle-check"></i>
+                        </button>
+                      <% end %>
+                      <%= button_to update_paid_path(items: { id: monthly_fee.id, status: 'Atrasada' }),
                                     method: :patch,
                                     class: 'btn btn-outline-danger btn-sm',
                                     style: "--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: .70rem;" do %>
-                                    <i class="fa-solid fa-ban"></i>
-                                <% end %>
-                            </div>
-                        </td>
-                    <% else %>
-                        <td style="text-align: center; font-size: .75rem; vertical-align: middle; color:rgb(122, 122, 122);">-</td>
-                    <% end %>
+                        <i class="fa-solid fa-ban"></i>
+                      <% end %>
+                    </div>
+                  </td>
+                <% else %>
+                  <td style="text-align: center; font-size: .75rem; vertical-align: middle; color:rgb(122, 122, 122);">-</td>
                 <% end %>
+              <% end %>
             </tr>
-        <% end %>
-
-        
-      </tbody>
-    </table>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
-
- <%= button_to update_paid_path(items: { id: monthly_fee.id, status: 'Paga' }),
+  <%= button_to update_paid_path(items: { id: monthly_fee.id, status: 'Paga' }),
                                             method: :patch,
                                             class: 'btn btn-outline-success btn-sm d-none',
                                             style: "--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: .70rem;" do %>
-
-                                <button type="submit"
+    <button type="submit"
                                         data-controller="payment"
                                         data-action="click->payment#mostrarPromptEEnviar"
-                                        data-payment-student-id="<%= student.id %>"
-                                        data-payment-date="<%= date %>"
-                                        data-payment-billing-type-value="<%= monthly_fee.student.current_plan.plan.billing_type %>"
-                                        data-payment-monthly-value="<%= monthly_fee.value %>">
-                                  <i class="fa-solid fa-circle-check"></i>
-                                </button>
-                              <% end %>
+      data-payment-student-id="<%= student.id %>"
+      data-payment-date="<%= date %>"
+      data-payment-billing-type-value="<%= monthly_fee.student.current_plan.plan.billing_type %>"
+      data-payment-monthly-value="<%= monthly_fee.value %>">
+      <i class="fa-solid fa-circle-check"></i>
+    </button>
+  <% end %>

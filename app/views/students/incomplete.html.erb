@@ -1,44 +1,43 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <h1>Aluno sem cpf ou sem email e sem responsável cadastrado</h1>
-
 <input
   class="form-control"
   id="myInput"
   type="text"
   placeholder="Digite alguma coisa para filtrar..."
-/>
-<br />
-<ul class="list-group" id="myList">
-<li class="list-group-item ">
-  <div class="d-flex">
-          <div style="width: 30%;">Nome</div>
-          <div style="width: 30%;">Status</div>
-          <div style="width: 30%;">Teacher</div>
-          <div style="width: 30%;">Turma</div>
-          <div style="width: 30%;">CPF</div>
-          <div style="width: 30%;">Email</div>
-        </div></li>
-  <%  @students.each do |student| %>
+>
+  <br />
+  <ul class="list-group" id="myList">
     <li class="list-group-item ">
       <div class="d-flex">
-        <div style="width: 30%;"><%= link_to student.name, student %></div>
-        <div style="width: 30%;"><%= I18n.t(student.status) %></div>
-        <div style="width: 30%;"><%= student.classroom.nil? ? 'Turma não cadastrada' : student.classroom.teacher.name  %></div>
-        <div style="width: 30%;"><%= student.classroom.nil? ? 'Turma não cadastrada' : student.classroom.name %></div>
-        <div style="width: 30%;"><%= student.cpf %></div>
-        <div style="width: 30%;"><%= student.email %></div>
+        <div style="width: 30%;">Nome</div>
+        <div style="width: 30%;">Status</div>
+        <div style="width: 30%;">Teacher</div>
+        <div style="width: 30%;">Turma</div>
+        <div style="width: 30%;">CPF</div>
+        <div style="width: 30%;">Email</div>
       </div>
     </li>
-  <% end %>
-</ul>
-
-<script>
-  $(document).ready(function () {
-    $("#myInput").on("keyup", function () {
-      var value = $(this).val().toLowerCase();
-      $("#myList li").filter(function () {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+    <%  @students.each do |student| %>
+      <li class="list-group-item ">
+        <div class="d-flex">
+          <div style="width: 30%;"><%= link_to student.name, student %></div>
+          <div style="width: 30%;"><%= I18n.t(student.status) %></div>
+          <div style="width: 30%;"><%= student.classroom.nil? ? 'Turma não cadastrada' : student.classroom.teacher.name  %></div>
+          <div style="width: 30%;"><%= student.classroom.nil? ? 'Turma não cadastrada' : student.classroom.name %></div>
+          <div style="width: 30%;"><%= student.cpf %></div>
+          <div style="width: 30%;"><%= student.email %></div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+  <script>
+    $(document).ready(function () {
+      $("#myInput").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $("#myList li").filter(function () {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+        });
       });
     });
-  });
-</script>
+  </script>
