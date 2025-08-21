@@ -50,6 +50,11 @@ class MonthlyFeesController < ApplicationController
     mf = MonthlyFee.find(params[:items][:id])
     status = params[:items][:status]
     if status == 'Paga'
+      puts '--------------------------'
+      puts '--------------------------'
+      puts '--------------------------'
+      puts '--------------------------'
+      puts params
       value = params[:valor_pagamento].presence || mf.calculate_payment_value
       attrs = { status:, payment_date: Time.zone.today - 1.day }
       attrs[:value] = value if value.present?
