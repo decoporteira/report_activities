@@ -64,6 +64,7 @@ class MonthlyFeesController < ApplicationController
     end
     redirect_to request.referer, notice: t('.success')
   end
+  
 
   def create_anual_fees_for_student
     create_all_monthly_fees(@student)
