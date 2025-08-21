@@ -50,11 +50,6 @@ class MonthlyFeesController < ApplicationController
     mf = MonthlyFee.find(params[:items][:id])
     status = params[:items][:status]
     if status == 'Paga'
-      puts '--------------------------'
-      puts '--------------------------'
-      puts '--------------------------'
-      puts '--------------------------'
-      puts params
       value = params[:valor_pagamento].presence || mf.calculate_payment_value
       attrs = { status:, payment_date: Time.zone.today - 1.day }
       attrs[:value] = value if value.present?
@@ -64,7 +59,6 @@ class MonthlyFeesController < ApplicationController
     end
     redirect_to request.referer, notice: t('.success')
   end
-  
 
   def create_anual_fees_for_student
     create_all_monthly_fees(@student)
