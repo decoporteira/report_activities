@@ -2,3 +2,8 @@ create_monthly_fees:
   cron: "0 0 1 * *" # todo dia 1 às 00:00
   class: "CreateMonthlyFees"
   queue: default
+
+  billing_responsibles:
+  cron: "0 3 11 * *" # todo dia 11 às 03:00
+  class: "BillingResponsiblesJob"
+  queue: default
