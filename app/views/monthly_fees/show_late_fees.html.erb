@@ -19,7 +19,7 @@
     <%= link_to I18n.l(Time.zone.today.prev_month, format: "%B"), monthly_fees_late_path(month: 'one_month_ago'), class: 'btn btn-outline-primary mx-1' %>
     <%= link_to I18n.l(Time.zone.today, format: "%B"), monthly_fees_late_path, class: 'btn btn-outline-primary mx-1' %>
   </div>
-  <h2 class="mb-0">Total de alunos em débito: <%= @email_map.count %></h2>
+  <h2 class="mb-0">Total de alunos em débito: <%= @email_map.values.sum { |data| data[:students].size } %></h2>
 </div>
 <div class="container">
   <% @email_map.each do |email, data| %>
