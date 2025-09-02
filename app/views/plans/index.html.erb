@@ -1,4 +1,12 @@
 <div class="d-flex justify-content-between">
+  <% students = Student
+  .where(status: 'registered')
+  .where.not(
+    id: MonthlyFee.where(due_date: Date.new(2025, 10, 10)).select(:student_id)
+  )%>
+  <% students.each do |s|%>
+    <%= link_to s.name, student_path(s) %>
+  <% end %>
   <h1 class="text-primary">Plans</h1>
   <%=
     link_to 'New plan',
