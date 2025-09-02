@@ -108,6 +108,21 @@ class MonthlyFeesController < ApplicationController
             else
               Time.zone.today.month
             end
+    base_date =
+      case params[:month]
+      when 'one_month_ago'
+        Time.zone.today.prev_month
+      when 'two_months_ago'
+        2.months.ago.to_date
+      else
+        Time.zone.today
+      end
+
+    if base_date.month == Time.zone.today.month && Time.zone.today.day <= 10
+      @email_map = {}
+      return
+    end
+
     @students = Student.joins(:monthly_fees, current_plan: :plan)
                         .where(plans: { billing_type: :monthly })
                        .where(monthly_fees: {status: 'A pagar',
