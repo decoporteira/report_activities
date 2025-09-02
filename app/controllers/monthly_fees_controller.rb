@@ -124,9 +124,9 @@ class MonthlyFeesController < ApplicationController
     end
 
     @students = Student.joins(:monthly_fees, current_plan: :plan)
-                        .where(plans: { billing_type: :monthly })
-                       .where(monthly_fees: {status: 'A pagar',
-                                             due_date: Date.new(Time.zone.today.year, month, 10)})
+                       .where(plans: { billing_type: :monthly })
+                       .where(monthly_fees: { status: 'Atrasada',
+                                              due_date: Date.new(Time.zone.today.year, month, 10)})
                        .active
 
     @email_map = {}
@@ -146,17 +146,17 @@ class MonthlyFeesController < ApplicationController
       if @email_map[email]
         @email_map[email][:students] << {
           id: student.id,
-          name: name,
+          name:,
           responsible: responsible_name.presence || 'Sem responsável',
           responsible_id: responsible_id.presence || 'Sem responsável'
         }
       else
         @email_map[email] = {
-          email: email,
+          email:,
           students: [
             {
               id: student.id,
-              name: name,
+              name:,
               responsible: responsible_name.presence || 'Sem responsável',
               responsible_id: responsible_id.presence || 'Sem responsável'
             }

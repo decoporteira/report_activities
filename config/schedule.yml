@@ -2,3 +2,4 @@ create_monthly_fees:
   cron: "0 0 1 * *" # todo dia 1 às 00:00
   class: "CreateMonthlyFees"
   queue: default
+
