@@ -1,11 +1,11 @@
 <h1 class="mb-4">
-  Mensalidades atrasadas de 
+  Mensalidades atrasadas:
   <span class="text-primary fw-bold">
     <%=
       case params[:month]
       when 'two_months_ago'
         I18n.l(Time.zone.today.prev_month.prev_month, format: "%B")
-      when 'one_months_ago'
+      when 'one_month_ago'
         I18n.l(Time.zone.today.prev_month, format: "%B")
       else
         I18n.l(Time.zone.today, format: "%B")
