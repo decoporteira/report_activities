@@ -7,7 +7,8 @@ RSpec.describe 'Usuário cria aula particular' do
     plan = FactoryBot.create(:plan, name: 'Particular', price: 330, billing_type: :per_class)
     student = FactoryBot.create(:student, name: 'Pikachu')
     FactoryBot.create(:current_plan, plan_id: plan.id, student_id: student.id, teacher_id: teacher.id )
-
+    puts MonthlyFee.count
+    puts '------------------------------------'
     login_as(user)
     visit(root_path)
     click_on('Aulas Particulares')
@@ -20,7 +21,8 @@ RSpec.describe 'Usuário cria aula particular' do
     select '11 AM', from: 'private_lesson_start_time_4i'
     fill_in 'private_lesson_notes', with: 'Aula de reposição'
     click_on 'Criar Private lesson'
-
+    puts MonthlyFee.count
+    puts MonthlyFee.last.student.name
     expect(page).to have_content('Aula particular criada com sucesso.')
     expect(page).to have_content('Aluno(a): Pikachu')
     expect(page).to have_content('Aula: 02/08')

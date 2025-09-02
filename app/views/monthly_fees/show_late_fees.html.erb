@@ -1,5 +1,26 @@
-<h1 class="mb-4">Mensalidades atrasadas - Agosto de 2025</h1>
-<h2>Total de alunos em débito: <%= @email_map.count %></h2>
+<h1 class="mb-4">
+  Mensalidades atrasadas de 
+  <span class="text-primary fw-bold">
+    <%=
+      case params[:month]
+      when 'two_months_ago'
+        I18n.l(Time.zone.today.prev_month.prev_month, format: "%B")
+      when 'one_months_ago'
+        I18n.l(Time.zone.today.prev_month, format: "%B")
+      else
+        I18n.l(Time.zone.today, format: "%B")
+      end
+    %>
+  </span>
+</h1>
+<div class="d-flex justify-content-between align-items-center p-3">
+  <div>
+    <%= link_to I18n.l(Time.zone.today.prev_month.prev_month, format: "%B"), monthly_fees_late_path(month: 'two_months_ago'), class: 'btn btn-outline-primary mx-1' %>
+    <%= link_to I18n.l(Time.zone.today.prev_month, format: "%B"), monthly_fees_late_path(month: 'one_month_ago'), class: 'btn btn-outline-primary mx-1' %>
+    <%= link_to I18n.l(Time.zone.today, format: "%B"), monthly_fees_late_path, class: 'btn btn-outline-primary mx-1' %>
+  </div>
+  <h2 class="mb-0">Total de alunos em débito: <%= @email_map.count %></h2>
+</div>
 <div class="container">
   <% @email_map.each do |email, data| %>
     <div class="card mb-3 shadow-sm">

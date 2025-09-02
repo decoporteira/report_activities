@@ -101,10 +101,17 @@ class MonthlyFeesController < ApplicationController
   end
 
   def show_late_fees
+    month = if params[:month] == 'one_month_ago'
+              Time.zone.today.month - 1
+            elsif params[:month] == 'two_months_ago'
+              Time.zone.today.month - 2
+            else
+              Time.zone.today.month
+            end
     @students = Student.joins(:monthly_fees, current_plan: :plan)
                         .where(plans: { billing_type: :monthly })
                        .where(monthly_fees: {status: 'A pagar',
-                                             due_date: Date.new(Time.zone.today.year, Time.zone.today.month, 10)})
+                                             due_date: Date.new(Time.zone.today.year, month, 10)})
                        .active
 
     @email_map = {}
