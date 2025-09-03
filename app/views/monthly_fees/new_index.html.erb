@@ -120,7 +120,7 @@
               <tbody>
                 <% @students.each do |student| %>
                   <% latest_monthly_fee = student.monthly_fees_by_month.values.map(&:updated_at).max %>
-                  <% cache ["student_row", student.id, latest_monthly_fee] do %>
+                  <%# cache ["student_row", student.id, latest_monthly_fee] do %>
                     <tr data-filter-target="row">
                       <td style="vertical-align: middle;">
                         <strong>
@@ -167,10 +167,10 @@
                         <% end %>
                       </td>
                     </tr>
+                    <%# end %>
                   <% end %>
-                <% end %>
-              </tbody>
-            <% end %>
-          </table>
+                </tbody>
+              <% end %>
+            </table>
+          </div>
         </div>
-      </div>
