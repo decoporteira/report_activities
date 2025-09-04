@@ -92,7 +92,7 @@ class StudentsController < ApplicationController
   end
 
   def email_list
-    @active_students = Student.active
+    @active_students = Student.joins(:monthly_fees).where(monthly_fees: { due_date: Time.zone.today.change(day: 10), status: 1 }).active
     @email_map = {}
 
     @active_students.each do |student|
