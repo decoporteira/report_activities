@@ -20,18 +20,18 @@ RSpec.describe 'Admin ve todos os usuários com mensalidades atrasadas' do
     FactoryBot.create(:current_plan, student_id: student_five.id, plan_id: plan_two.id)
     
 
-    FactoryBot.create(:monthly_fee, student_id: student_one.id, status: 'A pagar', due_date: Date.new(Time.zone.today.year, Time.zone.today.month, 10))
+    FactoryBot.create(:monthly_fee, student_id: student_one.id, status: 'Atrasada', due_date: Date.new(Time.zone.today.year, Time.zone.today.month - 1, 10))
     FactoryBot.create(:monthly_fee, student_id: student_two.id, status: 'Paga', due_date: Date.new(Time.zone.today.year, Time.zone.today.month, 10))
     FactoryBot.create(:monthly_fee, student_id: student_two.id, status: 'A pagar', due_date: Date.new(Time.zone.today.year, Time.zone.today.month + 1, 10))
     FactoryBot.create(:monthly_fee, student_id: student_three.id, status: 'Atrasada')
-    FactoryBot.create(:monthly_fee, student_id: student_four.id, status: 'A pagar')
-    FactoryBot.create(:monthly_fee, student_id: student_five.id, status: 'A pagar')
-
+    FactoryBot.create(:monthly_fee, student_id: student_four.id, status: 'Atrasada')
+    FactoryBot.create(:monthly_fee, student_id: student_five.id, status: 'Atrasada')
 
     login_as(admin)
     visit(root_path)
     click_on('Finanças')
     click_on('Pagamentos atrasados')
+    click_on('agosto')
 
     expect(page).to have_content('Mensalidades atrasadas')
     expect(page).to have_content('Charmander')

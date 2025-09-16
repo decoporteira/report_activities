@@ -14,11 +14,10 @@ class BillingResponsiblesJob
 
   private
 
-  # Ajusta para o próximo dia útil se cair no fim de semana
   def next_business_day(date)
     case date.wday
-    when 6 then date + 2 # sábado → segunda
-    when 0 then date + 1 # domingo → segunda
+    when 6 then date + 2
+    when 0 then date + 1
     else date
     end
   end

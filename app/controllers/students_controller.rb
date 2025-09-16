@@ -167,14 +167,14 @@ class StudentsController < ApplicationController
     respond_to do |format|
       if @student.save
         current_plan = CurrentPlan.find_or_initialize_by(student_id: @student.id)
-        current_plan.update(
+        current_plan.update!(
           plan_id: params[:student][:plan_id]
         )
+        create_monthly_fee(@student)
         format.html do
           redirect_to student_path(@student), notice: t('.success')
         end
         format.json { render :show, status: :created, location: @student }
-        create_monthly_fee(@student)
       else
         handle_save_failure(format)
       end
