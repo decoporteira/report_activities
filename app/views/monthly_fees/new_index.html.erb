@@ -67,79 +67,14 @@
         <% if params[:type] == 'classroom'%>
           <tbody>
             <% @students.each do |student| %>
-              <% latest_monthly_fee = student.monthly_fees_by_month.values.map(&:updated_at).max %>
-              <!-- Linha 1: cacheada (dados do aluno + valores) -->
-              <% cache ["student_row", student.id, latest_monthly_fee] do %>
-                <tr data-filter-target="row">
-                  <td style="vertical-align: middle;">
-                    <strong>
-                      <%= link_to student.name, student_path(student), class:'link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover', title:"Ver detalhes do aluno" %>
-                    </strong> - <%= student.cpf %>
-                    <p class="font-weight-light mb-0 fs-6 fw-light">
-                      <% cache ["student_responsibles", student.id] do %>
-                        <% student.financial_responsibles.each do |responsible| %>
-                          <%= responsible.name %> - <%= responsible.cpf %><br>
-                        <% end %>
-                      <% end %>
-                    </p>
-                  </td>
-                  <% months.each_with_index do |month, index| %>
-                    <% monthly_fee = student.monthly_fees_by_month[month] %>
-                    <% next unless monthly_fee %>
-                    <% color_status = color_statuses[monthly_fee.status] %>
-                    <td class="text-center py-1" style="<%= color_status[:style] %>">
-                      <strong>
-                        <%= link_to number_to_currency(monthly_fee.calculate_payment_value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %>
-                      </strong>
-                      <p class="mb-1">
-                        <%= monthly_fee.payment_date&.strftime('%d/%m') %>
-                      </p>
-                    </td>
-                  <% end %>
-                </tr>
-              <% end %>
-              <!-- Linha 2: não cacheada (forms/botões) -->
-              <tr>
-                <td></td>
- <!-- célula vazia para alinhar com a coluna do aluno -->
-                <% months.each_with_index do |month, index| %>
-                  <% monthly_fee = student.monthly_fees_by_month[month] %>
-                  <% next unless monthly_fee %>
-                  <td class="text-center">
-                    <%= form_with url: update_paid_path, method: :patch, class: 'd-inline' do %>
-                      <%= hidden_field_tag 'items[id]', monthly_fee.id %>
-                      <%= hidden_field_tag 'items[status]', 'Paga' %>
-                      <button type="submit"
-                  class="btn btn-outline-success btn-sm"
-                  style="--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: .70rem;"
-                  data-controller="payment"
-                  data-action="click->payment#mostrarPromptEEnviar"
-                        data-payment-student-id="<%= student.id %>"
-                        data-payment-date="<%= monthly_fee.due_date.prev_month %>"
-                        data-payment-billing-type-value="<%= monthly_fee.student.current_plan.plan.billing_type %>"
-                        data-payment-monthly-value="<%= monthly_fee.value %>"
-                        data-payment-plan-total-value="<%= monthly_fee.student.current_plan.total %>">
-                        <i class="fa-solid fa-circle-check"></i>
-                      </button>
-                    <% end %>
-                  </td>
-                <% end %>
-              </tr>
-            <% end %>
-          </tbody>
-        <% else %>
-          <tbody>
-            <% @students.each do |student| %>
               <tr data-filter-target="row">
                 <td style="vertical-align: middle;">
                   <strong>
                     <%= link_to student.name, student_path(student), class:'link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover', title:"Ver detalhes do aluno" %>
                   </strong> - <%= student.cpf %>
                   <p class="font-weight-light mb-0 fs-6 fw-light">
-                    <% cache ["student_responsibles", student.id] do %>
-                      <% student.financial_responsibles.each do |responsible| %>
-                        <%= responsible.name %> - <%= responsible.cpf %><br>
-                      <% end %>
+                    <% student.financial_responsibles.each do |responsible| %>
+                      <%= responsible.name %> - <%= responsible.cpf %><br>
                     <% end %>
                   </p>
                 </td>
@@ -150,7 +85,7 @@
                     <% next unless monthly_fee %>
                     <% color_status = color_statuses[monthly_fee.status] %>
                     <div style="<%= color_status[:style] %>" class="text-center py-1">
-                      <strong><%= link_to number_to_currency(monthly_fee.calculate_payment_value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %></strong>
+                      <strong><%= link_to number_to_currency(monthly_fee.value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %></strong>
                       <p class="mb-1">
                         <%= monthly_fee.payment_date&.strftime('%d/%m') %>
                       </p>
@@ -165,20 +100,67 @@
                                         data-action="click->payment#mostrarPromptEEnviar"
                             data-payment-student-id="<%= student.id %>"
                             data-payment-date="<%= monthly_fee.due_date.prev_month %>"
-                            data-payment-billing-type-value="<%= monthly_fee.student.current_plan.plan.billing_type %>"
+                            data-payment-billing-type-value="monthly"
                             data-payment-monthly-value="<%= monthly_fee.value %>"
-                            data-payment-plan-total-value="<%= monthly_fee.student.current_plan.total %>">
+                            data-payment-plan-total-value="<%= monthly_fee.value %>">
                             <i class="fa-solid fa-circle-check"></i>
                           </button>
                         <% end %>
-                      </div>
-                    </div>
-                  <% end %>
-                </td>
-              </tr>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            <% else %>
+              <tbody>
+                <% @students.each do |student| %>
+                  <tr data-filter-target="row">
+                    <td style="vertical-align: middle;">
+                      <strong>
+                        <%= link_to student.name, student_path(student), class:'link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover', title:"Ver detalhes do aluno" %>
+                      </strong> - <%= student.cpf %>
+                      <p class="font-weight-light mb-0 fs-6 fw-light">
+                        <% student.financial_responsibles.each do |responsible| %>
+                          <%= responsible.name %> - <%= responsible.cpf %><br>
+                        <% end %>
+                      </p>
+                    </td>
+                    <% months.each_with_index do |month, index| %>
+                      <td class="p-0">
+                        <% date = Date.new(Date.today.year, index + 1, 1) << 1%>
+                        <% monthly_fee = student.monthly_fees_by_month[month] %>
+                        <% next unless monthly_fee %>
+                        <% color_status = color_statuses[monthly_fee.status] %>
+                        <div style="<%= color_status[:style] %>" class="text-center py-1">
+                          <strong><%= link_to number_to_currency(monthly_fee.calculate_payment_value, unit: ""), student_monthly_fee_path(monthly_fee.student, monthly_fee) %></strong>
+                          <p class="mb-1">
+                            <%= monthly_fee.payment_date&.strftime('%d/%m') %>
+                          </p>
+                          <div class='d-flex justify-content-around'>
+                            <%= form_with url: update_paid_path, method: :patch, class: 'd-inline' do %>
+                              <%= hidden_field_tag 'items[id]', monthly_fee.id %>
+                              <%= hidden_field_tag 'items[status]', 'Paga' %>
+                              <button type="submit"
+                                        class="btn btn-outline-success btn-sm"
+                                        style="--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: .70rem;"
+                                        data-controller="payment"
+                                        data-action="click->payment#mostrarPromptEEnviar"
+                                data-payment-student-id="<%= student.id %>"
+                                data-payment-date="<%= monthly_fee.due_date.prev_month %>"
+                                data-payment-billing-type-value="<%= monthly_fee.student.current_plan.plan.billing_type %>"
+                                data-payment-monthly-value="<%= monthly_fee.value %>"
+                                data-payment-plan-total-value="<%= monthly_fee.student.current_plan.total %>">
+                                <i class="fa-solid fa-circle-check"></i>
+                              </button>
+                            <% end %>
+                          </div>
+                        </div>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
             <% end %>
-          </tbody>
-        <% end %>
-      </table>
-    </div>
-  </div>
+          </table>
+        </div>
+      </div>
