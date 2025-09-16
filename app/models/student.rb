@@ -1,12 +1,12 @@
 class Student < ApplicationRecord
   # before_destroy :destroy_activities
-  has_many :monthly_fees
-  has_many :responsibles
-  has_one :current_plan
+  has_many :monthly_fees, dependent: :nullify
+  has_many :responsibles, dependent: :destroy
+  has_one :current_plan, dependent: :destroy
   has_one :plan, through: :current_plan
   has_many :financial_responsibles, through: :responsibles
   has_many :activities, dependent: :destroy
-  has_many :material_billings
+  has_many :material_billings, dependent: :destroy
   belongs_to :classroom, optional: true
   has_many :resumes, dependent: :destroy
   has_many :attendances, dependent: :destroy
