@@ -3,7 +3,7 @@ class CurrentPlan < ApplicationRecord
   belongs_to :student
   before_save :set_total
   belongs_to :teacher, optional: true
-  has_many :private_lessons
+  has_many :private_lessons, dependent: :nullify
 
   validates :student_id, uniqueness: { message: 'já possui um plano ativo' }
 
