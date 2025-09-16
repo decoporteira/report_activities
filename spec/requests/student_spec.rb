@@ -96,12 +96,14 @@ RSpec.describe 'Students', type: :request do
           teacher_id: teacher.id,
           time: '23:00'
         )
+      plan = Plan.create!(name: 'Kids', price: 300)
+      
       student_attributes = {
         name: 'Venossaur',
         status: :registered,
         classroom_id: classroom.id,
         cpf: '000.097.098-01',
-        current_plan: '222'
+        plan_id: plan.id
       }
 
       login_as(user)

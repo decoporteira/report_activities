@@ -76,8 +76,10 @@
                   <%= link_to student.name, student_path(student), class:'link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover', title:"Ver detalhes do aluno" %>
                 </strong> - <%= student.cpf %>
                 <p class="font-weight-light mb-0 fs-6 fw-light">
-                  <% student.financial_responsibles.each do |responsible| %>
-                    <%= responsible.name %> - <%= responsible.cpf %><br>
+                  <% cache ["student_responsibles", student.id] do %>
+                    <% student.financial_responsibles.each do |responsible| %>
+                      <%= responsible.name %> - <%= responsible.cpf %><br>
+                    <% end %>
                   <% end %>
                 </p>
               </td>

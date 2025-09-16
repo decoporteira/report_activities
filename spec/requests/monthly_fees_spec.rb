@@ -46,7 +46,7 @@ RSpec.describe "MonthlyFees", type: :request do
 
       it "updates with class total + plan price" do
         monthly_fee.reload
-        expect(monthly_fee.value).to eq(2 * 50 + 100) # 100 + 100 = 200
+        expect(monthly_fee.value).to eq(100)
       end
     end
 

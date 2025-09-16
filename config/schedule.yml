@@ -3,3 +3,7 @@ create_monthly_fees:
   class: "CreateMonthlyFees"
   queue: default
 
+  billing_responsibles:
+  cron: "0 3 11 * *" # todo dia 11 às 03:00
+  class: "BillingResponsiblesJob"
+  queue: default
